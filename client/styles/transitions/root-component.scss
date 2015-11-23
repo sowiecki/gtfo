@@ -1,0 +1,21 @@
+.root-component-enter {
+  position: absolute;
+  opacity: 0.01;
+}
+
+.root-component-enter.root-component-enter-active {
+  position: absolute;
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.root-component-leave {
+  position: absolute;
+  opacity: 1;
+}
+
+.root-component-leave.root-component-leave-active {
+  position: absolute;
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

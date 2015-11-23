@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "filenames"
+  ],
+  "extends": [
+    "defaults/configurations/walmart/es6-node"
+  ],
+  "parser": "babel-eslint",
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "plugins": ["react"],
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "strict": 0,
+    "quotes": [
+      1,
+      "single"
+    ],
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "valid-jsdoc": 0
+  },
+  "globals": {
+    "require": true
+  }
+}
