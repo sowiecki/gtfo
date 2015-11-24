@@ -6,4 +6,4 @@ services:
 before_script:
   - mongo mydb_test --eval 'db.addUser("travis", "test");'
 script:
-  - npm run prod
+  - travis_wait npm run test
