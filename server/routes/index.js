@@ -1,3 +1,4 @@
+/* eslint new-cap:0 */
 import express from 'express';
 
 import * as config from '../config';
