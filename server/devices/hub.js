@@ -1,3 +1,4 @@
+/* eslint no-console:0 */
 // Entry point for controlling remote devices
 
 // TODO integrate into server
