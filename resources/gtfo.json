@@ -1,0 +1,14 @@
+{
+	"rooms": {
+		"GOOSE_ISLAND":{
+			"deviceId": "11111",
+			"photonAuthToken": "12f0h812fh",
+			"outlookAuthToken": "EwCAAul3BAAUo4xeBIbHjhBxWOFekj4Xy2fhaGQAAdsDoXhOhpWf7JpIJMI7n6kmNN8PoQgiqVTRMEp38L8NfGSO7Tty4sNqXl8UnZjikExJrD14f869rEwR2IiaS+3ajdIVFKCBAhKQtYiDgNzPX/XpX49XkR5rd8ggb2avsFJAnS5V+nAdRN8x8F9R1z8kf5vNmCTDfsi8vsHy762GDQ4usY2isT6ncnb81FC7bTj7FcoruNS1mhrAckay+EUZQYaDv2KlirIDe5CA/JfOLpugWrwStiLPEmx0BCy8WLRpCsu6uB/WifTV6obrz03ZlFOMcwhZ/rO4VssaQkjpT1TUu++bFo+GvGLYkXtCqB9lbXFTzcZ21+mNrOU1m1UDZgAACItIIYns6y+6UAEXuRfGmCO99IHYZPdL4dBu36gvFpaEOQFzkc8inTQuS4Z4qMUpKMp4NA8xjRa38hjQ20rlWrN2Y5Q7m00hzyxFUF4L77VEj3gjbTRt9H7q23CiIW7P2LfpMbJDmIFTzQAyoDlIjXe6BeEtfVukMuXzSCXJgs8j05V0cGu2fWb4iHEbeJuL5AD6TrFxKDgn0C13ydRLcRjwr4HpGgHnWqMDQPGeGjNJV6de35CiF7y6N6u3TTPq95XthOqnsNf1Wj4HInb2FtYBlGGF+jHU31SHdF+UpInNb+bwIcdMFyJ7h6aJDABbvSM/ovzYik35uGNKVF8mGTJSw+552t1yjp+VJplMJGwk2IcwBcNRzmJ6TOHiBhNVhvTc0aHRMUJjbnQFiOECFGVTnubCI88AAEJmrkmNN3mrtw0u2ZxaqunwNz4MmmsvqdP4Bl5/QyOOCx5rAQ=="
+		},
+		"WICKER_PARK" : {
+			"deviceId": "22222",
+			"photonAuthToken": "h12lke",
+			"outlookAuthToken": "2fou21rkjhr12lh32flk3j2"
+		}
+	}
+}

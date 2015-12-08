@@ -1,7 +1,7 @@
 /* eslint no-console:0 */
 /* globals console */
 import express from 'express';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -43,11 +43,11 @@ server.set('view engine', 'ejs');
 server.use(express.static(path.join(__dirname, `${config.publicPath}`)));
 
 /* Database */
-const connect = () => {
-  mongoose.connect(config.dbURI, config.dbOptions);
-};
-connect();
-mongoose.connection.on('error', console.log);
-mongoose.connection.on('disconnected', connect);
+// const connect = () => {
+//   mongoose.connect(config.dbURI, config.dbOptions);
+// };
+// connect();
+// mongoose.connection.on('error', console.log);
+// mongoose.connection.on('disconnected', connect);
 
 export default server;
