@@ -7,7 +7,7 @@ import { Board, Led } from 'johnny-five';
 import Particle from 'particle-io';
 import temporal from 'temporal';
 import fs from 'fs';
-import pixel from 'node-pixel';
+// import pixel from 'node-pixel';
 
 import {
   PHOTON_PINS,
