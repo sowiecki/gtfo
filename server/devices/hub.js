@@ -7,7 +7,8 @@ import { Board, Led } from 'johnny-five';
 import Particle from 'particle-io';
 import temporal from 'temporal';
 import fs from 'fs';
-// import pixel from 'node-pixel';
+
+import { flashOne } from './actions/led-flashes';
 
 import {
   PHOTON_PINS,
@@ -26,8 +27,15 @@ const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const board = new Board({
   io: new Particle({
-    token: devices[0].accessToken,
-    deviceId: devices[0].id
+    token: devices[0].deviceAuthToken,
+    deviceId: devices[0].deviceId
+  })
+});
+
+const board2 = new Board({
+  io: new Particle({
+    token: devices[1].deviceAuthToken,
+    deviceId: devices[1].deviceId
   })
 });
 
@@ -35,53 +43,25 @@ const hub = () => {
   board.on('ready', () => {
     console.log(`Connected to ${board.id}`);
 
-    // const strip = new pixel.Strip({
-    //   board: board,
-    //   controller: "I2CBACKPACK",
-    //   strips: [ {pin: 'D1', length: 12}, ], // this is preferred form for definition
-    // });
-    //
-    // strip.on("ready", function() {
-    //   // strip.color("#ff0000"); // turns entire strip red using a hex colour
-    //   // strip.show();
-    // });
-
     const led = new Led.RGB({
-      pins: PHOTON_PINS
+      pins: PHOTON_PINS,
+      id: board.id,
+      board: board
     });
 
     led.color(PURPLE);
+  });
 
-    let intensity = 100;
-    let fadeDirection = IN;
+  board2.on('ready', () => {
+    console.log(`Connected to ${board.id}`);
 
-    temporal.loop(6, () => {
-      switch (intensity) {
-        case 0:
-          fadeDirection = IN;
-          break;
-        case 100:
-          fadeDirection = OUT;
-          break;
-      }
-
-      switch (fadeDirection) {
-        case IN:
-          intensity += 1;
-          break;
-        case OUT:
-          intensity -= 1;
-          break;
-      }
-
-      console.log(`intensity: ${intensity} \n fadeDirection: ${fadeDirection}`);
-
-      led.intensity(intensity);
+    const led = new Led.RGB({
+      pins: PHOTON_PINS,
+      id: board2.id,
+      board: board2
     });
 
-    board.repl.inject({
-      // strip
-    });
+    led.color(PURPLE);
   });
 };
 
