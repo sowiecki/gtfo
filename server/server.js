@@ -11,6 +11,7 @@ import colors from 'colors/safe';
 
 import * as config from './config';
 import routes from './routes';
+import runDevices from './devices/hub';
 
 const server = express();
 
@@ -57,6 +58,8 @@ const app = server.listen(config.serverPort, 'localhost', (err) => {
   }
 
   console.log(`Listening at http://localhost:${config.serverPort}`);
+
+  runDevices();
 });
 
 export default app;
