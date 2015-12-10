@@ -8,6 +8,7 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
+var cluster = require('cluster');
 
 import * as config from './config';
 import routes from './routes';

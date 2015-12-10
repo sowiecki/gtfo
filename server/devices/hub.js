@@ -15,8 +15,6 @@ import {
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
-// TODO integrate multiple boards
-
 const runDevices = () => {
   devices.map((device) => {
     const board = new Board({
@@ -36,6 +34,10 @@ const runDevices = () => {
       });
 
       flashOne(led, device.deviceId);
+    });
+
+    board.on('fail', () => {
+      console.log(`Connection failure on ${board.id}`);
     });
   });
 };
