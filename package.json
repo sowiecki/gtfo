@@ -51,6 +51,7 @@
     "mongoose": "^4.1.10",
     "morgan": "^1.6.1",
     "particle-io": "^0.10.1",
+    "node-outlook":"^1.1.1",
     "rc-chartjs": "^0.7.1",
     "react": "^0.14.2",
     "react-addons-css-transition-group": "^0.14.1",

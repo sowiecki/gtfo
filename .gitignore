@@ -29,3 +29,7 @@ build/Release
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
+
+# Core app configuration can be ignored till real data is added
+# TODO: Remove this from .gitignore when real tokens are used
+resources/gtfo.json

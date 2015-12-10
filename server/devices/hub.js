@@ -7,7 +7,7 @@ import { Board, Led } from 'johnny-five';
 import Particle from 'particle-io';
 import temporal from 'temporal';
 import fs from 'fs';
-// import Pixel from 'node-pixel';
+import pixel from 'node-pixel';
 
 import {
   PHOTON_PINS,
@@ -34,6 +34,17 @@ const board = new Board({
 const hub = () => {
   board.on('ready', () => {
     console.log(`Connected to ${board.id}`);
+
+    // const strip = new pixel.Strip({
+    //   board: board,
+    //   controller: "I2CBACKPACK",
+    //   strips: [ {pin: 'D1', length: 12}, ], // this is preferred form for definition
+    // });
+    //
+    // strip.on("ready", function() {
+    //   // strip.color("#ff0000"); // turns entire strip red using a hex colour
+    //   // strip.show();
+    // });
 
     const led = new Led.RGB({
       pins: PHOTON_PINS
@@ -69,7 +80,7 @@ const hub = () => {
     });
 
     board.repl.inject({
-      led
+      // strip
     });
   });
 };
