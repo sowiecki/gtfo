@@ -50,4 +50,13 @@ server.use(express.static(path.join(__dirname, `${config.publicPath}`)));
 // mongoose.connection.on('error', console.log);
 // mongoose.connection.on('disconnected', connect);
 
-export default server;
+const app = server.listen(config.serverPort, 'localhost', (err) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  console.log(`Listening at http://localhost:${config.serverPort}`);
+});
+
+export default app;
