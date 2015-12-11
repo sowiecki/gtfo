@@ -1,3 +1,4 @@
+import moment from 'moment';
 import temporal from 'temporal';
 
 import { IN, OUT } from '../../constants/values';
@@ -8,44 +9,43 @@ import {
   GREEN
 } from '../../constants/colors';
 
-const setLeds = (board, led, state) => {
-  // TODO do different stuff here
-  switch (board.id) {
-    case '2c0021000547343339373536':
-      led.color(RED);
-      break;
-    case '2a0021000247343337373739':
-      led.color(PURPLE);
-      break;
-    case '3a001b000f47343432313031':
-      led.color(GREEN);
-      break;
+const setLeds = (device, led, roomState) => {
+  const firstMeeting = roomState[0];
+  const secondMeeting = roomState[0];
+
+  if (!firstMeeting || !Object.keys(firstMeeting).length) {
+    // No current meeting, room is vacant
+    console.log(`${device.outlookAccount} is vacant!`);
+    led.color(GREEN);
+  } else {
+    console.log(`${device.outlookAccount} is currently booked!`);
+    led.color(RED);
+
+    let intensity = 100;
+    let fadeDirection = IN;
+
+    temporal.loop(10, () => {
+      switch (intensity) {
+        case 0:
+          fadeDirection = IN;
+          break;
+        case 100:
+          fadeDirection = OUT;
+          break;
+      }
+
+      switch (fadeDirection) {
+        case IN:
+          intensity += 1;
+          break;
+        case OUT:
+          intensity -= 1;
+          break;
+      }
+
+      led.intensity(intensity);
+    });
   }
-
-  let intensity = 100;
-  let fadeDirection = IN;
-
-  temporal.loop(10, () => {
-    switch (intensity) {
-      case 0:
-        fadeDirection = IN;
-        break;
-      case 100:
-        fadeDirection = OUT;
-        break;
-    }
-
-    switch (fadeDirection) {
-      case IN:
-        intensity += 1;
-        break;
-      case OUT:
-        intensity -= 1;
-        break;
-    }
-
-    led.intensity(intensity);
-  });
 };
 
 export default setLeds;

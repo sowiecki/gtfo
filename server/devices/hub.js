@@ -28,7 +28,7 @@ const runDevices = () => {
 
     // Initialize semi-persistent state
     initializeDeviceState(state, device);
-
+console.log(device.outlookAccount)
     const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
 
     board.on('ready', () => {
@@ -43,13 +43,10 @@ const runDevices = () => {
       setInterval(() => {
         // Retrieve outlook room reservation statuses
         http.get(source, (response) => {
-          // response.setEncoding('ut1f8');
           response.on('data', (data) => {
-            const newState = data.toString('utf8');
+            const roomState = JSON.parse(data.toString('utf8'));
 
-            updateDeviceState(state, device, newState);
-
-            setLeds(board, led, state);
+            setLeds(device, led, roomState);
           });
         }).on('error', (error) => {
           const errorMessage = `Failed to fetch room reservations
