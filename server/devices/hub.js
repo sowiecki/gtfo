@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* eslint no-console:0, max-nested-callbacks:0 */
 // Entry point for controlling remote devices
 
 // TODO integrate into server
@@ -11,7 +11,7 @@ import http from 'http';
 import state from '../state';
 import { initializeDeviceState, updateDeviceState } from './actions/update-state';
 import setLeds from './actions/set-leds';
-import { FETCH_ROOM_RESERVATIONS } from './constants/urls';
+import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
@@ -20,12 +20,14 @@ const runDevices = () => {
     // Initialize semi-persistent state
     initializeDeviceState(state, device);
 
-    const source = `${FETCH_ROOM_RESERVATIONS}/${device.outlookAccount}`;
+    const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
 
     // Retrieve outlook room reservation statuses
     http.get(source, (response) => {
-      // response.setEncoding('utf8');
-      response.on('data', (newState) => {
+      // response.setEncoding('ut1f8');
+      response.on('data', (data) => {
+        const newState = data.toString('utf8');
+
         updateDeviceState(state, device, newState);
 
         const board = new Board({

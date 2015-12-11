@@ -5,13 +5,13 @@ import {
   PHOTON_PINS,
   IN,
   OUT
-} from '../constants/values';
+} from '../../constants/values';
 
 import {
   RED,
   PURPLE,
   GREEN
-} from '../constants/colors';
+} from '../../constants/colors';
 
 const setLeds = (board, state) => {
   const led = new Led.RGB({
@@ -20,6 +20,7 @@ const setLeds = (board, state) => {
     board
   });
 
+  // TODO do different stuff here
   switch (board.id) {
     case '2c0021000547343339373536':
       led.color(RED);

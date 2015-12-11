@@ -2,14 +2,15 @@ import http from 'http';
 
 import { FETCH_ROOM_STATUSES } from '../ducks/rooms';
 
-const fetchRoomStatuses = (next, action) => {
-  http.get(source, (response) => {
+const fetchRoomStatuses = (next) => {
+  // TODO use source
+  http.get('source', (response) => {
     response.on('data', (data) => {
       const roomStatuses = JSON.parse(data);
 
       next(roomStatuses);
     });
-  }).on('error', (error) => {
+  // }).on('error', (error) => {
     // TODO error handling
   });
 };
