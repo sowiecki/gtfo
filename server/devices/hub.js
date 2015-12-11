@@ -3,15 +3,11 @@
 
 // TODO integrate into server
 
-import { Board, Led } from 'johnny-five';
+import { Board } from 'johnny-five';
 import Particle from 'particle-io';
 import fs from 'fs';
 
-import { flashOne } from './actions/led-flashes';
-
-import {
-  PHOTON_PINS
-} from './constants/values';
+import setLeds from './actions/set-leds';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
@@ -27,13 +23,7 @@ const runDevices = () => {
     board.on('ready', () => {
       console.log(`Connected to ${board.id}`);
 
-      const led = new Led.RGB({
-        pins: PHOTON_PINS,
-        id: board.id,
-        board
-      });
-
-      flashOne(led, device.deviceId);
+      setLeds(board);
     });
 
     board.on('fail', () => {

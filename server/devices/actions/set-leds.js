@@ -1,6 +1,8 @@
+import { Led } from 'johnny-five';
 import temporal from 'temporal';
 
 import {
+  PHOTON_PINS,
   IN,
   OUT
 } from '../constants/values';
@@ -11,8 +13,14 @@ import {
   GREEN
 } from '../constants/colors';
 
-export const flashOne = (led, id) => {
-  switch (id) {
+const setLeds = (board) => {
+  const led = new Led.RGB({
+    pins: PHOTON_PINS,
+    id: board.id,
+    board
+  });
+
+  switch (board.id) {
     case '2c0021000547343339373536':
       led.color(RED);
       break;
@@ -49,3 +57,5 @@ export const flashOne = (led, id) => {
     led.intensity(intensity);
   });
 };
+
+export default setLeds;
