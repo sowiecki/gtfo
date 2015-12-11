@@ -17,7 +17,7 @@ const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const runDevices = () => {
   devices.map((device) => {
-    // Initialize persistent state
+    // Initialize semi-persistent state
     initializeDeviceState(state, device);
 
     const source = `${FETCH_ROOM_RESERVATIONS}/${device.outlookAccount}`;
@@ -47,8 +47,8 @@ const runDevices = () => {
       });
     }).on('error', (error) => {
       const errorMessage = `Failed to fetch room reservations
-                    for ${device.outlookAccount}. \n
-                    ${error}`;
+                            for ${device.outlookAccount}. \n
+                            ${error}`;
 
       console.log(errorMessage);
     });
