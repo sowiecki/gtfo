@@ -27,6 +27,7 @@ const normalizePort = (val) => {
 
   return false;
 };
+
 export const serverPort = normalizePort(process.env.PORT || '3000');
 export const clientPort = process.env.HOT || process.env.NODE_ENV ? serverPort : 8080;
 
