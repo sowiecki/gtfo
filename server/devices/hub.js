@@ -3,7 +3,7 @@
 
 // TODO integrate into server
 
-import { Board } from 'johnny-five';
+import { Board, Led } from 'johnny-five';
 import Particle from 'particle-io';
 import fs from 'fs';
 import http from 'http';
@@ -12,47 +12,57 @@ import state from '../state';
 import { initializeDeviceState, updateDeviceState } from './actions/update-state';
 import setLeds from './actions/set-leds';
 import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
+import { PHOTON_PINS } from '../constants/values';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const runDevices = () => {
   devices.map((device) => {
+    // Initialize board
+    const board = new Board({
+      io: new Particle({
+        token: device.deviceAuthToken,
+        deviceId: device.deviceId
+      })
+    });
+
     // Initialize semi-persistent state
     initializeDeviceState(state, device);
 
     const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
 
-    // Retrieve outlook room reservation statuses
-    http.get(source, (response) => {
-      // response.setEncoding('ut1f8');
-      response.on('data', (data) => {
-        const newState = data.toString('utf8');
+    board.on('ready', () => {
+      console.log(`Connected to ${board.id}`);
 
-        updateDeviceState(state, device, newState);
-
-        const board = new Board({
-          io: new Particle({
-            token: device.deviceAuthToken,
-            deviceId: device.deviceId
-          })
-        });
-
-        board.on('ready', () => {
-          console.log(`Connected to ${board.id}`);
-
-          setLeds(board);
-        });
-
-        board.on('fail', () => {
-          console.log(`Connection failure on ${board.id}`);
-        });
+      const led = new Led.RGB({
+        pins: PHOTON_PINS,
+        id: board.id,
+        board
       });
-    }).on('error', (error) => {
-      const errorMessage = `Failed to fetch room reservations
-                            for ${device.outlookAccount}. \n
-                            ${error}`;
 
-      console.log(errorMessage);
+      setInterval(() => {
+        // Retrieve outlook room reservation statuses
+        http.get(source, (response) => {
+          // response.setEncoding('ut1f8');
+          response.on('data', (data) => {
+            const newState = data.toString('utf8');
+
+            updateDeviceState(state, device, newState);
+
+            setLeds(board, led, state);
+          });
+        }).on('error', (error) => {
+          const errorMessage = `Failed to fetch room reservations
+                                for ${device.outlookAccount}. \n
+                                ${error}`;
+
+          console.log(errorMessage);
+        });
+      }, 5000);
+    });
+
+    board.on('fail', () => {
+      console.log(`Connection failure on ${board.id}`);
     });
   });
 };

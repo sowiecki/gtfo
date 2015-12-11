@@ -1,11 +1,6 @@
-import { Led } from 'johnny-five';
 import temporal from 'temporal';
 
-import {
-  PHOTON_PINS,
-  IN,
-  OUT
-} from '../../constants/values';
+import { IN, OUT } from '../../constants/values';
 
 import {
   RED,
@@ -13,13 +8,7 @@ import {
   GREEN
 } from '../../constants/colors';
 
-const setLeds = (board, state) => {
-  const led = new Led.RGB({
-    pins: PHOTON_PINS,
-    id: board.id,
-    board
-  });
-
+const setLeds = (board, led, state) => {
   // TODO do different stuff here
   switch (board.id) {
     case '2c0021000547343339373536':

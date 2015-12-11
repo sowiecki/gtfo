@@ -3,5 +3,5 @@ export const initializeDeviceState = (state, device) => {
 };
 
 export const updateDeviceState = (state, device, newState) => {
-  console.log(newState);
+  console.log(device.outlookAccount, newState);
 };
