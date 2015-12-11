@@ -4,5 +4,7 @@ export const PHOTON_PINS = {
   blue: 'D2'
 };
 
+export const CHECK_INTERVAL = 8000;
+
 export const IN = 'IN';
 export const OUT = 'OUT';

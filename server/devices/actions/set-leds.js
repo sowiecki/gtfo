@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 import temporal from 'temporal';
 
 import { IN, OUT } from '../../constants/values';
@@ -15,10 +15,12 @@ const setLeds = (device, led, roomState) => {
 
   if (!firstMeeting || !Object.keys(firstMeeting).length) {
     // No current meeting, room is vacant
-    console.log(`${device.outlookAccount} is vacant!`);
+    console.log(`${device.outlookAccount} is vacant`);
     led.color(GREEN);
   } else {
-    console.log(`${device.outlookAccount} is currently booked!`);
+    // Room is currently booked
+    // TODO logic to determine reservation nearing end
+    console.log(`${device.outlookAccount} is currently booked`);
     led.color(RED);
 
     let intensity = 100;

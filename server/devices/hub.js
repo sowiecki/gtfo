@@ -9,10 +9,10 @@ import fs from 'fs';
 import http from 'http';
 
 import state from '../state';
-import { initializeDeviceState, updateDeviceState } from './actions/update-state';
+import { initializeDeviceState } from './actions/update-state';
 import setLeds from './actions/set-leds';
 import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
-import { PHOTON_PINS } from '../constants/values';
+import { PHOTON_PINS, CHECK_INTERVAL } from '../constants/values';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
@@ -28,7 +28,7 @@ const runDevices = () => {
 
     // Initialize semi-persistent state
     initializeDeviceState(state, device);
-console.log(device.outlookAccount)
+
     const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
 
     board.on('ready', () => {
@@ -55,7 +55,7 @@ console.log(device.outlookAccount)
 
           console.log(errorMessage);
         });
-      }, 5000);
+      }, CHECK_INTERVAL);
     });
 
     board.on('fail', () => {
