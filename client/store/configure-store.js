@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 
-import rootReducer from '../reducers';
+import rootReducer from '../ducks';
 import api from '../middleware/api';
 
 const configureStore = (initialState) => {
@@ -9,8 +9,8 @@ const configureStore = (initialState) => {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers');
+    module.hot.accept('../ducks', () => {
+      const nextRootReducer = require('../ducks');
       store.replaceReducer(nextRootReducer);
     });
   }

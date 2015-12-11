@@ -1,20 +1,24 @@
-/* eslint new-cap:0 */
+/* eslint new-cap:0, dot-notation:0 */
 import express from 'express';
 import * as config from '../config';
-// import { getContacts } from '../modules/outlook-wrapper';
+import state from '../state';
+// import mockRoomData from '../../mock-data';
 
 const router = express.Router();
 
-/* Serve client */
+/* Show room status */
+router.get('/api/rooms/:outlookAccount', (req, res) => {
+  const outlookAccount = req.params['outlookAccount'];
+  const roomState = state[outlookAccount];
+
+  res.json(JSON.stringify(roomState));
+});
+
+/* Serve client - must be last route */
 router.get('*', (req, res) => {
   res.render('application', {
     port: config.clientPort
   });
-});
-
-/* Show room status */
-router.get('/api/rooms/:outlookAccount', (req, res) => {
-  res.reply('WIP');
 });
 
 export default router;

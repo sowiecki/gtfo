@@ -18,6 +18,6 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: base.module,
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   debug: true
 }
