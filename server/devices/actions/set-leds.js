@@ -13,7 +13,7 @@ import {
   GREEN
 } from '../constants/colors';
 
-const setLeds = (board) => {
+const setLeds = (board, state) => {
   const led = new Led.RGB({
     pins: PHOTON_PINS,
     id: board.id,
