@@ -31,7 +31,7 @@ Hardware:
 #### Photon Boards
 1. Setup each device to Particle's cloud service.
 2. Load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
-3. Load the boards' access tokens and device id's into `devices.json`.
+3. Load the access tokens and device id for each Photon into `devices.json`.
 
 #### Raspberry Pi
 1. Load Debian JESSIE variant onto Raspiberry Pi.

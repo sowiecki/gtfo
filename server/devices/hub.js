@@ -1,32 +1,28 @@
 /* eslint no-console:0, max-nested-callbacks:0 */
-// Entry point for controlling remote devices
 
-// TODO integrate into server
+/**
+ * Initializes x number of remote devices
+ * Registers accessories for each device
+ */
 
-import { Board, Led } from 'johnny-five';
-import Particle from 'particle-io';
 import fs from 'fs';
 import http from 'http';
 
 import state from '../state';
 import { initializeDeviceState } from './actions/update-state';
-import setLeds from './actions/set-leds';
+import configureAccessories from './actions/configure-accessories';
+import { registerBoard, registerLed } from './actions/register-hardware';
 import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
-import { PHOTON_PINS, CHECK_INTERVAL } from '../constants/values';
+import { CHECK_INTERVAL } from '../constants/values';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const runDevices = () => {
   devices.map((device) => {
     // Initialize board
-    const board = new Board({
-      io: new Particle({
-        token: device.deviceAuthToken,
-        deviceId: device.deviceId
-      })
-    });
+    const board = registerBoard(device);
 
-    // Initialize semi-persistent state
+    // Initialize empty semi-persistent state
     initializeDeviceState(state, device);
 
     const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
@@ -34,19 +30,20 @@ const runDevices = () => {
     board.on('ready', () => {
       console.log(`Connected to ${board.id}`);
 
-      const led = new Led.RGB({
-        pins: PHOTON_PINS,
-        id: board.id,
-        board
-      });
+      // Register device accessories
+      const accessories = {
+        led: registerLed(board)
+      };
 
+      // Set interval for checking and responding to room state
       setInterval(() => {
         // Retrieve outlook room reservation statuses
         http.get(source, (response) => {
           response.on('data', (data) => {
             const roomState = JSON.parse(data.toString('utf8'));
 
-            setLeds(device, led, roomState);
+            // Configure device accessories according to room state
+            configureAccessories(device, roomState, accessories);
           });
         }).on('error', (error) => {
           const errorMessage = `Failed to fetch room reservations
