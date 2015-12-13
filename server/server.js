@@ -12,7 +12,7 @@ var cluster = require('cluster');
 
 import * as config from './config';
 import routes from './routes';
-import runDevices from './devices/hub';
+import runDevices from './controllers/hub';
 
 const server = express();
 
