@@ -5,34 +5,23 @@ import { IN, OUT } from '../../constants/values';
 import {
   RED,
   PURPLE,
+  DARK_PINK,
   GREEN
 } from '../../constants/colors';
 
 // Keep leds low so as to not disturb occupants
 const faint = 15;
 
-export const flashVacant = (led) => {
-  led.intensity(faint);
-  led.color(GREEN);
-};
-
-export const flashOccupied = (led) => {
-  led.intensity(faint);
-  led.color(PURPLE);
-};
-
-export const flashGTFO = (led) => {
-  led.color(RED);
-
-  let intensity = 100;
+const flash = (led, maxIntensity = 100, rate = 5) => {
   let fadeDirection = IN;
+  let intensity = maxIntensity;
 
-  temporal.loop(5, () => {
+  return temporal.loop(rate, () => {
     switch (intensity) {
       case 0:
         fadeDirection = IN;
         break;
-      case 100:
+      case maxIntensity:
         fadeDirection = OUT;
         break;
     }
@@ -48,4 +37,24 @@ export const flashGTFO = (led) => {
 
     led.intensity(intensity);
   });
+};
+
+export const flashVacant = (led) => {
+  led.intensity(faint);
+  led.color(GREEN);
+};
+
+export const flashOccupied = (led) => {
+  led.intensity(faint);
+  led.color(PURPLE);
+};
+
+export const flashFiveMinuteWarning = (led) => {
+  led.color(DARK_PINK);
+  flash(led, 25, 15);
+};
+
+export const flashOneMinuteWarning = (led) => {
+  led.color(RED);
+  flash(led, 100, 5);
 };

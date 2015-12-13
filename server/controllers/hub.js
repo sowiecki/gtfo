@@ -17,7 +17,6 @@ import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
 import { CHECK_INTERVAL } from '../constants/values';
 import mockRoomData from '../../mock-data';
 
-// TODO throw custom error message if file missing
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const runDevices = () => {

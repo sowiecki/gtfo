@@ -4,7 +4,8 @@ import colors from 'colors/safe';
 import {
   flashUnreserved,
   flashOccupied,
-  flashGTFO
+  flashFiveMinuteWarning,
+  flashOneMinuteWarning
 } from './set-leds';
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
@@ -24,15 +25,21 @@ const configureAccessories = (device, roomState, accessories) => {
 
   // Room states
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
-  const reservationNearEnd = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
+  const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
+  const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
   const nextMeetingStartingSoon = moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
 
-  const fiveMinuteWarning = reservationNearEnd && nextMeetingStartingSoon;
+  const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon;
+  const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon;
 
-  if (fiveMinuteWarning) {
-    console.log(`${device.outlookAccount} is transitioning to next reservation`);
+  if (oneMinuteWarning) {
+    console.log(`${device.outlookAccount} has 1 minute left on current reservation`);
 
-    flashGTFO(accessories.led);
+    flashOneMinuteWarning(accessories.led);
+  } else if (fiveMinuteWarning) {
+    console.log(`${device.outlookAccount} has 5 minutes left on current reservation`);
+
+    flashFiveMinuteWarning(accessories.led);
   } else if (currentlyReserved) {
     console.log(`${device.outlookAccount} is currently booked`);
 
