@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-// All dates in Unix
+// All dates as ISO 8601
 
-const now = Date.now();
-const minutesFromNow = (minutes) => parseInt(moment().minutes(minutes).format('X'));
+const now = moment().toISOString();
+const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
 const mockRoomData = {
   'chibronzeville@slalom.com': [
@@ -14,44 +14,44 @@ const mockRoomData = {
     },
     {
       "email": "Alice Murphy ",
-      "startDate": "Thu Dec 10 11:00:00 CST 2015",
-      "endDate": "Thu Dec 10 11:30:00 CST 2015"
+      "startDate": minutesFromNow(30),
+      "endDate": minutesFromNow(60)
     }
   ],
   'chisouthatrium@slalom.com': [
     {
       "email": "Adam DeMamp ",
-      "startDate": "Thu Dec 10 11:30:00 CST 2015",
-      "endDate": "Thu Dec 10 12:00:00 CST 2015"
+      "startDate": minutesFromNow(30),
+      "endDate": minutesFromNow(120)
     },
     {
       "email": "Jillian Belk ",
-      "startDate": "Thu Dec 10 12:00:00 CST 2015",
-      "endDate": "Thu Dec 10 13:00:00 CST 2015"
+      "startDate": minutesFromNow(120),
+      "endDate": minutesFromNow(150)
     }
   ],
   'chiwrigleyville@slalom.com': [
     {
       "email": "Adam DeMamp ",
-      "startDate": "Thu Dec 10 11:30:00 CST 2015",
-      "endDate": "Thu Dec 10 12:00:00 CST 2015"
+      "startDate": minutesFromNow(-26),
+      "endDate": minutesFromNow(4)
     },
     {
       "email": "Jillian Belk ",
-      "startDate": "Thu Dec 10 12:00:00 CST 2015",
-      "endDate": "Thu Dec 10 13:00:00 CST 2015"
+      "startDate": minutesFromNow(4),
+      "endDate": minutesFromNow(64)
     }
   ],
   'chitheloop@slalom.com': [
     {
       "email": "Anders Holmvik ",
-      "startDate": "Thu Dec 10 13:00:00 CST 2015",
-      "endDate": "Thu Dec 10 16:00:00 CST 2015"
+      "startDate": now,
+      "endDate": minutesFromNow(4)
     },
     {
       "email": "Blake Henderson ",
-      "startDate": "Thu Dec 10 16:00:00 CST 2015",
-      "endDate": "Thu Dec 10 17:00:00 CST 2015"
+      "startDate": minutesFromNow(4),
+      "endDate": minutesFromNow(64)
     }
   ]
 };
