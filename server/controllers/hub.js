@@ -9,11 +9,12 @@ import fs from 'fs';
 import http from 'http';
 
 import state from '../state';
-import { initializeDeviceState } from './actions/update-state';
-import configureAccessories from './actions/configure-accessories';
-import { registerBoard, registerLed } from './actions/register-hardware';
+import { initializeDeviceState } from './helpers/update-state';
+import configureAccessories from './helpers/configure-accessories';
+import { registerBoard, registerLed } from './helpers/register-hardware';
 import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
 import { CHECK_INTERVAL } from '../constants/values';
+import mockRoomData from '../../mock-data';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
@@ -37,6 +38,12 @@ const runDevices = () => {
 
       // Set interval for checking and responding to room state
       setInterval(() => {
+        if (process.env.MOCKS) {
+          const roomState = mockRoomData[device.outlookAccount];
+          configureAccessories(device, roomState, accessories);
+          return;
+        }
+
         // Retrieve outlook room reservation statuses
         http.get(source, (response) => {
           response.on('data', (data) => {
