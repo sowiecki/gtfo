@@ -6,7 +6,22 @@ Must be running [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
 node gtfo.js
-npm run hot # Start webserver in development mode
+npm run hot-mocks
+```
+This will start the application in development mode with mock data and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
+
+#### Other commands
+```bash
+npm run hot # Development mode with live data and hot-reloading
+```
+```bash
+npm run dev-mocks # Development mode with mock data
+```
+```bash
+npm run dev # Development mode with live data
+```
+```bash
+npm run prod # Production mode with live data
 ```
 
 ## Action Items
@@ -19,8 +34,6 @@ npm run hot # Start webserver in development mode
 - Place a demo unit on 53
 
 ## Configuration
-
-*Note: This configuration is still a work-in-progress and subject to change*
 
 Hardware:
 - Raspberry Pi 2 Model B v1.1 running JESSIE (other models and distros likely work, but are untested)

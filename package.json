@@ -18,6 +18,7 @@
     "dev-server": "nodemon --ignore client/ ./application.js",
     "server": "node ./application.js",
     "dev": "npm run clean && nf start dev-server,dev-client",
+    "dev-mocks": "npm run clean && MOCKS=true nf start dev-server,dev-client",
     "hot": "npm run clean && HOT=true npm run dev-server",
     "hot-mocks": "npm run clean && HOT=true MOCKS=true npm run dev-server",
     "prod": "npm run clean && nf start prod-server,prod-client",

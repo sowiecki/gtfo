@@ -7,6 +7,7 @@
 
 import fs from 'fs';
 import http from 'http';
+import colors from 'colors/safe';
 
 import state from '../state';
 import { initializeDeviceState } from './helpers/update-state';
@@ -16,6 +17,7 @@ import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
 import { CHECK_INTERVAL } from '../constants/values';
 import mockRoomData from '../../mock-data';
 
+// TODO throw custom error message if file missing
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 const runDevices = () => {
@@ -29,7 +31,7 @@ const runDevices = () => {
     const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
 
     board.on('ready', () => {
-      console.log(`Connected to ${board.id}`);
+      console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
 
       // Register device accessories
       const accessories = {
@@ -37,10 +39,13 @@ const runDevices = () => {
       };
 
       // Set interval for checking and responding to room state
-      setInterval(() => {
+      const refetchRoomReservations = setInterval(() => {
         if (process.env.MOCKS) {
+          console.log(colors.gray.italic('Using mock data'));
           const roomState = mockRoomData[device.outlookAccount];
           configureAccessories(device, roomState, accessories);
+          // Mocks are static, no need to constantly recheck
+          clearInterval(refetchRoomReservations);
           return;
         }
 
