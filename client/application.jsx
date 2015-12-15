@@ -8,9 +8,8 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import configureStore from './store/configure-store';
 
 import Index from './components/index';
-
-// Containers
-import Body from './containers/body';
+import Body from './components/body';
+import OfficeLayoutContainer from './containers/office-layout';
 
 require('./styles/base.scss');
 
@@ -23,7 +22,7 @@ const Application = (
   <Provider store={store}>
       <Router history={history}>
         <Route path='/' component={Body}>
-          <IndexRoute component={Index}/>
+          <IndexRoute component={OfficeLayoutContainer}/>
         </Route>
       </Router>
   </Provider>

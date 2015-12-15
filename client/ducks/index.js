@@ -1,9 +1,7 @@
-import { combineReducers } from 'redux';
-
+import officeLayout from './office-layout';
 import rooms from './rooms';
 
-const rootReducer = combineReducers({
+export default {
+  officeLayout,
   rooms
-});
-
-export default rootReducer;
+};
