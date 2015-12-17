@@ -10,14 +10,14 @@ import {
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
-const configureAccessories = (device, roomState, accessories) => {
+const configureAccessories = (room, roomState, accessories) => {
   const firstMeeting = roomState[0];
   const secondMeeting = roomState[1];
 
   const noReservations = roomState.length === 0;
 
   if (noReservations) {
-    console.log(`${device.outlookAccount} has no upcoming reservations`);
+    console.log(`${room.outlookAccount} has no upcoming reservations`);
 
     flashUnreserved(accessories.led);
     return;
@@ -33,15 +33,15 @@ const configureAccessories = (device, roomState, accessories) => {
   const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon;
 
   if (oneMinuteWarning) {
-    console.log(`${device.outlookAccount} has 1 minute left on current reservation`);
+    console.log(`${room.outlookAccount} has 1 minute left on current reservation`);
 
     flashOneMinuteWarning(accessories.led);
   } else if (fiveMinuteWarning) {
-    console.log(`${device.outlookAccount} has 5 minutes left on current reservation`);
+    console.log(`${room.outlookAccount} has 5 minutes left on current reservation`);
 
     flashFiveMinuteWarning(accessories.led);
   } else if (currentlyReserved) {
-    console.log(`${device.outlookAccount} is currently booked`);
+    console.log(`${room.outlookAccount} is currently booked`);
 
     flashOccupied(accessories.led);
   }

@@ -7,10 +7,7 @@
 
 import colors from 'colors/safe';
 
-import state from '../state';
-import { initializeDeviceState } from './helpers/update-state';
 import { registerBoard, registerLed } from './helpers/register-hardware';
-import { ROOM_RESERVATIONS } from '../constants/urls';
 import {
   FETCH_ROOM_RESERVATIONS,
   MOCK_ROOM_RESERVATIONS
@@ -25,11 +22,6 @@ const runDevices = () => {
   rooms.map((room) => {
     // Initialize board
     const board = registerBoard(room);
-
-    // Initialize empty semi-persistent state
-    initializeDeviceState(state, room);
-
-    const source = `${ROOM_RESERVATIONS}${room.outlookAccount}`;
 
     board.on('ready', () => {
       console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
@@ -58,14 +50,14 @@ const runDevices = () => {
         // Retrieve outlook room reservation statuses
         store().dispatch({
           type: FETCH_ROOM_RESERVATIONS,
-          board,
+          room,
           accessories
         });
       }, CHECK_INTERVAL);
     });
 
     board.on('fail', () => {
-      console.log(`Connection failure on ${board.id}`);
+      console.log(`Connection failure to ${board.id}`);
     });
   });
 };
