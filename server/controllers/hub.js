@@ -5,7 +5,6 @@
  * Registers accessories for each device
  */
 
-import fs from 'fs';
 import http from 'http';
 import colors from 'colors/safe';
 
@@ -17,7 +16,9 @@ import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
 import { CHECK_INTERVAL } from '../constants/values';
 import mockRoomData from '../../mock-data';
 
-const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
+import store from '../store/configure-store';
+
+const { devices } = store().getState();
 
 const runDevices = () => {
   devices.map((device) => {
