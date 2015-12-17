@@ -1,5 +1,5 @@
-import devices from './devices';
+import rooms from './rooms';
 
 export default {
-  devices
+  rooms
 };

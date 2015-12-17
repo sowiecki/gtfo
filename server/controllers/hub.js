@@ -1,39 +1,40 @@
 /* eslint no-console:0, max-nested-callbacks:0 */
 
 /**
- * Initializes x number of remote devices
+ * Initializes x number of devices
  * Registers accessories for each device
  */
 
-import http from 'http';
 import colors from 'colors/safe';
 
 import state from '../state';
 import { initializeDeviceState } from './helpers/update-state';
-import configureAccessories from './helpers/configure-accessories';
 import { registerBoard, registerLed } from './helpers/register-hardware';
-import { HOST, FETCH_ROOM_RESERVATIONS } from '../constants/urls';
+import { ROOM_RESERVATIONS } from '../constants/urls';
+import {
+  FETCH_ROOM_RESERVATIONS,
+  MOCK_ROOM_RESERVATIONS
+} from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants/values';
-import mockRoomData from '../../mock-data';
 
 import store from '../store/configure-store';
 
-const { devices } = store().getState();
+const { rooms } = store().getState();
 
 const runDevices = () => {
-  devices.map((device) => {
+  rooms.map((room) => {
     // Initialize board
-    const board = registerBoard(device);
+    const board = registerBoard(room);
 
     // Initialize empty semi-persistent state
-    initializeDeviceState(state, device);
+    initializeDeviceState(state, room);
 
-    const source = `${HOST}${FETCH_ROOM_RESERVATIONS}${device.outlookAccount}`;
+    const source = `${ROOM_RESERVATIONS}${room.outlookAccount}`;
 
     board.on('ready', () => {
       console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
 
-      // Register device accessories
+      // Register room accessories
       const accessories = {
         led: registerLed(board)
       };
@@ -42,27 +43,23 @@ const runDevices = () => {
       const refetchRoomReservations = setInterval(() => {
         if (process.env.MOCKS) {
           console.log(colors.gray.italic('Using mock data'));
-          const roomState = mockRoomData[device.outlookAccount];
-          configureAccessories(device, roomState, accessories);
+
+          store().dispatch({
+            type: MOCK_ROOM_RESERVATIONS,
+            room,
+            accessories
+          });
+
           // Mocks are static, no need to constantly recheck
           clearInterval(refetchRoomReservations);
           return;
         }
 
         // Retrieve outlook room reservation statuses
-        http.get(source, (response) => {
-          response.on('data', (data) => {
-            const roomState = JSON.parse(data.toString('utf8'));
-
-            // Configure device accessories according to room state
-            configureAccessories(device, roomState, accessories);
-          });
-        }).on('error', (error) => {
-          const errorMessage = `Failed to fetch room reservations
-                                for ${device.outlookAccount}. \n
-                                ${error}`;
-
-          console.log(errorMessage);
+        store().dispatch({
+          type: FETCH_ROOM_RESERVATIONS,
+          board,
+          accessories
         });
       }, CHECK_INTERVAL);
     });

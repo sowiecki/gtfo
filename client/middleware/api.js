@@ -1,6 +1,6 @@
 import http from 'http';
 
-import { FETCH_ROOM_STATUSES } from '../ducks/rooms';
+import { FETCH_ROOM_RESERVATIONS } from '../ducks/rooms';
 
 const fetchRoomStatuses = (next) => {
   // TODO use source
@@ -17,7 +17,7 @@ const fetchRoomStatuses = (next) => {
 
 export default () => (next) => (action) => {
   switch (action.type) {
-    case FETCH_ROOM_STATUSES:
+    case FETCH_ROOM_RESERVATIONS:
       fetchRoomStatuses(next, action);
       break;
 
