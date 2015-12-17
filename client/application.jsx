@@ -7,7 +7,6 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import configureStore from './store/configure-store';
 
-import Index from './components/index';
 import Body from './components/body';
 import OfficeLayoutContainer from './containers/office-layout';
 

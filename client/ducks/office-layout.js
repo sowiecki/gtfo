@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import floorplanChunks from '../utils/floorplan-chunks.js'
+import floorplanChunks from '../utils/floorplan-chunks.js';
 
 export const BUILD_OFFICE_LAYOUT = 'BUILD_OFFICE_LAYOUT';
 
