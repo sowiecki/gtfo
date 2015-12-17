@@ -60,7 +60,9 @@ const app = server.listen(config.serverPort, 'localhost', (err) => {
 
   console.log(`Listening at http://localhost:${config.serverPort}`);
 
-  runDevices();
+  if (!process.env.DISABLE_DEVICES) {
+    runDevices();
+  }
 });
 
 export default app;

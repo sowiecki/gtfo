@@ -20,5 +20,9 @@ export default () => (next) => (action) => {
     case FETCH_ROOM_STATUSES:
       fetchRoomStatuses(next, action);
       break;
+
+    default:
+      next({ type: action.type });
+      break;
   }
 };

@@ -1,7 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore,
+         applyMiddleware,
+         combineReducers } from 'redux';
 
-import rootReducer from '../ducks';
+import reducers from '../ducks';
 import api from '../middleware/api';
+
+const rootReducer = combineReducers(reducers);
 
 const configureStore = (initialState) => {
   const createStoreWithMiddleware = applyMiddleware(api)(createStore);

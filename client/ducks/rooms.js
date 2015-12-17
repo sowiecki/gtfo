@@ -7,10 +7,11 @@ export const fetchRoomStatuses = (roomStatuses) => {
   };
 };
 
-const rooms = (state = {}, action) => {
+const rooms = (state = [], action) => {
   switch (action.type) {
     case FETCH_ROOM_STATUSES:
       return action.roomStatuses;
+
     default:
       return state;
   }
