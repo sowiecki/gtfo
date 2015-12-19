@@ -26,8 +26,6 @@
     "prod": "npm run clean && nf start prod-server,prod-client",
     "dev-client": "webpack-dev-server --config webpack.config.dev.js --color --progress --inline --content-base build",
     "prod-client": "npm run lint && NODE_ENV=production webpack",
-    "seed": "node data seed",
-    "yolo": "node data yolo",
     "test": "npm run lint"
   },
   "author": "Sean Owiecki",
@@ -52,7 +50,6 @@
     "lodash": "^3.10.1",
     "material-ui": "^0.13.1",
     "moment": "^2.10.6",
-    "mongoose": "^4.1.10",
     "morgan": "^1.6.1",
     "node-outlook": "^1.1.1",
     "particle-io": "^0.10.1",

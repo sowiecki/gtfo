@@ -1,17 +1,5 @@
-/* Database URI */
-export const dbURI = process.env.PROD_MONGODB || 'mongodb://localhost';
-
 /* API URI */
 export const apiURI = '/api/';
-
-/* Database connection options */
-export const options = {
-  server: {
-    socketOptions: {
-      keepAlive: 1
-    }
-  }
-};
 
 /* Ports */
 const normalizePort = (val) => {
