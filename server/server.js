@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 /* globals console */
 import express from 'express';
-// import mongoose from 'mongoose';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -12,7 +11,7 @@ var cluster = require('cluster');
 
 import * as config from './config';
 import routes from './routes';
-import runDevices from './controllers/hub';
+import devices from './controllers/devices';
 
 const server = express();
 
@@ -44,14 +43,6 @@ server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
 server.use(express.static(path.join(__dirname, `${config.publicPath}`)));
 
-/* Database */
-// const connect = () => {
-//   mongoose.connect(config.dbURI, config.dbOptions);
-// };
-// connect();
-// mongoose.connection.on('error', console.log);
-// mongoose.connection.on('disconnected', connect);
-
 const app = server.listen(config.serverPort, 'localhost', (err) => {
   if (err) {
     console.log(err);
@@ -61,7 +52,7 @@ const app = server.listen(config.serverPort, 'localhost', (err) => {
   console.log(`Listening at http://localhost:${config.serverPort}`);
 
   if (!process.env.DISABLE_DEVICES) {
-    runDevices();
+    devices.run();
   }
 });
 
