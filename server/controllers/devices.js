@@ -7,7 +7,12 @@
 
 import colors from 'colors/safe';
 
-import { registerBoard, registerLed } from './helpers/register-hardware';
+import {
+  registerBoard,
+  registerLed,
+  registerPiezo,
+  registerThermo
+} from './helpers/register-hardware';
 import {
   FETCH_ROOM_RESERVATIONS,
   MOCK_ROOM_RESERVATIONS
@@ -29,7 +34,9 @@ export default {
 
         // Register room accessories
         const accessories = {
-          led: registerLed(board)
+          led: registerLed(board),
+          piezo: registerPiezo(board),
+          thermo: registerThermo(board)
         };
 
         // Set interval for checking and responding to room state

@@ -23,7 +23,7 @@ const configureAccessories = (room, roomState, accessories) => {
     return;
   }
 
-  // Room states
+  // Reservation conditions
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
   const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
