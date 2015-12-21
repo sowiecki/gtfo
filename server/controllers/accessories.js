@@ -1,6 +1,4 @@
-import moment from 'moment';
-import colors from 'colors/safe';
-
+/* eslint no-console:0 */
 import * as flash from './helpers/flash';
 import {
   VACANT,

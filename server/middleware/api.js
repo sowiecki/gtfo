@@ -2,8 +2,7 @@
 import http from 'http';
 
 import mockRoomData from '../mocks/mock-data';
-import configureAccessories from '../controllers/configure-accessories';
-import determineRoomStatus from '../controllers/determine-room-status';
+import setAlertByReservationStatus from './helpers/set-reservation-alert';
 import {
   MOCK_ROOM_RESERVATIONS,
   FETCH_ROOM_RESERVATIONS,
@@ -19,15 +18,12 @@ const fetchRoomReservations = (next, action) => {
   // Retrieve outlook room reservation statuses
   http.get(source, (response) => {
     response.on('data', (data) => {
-      const newRoomState = JSON.parse(data.toString('utf8'));
-
-      // Configure room accessories according to room state
-      const roomStatus = determineRoomStatus(room, reservations, accessories);
-      configureAccessories(roomStatus, accessories);
+      const reservations = JSON.parse(data.toString('utf8'));
+      const roomWithAlert = setAlertByReservationStatus(room, reservations);
 
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,
-        room,
+        room: roomWithAlert,
         accessories
       });
     });
@@ -43,7 +39,7 @@ const fetchRoomReservations = (next, action) => {
 const fetchRoomTemperature = (room, next, action) => {
   const { thermo } = action.accessories;
 
-  thermo.on("data", () => {
+  thermo.on('data', () => {
     next({
       type: EMIT_ROOM_TEMPERATURE_UPDATE,
       room,
@@ -52,17 +48,20 @@ const fetchRoomTemperature = (room, next, action) => {
   });
 };
 
-export default (state) => (next) => (action) => {
-  let { room, accessories } = action;
+export default () => (next) => (action) => {
+  const { room, accessories } = action;
 
   switch (action.type) {
     case MOCK_ROOM_RESERVATIONS:
       const reservations = mockRoomData[room.outlookAccount];
+      const roomWithAlert = setAlertByReservationStatus(room, reservations);
 
-      const roomWithStatus = determineRoomStatus(room, reservations, accessories);
-      configureAccessories(roomWithStatus, accessories);
-
-      return roomWithStatus;
+      next({
+        type: EMIT_ROOM_STATUSES_UPDATE,
+        room: roomWithAlert,
+        accessories
+      });
+      break;
 
     case FETCH_ROOM_RESERVATIONS:
       fetchRoomReservations(next, action);

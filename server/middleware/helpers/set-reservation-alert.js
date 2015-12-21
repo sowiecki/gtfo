@@ -9,7 +9,9 @@ import {
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
-const setAlertByReservationStatus = (reservations) => {
+const setAlertByReservationStatus = (room, reservations) => {
+  let alert;
+
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
 
@@ -23,14 +25,18 @@ const setAlertByReservationStatus = (reservations) => {
   const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon;
 
   if (noReservations) {
-    return VACANT;
+    alert = VACANT;
   } else if (oneMinuteWarning) {
-    return ONE_MINUTE_WARNING;
+    alert = ONE_MINUTE_WARNING;
   } else if (fiveMinuteWarning) {
-    return FIVE_MINUTE_WARNING;
+    alert = FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
-    return BOOKED;
+    alert = BOOKED;
   }
+
+  room.alert = alert;
+
+  return room;
 };
 
 export default setAlertByReservationStatus;
