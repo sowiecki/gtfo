@@ -3,33 +3,33 @@ import ReactCSSTransition from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import OfficeLayoutController from '../components/office-layout/controller';
+import RoomsController from '../components/rooms/controller';
 import Loading from '../components/common/loading';
 
-import * as OfficeLayoutActions from '../ducks/office-layout';
+import * as RoomsActions from '../ducks/rooms';
 
-class OfficeLayoutContainer extends Component {
+class RoomsContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.hasOfficeLayoutData = this.hasOfficeLayoutData.bind(this);
+    this.hasRoomsData = this.hasRoomsData.bind(this);
   }
 
   componentWillMount() {
-    const { buildOfficeLayout } = this.props.actions;
+    const { fetchRoomStatuses } = this.props.actions;
 
-    buildOfficeLayout();
+    fetchRoomStatuses();
   }
 
-  hasOfficeLayoutData() {
-    const { officeLayout } = this.props;
+  hasRoomsData() {
+    const { rooms } = this.props;
 
-    return officeLayout && officeLayout.size;
+    return rooms && rooms.size;
   }
 
-  renderOfficeLayout() {
+  renderRooms() {
     return (
-      <OfficeLayoutController {...this.props}/>
+      <RoomsController {...this.props}/>
     );
   }
 
@@ -40,15 +40,15 @@ class OfficeLayoutContainer extends Component {
   }
 
   render() {
-    const loading = !this.hasOfficeLayoutData() ? this.renderLoading() : null;
-    const content = this.hasOfficeLayoutData() ? this.renderOfficeLayout() : null;
+    const loading = !this.hasRoomsData() ? this.renderLoading() : null;
+    const content = this.hasRoomsData() ? this.renderRooms() : null;
 
     return (
       <div>
         <ReactCSSTransition
           transitionName='root-container'
-          transitionEnterTimeout={3000}
-          transitionLeaveTimeout={3000}>
+          transitionEnterTimeout={2000}
+          transitionLeaveTimeout={2000}>
             {loading}
         </ReactCSSTransition>
         {content}
@@ -57,23 +57,23 @@ class OfficeLayoutContainer extends Component {
   }
 }
 
-OfficeLayoutContainer.propTypes = {
+RoomsContainer.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  officeLayout: PropTypes.object
+  rooms: PropTypes.node
 };
 
-const mapStateToProps = ({ officeLayout }) => ({ officeLayout });
+const mapStateToProps = ({ rooms }) => ({ rooms });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(OfficeLayoutActions, dispatch)
+  actions: bindActionCreators(RoomsActions, dispatch)
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(OfficeLayoutContainer);
+)(RoomsContainer);

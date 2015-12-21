@@ -8,12 +8,17 @@ import store from '../store/configure-store';
 const router = express.Router();
 const { rooms } = store().getState();
 
-/* Show room status */
+/* Individual room status */
 router.get('/api/rooms/:outlookAccount', (req, res) => {
   const outlookAccount = `${req.params['outlookAccount']}@slalom.com`;
-  const roomState = find(rooms, {outlookAccount});
+  const room = find(rooms, {outlookAccount});
 
-  res.json(JSON.stringify(roomState));
+  res.json(room);
+});
+
+/* Room statuses */
+router.get('/api/rooms', (req, res) => {
+  res.json(rooms);
 });
 
 /* Serve client - must be last route */

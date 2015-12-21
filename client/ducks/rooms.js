@@ -1,16 +1,22 @@
-export const FETCH_ROOM_RESERVATIONS = 'FETCH_ROOM_RESERVATIONS';
+export const FETCH_ROOM_STATUSES = 'FETCH_ROOM_STATUSES';
+export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
+export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 
-export const fetchRoomStatuses = (roomStatuses) => {
-  return {
-    type: FETCH_ROOM_RESERVATIONS,
-    roomStatuses
-  };
-};
+export const fetchRoomStatuses = (rooms) => ({
+  type: FETCH_ROOM_STATUSES,
+  rooms
+});
 
 const rooms = (state = [], action) => {
   switch (action.type) {
-    case FETCH_ROOM_RESERVATIONS:
-      return action.roomStatuses;
+    case FETCH_ROOM_STATUSES:
+      return action.rooms;
+
+    case EMIT_ROOM_STATUSES_UPDATE:
+      return action.rooms;
+
+    case EMIT_FETCH_ROOM_STATUSES_ERROR:
+      // TODO error handling
 
     default:
       return state;

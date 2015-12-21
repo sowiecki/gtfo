@@ -3,7 +3,7 @@ export const apiURI = '/api/';
 
 /* Ports */
 const normalizePort = (val) => {
-  let port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     return val;

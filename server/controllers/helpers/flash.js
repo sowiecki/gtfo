@@ -39,22 +39,22 @@ const flash = (led, maxIntensity = 100, rate = 5) => {
   });
 };
 
-export const flashVacant = (led) => {
+export const vacant = (led) => {
   led.intensity(faint);
   led.color(GREEN);
 };
 
-export const flashOccupied = (led) => {
+export const occupied = (led) => {
   led.intensity(faint);
   led.color(PURPLE);
 };
 
-export const flashFiveMinuteWarning = (led) => {
-  led.color(DARK_PINK);
-  flash(led, 25, 15);
-};
-
-export const flashOneMinuteWarning = (led) => {
+export const oneMinuteWarning = (led) => {
   led.color(RED);
   flash(led, 100, 5);
+};
+
+export const fiveMinuteWarning = (led) => {
+  led.color(DARK_PINK);
+  flash(led, 25, 15);
 };

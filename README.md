@@ -25,8 +25,7 @@ npm run prod # Production mode with live data
 ```
 
 ## Action Items
-- Some method of recovering from a broken process and auto-reconnecting Photons
-  - Node.js cluster workers, bash script, or some other method
+- Node process automatically restarts on board errors, but we should still probably have some bash automation.
 - Moving EWS API to Slalom AWS instance and authenticating without using a real person's account
 - Improve hardware
   - Better lighting, nicer cases
