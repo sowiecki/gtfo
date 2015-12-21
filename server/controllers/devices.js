@@ -1,4 +1,5 @@
 /* eslint no-console:0, max-nested-callbacks:0 */
+/* globals console, setInterval, clearInterval */
 
 /**
  * Initializes x number of devices

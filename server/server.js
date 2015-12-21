@@ -1,5 +1,5 @@
 /* eslint no-console:0 */
-/* globals console */
+/* globals console __dirname */
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';

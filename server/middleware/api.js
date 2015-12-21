@@ -1,6 +1,4 @@
 /* eslint no-console:0, callback-return:0 */
-import http from 'http';
-
 import mockRoomData from '../mocks/mock-data';
 import fetchRoomReservations from './fetch-room-reservation';
 import fetchRoomTemperature from './fetch-room-temperature';
@@ -9,8 +7,7 @@ import {
   MOCK_ROOM_RESERVATIONS,
   FETCH_ROOM_RESERVATIONS,
   FETCH_ROOM_TEMPERATURE,
-  EMIT_ROOM_STATUSES_UPDATE,
-  EMIT_ROOM_TEMPERATURE_UPDATE
+  EMIT_ROOM_STATUSES_UPDATE
 } from '../ducks/rooms';
 
 export default () => (next) => (action) => {

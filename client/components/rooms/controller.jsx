@@ -4,7 +4,7 @@ import SVGBase from './svg/base';
 
 export default class RoomsController extends Component {
   renderChunk(chunk) {
-    console.log(chunk);
+    // console.log(chunk);
     return (
       <SVGBase key={`${chunk.outlookAccount}-chunk`} {...chunk.shape}>
         <rect {...chunk.shape} />

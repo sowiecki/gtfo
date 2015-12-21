@@ -1,3 +1,9 @@
+/* eslint no-console:0 */
+/* globals console */
+
+import http from 'http';
+
+import setAlertByReservationStatus from './helpers/set-reservation-alert';
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants/urls';
 

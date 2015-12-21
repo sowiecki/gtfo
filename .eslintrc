@@ -3,7 +3,7 @@
     "filenames"
   ],
   "extends": [
-    "defaults/configurations/walmart/es6-node"
+    "defaults/configurations/walmart/es6-react"
   ],
   "parser": "babel-eslint",
   "ecmaFeatures": {
@@ -16,11 +16,12 @@
   },
   "rules": {
     "strict": 0,
-    "quotes": [
-      1,
-      "single"
-    ],
+    "quotes": [2, "single"],
+    "jsx-quotes": 0,
     "indent": [2, 2, {"SwitchCase": 1}],
+    "no-invalid-this": 0,
+    "react/jsx-closing-bracket-location": [2, "after-props"],
+    "react/jsx-boolean-value": 0,
     "valid-jsdoc": 0
   },
   "globals": {
