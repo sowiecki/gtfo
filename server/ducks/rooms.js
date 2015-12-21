@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import mockRoomData from '../../mock-data';
+import mockRoomData from '../mocks/mock-data';
 import configureAccessories from '../controllers/helpers/configure-accessories';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;

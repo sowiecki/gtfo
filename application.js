@@ -1,7 +1,20 @@
 #!/usr/bin/env node
 
+var cluster = require('cluster');
+
 // Enable ES6 import/export syntax on all server files but this one
 require('babel-core/register');
 
-const app = require('./server/server');
-const config = require('./server/config');
+if (cluster.isMaster) {
+  cluster.fork();
+
+  cluster.on('exit', (deadWorker, code, signal) => {
+    const worker = cluster.fork();
+
+    console.log(`worker ${deadWorker.process.pid} died`);
+    console.log(`worker ${worker.process.pid} born`);
+  });
+} else {
+  const app = require('./server/server');
+  const config = require('./server/config');
+}
