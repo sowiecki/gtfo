@@ -1,8 +1,9 @@
 /* eslint no-console:0, callback-return:0 */
 import http from 'http';
 
-import configureAccessories from '../controllers/helpers/configure-accessories';
-import { FETCH_ROOM_RESERVATIONS } from '../ducks/rooms';
+import determineRoomStatus from '../controllers/determine-room-status';
+import configureAccessories from '../controllers/configure-accessories';
+import { FETCH_ROOM_RESERVATIONS, SET_ROOM_STATUS } from '../ducks/rooms';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
@@ -14,10 +15,10 @@ const fetchRoomReservations = (next, action) => {
       const newRoomState = JSON.parse(data.toString('utf8'));
 
       // Configure room accessories according to room state
-      configureAccessories(room, newRoomState, accessories);
+      const roomStatus = determineRoomStatus(room, reservations, accessories);
+      configureAccessories(roomStatus, accessories);
 
-      // Probably not doing anything in this scope
-      return newRoomState;
+      next(action);
     });
   }).on('error', (error) => {
     const errorMessage = `Failed to fetch room reservations
@@ -32,7 +33,6 @@ export default () => (next) => (action) => {
   switch (action.type) {
     case FETCH_ROOM_RESERVATIONS:
       fetchRoomReservations(next, action);
-      // TODO fix not returning state here
       break;
 
     default:

@@ -1,7 +1,8 @@
 import fs from 'fs';
 
 import mockRoomData from '../mocks/mock-data';
-import configureAccessories from '../controllers/helpers/configure-accessories';
+import determineRoomStatus from '../controllers/determine-room-status';
+import configureAccessories from '../controllers/configure-accessories';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
@@ -11,11 +12,13 @@ const reducer = (state = devices, action) => {
   switch (action.type) {
     case MOCK_ROOM_RESERVATIONS:
       const { room, accessories } = action;
-      const newRoomState = mockRoomData[room.outlookAccount];
+      const reservations = mockRoomData[room.outlookAccount];
 
-      configureAccessories(room, newRoomState, accessories);
+      const roomWithStatus = determineRoomStatus(room, reservations, accessories);
+      configureAccessories(roomWithStatus, accessories);
 
-      return newRoomState;
+      return roomWithStatus;
+
     default:
       return state;
   }

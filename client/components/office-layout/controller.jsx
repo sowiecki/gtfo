@@ -2,27 +2,26 @@ import React, { Component, PropTypes } from 'react';
 
 import SVGBase from './svg/base';
 
-export default class OfficeLayoutController extends Component {
+export default class RoomsController extends Component {
   renderChunk(chunk) {
-    // TODO swap hardcoding for props and stuff
     return (
-      <SVGBase key={`${chunk.name}-chunk`} height="50" width="50">
-        <rect height="50" width="50" x="25" y="25" />
+      <SVGBase key={`${chunk.outlookAccount}-chunk`} height="50" width="50">
+        <rect {...chunk.shape} />
       </SVGBase>
     );
   }
 
   render() {
-    const officeLayout = this.props.officeLayout.toJS();
+    const rooms = this.props.rooms.toJS();
 
     return (
       <div>
-        {officeLayout.map(this.renderChunk)}
+        {rooms.map(this.renderChunk)}
       </div>
     );
   }
 }
 
-OfficeLayoutController.propTypes = {
-  officeLayout: PropTypes.object.isRequired
+RoomsController.propTypes = {
+  rooms: PropTypes.object
 };

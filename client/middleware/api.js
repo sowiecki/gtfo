@@ -1,28 +1,35 @@
 import http from 'http';
+import immutable from 'immutable';
 
-import { FETCH_ROOM_RESERVATIONS } from '../ducks/rooms';
+import {
+  FETCH_ROOM_STATUSES,
+  BUILD_OFFICE_LAYOUT
+} from '../ducks/rooms';
+import * as urls from './urls';
 
 const fetchRoomStatuses = (next) => {
-  // TODO use source
-  http.get('source', (response) => {
+  http.get(urls.ROOMS, (response) => {
     response.on('data', (data) => {
-      const roomStatuses = JSON.parse(data);
+      const rooms = immutable.fromJS(JSON.parse(data));
 
-      next(roomStatuses);
+      next({
+        type: BUILD_OFFICE_LAYOUT,
+        rooms
+      });
     });
-  // }).on('error', (error) => {
-    // TODO error handling
+  }).on('error', (error) => {
+    console.log(error);
   });
 };
 
 export default () => (next) => (action) => {
   switch (action.type) {
-    case FETCH_ROOM_RESERVATIONS:
+    case FETCH_ROOM_STATUSES:
       fetchRoomStatuses(next, action);
       break;
 
     default:
-      next({ type: action.type });
+      next(action);
       break;
   }
 };
