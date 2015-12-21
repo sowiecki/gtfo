@@ -1,9 +1,16 @@
 /* eslint no-console:0, callback-return:0 */
 import http from 'http';
 
-import determineRoomStatus from '../controllers/determine-room-status';
+import mockRoomData from '../mocks/mock-data';
 import configureAccessories from '../controllers/configure-accessories';
-import { FETCH_ROOM_RESERVATIONS, SET_ROOM_STATUS } from '../ducks/rooms';
+import determineRoomStatus from '../controllers/determine-room-status';
+import {
+  MOCK_ROOM_RESERVATIONS,
+  FETCH_ROOM_RESERVATIONS,
+  FETCH_ROOM_TEMPERATURE,
+  EMIT_ROOM_STATUSES_UPDATE,
+  EMIT_ROOM_TEMPERATURE_UPDATE
+} from '../ducks/rooms';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
@@ -18,7 +25,11 @@ const fetchRoomReservations = (next, action) => {
       const roomStatus = determineRoomStatus(room, reservations, accessories);
       configureAccessories(roomStatus, accessories);
 
-      next(action);
+      next({
+        type: EMIT_ROOM_STATUSES_UPDATE,
+        room,
+        accessories
+      });
     });
   }).on('error', (error) => {
     const errorMessage = `Failed to fetch room reservations
@@ -29,10 +40,36 @@ const fetchRoomReservations = (next, action) => {
   });
 };
 
-export default () => (next) => (action) => {
+const fetchRoomTemperature = (room, next, action) => {
+  const { thermo } = action.accessories;
+
+  thermo.on("data", () => {
+    next({
+      type: EMIT_ROOM_TEMPERATURE_UPDATE,
+      room,
+      temperature: thermo.F
+    });
+  });
+};
+
+export default (state) => (next) => (action) => {
+  let { room, accessories } = action;
+
   switch (action.type) {
+    case MOCK_ROOM_RESERVATIONS:
+      const reservations = mockRoomData[room.outlookAccount];
+
+      const roomWithStatus = determineRoomStatus(room, reservations, accessories);
+      configureAccessories(roomWithStatus, accessories);
+
+      return roomWithStatus;
+
     case FETCH_ROOM_RESERVATIONS:
       fetchRoomReservations(next, action);
+      break;
+
+    case FETCH_ROOM_TEMPERATURE:
+      fetchRoomTemperature(room, next, action);
       break;
 
     default:

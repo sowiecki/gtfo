@@ -18,7 +18,6 @@ router.get('/api/rooms/:outlookAccount', (req, res) => {
 
 /* Room statuses */
 router.get('/api/rooms', (req, res) => {
-  console.log(store().getState())
   res.json(rooms);
 });
 

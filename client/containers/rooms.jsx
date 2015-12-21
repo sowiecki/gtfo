@@ -3,7 +3,7 @@ import ReactCSSTransition from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import OfficeLayoutController from '../components/office-layout/controller';
+import RoomsController from '../components/rooms/controller';
 import Loading from '../components/common/loading';
 
 import * as RoomsActions from '../ducks/rooms';
@@ -29,7 +29,7 @@ class RoomsContainer extends Component {
 
   renderRooms() {
     return (
-      <OfficeLayoutController {...this.props}/>
+      <RoomsController {...this.props}/>
     );
   }
 
@@ -47,8 +47,8 @@ class RoomsContainer extends Component {
       <div>
         <ReactCSSTransition
           transitionName='root-container'
-          transitionEnterTimeout={3000}
-          transitionLeaveTimeout={3000}>
+          transitionEnterTimeout={2000}
+          transitionLeaveTimeout={2000}>
             {loading}
         </ReactCSSTransition>
         {content}
@@ -63,7 +63,8 @@ RoomsContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired
+  params: PropTypes.object.isRequired,
+  rooms: PropTypes.node
 };
 
 const mapStateToProps = ({ rooms }) => ({ rooms });

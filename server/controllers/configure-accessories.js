@@ -1,12 +1,7 @@
 import moment from 'moment';
 import colors from 'colors/safe';
 
-import {
-  flashUnreserved,
-  flashOccupied,
-  flashFiveMinuteWarning,
-  flashOneMinuteWarning
-} from './helpers/set-leds';
+import * as flash from './helpers/flash';
 import {
   VACANT,
   ONE_MINUTE_WARNING,
@@ -19,25 +14,25 @@ const configureAccessories = (roomStatus, accessories) => {
     case VACANT:
       console.log(`${roomStatus.outlookAccount} has no upcoming reservations`);
 
-      flashUnreserved(accessories.led);
+      flash.unreserved(accessories.led);
       break;
 
     case ONE_MINUTE_WARNING:
       console.log(`${roomStatus.outlookAccount} has 1 minute left on current reservation`);
 
-      flashOneMinuteWarning(accessories.led);
+      flash.oneMinuteWarning(accessories.led);
       break;
 
     case FIVE_MINUTE_WARNING:
       console.log(`${roomStatus.outlookAccount} has 5 minutes left on current reservation`);
 
-      flashFiveMinuteWarning(accessories.led);
+      flash.fiveMinuteWarning(accessories.led);
       break;
 
     case BOOKED:
       console.log(`${roomStatus.outlookAccount} is currently booked`);
 
-      flashOccupied(accessories.led);
+      flash.occupied(accessories.led);
       break;
   }
 };

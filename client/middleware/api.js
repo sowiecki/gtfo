@@ -3,7 +3,8 @@ import immutable from 'immutable';
 
 import {
   FETCH_ROOM_STATUSES,
-  BUILD_OFFICE_LAYOUT
+  EMIT_ROOM_STATUSES_UPDATE,
+  EMIT_FETCH_ROOM_STATUSES_ERROR
 } from '../ducks/rooms';
 import * as urls from './urls';
 
@@ -13,12 +14,15 @@ const fetchRoomStatuses = (next) => {
       const rooms = immutable.fromJS(JSON.parse(data));
 
       next({
-        type: BUILD_OFFICE_LAYOUT,
+        type: EMIT_ROOM_STATUSES_UPDATE,
         rooms
       });
     });
   }).on('error', (error) => {
-    console.log(error);
+    next({
+      type: EMIT_FETCH_ROOM_STATUSES_ERROR,
+      error
+    });
   });
 };
 

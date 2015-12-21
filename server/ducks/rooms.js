@@ -1,23 +1,31 @@
 import fs from 'fs';
 
-import mockRoomData from '../mocks/mock-data';
 import determineRoomStatus from '../controllers/determine-room-status';
 import configureAccessories from '../controllers/configure-accessories';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
+export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
+export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
+export const EMIT_ROOM_TEMPERATURE_UPDATE= 'EMIT_ROOM_TEMPERATURE_UPDATE';
 
 const reducer = (state = devices, action) => {
+  const { room } = action;
+
   switch (action.type) {
-    case MOCK_ROOM_RESERVATIONS:
-      const { room, accessories } = action;
-      const reservations = mockRoomData[room.outlookAccount];
+    case EMIT_ROOM_STATUSES_UPDATE:
+      const { accessories } = action;
 
-      const roomWithStatus = determineRoomStatus(room, reservations, accessories);
-      configureAccessories(roomWithStatus, accessories);
+      configureAccessories(room, accessories);
 
-      return roomWithStatus;
+      return room;
+
+    case EMIT_ROOM_TEMPERATURE_UPDATE:
+      const { temperature } = action;
+
+      room.temperature = temperature;
+      return room;
 
     default:
       return state;

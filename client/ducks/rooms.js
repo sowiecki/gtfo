@@ -1,5 +1,6 @@
 export const FETCH_ROOM_STATUSES = 'FETCH_ROOM_STATUSES';
-export const BUILD_OFFICE_LAYOUT = 'BUILD_OFFICE_LAYOUT';
+export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
+export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 
 export const fetchRoomStatuses = (rooms) => ({
   type: FETCH_ROOM_STATUSES,
@@ -11,8 +12,11 @@ const rooms = (state = [], action) => {
     case FETCH_ROOM_STATUSES:
       return action.rooms;
 
-    case BUILD_OFFICE_LAYOUT:
+    case EMIT_ROOM_STATUSES_UPDATE:
       return action.rooms;
+
+    case EMIT_FETCH_ROOM_STATUSES_ERROR:
+      // TODO error handling
 
     default:
       return state;

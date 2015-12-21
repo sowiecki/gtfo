@@ -15,7 +15,8 @@ import {
 } from './helpers/register-hardware';
 import {
   FETCH_ROOM_RESERVATIONS,
-  MOCK_ROOM_RESERVATIONS
+  MOCK_ROOM_RESERVATIONS,
+  FETCH_ROOM_TEMPERATURE
 } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants/values';
 
@@ -50,6 +51,12 @@ export default {
               accessories
             });
 
+            store().dispatch({
+              type: FETCH_ROOM_TEMPERATURE,
+              room,
+              accessories
+            });
+
             // Mocks are static, no need to constantly recheck
             clearInterval(refetchRoomReservations);
             return;
@@ -58,6 +65,12 @@ export default {
           // Retrieve outlook room reservation statuses
           store().dispatch({
             type: FETCH_ROOM_RESERVATIONS,
+            room,
+            accessories
+          });
+
+          store().dispatch({
+            type: FETCH_ROOM_TEMPERATURE,
             room,
             accessories
           });
