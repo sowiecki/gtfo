@@ -1,13 +1,15 @@
 import fs from 'fs';
 
-import accessoriesController from '../controllers/accessories';
+import notificationsController from '../controllers/notifications';
 
 const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
+export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
+export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 
 const reducer = (state = devices, action) => {
   const { room } = action;
@@ -16,7 +18,7 @@ const reducer = (state = devices, action) => {
     case EMIT_ROOM_STATUSES_UPDATE:
       const { accessories } = action;
 
-      accessoriesController(room, accessories);
+      notificationsController(room, accessories);
 
       return room;
 
@@ -24,6 +26,12 @@ const reducer = (state = devices, action) => {
       const { temperature } = action;
 
       room.temperature = temperature;
+      return room;
+
+    case EMIT_ROOM_MOTION_UPDATE:
+      const { motion } = action;
+
+      room.motion = motion;
       return room;
 
     default:

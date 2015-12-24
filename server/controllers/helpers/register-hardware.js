@@ -1,6 +1,13 @@
 import Particle from 'particle-io';
-import { Board, Led, Piezo, Thermometer } from 'johnny-five';
-import { RGB_PINS, PIEZO_PIN, THERMO_PIN, TMP36 } from '../../constants/values';
+import { Board, Led, Piezo, Thermometer, Motion } from 'johnny-five';
+import {
+  RGB_PINS,
+  PIEZO_PIN,
+  TMP36,
+  THERMO_PIN,
+  HCSR501,
+  MOTION_PIN
+} from '../../constants/values';
 
 export const registerBoard = (device) => {
   return new Board({
@@ -31,6 +38,15 @@ export const registerThermo = (board) => {
   return new Thermometer({
     controller: TMP36,
     pin: THERMO_PIN,
+    id: board.id,
+    board
+  });
+};
+
+export const registerMotion = (board) => {
+  return new Motion({
+    // controller: HCSR501,
+    pin: MOTION_PIN,
     id: board.id,
     board
   });

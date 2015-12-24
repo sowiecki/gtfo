@@ -4,9 +4,9 @@ import temporal from 'temporal';
 import { IN, OUT } from '../../constants/values';
 import {
   RED,
-  PURPLE,
-  DARK_PINK,
-  GREEN
+  TEAL,
+  GREEN,
+  ORANGE
 } from '../../constants/colors';
 
 // Keep leds low so as to not disturb occupants
@@ -46,7 +46,7 @@ export const vacant = (led) => {
 
 export const occupied = (led) => {
   led.intensity(faint);
-  led.color(PURPLE);
+  led.color(TEAL);
 };
 
 export const oneMinuteWarning = (led) => {
@@ -55,6 +55,6 @@ export const oneMinuteWarning = (led) => {
 };
 
 export const fiveMinuteWarning = (led) => {
-  led.color(DARK_PINK);
+  led.color(ORANGE);
   flash(led, 25, 15);
 };

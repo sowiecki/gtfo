@@ -8,7 +8,7 @@ import {
   BOOKED
 } from '../constants/room-statuses';
 
-const configureAccessories = (roomStatus, accessories) => {
+const notificationsController = (roomStatus, accessories) => {
   switch (roomStatus.alert) {
     case VACANT:
       console.log(`${roomStatus.outlookAccount} has no upcoming reservations`);
@@ -36,4 +36,4 @@ const configureAccessories = (roomStatus, accessories) => {
   }
 };
 
-export default configureAccessories;
+export default notificationsController;

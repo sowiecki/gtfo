@@ -12,12 +12,14 @@ import {
   registerBoard,
   registerLed,
   registerPiezo,
-  registerThermo
+  registerThermo,
+  registerMotion
 } from './helpers/register-hardware';
 import {
   FETCH_ROOM_RESERVATIONS,
   MOCK_ROOM_RESERVATIONS,
-  FETCH_ROOM_TEMPERATURE
+  FETCH_ROOM_TEMPERATURE,
+  FETCH_ROOM_MOTION
 } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants/values';
 
@@ -38,7 +40,8 @@ export default {
         const accessories = {
           led: registerLed(board),
           piezo: registerPiezo(board),
-          thermo: registerThermo(board)
+          thermo: registerThermo(board),
+          motion: registerMotion(board)
         };
 
         // Set interval for checking and responding to room state
@@ -58,6 +61,12 @@ export default {
               accessories
             });
 
+            store().dispatch({
+              type: FETCH_ROOM_MOTION,
+              room,
+              accessories
+            });
+
             // Mocks are static, no need to constantly recheck
             clearInterval(refetchRoomReservations);
             return;
@@ -72,6 +81,12 @@ export default {
 
           store().dispatch({
             type: FETCH_ROOM_TEMPERATURE,
+            room,
+            accessories
+          });
+
+          store().dispatch({
+            type: FETCH_ROOM_MOTION,
             room,
             accessories
           });
