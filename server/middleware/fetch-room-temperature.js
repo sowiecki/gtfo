@@ -1,7 +1,8 @@
 import { EMIT_ROOM_TEMPERATURE_UPDATE } from '../ducks/rooms';
 
-const fetchRoomTemperature = (room, next, action) => {
-  const { thermo } = action.accessories;
+const fetchRoomTemperature = (next, action) => {
+  const { room, accessories } = action;
+  const { thermo } = accessories;
 
   thermo.on('data', () => {
     next({

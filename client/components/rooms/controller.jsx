@@ -14,7 +14,7 @@ export default class RoomsController extends Component {
 
   render() {
     const rooms = this.props.rooms.toJS();
-
+    // console.table(rooms);
     return (
       <div>
         {rooms.map(this.renderChunk)}

@@ -1,6 +1,5 @@
-/* eslint no-console:0, callback-return:0 */
-import mockRoomData from '../mocks/mock-data';
 import fetchRoomReservations from './fetch-room-reservation';
+import fetchMockedReservations from './fetch-mocked-reservations';
 import fetchRoomTemperature from './fetch-room-temperature';
 import fetchRoomMotion from './fetch-room-motion';
 import setAlertByReservationStatus from './helpers/set-reservation-alert';
@@ -13,18 +12,9 @@ import {
 } from '../ducks/rooms';
 
 export default () => (next) => (action) => {
-  const { room, accessories } = action;
-
   switch (action.type) {
     case MOCK_ROOM_RESERVATIONS:
-      const reservations = mockRoomData[room.outlookAccount];
-      const roomWithAlert = setAlertByReservationStatus(room, reservations);
-
-      next({
-        type: EMIT_ROOM_STATUSES_UPDATE,
-        room: roomWithAlert,
-        accessories
-      });
+      fetchMockedReservations(next, action);
       break;
 
     case FETCH_ROOM_RESERVATIONS:
@@ -32,13 +22,11 @@ export default () => (next) => (action) => {
       break;
 
     case FETCH_ROOM_TEMPERATURE:
-    console.log('FETCH_ROOM_TEMPERATURE')
-      fetchRoomTemperature(room, next, action);
+      fetchRoomTemperature(next, action);
       break;
 
     case FETCH_ROOM_MOTION:
-    console.log('FETCH_ROOM_MOTION')
-      fetchRoomMotion(room, next, action);
+      fetchRoomMotion(next, action);
       break;
 
     default:
