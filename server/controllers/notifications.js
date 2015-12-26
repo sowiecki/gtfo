@@ -8,6 +8,8 @@ import {
   BOOKED
 } from '../constants/room-statuses';
 
+// TODO remove console states
+
 const notificationsController = (roomStatus, accessories) => {
   switch (roomStatus.alert) {
     case VACANT:
