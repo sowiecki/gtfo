@@ -44,6 +44,18 @@ export default {
           motion: registerMotion(board)
         };
 
+        store().dispatch({
+          type: FETCH_ROOM_TEMPERATURE,
+          room,
+          accessories
+        });
+
+        store().dispatch({
+          type: FETCH_ROOM_MOTION,
+          room,
+          accessories
+        });
+
         // Set interval for checking and responding to room state
         const refetchRoomReservations = setInterval(() => {
           if (process.env.MOCKS) {
@@ -55,38 +67,12 @@ export default {
               accessories
             });
 
-            store().dispatch({
-              type: FETCH_ROOM_TEMPERATURE,
-              room,
-              accessories
-            });
-
-            store().dispatch({
-              type: FETCH_ROOM_MOTION,
-              room,
-              accessories
-            });
-
-            // Mocks are static, no need to constantly recheck
-            clearInterval(refetchRoomReservations);
             return;
           }
 
           // Retrieve outlook room reservation statuses
           store().dispatch({
             type: FETCH_ROOM_RESERVATIONS,
-            room,
-            accessories
-          });
-
-          store().dispatch({
-            type: FETCH_ROOM_TEMPERATURE,
-            room,
-            accessories
-          });
-
-          store().dispatch({
-            type: FETCH_ROOM_MOTION,
             room,
             accessories
           });

@@ -10,7 +10,7 @@ import {
 } from '../../constants/colors';
 
 // Keep leds low so as to not disturb occupants
-const faint = 15;
+const faint = 25;
 
 const flash = (led, maxIntensity = 100, rate = 5) => {
   let fadeDirection = IN;

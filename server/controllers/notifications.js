@@ -11,7 +11,7 @@ import {
 const notificationsController = (roomStatus, accessories) => {
   switch (roomStatus.alert) {
     case VACANT:
-      console.log(`${roomStatus.outlookAccount} has no upcoming reservations`);
+      console.log(`${roomStatus.outlookAccount} is vacant for at least 30 minutes`);
 
       flash.vacant(accessories.led);
       break;
