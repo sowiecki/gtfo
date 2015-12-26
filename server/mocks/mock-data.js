@@ -1,22 +1,23 @@
+import fs from 'fs';
 import moment from 'moment';
+import pluck from 'lodash/collection/pluck';
 
-// All dates are ISO 8601
+import {
+  GAP_PROBABILITY,
+  RESERVATIONS_PER_DAY,
+  START_OF_DAY
+} from './constants';
 
-const GAP_PROBABILITY = 5;
-const RESERVATIONS_PER_DAY = 10;
-const NOW = moment().toISOString();
-const CURRENT_YEAR = moment().year();
-const CURRENT_MONTH = moment().month();
-const TODAY = moment().day();
-const START_TIME = "09:00am";
-const START_OF_DAY = moment([CURRENT_YEAR, CURRENT_MONTH, TODAY, START_TIME]);
+/**
+ * All dates are ISO 8601
+ */
 
-const minutesFromNow = (minutes) => START_OF_DAY.add(minutes, 'minutes').toISOString();
-
-const minutesFromStartOfDay = (minutes) => moment().add(minutes, 'minutes').toISOString();
+const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
+const mockData = {};
+const mockRooms = pluck(devices, 'outlookAccount');
 
 const randomMeetingDuration = () => {
-  const durations = [30, 60, 90];
+  const durations = [30, 30, 30, 40, 60, 60, 90];
 
   return durations[Math.floor(Math.random() * (durations.length - 0)) + 0];
 };
@@ -27,16 +28,7 @@ const randomReservationGap = () => {
   return introduceGap ? randomMeetingDuration() : 0;
 };
 
-const mockData = {};
-
-const mockRooms = [
-  'chibronzeville@slalom.com',
-  'chiwrigleyville@slalom.com',
-  'chisouthatrium@slalom.com',
-  'chitheloop@slalom.com'
-];
-
-const mockEmail = () => {
+const generateMockEmail = () => {
   const mockEmails = [
     'BlakeHenderson@slalom.com',
     'AliceMurphy@slalom.com',
@@ -44,27 +36,30 @@ const mockEmail = () => {
     'JillianBelk@slalom.com',
     'AndersHolmvik@slalom.com'
   ];
+  const randomIndex = () => Math.floor(Math.random() * (mockEmails.length - 0)) + 0;
 
-  return mockEmails[() => Math.floor(Math.random() * (mockEmails.length - 0)) + 0];
+  return mockEmails[randomIndex()];
 };
 
-const generateReservation = (room, beginTime, endTime) => ({
-  'email': mockEmail(),
-  'startDate': minutesFromStartOfDay(beginTime),
-  'endDate': minutesFromStartOfDay(endTime)
-});
+const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => {
+  return {
+    'email': generateMockEmail(),
+    'startDate': moment(START_OF_DAY).add(beginTimeOffset, 'minutes'),
+    'endDate': moment(START_OF_DAY).add(endTimeOffset, 'minutes')
+  }
+};
 
 const generateMockData = () => {
   mockRooms.forEach((room, index) => {
-    let nextBeginTime = START_OF_DAY;
-    let nextEndTime = randomMeetingDuration();
+    let beginTimeOffset = moment(START_OF_DAY).minutes();
+    let endTimeOffset = beginTimeOffset + randomMeetingDuration();
     mockData[room] = [];
 
     for (let i = 0; i < RESERVATIONS_PER_DAY; i++) {
-      mockData[room].push(generateReservation(room, nextBeginTime, nextEndTime));
+      mockData[room].push(generateMockReservation(room, beginTimeOffset, endTimeOffset));
 
-      nextBeginTime = nextEndTime + randomReservationGap();
-      nextEndTime = nextBeginTime + randomMeetingDuration();
+      beginTimeOffset = endTimeOffset + randomReservationGap();
+      endTimeOffset = beginTimeOffset + randomMeetingDuration();
     }
   });
 

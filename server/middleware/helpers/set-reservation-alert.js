@@ -9,7 +9,7 @@ import {
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
-const setAlertByReservationStatus = (room, reservations) => {
+const setAlertByReservationStatus = (room, reservations = []) => {
   let alert;
 
   const firstMeeting = reservations[0];
@@ -20,7 +20,7 @@ const setAlertByReservationStatus = (room, reservations) => {
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
   const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
-  const nextMeetingStartingSoon = moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
+  const nextMeetingStartingSoon = secondMeeting ? moment(secondMeeting.startDate).isBefore(minutesFromNow(5)) : false;
   const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon;
   const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon;
 
