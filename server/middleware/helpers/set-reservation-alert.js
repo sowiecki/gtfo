@@ -22,7 +22,7 @@ const setAlertByReservationStatus = (room, reservations = []) => {
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
   const nextMeetingStartingSoon = secondMeeting ? moment(secondMeeting.startDate).isBefore(minutesFromNow(5)) : false;
   const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon;
-  const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon;
+  const fiveMinuteWarning = reservationUpInFive || nextMeetingStartingSoon;
 
   if (currentlyVacant && !nextMeetingStartingSoon) {
     alert = VACANT;

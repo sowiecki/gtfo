@@ -29,6 +29,10 @@ const { rooms } = store().getState();
 
 export default {
   run() {
+    if (process.env.MOCKS) {
+      console.log(colors.gray.italic('Using mock data'));
+    }
+
     rooms.map((room) => {
       // Initialize board
       const board = registerBoard(room);
@@ -59,8 +63,6 @@ export default {
         // Set interval for checking and responding to room state
         const refetchRoomReservations = setInterval(() => {
           if (process.env.MOCKS) {
-            console.log(colors.gray.italic('Using mock data'));
-
             store().dispatch({
               type: MOCK_ROOM_RESERVATIONS,
               room,
