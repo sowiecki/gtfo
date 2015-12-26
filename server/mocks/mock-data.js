@@ -44,8 +44,8 @@ const generateMockEmail = () => {
 const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => {
   return {
     'email': generateMockEmail(),
-    'startDate': moment(START_OF_DAY).add(beginTimeOffset, 'minutes'),
-    'endDate': moment(START_OF_DAY).add(endTimeOffset, 'minutes')
+    'startDate': moment(START_OF_DAY).add(beginTimeOffset, 'minutes').toISOString(),
+    'endDate': moment(START_OF_DAY).add(endTimeOffset, 'minutes').toISOString()
   }
 };
 

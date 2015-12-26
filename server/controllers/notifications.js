@@ -13,7 +13,7 @@ const notificationsController = (roomStatus, accessories) => {
     case VACANT:
       console.log(`${roomStatus.outlookAccount} has no upcoming reservations`);
 
-      flash.unreserved(accessories.led);
+      flash.vacant(accessories.led);
       break;
 
     case ONE_MINUTE_WARNING:
