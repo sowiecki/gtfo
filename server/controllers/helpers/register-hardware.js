@@ -38,7 +38,7 @@ export const registerPiezo = (board) => {
     pin: PIEZO_PIN,
     id: board.id,
     board
-  })
+  });
 };
 
 export const registerThermo = (board) => {

@@ -11,7 +11,7 @@
     "start": "node hub",
     "clean": "rimraf public/dist",
     "build": "webpack",
-    "lint": "eslint {client,server}/*.{jsx,js}",
+    "lint": "eslint --ext .js,.jsx client server",
     "dev-server": "nodemon --ignore client/ ./application.js",
     "server": "node ./application.js",
     "dev": "npm run clean && nf start dev-server,dev-client",

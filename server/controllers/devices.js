@@ -1,5 +1,5 @@
 /* eslint no-console:0, max-nested-callbacks:0 */
-/* globals console, setInterval, clearInterval */
+/* globals console, setInterval */
 
 /**
  * Initializes x number of devices
@@ -61,7 +61,7 @@ export default {
         });
 
         // Set interval for checking and responding to room state
-        const refetchRoomReservations = setInterval(() => {
+        setInterval(() => {
           if (process.env.MOCKS) {
             store().dispatch({
               type: MOCK_ROOM_RESERVATIONS,

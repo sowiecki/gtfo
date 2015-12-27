@@ -20,13 +20,19 @@ const randomMeetingDuration = () => {
 };
 
 const randomReservationGap = () => {
-  const introduceGap = 3 >= Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0;
+  const introduceGap = Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0 <= 3;
 
   return introduceGap ? randomMeetingDuration() : 0;
 };
 
 const generateMockEmail = () => {
-  const mockNames = [ 'BlakeHenderson', 'AliceMurphy', 'AdamDeMamp', 'JillianBelk', 'AndersHolmvik' ];
+  const mockNames = [
+    'BlakeHenderson',
+    'AliceMurphy',
+    'AdamDeMamp',
+    'JillianBelk',
+    'AndersHolmvik'
+  ];
   const randomIndex = () => Math.floor(Math.random() * (mockNames.length - 0)) + 0;
 
   return `${mockNames[randomIndex()]}@slalom.com`;
@@ -40,7 +46,7 @@ const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => ({
 
 const generateMockData = () => {
   // Generate reservations for each room
-  mockRooms.forEach((room, index) => {
+  mockRooms.forEach((room) => {
     let beginTimeOffset = moment(START_OF_DAY).minutes();
     let endTimeOffset = beginTimeOffset + randomMeetingDuration();
     mockData[room] = [];

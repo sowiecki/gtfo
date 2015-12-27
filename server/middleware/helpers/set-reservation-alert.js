@@ -1,3 +1,4 @@
+/* eslint max-statements:0 */
 import moment from 'moment';
 
 import {
@@ -16,11 +17,14 @@ const setAlertByReservationStatus = (room, reservations = []) => {
   const secondMeeting = reservations[1];
 
   // Reservation conditions
-  const currentlyVacant = reservations.length === 0 || moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
+  const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
+  const currentlyVacant = reservations.length === 0 || noMeetingWithinFive;
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
   const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
-  const nextMeetingStartingSoon = secondMeeting ? moment(secondMeeting.startDate).isBefore(minutesFromNow(5)) : false;
+  // Should only run when secondMeeting.startDate is defined
+  const checkUpcomingMeeting = () => moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
+  const nextMeetingStartingSoon = secondMeeting ? checkUpcomingMeeting() : false;
   const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon;
   const fiveMinuteWarning = reservationUpInFive || nextMeetingStartingSoon;
 

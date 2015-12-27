@@ -1,7 +1,6 @@
 import mockData from '../mocks/mock-data';
 import setAlertByReservationStatus from './helpers/set-reservation-alert';
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
-import * as urls from '../constants/urls';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;

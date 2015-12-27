@@ -30,7 +30,7 @@ const reducer = (state = devices, action) => {
 
     case EMIT_ROOM_MOTION_UPDATE:
       const { lastMotion } = action;
-console.log(lastMotion)
+
       room.lastMotion = lastMotion || false;
       return room;
 

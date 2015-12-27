@@ -1,5 +1,4 @@
 /* eslint no-console:0 */
-/* globals console */
 import * as flash from './helpers/flash';
 import { logRoomNotification } from './helpers/logging';
 import {
