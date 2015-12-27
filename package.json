@@ -12,7 +12,7 @@
     "clean": "rimraf public/dist",
     "build": "webpack",
     "lint": "eslint --ext .js,.jsx client server",
-    "dev-server": "nodemon --ignore client/ ./application.js",
+    "dev-server": "nodemon --ignore mock-data.json --ignore client/ ./application.js",
     "server": "node ./application.js",
     "dev": "npm run clean && nf start dev-server,dev-client",
     "dev-mocks": "npm run clean && MOCKS=true nf start dev-server,dev-client",

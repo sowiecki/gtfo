@@ -67,6 +67,10 @@ const generateMockData = () => {
     });
   });
 
+  // TODO Change flow of using mock data to generate and use file
+  //      Will be more robust testing restarts
+  // fs.writeFileSync("./mock-data.json", JSON.stringify(mockData, null, 2));
+
   return mockData;
 };
 
