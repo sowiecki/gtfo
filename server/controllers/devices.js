@@ -14,7 +14,7 @@ import {
   registerPiezo,
   registerThermo,
   registerMotion
-} from './helpers/register-hardware';
+} from './utils/register-hardware';
 import {
   FETCH_ROOM_RESERVATIONS,
   MOCK_ROOM_RESERVATIONS,

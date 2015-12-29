@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
-import * as flash from './helpers/flash';
-import { logRoomNotification } from './helpers/logging';
+import * as flash from './utils/flash';
+import { logRoomNotification } from './utils/logging';
 import {
   VACANT,
   ONE_MINUTE_WARNING,
