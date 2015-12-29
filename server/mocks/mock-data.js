@@ -1,48 +1,24 @@
-import fs from 'fs';
+import colors from 'colors';
+import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
-import { pluck, filter } from 'lodash/collection';
+import { every, map, pluck } from 'lodash/collection';
+import { flatten } from 'lodash/array';
 
 import {
-  GAP_PROBABILITY,
+  MOCK_DATA_FILE,
   RESERVATIONS_PER_DAY,
   START_OF_DAY
 } from './constants';
+import {
+  randomMeetingDuration,
+  randomReservationGap,
+  generateMockEmail,
+  generateMockReservation
+} from './utils';
 
-const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
+const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
 const mockData = {};
 const mockRooms = pluck(devices, 'outlookAccount');
-
-const randomMeetingDuration = () => {
-  // Most meetings are 30 minutes, some are 60 minutes, and rarely are they 90 minutes
-  const durations = [30, 30, 30, 60, 60, 90];
-
-  return durations[Math.floor(Math.random() * (durations.length - 0)) + 0];
-};
-
-const randomReservationGap = () => {
-  const introduceGap = Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0 <= 3;
-
-  return introduceGap ? randomMeetingDuration() : 0;
-};
-
-const generateMockEmail = () => {
-  const mockNames = [
-    'BlakeHenderson',
-    'AliceMurphy',
-    'AdamDeMamp',
-    'JillianBelk',
-    'AndersHolmvik'
-  ];
-  const randomIndex = () => Math.floor(Math.random() * (mockNames.length - 0)) + 0;
-
-  return `${mockNames[randomIndex()]}@slalom.com`;
-};
-
-const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => ({
-  'email': generateMockEmail(),
-  'startDate': moment(START_OF_DAY).add(beginTimeOffset, 'minutes').toISOString(),
-  'endDate': moment(START_OF_DAY).add(endTimeOffset, 'minutes').toISOString()
-});
 
 const generateMockData = () => {
   // Generate reservations for each room
@@ -58,20 +34,40 @@ const generateMockData = () => {
       beginTimeOffset = endTimeOffset + randomReservationGap();
       endTimeOffset = beginTimeOffset + randomMeetingDuration();
     }
-
-    // Filter expired reservations
-    mockData[room] = filter(mockData[room], (reservation) => {
-      const reservationNotExpired = !moment(reservation.endDate).isBefore(moment());
-
-      return reservationNotExpired;
-    });
   });
 
-  // TODO Change flow of using mock data to generate and use file
-  //      Will be more robust testing restarts
-  // fs.writeFileSync("./mock-data.json", JSON.stringify(mockData, null, 2));
+  writeFileSync(MOCK_DATA_FILE, JSON.stringify(mockData, null, 2));
+};
+
+const getMockData = () => {
+  let mockData;
+
+  try {
+    mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
+
+    if (lstatSync(MOCK_DATA_FILE).isFile()) {
+      // Check that mock data's meeting dates take place on today's date
+      const allReservations = flatten(map(mockData, (room) => pluck(room, 'startDate')));
+
+      // Validate that each reservation is for today
+      const current = every(allReservations, (startDate) => {
+        return moment().calendar(startDate, {sameDay: '[Today]'}) === 'Today';
+      });
+
+      if (!current) {
+        console.log(colors.yellow('Mock data out-of-date, generating new one.'));
+
+        generateMockData();
+      }
+    }
+  }
+  catch (e) {
+    console.log(colors.yellow('No mock-data.json present, generating new one.'));
+
+    generateMockData();
+  }
 
   return mockData;
 };
 
-export default generateMockData();
+export default getMockData();
