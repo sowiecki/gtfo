@@ -1,6 +1,5 @@
-// import moment from 'moment';
-import temporal from 'temporal';
-
+/* eslint no-use-before-define:0 */
+/* globals clearInterval, setInterval */
 import { IN, OUT } from '../../constants/values';
 import {
   RED,
