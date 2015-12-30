@@ -16,6 +16,12 @@ const setAlertByReservationStatus = (room, reservations = []) => {
   // TODO Should determine meetings by comparing to current time
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
+// console.log(`first meeting ending at ${moment(firstMeeting.endDate).format('LLLL')} second ending at ${moment(secondMeeting.endDate).format('LLLL')}`)
+  // No reservations left for today
+  if (!reservations.length) {
+    room.alert = VACANT;
+    return room;
+  }
 
   // Reservation conditions
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
@@ -34,9 +40,9 @@ const setAlertByReservationStatus = (room, reservations = []) => {
 
   if (currentlyVacant && !nextMeetingStartingSoon) {
     alert = VACANT;
-  } else if (oneMinuteWarning) {
+  } else if (oneMinuteWarning && nextMeetingStartingSoon) {
     alert = ONE_MINUTE_WARNING;
-  } else if (fiveMinuteWarning) {
+  } else if (fiveMinuteWarning && nextMeetingStartingSoon) {
     alert = FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
     alert = BOOKED;

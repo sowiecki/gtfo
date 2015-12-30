@@ -23,6 +23,7 @@
     "prod": "npm run clean && nf start prod-server,prod-client",
     "dev-client": "webpack-dev-server --config webpack.config.dev.js --color --progress --inline --content-base build",
     "prod-client": "npm run lint && NODE_ENV=production webpack",
+    "yolo": "rm mock-data.json",
     "test": "npm run lint"
   },
   "author": "Sean Owiecki",

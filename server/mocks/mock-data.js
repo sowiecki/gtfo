@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* globals console */
 import colors from 'colors';
 import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
@@ -12,15 +14,15 @@ import {
 import {
   randomMeetingDuration,
   randomReservationGap,
-  generateMockEmail,
   generateMockReservation
 } from './utils';
 
 const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
-const mockData = {};
 const mockRooms = pluck(devices, 'outlookAccount');
 
 const generateMockData = () => {
+  const mockData = {};
+
   // Generate reservations for each room
   mockRooms.forEach((room) => {
     let beginTimeOffset = moment(START_OF_DAY).minutes();
@@ -39,6 +41,12 @@ const generateMockData = () => {
   writeFileSync(MOCK_DATA_FILE, JSON.stringify(mockData, null, 2));
 };
 
+/**
+ * 1. If mock-data.json exists and is up-to-date, leave file alone
+ * 2. If mock-data.json exists, and is out-of-date, overwrite with new data
+ * 3. If mock-data.json does not exist, create it with new data
+ */
+ // TODO check that reservations exist for each device
 const getMockData = () => {
   let mockData;
 
@@ -55,16 +63,18 @@ const getMockData = () => {
       });
 
       if (!current) {
-        console.log(colors.yellow('Mock data out-of-date, generating new one.'));
+        console.log(colors.yellow('Mock data out-of-date, overwriting with new mock-data.json.'));
 
         generateMockData();
       }
     }
-  }
-  catch (e) {
-    console.log(colors.yellow('No mock-data.json present, generating new one.'));
+  } catch (e) {
+    console.log(colors.yellow('No mock-data.json present, generating new mock-data.json.'));
 
     generateMockData();
+
+    // Re-read and re-assign
+    mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
   }
 
   return mockData;

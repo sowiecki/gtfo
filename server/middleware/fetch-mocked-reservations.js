@@ -11,7 +11,7 @@ const fetchRoomReservations = (next, action) => {
 
   // filter to use ONLY current and upcoming reservations
   const reservations = filter(mockData[room.outlookAccount], (reservation) => {
-    const reservationNotExpired = !moment(reservation.endDate).isBefore(moment());
+    const reservationNotExpired = !moment(reservation.endDate).isBefore(Date.now());
 
     return reservationNotExpired;
   });

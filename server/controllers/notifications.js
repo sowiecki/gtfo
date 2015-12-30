@@ -9,6 +9,11 @@ import {
 } from '../constants/room-statuses';
 
 const notificationsController = (roomStatus, accessories) => {
+  // TODO better handling of no reservations left
+  if (!roomStatus) {
+    return;
+  }
+
   logRoomNotification(roomStatus);
 
   switch (roomStatus.alert) {

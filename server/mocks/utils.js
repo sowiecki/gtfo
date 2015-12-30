@@ -3,7 +3,7 @@
  */
 import moment from 'moment';
 
-import { GAP_PROBABILITY } from './constants';
+import { GAP_PROBABILITY, START_OF_DAY } from './constants';
 
 export const randomMeetingDuration = () => {
   // Most meetings are 30 minutes, some are 60 minutes, and rarely are they 90 minutes
@@ -12,7 +12,7 @@ export const randomMeetingDuration = () => {
   return durations[Math.floor(Math.random() * (durations.length - 0)) + 0];
 };
 
-const randomReservationGap = () => {
+export const randomReservationGap = () => {
   const introduceGap = Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0 <= 3;
 
   return introduceGap ? randomMeetingDuration() : 0;
