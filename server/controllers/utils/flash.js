@@ -1,6 +1,5 @@
-// import moment from 'moment';
-import temporal from 'temporal';
-
+/* eslint no-use-before-define:0 */
+/* globals clearInterval, setInterval */
 import { IN, OUT } from '../../constants/values';
 import {
   RED,
@@ -13,10 +12,13 @@ import {
 const faint = 25;
 
 const flash = (led, maxIntensity = 100, rate = 5) => {
+  // Prevent runaway flashing when method is repeatidly called
+  clearInterval(flashInterval);
+
   let fadeDirection = IN;
   let intensity = maxIntensity;
 
-  return temporal.loop(rate, () => {
+  const flashInterval = setInterval(() => {
     switch (intensity) {
       case 0:
         fadeDirection = IN;
@@ -36,7 +38,7 @@ const flash = (led, maxIntensity = 100, rate = 5) => {
     }
 
     led.intensity(intensity);
-  });
+  }, rate);
 };
 
 export const vacant = (led) => {

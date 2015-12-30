@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/Nase00/gtfo.svg?branch=master)](https://travis-ci.org/Nase00/gtfo)
 
 ## Gently Tell Folks Out (of meeting rooms)
+Push reservation status notifications to meeting rooms!
+
+## Getting Started
 Must be running [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on same machine.
 ```bash
 git clone https://github.com/Nase00/gtfo-nexus.git
@@ -45,6 +48,35 @@ Hardware:
 2. Load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
 3. Load the access tokens and device id for each Photon into `devices.json`.
 
+```js
+{
+  "devices": [
+    // Example of meeting JSON object
+    {
+      "location": "The Loop", // Actual name of meeting room
+      "deviceAlias": "Skynet", // This can be whatever, use it to keep track of your hardware
+
+      // Find device ID and authToken on your Particle account devices page
+      // or use https://github.com/voodootikigod/voodoospark#connecting-the-particle-device-to-you
+      "deviceId": "2c0021000547343339373536",
+      "deviceAuthToken": "abc123",
+
+      "outlookAccount": "chitheloop@slalom.com",
+      "outlookAuthToken": "def456", // NOTE still working the kinks out on this, may be omitted in the future
+
+      "type": "Particle Photon"
+    },
+    ...
+  ]
+}
+```
+
 #### Raspberry Pi
 1. Load Debian JESSIE variant onto Raspiberry Pi.
 2. Configure SSH and other desired settings.
+3. Clone this program onto the Raspberry Pi.
+4. Create and configure a `devices.json` file in the root directory.
+5. `npm run hot`. (prod under development)
+
+## Mock Data
+Mock reservations for the current local date are automatically generated for each device present in `devices.json`. The file is left untouched as long as the reservations are up-to-date, otherwise it is re-generated. I.e., if you have a `mock-data.json` generated from running `npm run hot-mocks` on one day, and then run it againt he next day, `mock-data.json` will be overwritten with new, random reservations.

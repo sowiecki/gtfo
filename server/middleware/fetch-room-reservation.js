@@ -3,7 +3,7 @@
 
 import http from 'http';
 
-import setAlertByReservationStatus from './helpers/set-reservation-alert';
+import setAlertByReservationStatus from './utils/set-reservation-alert';
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants/urls';
 

@@ -13,8 +13,15 @@ const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString
 const setAlertByReservationStatus = (room, reservations = []) => {
   let alert;
 
+  // TODO Should determine meetings by comparing to current time
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
+
+  // No reservations left for today
+  if (!reservations.length) {
+    room.alert = VACANT;
+    return room;
+  }
 
   // Reservation conditions
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
@@ -22,17 +29,20 @@ const setAlertByReservationStatus = (room, reservations = []) => {
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
   const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
-  // Should only run when secondMeeting.startDate is defined
-  const checkUpcomingMeeting = () => moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
-  const nextMeetingStartingSoon = secondMeeting ? checkUpcomingMeeting() : false;
-  const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon;
-  const fiveMinuteWarning = reservationUpInFive || nextMeetingStartingSoon;
+  const nextMeetingStartingSoon = () => {
+    if (!secondMeeting) {
+      return false;
+    }
+    return moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
+  };
+  const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon();
+  const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon();
 
   if (currentlyVacant && !nextMeetingStartingSoon) {
     alert = VACANT;
-  } else if (oneMinuteWarning) {
+  } else if (oneMinuteWarning && nextMeetingStartingSoon) {
     alert = ONE_MINUTE_WARNING;
-  } else if (fiveMinuteWarning) {
+  } else if (fiveMinuteWarning && nextMeetingStartingSoon) {
     alert = FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
     alert = BOOKED;

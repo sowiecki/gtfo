@@ -1,8 +1,8 @@
-import fs from 'fs';
+import { readFileSync } from 'fs';
 
 import notificationsController from '../controllers/notifications';
 
-const devices = JSON.parse(fs.readFileSync('./devices.json', 'utf8')).devices;
+const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
