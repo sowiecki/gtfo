@@ -1,14 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import slug from 'slug';
 
 import SVGBase from './svg/base';
+import { shapeModifier } from '../../utils/room-layout';
+
+// Configuration for slug to map alert classes
+slug.charmap._ = '-';
 
 export default class RoomsController extends Component {
   renderChunk(chunk) {
-    // console.log(chunk);
     return (
-      <SVGBase key={`${chunk.outlookAccount}-chunk`} {...chunk.shape}>
-        <rect {...chunk.shape} />
-      </SVGBase>
+      <SVGBase
+        key={`${chunk.outlookAccount}-chunk`}
+        className={slug(chunk.alert, {lower: true})}
+        {...shapeModifier(chunk.shape)}/>
     );
   }
 
@@ -16,7 +21,7 @@ export default class RoomsController extends Component {
     const rooms = this.props.rooms.toJS();
     // console.table(rooms);
     return (
-      <div>
+      <div className='layout-root'>
         {rooms.map(this.renderChunk)}
       </div>
     );

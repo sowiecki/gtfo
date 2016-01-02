@@ -1,0 +1,17 @@
+@import '../../colors';
+
+.vacant {
+  background: $GREEN;
+}
+
+.five-minute-warning {
+  background: $RED;
+}
+
+.one-minute-warning {
+  background: $ORANGE;
+}
+
+.booked {
+  background: $TEAL;
+}

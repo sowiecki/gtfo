@@ -5,7 +5,9 @@ const SVGBase = (props) => (
 );
 
 SVGBase.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired
 };
 
 export default SVGBase;
