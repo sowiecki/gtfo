@@ -24,6 +24,11 @@ module.exports = {
         test: /\.scss$/,
         loader: 'style!css!sass',
         include: path.join(__dirname, 'client')
+      },
+      {
+        test: /\.svg$/,
+        loader: 'file-loader',
+        include: path.join(__dirname, 'client')
       }
     ]
   }

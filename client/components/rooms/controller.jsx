@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import slug from 'slug';
 
+import Paper from 'material-ui/lib/paper';
+
 import SVGBase from './svg/base';
+import { OFFLINE } from '../../constants/svg';
 import { shapeModifier } from '../../utils/room-layout';
 
 // Configuration for slug to map alert classes
@@ -9,10 +12,17 @@ slug.charmap._ = '-';
 
 export default class RoomsController extends Component {
   renderChunk(chunk) {
+    const position = {
+      position: 'absolute',
+      top: '60%',
+      left: '50%'
+    };
+// console.log(chunk)
     return (
       <SVGBase
         key={`${chunk.outlookAccount}-chunk`}
-        className={slug(chunk.alert, {lower: true})}
+        style={position}
+        className={slug(chunk.alert || OFFLINE, {lower: true})}
         {...shapeModifier(chunk.shape)}/>
     );
   }
@@ -21,9 +31,11 @@ export default class RoomsController extends Component {
     const rooms = this.props.rooms.toJS();
     // console.table(rooms);
     return (
-      <div className='layout-root'>
-        {rooms.map(this.renderChunk)}
-      </div>
+      <Paper className='layout-container' zDepth={1}>
+        <svg className='layout-root'>
+          {rooms.map(this.renderChunk)}
+        </svg>
+      </Paper>
     );
   }
 }
