@@ -44,7 +44,7 @@ class RoomsContainer extends Component {
     const content = this.hasRoomsData() ? this.renderRooms() : null;
 
     return (
-      <div>
+      <div className='container'>
         <ReactCSSTransition
           transitionName='root-container'
           transitionEnterTimeout={2000}

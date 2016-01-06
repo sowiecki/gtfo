@@ -6,6 +6,7 @@ secrets
 devices.json
 mock-data.json
 env
+.DS_Store
 
 # Runtime data
 pids

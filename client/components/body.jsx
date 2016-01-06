@@ -4,9 +4,9 @@ import NavigationController from './navigation/controller';
 
 export default ({ children }) => {
   return (
-    <div>
+    <span>
       <NavigationController/>
       {children}
-    </div>
+    </span>
   );
 };
