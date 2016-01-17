@@ -1,7 +1,7 @@
 /* eslint no-use-before-define:0 */
 /* globals clearInterval, setInterval */
 import { IN, OUT } from '../../constants/values';
-import { RED, TEAL, GREEN, ORANGE } from '../../constants/colors';
+import { RED, TEAL, GREEN, YELLOW } from '../../constants/colors';
 
 // Keep leds low so as to not disturb occupants
 const faint = 25;
@@ -35,29 +35,21 @@ const flash = (led, maxIntensity = 100, rate = 5) => {
 };
 
 export const vacant = (led) => {
-  clearInterval(flashInterval);
-
   led.intensity(faint);
   led.color(GREEN);
 };
 
 export const occupied = (led) => {
-  clearInterval(flashInterval);
-
   led.intensity(faint);
   led.color(TEAL);
 };
 
 export const oneMinuteWarning = (led) => {
-  clearInterval(flashInterval);
-
   led.color(RED);
-  flash(led, 100, 5);
+  led.strobe(400)
 };
 
 export const fiveMinuteWarning = (led) => {
-  clearInterval(flashInterval);
-
-  led.color(ORANGE);
-  flash(led, 25, 15);
+  led.color(YELLOW);
+  led.strobe(200)
 };

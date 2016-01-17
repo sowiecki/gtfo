@@ -1,5 +1,6 @@
 /* eslint max-statements:0 */
 import moment from 'moment';
+import isEmpty from 'lodash/lang/isEmpty';
 
 import {
   VACANT,
@@ -25,7 +26,7 @@ const setAlertByReservationStatus = (room, reservations = []) => {
 
   // Reservation conditions
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
-  const currentlyVacant = reservations.length === 0 || noMeetingWithinFive;
+  const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
   const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
   const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
   const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
