@@ -36,24 +36,28 @@ const flash = (led, maxIntensity = 100, rate = 5) => {
 
 export const vacant = (led) => {
   clearInterval(flashInterval);
+
   led.intensity(faint);
   led.color(GREEN);
 };
 
 export const occupied = (led) => {
   clearInterval(flashInterval);
+
   led.intensity(faint);
   led.color(TEAL);
 };
 
 export const oneMinuteWarning = (led) => {
   clearInterval(flashInterval);
+
   led.color(RED);
   flash(led, 100, 5);
 };
 
 export const fiveMinuteWarning = (led) => {
   clearInterval(flashInterval);
+
   led.color(ORANGE);
   flash(led, 25, 15);
 };
