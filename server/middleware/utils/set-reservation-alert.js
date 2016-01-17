@@ -38,11 +38,11 @@ const setAlertByReservationStatus = (room, reservations = []) => {
   const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon();
   const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon();
 
-  if (currentlyVacant && !nextMeetingStartingSoon) {
+  if (currentlyVacant && !nextMeetingStartingSoon()) {
     alert = VACANT;
-  } else if (oneMinuteWarning && nextMeetingStartingSoon) {
+  } else if (oneMinuteWarning && nextMeetingStartingSoon()) {
     alert = ONE_MINUTE_WARNING;
-  } else if (fiveMinuteWarning && nextMeetingStartingSoon) {
+  } else if (fiveMinuteWarning && nextMeetingStartingSoon()) {
     alert = FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
     alert = BOOKED;
