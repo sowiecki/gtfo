@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { List } from 'immutable-props'
 import slug from 'slug';
 
 import Paper from 'material-ui/lib/paper';
@@ -41,5 +42,5 @@ export default class RoomsController extends Component {
 }
 
 RoomsController.propTypes = {
-  rooms: PropTypes.object
+  rooms: List
 };
