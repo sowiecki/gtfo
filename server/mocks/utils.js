@@ -13,7 +13,7 @@ export const randomMeetingDuration = () => {
 };
 
 export const randomReservationGap = () => {
-  const introduceGap = Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0 <= 3;
+  const introduceGap = Math.floor(Math.random() * (GAP_PROBABILITY - 0)) + 0 >= 3;
 
   return introduceGap ? randomMeetingDuration() : 0;
 };
