@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from 'immutable-props'
+import { List } from 'immutable-props';
 import slug from 'slug';
 
 import Paper from 'material-ui/lib/paper';
