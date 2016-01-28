@@ -9,7 +9,7 @@
   "main": "application.js",
   "scripts": {
     "start": "node hub",
-    "clean": "rimraf public/dist",
+    "clean": "rimraf public",
     "build": "webpack",
     "lint": "eslint --ext .js,.jsx client server",
     "dev-server": "nodemon --ignore mock-data.json --ignore client/ ./application.js",
@@ -20,9 +20,10 @@
     "hot-dd": "npm run clean && HOT=true DISABLE_DEVICES=true npm run dev-server",
     "hot-mocks": "npm run clean && HOT=true MOCKS=true npm run dev-server",
     "hot-mocks-dd": "npm run clean && HOT=true MOCKS=true DISABLE_DEVICES=true npm run dev-server",
-    "prod": "npm run clean && nf start prod-server,prod-client",
+    "prod": "npm run clean && npm run prod-client && npm run prod-server",
     "dev-client": "webpack-dev-server --config webpack.config.dev.js --color --progress --inline --content-base build",
     "prod-client": "npm run lint && NODE_ENV=production webpack",
+    "prod-server": "NODE_ENV=production npm run server",
     "yolo": "rm mock-data.json",
     "test": "npm run lint"
   },
