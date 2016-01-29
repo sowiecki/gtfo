@@ -7,5 +7,8 @@ module.exports = {
   entry: base.entry,
   output: base.output,
   resolve: base.resolve,
-  module: base.module
+  module: base.module,
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 }
