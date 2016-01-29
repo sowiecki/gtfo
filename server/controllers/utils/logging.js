@@ -1,3 +1,5 @@
+import colors from 'colors';
+
 /* eslint no-console:0 */
 /* globals console */
 export const logRoomNotification = (roomStatus) => {
@@ -6,11 +8,18 @@ export const logRoomNotification = (roomStatus) => {
   process.stdout.cursorTo(0);
 
   const statusMessages = {
-    VACANT: `${roomStatus.outlookAccount} is vacant for at least 30 minutes`,
-    ONE_MINUTE_WARNING: `${roomStatus.outlookAccount} has 1 minute left on current reservation`,
-    FIVE_MINUTE_WARNING: `${roomStatus.outlookAccount} has 5 minutes left on current reservation`,
-    BOOKED: `${roomStatus.outlookAccount} is currently booked`
+    VACANT: `${roomStatus.name} is vacant for at least 30 minutes`,
+    ONE_MINUTE_WARNING: `${roomStatus.name} has 1 minute left on current reservation`,
+    FIVE_MINUTE_WARNING: `${roomStatus.name} has 5 minutes left on current reservation`,
+    BOOKED: `${roomStatus.name} is currently booked`
   };
 
-  console.log(statusMessages[roomStatus.alert]);
+  const logColors = {
+    VACANT: 'green',
+    ONE_MINUTE_WARNING: 'red',
+    FIVE_MINUTE_WARNING: 'orange',
+    BOOKED: 'cyan'
+  };
+
+  console.log(colors[logColors[roomStatus.alert]](statusMessages[roomStatus.alert]));
 };
