@@ -1,14 +1,14 @@
 {
   "name": "gtfo-api",
   "version": "0.0.1",
-  "description": "Gently Tell Folks Out of meeting rooms - API",
+  "description": "Gently Tell Folks Out of meeting rooms - remote unit control",
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:seanowiecki/gtfo-api.git"
   },
   "main": "application.js",
   "scripts": {
-    "start": "node hub",
+    "start": "npm run prod",
     "clean": "rimraf public",
     "build": "webpack",
     "lint": "eslint --ext .js,.jsx client server",
