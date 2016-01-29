@@ -10,7 +10,7 @@ import filterExpiredReservations from './utils/filter-reservations';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
-  const source = `${urls.ROOM_RESERVATIONS}${room.outlookAccount}`;
+  const source = `${urls.ROOM_RESERVATIONS}${room.id}`;
 
   // Retrieve outlook room reservation statuses
   http.get(source, (response) => {
@@ -28,7 +28,7 @@ const fetchRoomReservations = (next, action) => {
     });
   }).on('error', (error) => {
     const errorMessage = `Failed to fetch room reservations
-                          for ${room.outlookAccount}. \n
+                          for ${room.id}. \n
                           ${error}`;
 
     console.log(errorMessage);

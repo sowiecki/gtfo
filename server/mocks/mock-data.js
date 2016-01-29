@@ -18,7 +18,7 @@ import {
 } from './utils';
 
 const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
-const mockRooms = pluck(devices, 'outlookAccount');
+const mockRooms = pluck(devices, 'id');
 
 const generateMockData = () => {
   const mockData = {};
