@@ -1,2 +1,3 @@
 #!/bin/bash
-npm run prod
+npm run prod-client && npm run prod-server
+
