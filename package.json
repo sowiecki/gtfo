@@ -24,7 +24,7 @@
     "dev-client": "webpack-dev-server --config webpack.config.dev.js --color --progress --inline --content-base build",
     "prod-client": "npm run lint && NODE_ENV=production webpack --config webpack.config.prod.js",
     "prod-server": "NODE_ENV=production npm run server",
-    "deploy": "pm2 start deploy.sh --name 'GTFO' --watch",
+    "deploy": "npm run prod-client && forever start -c 'npm run prod-server'",
     "yolo": "rm mock-data.json",
     "test": "npm run lint"
   },
