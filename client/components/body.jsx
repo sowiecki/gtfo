@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { pure } from 'recompose';
 
-import NavigationController from './navigation/controller';
+import NavigationContainer from './navigation/container';
 
-export default ({ children }) => {
+const Body = (props) => {
   return (
     <span>
-      <NavigationController/>
-      {children}
+      <NavigationContainer {...props}/>
+      {props.children}
     </span>
   );
 };
+
+Body.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export default pure(Body);

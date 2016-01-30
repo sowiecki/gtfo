@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { pure } from 'recompose';
+import ImmutablePropTypes from 'immutable-props';
 import { Link } from 'react-router';
 
 import { AppBar, LeftNav } from 'material-ui/lib';
 
 import MenuButton from './menu-button';
 
-export default class NavigationController extends Component {
-  constructor(props) {
-    super(props);
+const NavigationController = ({ actions, navigation }) => {
+  const { siteNavOpen } = navigation.toJS();
 
-    this.toggleNav = this.toggleNav.bind(this);
-  }
+  const menuButton = (
+    <MenuButton toggleNav={actions.emitSiteNavToggle.bind(null, !siteNavOpen)}/>
+  );
 
-  componentDidMount() {
-    // Necessary because LeftNav starts open ¯\_(ツ)_/¯
-    this.toggleNav();
-  }
+  return (
+    <div>
+      <AppBar
+        title="GTFO"
+        iconElementLeft={<div/>}
+        iconElementRight={menuButton}/>
+        <LeftNav open={siteNavOpen}>
+          <Link to='/' onClick={actions.emitSiteNavToggle.bind(null, !siteNavOpen)}>
+            Placeholder
+          </Link>
+        </LeftNav>
+    </div>
+  );
+};
 
-  toggleNav() {
-    this.refs.leftNav.toggle();
-  }
+NavigationController.propTypes = {
+  navigation: ImmutablePropTypes.Map.isRequired
+};
 
-  render() {
-    const menuButton = (
-      <MenuButton toggleNav={this.toggleNav.bind(this)}/>
-    );
-
-    return (
-      <div>
-        <AppBar
-          title="GTFO"
-          iconElementLeft={<div/>}
-          iconElementRight={menuButton}/>
-          <LeftNav ref="leftNav">
-            <Link to='/' onClick={this.toggleNav}>Placeholder</Link>
-          </LeftNav>
-      </div>
-    );
-  }
-}
+export default pure(NavigationController);

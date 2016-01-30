@@ -8,7 +8,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import configureStore from './store/configure-store';
 
 import Body from './components/body';
-import RoomsContainer from './containers/rooms';
+import RoomsContainer from './components/rooms/container';
 
 require('./styles/base.scss');
 

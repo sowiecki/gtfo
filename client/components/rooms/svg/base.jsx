@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { pure } from 'recompose';
 
 const SVGBase = (props) => (
   <svg {...props}>{props.children}</svg>
@@ -10,4 +11,4 @@ SVGBase.propTypes = {
   y: PropTypes.number.isRequired
 };
 
-export default SVGBase;
+export default pure(SVGBase);

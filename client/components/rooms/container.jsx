@@ -3,10 +3,10 @@ import ReactCSSTransition from 'react-addons-css-transition-group';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import RoomsController from '../components/rooms/controller';
-import Loading from '../components/common/loading';
+import RoomsController from './controller';
+import Loading from '../common/loading';
 
-import * as RoomsActions from '../ducks/rooms';
+import * as RoomsActions from '../../ducks/rooms';
 
 class RoomsContainer extends Component {
   constructor(props) {
@@ -64,7 +64,7 @@ RoomsContainer.propTypes = {
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  rooms: PropTypes.node
+  rooms: PropTypes.object
 };
 
 const mapStateToProps = ({ rooms }) => ({ rooms });
