@@ -6,7 +6,7 @@
 
 svg.office-layout {
   position: relative;
-  top: 75px;
+  top: 55px;
   left: 0;
   height: 600px;
   width: 600px;
@@ -15,8 +15,9 @@ svg.office-layout {
   background-image: url(../assets/layout.svg);
 
   @media (min-width: 631px) {
-    height: 1200px;
-    width: 1200px;
+    left: -100px;
+    height: 1500px;
+    width: 1500px;
   }
 
   @media (min-width: 1281px) {

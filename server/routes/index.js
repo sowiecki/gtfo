@@ -9,9 +9,9 @@ const router = express.Router();
 const { rooms } = store().getState();
 
 /* Individual room status */
-router.get('/api/rooms/:outlookAccount', (req, res) => {
-  const outlookAccount = `${req.params['outlookAccount']}@slalom.com`;
-  const room = find(rooms, {outlookAccount});
+router.get('/api/rooms/:id', (req, res) => {
+  const id = req.params['id'];
+  const room = find(rooms, {id});
 
   res.json(room);
 });
