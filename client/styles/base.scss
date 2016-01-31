@@ -1,8 +1,6 @@
 @import 'transitions/index';
 
-@import 'components/common';
 @import 'components/office-layout';
-@import 'components/chunks/base';
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 
@@ -12,9 +10,8 @@ html, body, #root {
   height: 100%;
   width: 100%;
   background-color: #F8F8FF;
+}
 
-  div.container {
-    height: 100%;
-    width: 100%;
-  }
+svg.chunk {
+  color: #FF0000;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
+import radium from 'radium';
 import { pure } from 'recompose';
 import ImmutablePropTypes from 'immutable-props';
-import { Link } from 'react-router';
 
 import { AppBar, LeftNav } from 'material-ui/lib';
 
@@ -37,4 +37,4 @@ NavigationController.propTypes = {
   navigation: ImmutablePropTypes.Map.isRequired
 };
 
-export default pure(NavigationController);
+export default pure(radium(NavigationController));

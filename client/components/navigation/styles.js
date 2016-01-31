@@ -4,6 +4,7 @@ export default {
     position: 'absolute',
     boxShadow: 'none'
   },
+
   appTitle: {
     color: '#000000'
   }

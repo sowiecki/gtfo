@@ -1,18 +1,18 @@
-import { SHAPE_SIZE_MODIFIER } from '../constants/svg';
+/* globals window */
+export const shapeModifier = ({ height, width, x, y }) => {
+  const windowRatio = window.innerWidth / window.innerHeight;
+  // 1.97 for 16:9
+  // 1.39 for 5:4
 
-export const shapeModifier = ({ height, width, x, y }) => ({
-  height: height * SHAPE_SIZE_MODIFIER,
-  width: width * SHAPE_SIZE_MODIFIER,
-  x,
-  y
-});
+  const fiveFourHeightModifier = windowRatio < 1.5 ? .2 : 0;
+  const fiveFourWidthModifier = windowRatio < 1.5 ? .4 : 0;
+  const fiveFourXModifier = windowRatio < 1.5 ? .5 : 0;
+  const fiveFourYModifier = windowRatio < 1.5 ? 0 : 0;
 
-// TODO decide if using this or slug
-// export const mapRoomClass = (alert) => {
-//   return {
-//     VACANT: 'vacant',
-//     FIVE_MINUTE_WARNING: 'five-minute-warning',
-//     ONE_MINUTE_WARNING: 'one-minute-warning',
-//     BOOKED: 'booked'
-//   }[alert];
-// };
+  return {
+    height: `${height + fiveFourHeightModifier}%`,
+    width: `${width + fiveFourWidthModifier}%`,
+    x: `${x + fiveFourXModifier}%`,
+    y: `${y + fiveFourYModifier}%`
+  };
+};
