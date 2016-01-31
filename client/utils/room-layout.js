@@ -1,6 +1,6 @@
 /* globals window */
 export const shapeModifier = ({ height, width, x, y }) => {
-  const windowRatio = window.innerWidth / window.innerHeight;
+  const windowRatio = window.innerWidth / window.innerHeight; // TODO add to Redux store
   // 1.97 for 16:9
   // 1.39 for 5:4
 
