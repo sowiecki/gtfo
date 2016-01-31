@@ -12,9 +12,8 @@ const Room = ({ room }) => (
       stroke={styles.svgStroke}
       {...shapeModifier(room.shape)}/>
     <text
-      fill='#000000'
-      fontSize='11'
-      dy={30}
+      className='svg-text'
+      dy={24}
       dx={2}
       {...shapeModifier(room.shape)}>
         {room.name}

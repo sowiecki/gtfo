@@ -5,16 +5,39 @@
 */
 
 svg.office-layout {
-  margin: 0;
-  height: 96%;
-  width: 46%;
-  background: #FFFFFF;
+  position: relative;
+  top: 75px;
+  left: 0;
+  height: 600px;
+  width: 600px;
   background-size: cover;
   background-position: center;
   background-image: url(../assets/layout.svg);
 
-  @media (max-aspect-ratio: 6/4) {
-    height: 92%;
-    width: 60%;
+  @media (min-width: 631px) {
+    height: 1200px;
+    width: 1200px;
+  }
+
+  @media (min-width: 1281px) {
+    height: 1500px;
+    width: 1500px;
+  }
+}
+
+text.svg-text {
+  font-size: 8px;
+  font-family: 'Titillium Web', sans-serif;
+
+  @media (max-width: 630px) {
+    transform: translateY(-12px);
+  }
+
+  @media (min-width: 631px) {
+    font-size: 11px;
+  }
+
+  @media (min-width: 1281px) {
+    font-size: 12px;
   }
 }

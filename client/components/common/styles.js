@@ -3,6 +3,7 @@ export const colors = {
   secondary: '',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
+  WHITE: '#FFFFFF',
   GREY: '#888899',
   BLACK: '#333333',
   PURPLE: '#551A8B',
@@ -17,10 +18,11 @@ export const colors = {
 export default {
   // Used to override element styles on dark backgrounds
   lightOnDark: {
-    color: '#FFFFFF'
+    color: colors.WHITE
   },
 
   loadingContainer: {
+    zIndex: 200,
     position: 'absolute',
     top: '25%',
     height: '50%',

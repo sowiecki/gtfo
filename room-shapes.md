@@ -2,18 +2,18 @@
 ```json
 // Wrigleyville
 {
-  "height": 6.6,
-  "width": 7.6,
-  "x": 73.5,
-  "y": 38.6
+  "height": 3.3,
+  "width": 3.7,
+  "x": 60.7,
+  "y": 19.1
 }
 
 // Bronzeville
 {
-  "height": 6.6,
-  "width": 11.8,
-  "x": 61,
-  "y": 80.6
+  "height": 3.1,
+  "width": 5.6,
+  "x": 55,
+  "y": 40.2
 }
 
 ```
