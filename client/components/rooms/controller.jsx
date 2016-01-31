@@ -1,46 +1,24 @@
 import React, { Component } from 'react';
+import radium from 'radium';
+import { pure } from 'recompose';
 import { List } from 'immutable-props';
-import slug from 'slug';
 
 import Paper from 'material-ui/lib/paper';
 
-import SVGBase from './svg/base';
-import { OFFLINE } from '../../constants/svg';
-import { shapeModifier } from '../../utils/room-layout';
+import Room from './room';
 
-// Configuration for slug to map alert classes
-slug.charmap._ = '-';
+import styles from './styles';
 
-export default class RoomsController extends Component {
-  renderChunk(chunk) {
-    const position = {
-      position: 'absolute',
-      top: '60%',
-      left: '50%'
-    };
-// console.log(chunk)
-    return (
-      <SVGBase
-        key={`${chunk.outlookAccount}-chunk`}
-        style={position}
-        className={slug(chunk.alert || OFFLINE, {lower: true})}
-        {...shapeModifier(chunk.shape)}/>
-    );
-  }
-
-  render() {
-    const rooms = this.props.rooms.toJS();
-    // console.table(rooms);
-    return (
-      <Paper className='layout-container' zDepth={1}>
-        <svg className='layout-root'>
-          {rooms.map(this.renderChunk)}
-        </svg>
-      </Paper>
-    );
-  }
-}
+const RoomsController = ({ rooms }) => (
+  <Paper style={styles.officeLayoutContainer} zDepth={1}>
+    <svg className='office-layout'>
+      {rooms.toJS().map((room) => <Room key={`${room.name}`} room={room}/>)}
+    </svg>
+  </Paper>
+);
 
 RoomsController.propTypes = {
   rooms: List
 };
+
+export default pure(radium(RoomsController));

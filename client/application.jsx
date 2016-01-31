@@ -19,11 +19,12 @@ const history = createBrowserHistory();
 
 const Application = (
   <Provider store={store}>
-      <Router history={history}>
-        <Route path='/' component={Body}>
-          <IndexRoute component={RoomsContainer}/>
-        </Route>
-      </Router>
+    <Router history={history}>
+      <Route path='/' component={Body}>
+        <IndexRoute component={RoomsContainer}/>
+      </Route>
+      <Route path='/rooms' component={RoomsContainer}/>
+    </Router>
   </Provider>
 );
 

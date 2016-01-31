@@ -15,8 +15,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loaders: ['babel-loader'],
+        test: /\.js(x|)?$/,
+        loader: 'babel-loader?plugins[]=transform-object-rest-spread',
         include: path.join(__dirname, 'client'),
         exclude: /node_modules/
       },

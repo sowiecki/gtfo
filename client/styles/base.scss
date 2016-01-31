@@ -1,20 +1,17 @@
 @import 'transitions/index';
 
-@import 'components/common';
-@import 'components/layout';
-@import 'components/chunks/base';
+@import 'components/office-layout';
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 
 html, body, #root {
+  position: absolute;
   margin: 0;
-  padding: 0;
   height: 100%;
   width: 100%;
   background-color: #F8F8FF;
+}
 
-  span .container {
-    height: 100%;
-    width: 100%;
-  }
+svg.chunk {
+  color: #FF0000;
 }
