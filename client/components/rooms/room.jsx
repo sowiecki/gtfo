@@ -6,7 +6,7 @@ import { shapeModifier } from '../../utils/room-layout';
 import { OFFLINE } from '../../constants/svg';
 
 const Room = ({ room }) => (
-  <svg key={`${room.outlookAccount}-chunk`}>
+  <svg>
     <rect
       fill={styles[room.alert || OFFLINE]}
       {...shapeModifier(room.shape)}/>
