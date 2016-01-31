@@ -32,8 +32,8 @@ export default class RoomsController extends Component {
     const rooms = this.props.rooms.toJS();
     // console.table(rooms);
     return (
-      <Paper className='layout-container' zDepth={1}>
-        <svg className='layout-root'>
+      <Paper className='office-layout-container' zDepth={1}>
+        <svg>
           {rooms.map(this.renderChunk)}
         </svg>
       </Paper>

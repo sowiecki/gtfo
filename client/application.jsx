@@ -23,6 +23,7 @@ const Application = (
         <Route path='/' component={Body}>
           <IndexRoute component={RoomsContainer}/>
         </Route>
+        <Route path='/rooms' component={RoomsContainer}/>
       </Router>
   </Provider>
 );

@@ -16,9 +16,9 @@ class RoomsContainer extends Component {
   }
 
   componentWillMount() {
-    const { fetchRoomStatuses } = this.props.actions;
+    const { actions } = this.props;
 
-    fetchRoomStatuses();
+    actions.fetchRoomStatuses();
   }
 
   hasRoomsData() {
