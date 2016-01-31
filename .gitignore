@@ -6,7 +6,7 @@ secrets
 devices.json
 mock-data.json
 env
-/public
+/server/public/dist
 .DS_Store
 
 # Runtime data

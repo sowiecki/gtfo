@@ -37,12 +37,12 @@ server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.set('port', config.serverPort);
-server.use('/', routes);
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
-server.use(express.static(path.join(__dirname, `${config.publicPath}`)));
+server.use('/', express.static(path.join(__dirname, 'public')));
+server.use('/', routes);
 
-const app = server.listen(config.serverPort, 'localhost', (err) => {
+const app = server.listen(config.serverPort, (err) => {
   if (err) {
     console.log(err);
     return;

@@ -5,7 +5,11 @@ var base = require('./webpack.config');
 module.exports = {
   contet: base.context,
   entry: base.entry,
-  output: base.output,
+  output: {
+    path:  path.resolve(__dirname, 'server', 'public', 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
   resolve: base.resolve,
   module: base.module,
   plugins: [
