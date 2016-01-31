@@ -1,6 +1,6 @@
 import { colors } from '../common/styles';
 
-const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
+const { BLACK, GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export default {
   officeLayoutContainer: {
@@ -25,6 +25,8 @@ export default {
       width: '60%'
     }
   },
+
+  svgStroke: BLACK,
 
   OFFLINE: GREY,
 

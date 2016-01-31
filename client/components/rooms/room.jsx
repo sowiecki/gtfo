@@ -9,9 +9,15 @@ const Room = ({ room }) => (
   <svg>
     <rect
       fill={styles[room.alert || OFFLINE]}
+      stroke={styles.svgStroke}
       {...shapeModifier(room.shape)}/>
-    <text fill='#000000' fontSize='10' {...shapeModifier(room.shape)}>
-      {room.name}
+    <text
+      fill='#000000'
+      fontSize='11'
+      dy={30}
+      dx={2}
+      {...shapeModifier(room.shape)}>
+        {room.name}
     </text>
   </svg>
 );

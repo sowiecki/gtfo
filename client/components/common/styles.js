@@ -3,13 +3,14 @@ export const colors = {
   secondary: '',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
-  GREY: '#333333',
+  GREY: '#888899',
+  BLACK: '#333333',
   PURPLE: '#551A8B',
   BLUE: '#3399FF',
   TEAL: '#217C7E',
   DARK_PINK: '#FF0066',
   RED: '#FF0000',
-  GREEN: '#AAF200',
+  GREEN: '#72E837',
   ORANGE: '#FF2500'
 };
 
