@@ -39,7 +39,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.set('port', config.serverPort);
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
-server.use('/', express.static(path.join(__dirname, 'public')));
+server.use('/', express.static(path.join(__dirname, config.publicPath)));
 server.use('/', routes);
 
 const app = server.listen(config.serverPort, (err) => {

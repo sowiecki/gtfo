@@ -14,16 +14,11 @@ const NavigationController = ({ actions, navigation }) => {
   const { siteNavOpen } = navigation.toJS();
   const toggleSiteNavOpen = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
 
-  const menuButton = (
-    <MenuButton toggleNav={toggleSiteNavOpen}/>
-  );
-
   return (
     <div>
       <AppBar
         title='Office Insight'
-        iconElementLeft={<div/>}
-        iconElementRight={menuButton}
+        iconElementLeft={<MenuButton toggleSiteNavOpen={toggleSiteNavOpen}/>}
         titleStyle={styles.appTitle}
         style={styles.appBar}/>
       <LeftNav open={siteNavOpen}>

@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRoute, Route } from 'react-router';
 import { Provider } from 'react-redux';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
 
+import history from './config/history';
 import configureStore from './store/configure-store';
 
 import Body from './components/body';
@@ -15,7 +15,6 @@ require('./styles/base.scss');
 const store = configureStore();
 const node = document.getElementById('root');
 
-const history = createBrowserHistory();
 
 const Application = (
   <Provider store={store}>
@@ -23,7 +22,7 @@ const Application = (
       <Route path='/' component={Body}>
         <IndexRoute component={RoomsContainer}/>
       </Route>
-      <Route path='/rooms' component={RoomsContainer}/>
+      <Route path='/map' component={RoomsContainer}/>
     </Router>
   </Provider>
 );

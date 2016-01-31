@@ -1,7 +1,3 @@
-/* API URI */
-export const apiURI = '/api/';
-
-/* Ports */
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -16,8 +12,8 @@ const normalizePort = (val) => {
   return false;
 };
 
+/* Ports */
 export const serverPort = normalizePort(process.env.PORT || '3000');
-export const clientPort = process.env.HOT || process.env.NODE_ENV ? serverPort : 8080;
 
 /* Server public path */
 export const publicPath = 'public';

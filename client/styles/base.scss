@@ -4,6 +4,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web);
+@import url(https://fonts.googleapis.com/css?family=Wire+One);
 
 html, body, #root {
   position: absolute;
@@ -12,8 +13,4 @@ html, body, #root {
   width: 100%;
   overflow: hidden;
   background-color: #F8F8FF;
-}
-
-svg.chunk {
-  color: #FF0000;
 }

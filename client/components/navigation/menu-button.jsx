@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { pure } from 'recompose';
 
 import { IconButton } from 'material-ui/lib';
 
-const MenuButton = ({ toggleNav }) => {
+import styles from './styles';
+
+const MenuButton = ({ toggleSiteNavOpen }) => {
   return (
     <IconButton
-      className='light-on-dark'
-      onClick={toggleNav}>
-        <i className="material-icons">menu</i>
+      style={styles.menuButton}
+      onClick={toggleSiteNavOpen}>
+        <i className='material-icons'>menu</i>
     </IconButton>
   );
 };
 
-export default MenuButton;
+MenuButton.propTypes = {
+  toggleSiteNavOpen: PropTypes.func.isRequired
+};
+
+export default pure(MenuButton);

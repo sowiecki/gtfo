@@ -1,8 +1,7 @@
-/* eslint new-cap:0, dot-notation:0 */
+/* eslint new-cap:0 */
 import express from 'express';
 import find from 'lodash/collection/find';
 
-import * as config from '../config';
 import store from '../store/configure-store';
 
 const router = express.Router();
@@ -10,7 +9,7 @@ const { rooms } = store().getState();
 
 /* Individual room status */
 router.get('/api/rooms/:id', (req, res) => {
-  const id = req.params['id'];
+  const { id } = req.params;
   const room = find(rooms, {id});
 
   res.json(room);
@@ -23,9 +22,7 @@ router.get('/api/rooms', (req, res) => {
 
 /* Serve client - must be last route */
 router.get('*', (req, res) => {
-  res.render('application', {
-    port: config.clientPort
-  });
+  res.render('application');
 });
 
 export default router;

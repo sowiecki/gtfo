@@ -6,39 +6,39 @@
 
 svg.office-layout {
   position: relative;
-  top: 55px;
-  left: 0;
-  height: 600px;
-  width: 600px;
+  top: 65px;
+  left: -200px;
+  height: 850px;
+  width: 850px;
   background-size: cover;
   background-position: center;
   background-image: url(../assets/layout.svg);
 
   @media (min-width: 631px) {
     left: -100px;
-    height: 1500px;
-    width: 1500px;
+    height: 1000px;
+    width: 1000px;
   }
 
-  @media (min-width: 1281px) {
+  @media (min-width: 1024px) {
     height: 1500px;
     width: 1500px;
   }
 }
 
 text.svg-text {
-  font-size: 8px;
+  font-size: 10px;
   font-family: 'Titillium Web', sans-serif;
 
   @media (max-width: 630px) {
-    transform: translateY(-12px);
+    transform: translateY(-10px);
   }
 
   @media (min-width: 631px) {
     font-size: 11px;
   }
 
-  @media (min-width: 1281px) {
+  @media (min-width: 1024px) {
     font-size: 12px;
   }
 }
