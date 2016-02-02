@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/Nase00/gtfo.svg?branch=master)](https://travis-ci.org/Nase00/gtfo)
 
 ## Gently Tell Folks Out (of meeting rooms)
-Push reservation status notifications to meeting rooms!
+Push reservation status notifications to meeting rooms! And do other things...
 
 ## Getting Started
-Must be running [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on same machine.
+This program is designed to be run in conjuction with [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on the same machine, **except in production mode**. In production mode, it assumed `ems-wrapper` is deployed on another domain, which is then used to fetch Exchange Services data.
 ```bash
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
@@ -90,3 +90,18 @@ Example of a `devices.json` with a single device configured to The Loop:
 3. Clone this program onto the Raspberry Pi.
 4. Create and configure a `devices.json` file in the root directory.
 5. `npm run hot`. (prod under development)
+
+### Client map
+To integrate a meeting room into the client map, the room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured and placed into `coordinates.json`.
+
+Example of a `coordinates.json` file configured to display Bronzeville:
+```json
+{
+  "bronzeville": {
+    "height": 3.1,
+    "width": 5.6,
+    "x": 55,
+    "y": 40.2
+  }
+}
+```

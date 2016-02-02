@@ -2,7 +2,11 @@ import { readFileSync } from 'fs';
 
 import notificationsController from '../controllers/notifications';
 
-const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
+const { devices } = JSON.parse(readFileSync('./devices.json', 'utf8'));
+const coordinates = JSON.parse(readFileSync('./coordinates.json', 'utf8'));
+
+// Map room coordinates to device object
+devices.map((device) => device.coordinates = coordinates[device.id]);
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';

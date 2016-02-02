@@ -10,12 +10,12 @@ const Room = ({ room }) => (
     <rect
       fill={styles[room.alert || OFFLINE]}
       stroke={styles.svgStroke}
-      {...shapeModifier(room.shape)}/>
+      {...shapeModifier(room.coordinates)}/>
     <text
       className='svg-text'
       dy={24}
       dx={2}
-      {...shapeModifier(room.shape)}>
+      {...shapeModifier(room.coordinates)}>
         {room.name}
     </text>
   </svg>
