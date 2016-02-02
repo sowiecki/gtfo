@@ -21,6 +21,9 @@ npm run hot # Development mode with live data and hot-reloading
 npm run dev-mocks # Development mode with mock data
 ```
 ```bash
+npm run dev-mocks-dd # Development mode with mock data and disabled devices (experimental)
+```
+```bash
 npm run dev # Development mode with live data
 ```
 ```bash
@@ -37,36 +40,46 @@ npm run prod # Production mode with live data
 
 ## Configuration
 
-Hardware:
 - Raspberry Pi 2 Model B v1.1 running JESSIE (other models and distros likely work, but are untested)
 - *n* number of [Particle Photons](https://store.particle.io)
 
-## Hardware Setup
+## Setup
 
 #### Photon Boards
-1. Setup each device to Particle's cloud service.
-2. Load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
-3. Load the access tokens and device id for each Photon into `devices.json`.
+First, wire a common cathode RGB LED to each Photon board.
 
-```js
+###### RGB pin configuration
+| Wire   | Pin   |
+|:------:|:-----:|
+| R      | D0    |
+| G      | D1    |
+| B      | D2    |
+| Ground | Ground|
+
+After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
+
+Finally, retrieve the access tokens and device id for each Photon, and place them into `devices.json`.
+
+###### `devices.json` configuration
+| Parameter        | Description                | Required? |
+|------------------|----------------------------|-----------|
+| id               | ID of exchange account     | Yes       |
+| name             | Display name for room      | Yes       |
+| deviceId         | ID of Photon board         | Yes       |
+| deviceAuthToken  | Auth token of Photon board | Yes       |
+| deviceAlias      | Name of module             | No        |
+
+Example of a `devices.json` with a single device configured to The Loop:
+```json
 {
   "devices": [
-    // Example of meeting JSON object
     {
-      "location": "The Loop", // Actual name of meeting room
-      "deviceAlias": "Skynet", // This can be whatever, use it to keep track of your hardware
-
-      // Find device ID and authToken on your Particle account devices page
-      // or use https://github.com/voodootikigod/voodoospark#connecting-the-particle-device-to-you
-      "deviceId": "2c0021000547343339373536",
-      "deviceAuthToken": "abc123",
-
-      "outlookAccount": "chitheloop@slalom.com",
-      "outlookAuthToken": "def456", // NOTE still working the kinks out on this, may be omitted in the future
-
-      "type": "Particle Photon"
-    },
-    ...
+      "id": "the loop",
+      "name": "The Loop",
+      "deviceAlias": "Skynet",
+      "deviceId": "123456789abcd",
+      "deviceAuthToken": "abc123"
+    }
   ]
 }
 ```
@@ -77,6 +90,3 @@ Hardware:
 3. Clone this program onto the Raspberry Pi.
 4. Create and configure a `devices.json` file in the root directory.
 5. `npm run hot`. (prod under development)
-
-## Mock Data
-Mock reservations for the current local date are automatically generated for each device present in `devices.json`. The file is left untouched as long as the reservations are up-to-date, otherwise it is re-generated. I.e., if you have a `mock-data.json` generated from running `npm run hot-mocks` on one day, and then run it againt he next day, `mock-data.json` will be overwritten with new, random reservations.
