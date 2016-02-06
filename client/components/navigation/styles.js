@@ -2,7 +2,7 @@ import { colors } from '../common/styles';
 
 const { WHITE } = colors;
 
-export default {
+export const styles = {
   appBar: {
     position: 'absolute'
   },

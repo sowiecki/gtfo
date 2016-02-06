@@ -10,11 +10,8 @@ import configureStore from './store/configure-store';
 import Body from './components/body';
 import RoomsContainer from './components/rooms/container';
 
-require('./styles/base.scss');
-
 const store = configureStore();
 const node = document.getElementById('root');
-
 
 const Application = (
   <Provider store={store}>

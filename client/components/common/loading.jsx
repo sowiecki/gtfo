@@ -2,14 +2,16 @@ import React from 'react';
 
 import { CircularProgress } from 'material-ui/lib';
 
-import styles from './styles';
+import { base } from '../../config/composition';
+import { styles } from './styles';
 
-export default class Loading extends React.Component {
-  render() {
-    return (
-      <div style={styles.loadingContainer}>
-        <CircularProgress size={5} color={styles.progressColor} mode='indeterminate'/>
-      </div>
-    );
-  }
-}
+const Loading = () => (
+  <div style={styles.loadingContainer}>
+    <CircularProgress
+      size={5}
+      color={styles.progressColor}
+      mode='indeterminate'/>
+  </div>
+);
+
+export default base(Loading);

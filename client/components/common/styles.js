@@ -1,5 +1,7 @@
+import transitions from './transitions';
+
 export const colors = {
-  primary: '',
+  primary: '#00BCD4',
   secondary: '',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
@@ -15,7 +17,14 @@ export const colors = {
   ORANGE: '#FF2500'
 };
 
-export default {
+export const breakpoints = {
+  beforeMedium: 'screen and (max-width: 629px)',
+  afterMedium: 'screen and (min-width: 720px)',
+  afterLarge: 'screen and (min-width: 1024px)',
+  afterExtraLarge: 'screen and (min-width: 2048px)'
+};
+
+export const styles = {
   // Used to override element styles on dark backgrounds
   lightOnDark: {
     color: colors.WHITE
@@ -30,5 +39,20 @@ export default {
     textAlign: 'center'
   },
 
-  progressColor: colors.primaryOpposing
+  progressColor: colors.primary
+};
+
+export const rules = {
+  body: {
+    'html, body': {
+      position: 'absolute',
+      margin: '0',
+      height: '100%',
+      width: '100%',
+      overflow: 'hidden',
+      backgroundColor: '#F8F8FF'
+    },
+
+    ...transitions
+  }
 };
