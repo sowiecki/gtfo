@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { pure } from 'recompose';
 
 import { IconButton } from 'material-ui/lib';
 
-import styles from './styles';
+import { base } from '../../config/composition';
+import { styles } from './styles';
 
 const MenuButton = ({ toggleSiteNavOpen }) => {
   return (
@@ -19,4 +19,4 @@ MenuButton.propTypes = {
   toggleSiteNavOpen: PropTypes.func.isRequired
 };
 
-export default pure(MenuButton);
+export default base(MenuButton);

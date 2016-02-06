@@ -1,6 +1,4 @@
 import React from 'react';
-import radium from 'radium';
-import { pure } from 'recompose';
 import ImmutablePropTypes from 'immutable-props';
 
 import { AppBar, LeftNav } from 'material-ui/lib';
@@ -8,7 +6,8 @@ import { AppBar, LeftNav } from 'material-ui/lib';
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
 
-import styles from './styles';
+import { applyStyles } from '../../config/composition';
+import { styles } from './styles';
 
 const NavigationController = ({ actions, navigation }) => {
   const { siteNavOpen } = navigation.toJS();
@@ -32,4 +31,4 @@ NavigationController.propTypes = {
   navigation: ImmutablePropTypes.Map.isRequired
 };
 
-export default pure(radium(NavigationController));
+export default applyStyles(NavigationController);
