@@ -57,7 +57,7 @@ export const rules = {
     'text.room-text': {
       zIndex: '200',
       fontSize: '10px',
-      fontFamily: `'Titillium Web', sans-serif`
+      fontFamily: `'Wire One', sans-serif`
     },
 
     mediaQueries: {
@@ -75,7 +75,8 @@ export const rules = {
 
       [breakpoints.afterLarge]: {
         'text.room-text': {
-          fontSize: '12px'
+          fontSize: '16px',
+          fontWeight: '18'
         }
       }
     }

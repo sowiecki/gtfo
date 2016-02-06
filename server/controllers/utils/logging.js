@@ -22,7 +22,7 @@ export const logRoomNotification = ({ name, alert }) => {
     OFFLINE: 'black'
   };
 
-  const logColor = logColors[alert] || logColors[OFFLINE];
+  const logColor = alert ? logColors[alert] : logColors.OFFLINE;
 
   console.log(colors[logColor](statusMessages[alert]));
 };

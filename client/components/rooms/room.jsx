@@ -4,7 +4,7 @@ import { Style } from 'radium';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
 import { shapeModifier } from '../../utils/room-layout';
-import { OFFLINE } from '../../constants/svg';
+import { OFFLINE, TEXT_DX, TEXT_DY } from '../../constants/svg';
 
 const Room = ({ room }) => {
   // console.log(room);
@@ -17,9 +17,8 @@ const Room = ({ room }) => {
         {...shapeModifier(room.coordinates)}/>
       <text
         className='room-text'
-        style={styles.svgText}
-        dy={24}
-        dx={2}
+        dx={TEXT_DX}
+        dy={TEXT_DY}
         {...shapeModifier(room.coordinates)}>
           {room.name}
       </text>

@@ -1,27 +1,27 @@
 /* eslint no-use-before-define:0 */
 import { RED, TEAL, GREEN, ORANGE } from '../../constants/colors';
-
-// Keep leds low so as to not disturb occupants
-const faint = 25;
+import { ONE_MINUTE_STROBE,
+         FIVE_MINUTE_STROBE,
+         FAINT_LIGHT_LEVEL } from '../../constants/values';
 
 export const vacant = (led) => {
   led.stop(); // Prevent rogue strobing
-  led.intensity(faint);
+  led.intensity(FAINT_LIGHT_LEVEL);
   led.color(GREEN);
 };
 
 export const occupied = (led) => {
   led.stop(); // Prevent rogue strobing
-  led.intensity(faint);
+  led.intensity(FAINT_LIGHT_LEVEL);
   led.color(TEAL);
 };
 
 export const oneMinuteWarning = (led) => {
   led.color(RED);
-  led.strobe(400);
+  led.strobe(ONE_MINUTE_STROBE);
 };
 
 export const fiveMinuteWarning = (led) => {
   led.color(ORANGE);
-  led.strobe(200);
+  led.strobe(FIVE_MINUTE_STROBE);
 };

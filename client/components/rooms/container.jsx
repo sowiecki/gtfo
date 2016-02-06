@@ -7,6 +7,7 @@ import RoomsController from './controller';
 import Loading from '../common/loading';
 
 import * as RoomsActions from '../../ducks/rooms';
+import { TRANSITION_ENTER_TIMEOUT, TRANSITION_EXIT_TIMEOUT } from '../common/styles';
 
 class RoomsContainer extends Component {
   constructor(props) {
@@ -47,8 +48,8 @@ class RoomsContainer extends Component {
       <span>
         <ReactCSSTransition
           transitionName='root-container'
-          transitionEnterTimeout={2000}
-          transitionLeaveTimeout={2000}>
+          transitionEnterTimeout={TRANSITION_ENTER_TIMEOUT}
+          transitionLeaveTimeout={TRANSITION_EXIT_TIMEOUT}>
             {loading}
         </ReactCSSTransition>
         {content}

@@ -17,12 +17,13 @@ export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 
 const reducer = (state = devices, action) => {
-  const { room } = action;
+  const { room,
+          accessories,
+          temperature,
+          lastMotion } = action;
 
   switch (action.type) {
     case EMIT_ROOM_STATUSES_UPDATE:
-      const { accessories } = action;
-
       notificationsController(room, accessories);
 
       return room;
@@ -32,14 +33,10 @@ const reducer = (state = devices, action) => {
       return state;
 
     case EMIT_ROOM_TEMPERATURE_UPDATE:
-      const { temperature } = action;
-
       room.temperature = temperature;
       return room;
 
     case EMIT_ROOM_MOTION_UPDATE:
-      const { lastMotion } = action;
-
       room.lastMotion = lastMotion || false;
       return room;
 

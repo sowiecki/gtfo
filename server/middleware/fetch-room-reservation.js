@@ -24,10 +24,10 @@ const fetchRoomReservations = (next, action) => {
         accessories
       });
     });
-  }).on('error', (error) => {
+  }).on('error', ({ code }) => {
     const errorMessage = `Failed to fetch room reservations for ${room.id}.`;
 
-    console.error(errorMessage, error);
+    console.error(errorMessage, code);
   });
 };
 

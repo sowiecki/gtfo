@@ -39,7 +39,8 @@ export const styles = {
     textAlign: 'center'
   },
 
-  progressColor: colors.primary
+  progressColor: colors.primary,
+  progressSize: 5
 };
 
 export const rules = {
@@ -56,3 +57,6 @@ export const rules = {
     ...transitions
   }
 };
+
+export const TRANSITION_ENTER_TIMEOUT = 2000;
+export const TRANSITION_EXIT_TIMEOUT = 2000;

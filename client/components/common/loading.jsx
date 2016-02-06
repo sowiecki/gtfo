@@ -8,7 +8,7 @@ import { styles } from './styles';
 const Loading = () => (
   <div style={styles.loadingContainer}>
     <CircularProgress
-      size={5}
+      size={styles.progressSize}
       color={styles.progressColor}
       mode='indeterminate'/>
   </div>

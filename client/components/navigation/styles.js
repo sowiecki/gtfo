@@ -10,10 +10,7 @@ export const styles = {
   appTitle: {
     fontSize: '50px',
     fontWeight: '8',
-    fontFamily: `'Wire One', sans-serif`,
-    '@media (minWidth: 765px)': {
-      fontSize: '80px'
-    }
+    fontFamily: `'Wire One', sans-serif`
   },
 
   menuButton: {

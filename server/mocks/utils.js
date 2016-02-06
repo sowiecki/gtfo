@@ -1,3 +1,4 @@
+/* eslint no-magic-numbers:0 */
 /**
  * Utilities for generating mock data
  */
