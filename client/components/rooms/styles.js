@@ -70,7 +70,7 @@ export const rules = {
 
       [breakpoints.afterMedium]: {
         'text.room-text': {
-          fontSize: '16px',
+          fontSize: '16px'
         }
       },
 
