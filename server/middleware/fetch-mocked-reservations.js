@@ -1,14 +1,19 @@
-import mockData from '../mocks/mock-data';
+import getMockData from '../mocks/mock-data';
 import setAlertByReservationStatus from './utils/set-reservation-alert';
-import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
+import { EMIT_ROOM_STATUSES_UPDATE,
+         EMIT_ROOM_STATUSES_ERROR } from '../ducks/rooms';
 import filterExpiredReservations from './utils/filter-reservations';
 
-const fetchRoomReservations = (next, action) => {
+const fetchMockedReservations = (next, action) => {
   const { room, accessories } = action;
-  // TODO error handling so app doesn't crash when mockData[room.outlookAccount] === undefined
+  const mockData = getMockData();
 
-  const reservations = filterExpiredReservations(mockData[room.outlookAccount]);
+  if (!mockData[room.id]) {
+    next({ type: EMIT_ROOM_STATUSES_ERROR });
+    return;
+  }
 
+  const reservations = filterExpiredReservations(mockData[room.id]);
   const roomWithAlert = setAlertByReservationStatus(room, reservations);
 
   next({
@@ -18,4 +23,4 @@ const fetchRoomReservations = (next, action) => {
   });
 };
 
-export default fetchRoomReservations;
+export default fetchMockedReservations;

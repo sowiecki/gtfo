@@ -80,4 +80,4 @@ const getMockData = () => {
   return mockData;
 };
 
-export default getMockData();
+export default getMockData;
