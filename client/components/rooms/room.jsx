@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import { Style } from 'radium';
 
 import { applyStyles } from '../../config/composition';
-import { styles, rules } from './styles';
+import { styles, rules, TEXT_DX, TEXT_DY } from './styles';
 import { shapeModifier } from '../../utils/room-layout';
-import { OFFLINE, TEXT_DX, TEXT_DY } from '../../constants/svg';
+import { OFFLINE } from '../../constants/svg';
 
 const Room = ({ room }) => {
   // console.log(room);

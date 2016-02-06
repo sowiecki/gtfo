@@ -56,8 +56,9 @@ export const rules = {
   roomText: {
     'text.room-text': {
       zIndex: '200',
-      fontSize: '10px',
-      fontFamily: `'Wire One', sans-serif`
+      fontSize: '14px',
+      fontFamily: `'Wire One', sans-serif`,
+      fontVariantCaps: 'all-small-caps'
     },
 
     mediaQueries: {
@@ -69,16 +70,21 @@ export const rules = {
 
       [breakpoints.afterMedium]: {
         'text.room-text': {
-          fontSize: '11px'
+          fontSize: '16px',
         }
       },
 
       [breakpoints.afterLarge]: {
         'text.room-text': {
-          fontSize: '16px',
-          fontWeight: '18'
+          top: '20px',
+          fontSize: '22px',
+          lineHeight: '200'
         }
       }
     }
   }
 };
+
+export const TEXT_DX = 2;
+export const TEXT_DY = 24;
+// export const TEXT_DY_LARGE = 32; // TODO use with a width watcher
