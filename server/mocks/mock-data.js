@@ -17,7 +17,7 @@ import {
   generateMockReservation
 } from './utils';
 
-const devices = JSON.parse(readFileSync('./devices.json', 'utf8')).devices;
+const { devices } = JSON.parse(readFileSync('./devices.json', 'utf8'));
 const mockRooms = pluck(devices, 'id');
 
 const generateMockData = () => {
@@ -54,10 +54,8 @@ const getMockData = () => {
     mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
 
     if (lstatSync(MOCK_DATA_FILE).isFile()) {
-      // Check that mock data's meeting dates take place on today's date
-      const allReservations = flatten(map(mockData, (room) => pluck(room, 'startDate')));
-
       // Validate that each reservation is for today
+      const allReservations = flatten(map(mockData, (room) => pluck(room, 'startDate')));
       const current = every(allReservations, (startDate) => {
         return moment().calendar(startDate, {sameDay: '[Today]'}) === 'Today';
       });
@@ -67,7 +65,8 @@ const getMockData = () => {
 
         generateMockData();
 
-        return null;
+        // Re-read and re-assign
+        mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
       }
     }
   } catch (e) {

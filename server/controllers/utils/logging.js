@@ -1,17 +1,17 @@
-import colors from 'colors';
-
 /* eslint no-console:0 */
 /* globals console */
-export const logRoomNotification = (roomStatus) => {
+import colors from 'colors';
+
+export const logRoomNotification = ({ name, alert }) => {
   // Clear previous message in terminal
   process.stdout.clearLine();
   process.stdout.cursorTo(0);
 
   const statusMessages = {
-    VACANT: `${roomStatus.name} is vacant for at least 30 minutes`,
-    ONE_MINUTE_WARNING: `${roomStatus.name} has 1 minute left on current reservation`,
-    FIVE_MINUTE_WARNING: `${roomStatus.name} has 5 minutes left on current reservation`,
-    BOOKED: `${roomStatus.name} is currently booked`
+    VACANT: `${name} is vacant for at least 30 minutes`,
+    ONE_MINUTE_WARNING: `${name} has 1 minute left on current reservation`,
+    FIVE_MINUTE_WARNING: `${name} has 5 minutes left on current reservation`,
+    BOOKED: `${name} is currently booked`
   };
 
   const logColors = {
@@ -22,7 +22,7 @@ export const logRoomNotification = (roomStatus) => {
     OFFLINE: 'black'
   };
 
-  const logColor = logColors[roomStatus.alert] || logColors[OFFLINE];
+  const logColor = logColors[alert] || logColors[OFFLINE];
 
-  console.log(colors[logColor](statusMessages[roomStatus.alert]));
+  console.log(colors[logColor](statusMessages[alert]));
 };

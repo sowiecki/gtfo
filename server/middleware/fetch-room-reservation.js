@@ -1,6 +1,5 @@
 /* eslint no-console:0 */
 /* globals console */
-
 import http from 'http';
 
 import setAlertByReservationStatus from './utils/set-reservation-alert';
@@ -12,12 +11,11 @@ const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
   const source = `${urls.ROOM_RESERVATIONS}${encodeURIComponent(room.id)}`;
 
-  // Retrieve outlook room reservation statuses
+  // Retrieve room reservation statuses from Exchange wrapper
   http.get(source, (response) => {
     response.on('data', (data) => {
       const reservationsResponse = JSON.parse(data.toString('utf8'));
       const reservations = filterExpiredReservations(reservationsResponse);
-
       const roomWithAlert = setAlertByReservationStatus(room, reservations);
 
       next({
@@ -27,10 +25,9 @@ const fetchRoomReservations = (next, action) => {
       });
     });
   }).on('error', (error) => {
-    const errorMessage = `Failed to fetch room reservations
-                          for ${room.id}. \n ${error}`;
+    const errorMessage = `Failed to fetch room reservations for ${room.id}.`;
 
-    console.error(errorMessage);
+    console.error(errorMessage, error);
   });
 };
 
