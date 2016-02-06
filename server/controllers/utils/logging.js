@@ -18,8 +18,11 @@ export const logRoomNotification = (roomStatus) => {
     VACANT: 'green',
     ONE_MINUTE_WARNING: 'red',
     FIVE_MINUTE_WARNING: 'orange',
-    BOOKED: 'cyan'
+    BOOKED: 'cyan',
+    OFFLINE: 'black'
   };
 
-  console.log(colors[logColors[roomStatus.alert]](statusMessages[roomStatus.alert]));
+  const logColor = logColors[roomStatus.alert] || logColors[OFFLINE];
+
+  console.log(colors[logColor](statusMessages[roomStatus.alert]));
 };
