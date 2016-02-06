@@ -3,13 +3,6 @@ import { colors, breakpoints } from '../common/styles';
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export const styles = {
-  officeLayoutContainer: {
-    margin: 'auto auto',
-    height: '100%',
-    width: '100%',
-    textAlign: 'center'
-  },
-
   svgStroke: '#BBBBBB',
 
   OFFLINE: GREY,
@@ -25,30 +18,36 @@ export const styles = {
 
 export const rules = {
   officeLayout: {
-    'svg.office-layout': {
-      position: 'relative',
+    'img.office-layout, svg.office-layout': {
+      position: 'absolute',
       top: '65px',
       left: '-200px',
-      height: '850px',
-      width: '850px',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundImage: require('../../assets/layout.svg')
+      height: '1000px',
+      width: '1000px'
     },
 
     mediaQueries: {
       [breakpoints.afterMedium]: {
-        'svg.office-layout': {
-          left: '-100px',
-          height: '1000px',
-          width: '1000px'
+        'img.office-layout, svg.office-layout': {
+          left: '-200px',
+          height: '1200px',
+          width: '1200px'
         }
       },
 
       [breakpoints.afterLarge]: {
-        'svg.office-layout': {
-          height: '1500px',
-          width: '1500px'
+        'img.office-layout, svg.office-layout': {
+          left: '150px',
+          height: '1600px',
+          width: '1600px'
+        }
+      },
+
+      [breakpoints.afterExtraLarge]: {
+        'img.office-layout, svg.office-layout': {
+          left: '300px',
+          height: '1800px',
+          width: '1800px'
         }
       }
     }
@@ -56,6 +55,7 @@ export const rules = {
 
   roomText: {
     'text.room-text': {
+      zIndex: '200',
       fontSize: '10px',
       fontFamily: `'Titillium Web', sans-serif`
     },

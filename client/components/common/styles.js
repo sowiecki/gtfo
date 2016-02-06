@@ -18,7 +18,8 @@ export const colors = {
 export const breakpoints = {
   beforeMedium: 'screen and (max-width: 629px)',
   afterMedium: 'screen and (min-width: 720px)',
-  afterLarge: 'screen and (min-width: 1024px)'
+  afterLarge: 'screen and (min-width: 1024px)',
+  afterExtraLarge: 'screen and (min-width: 2048px)'
 };
 
 export const styles = {
