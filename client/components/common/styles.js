@@ -1,5 +1,7 @@
+import transitions from './transitions';
+
 export const colors = {
-  primary: '',
+  primary: '#00BCD4',
   secondary: '',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
@@ -37,7 +39,7 @@ export const styles = {
     textAlign: 'center'
   },
 
-  progressColor: colors.primaryOpposing
+  progressColor: colors.primary
 };
 
 export const rules = {
@@ -49,6 +51,8 @@ export const rules = {
       width: '100%',
       overflow: 'hidden',
       backgroundColor: '#F8F8FF'
-    }
+    },
+
+    ...transitions
   }
 };

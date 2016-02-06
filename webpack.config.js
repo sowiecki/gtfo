@@ -21,11 +21,6 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass',
-        include: path.join(__dirname, 'client')
-      },
-      {
         test: /\.svg$/,
         loader: 'file-loader',
         include: path.join(__dirname, 'client')
