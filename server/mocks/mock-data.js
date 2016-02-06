@@ -66,6 +66,8 @@ const getMockData = () => {
         console.log(colors.yellow('Mock data out-of-date, overwriting with new mock-data.json.'));
 
         generateMockData();
+
+        return null;
       }
     }
   } catch (e) {
