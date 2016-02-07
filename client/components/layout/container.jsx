@@ -1,3 +1,4 @@
+/* globals setInterval */
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 import ReactCSSTransition from 'react-addons-css-transition-group';
@@ -10,13 +11,17 @@ import DisplayError from '../common/display-error';
 
 import * as RoomsActions from '../../ducks/layout';
 import { TRANSITION_ENTER_TIMEOUT, TRANSITION_EXIT_TIMEOUT } from '../common/styles';
+import { LAYOUT_UPDATE_INTERVAL } from '../../constants/values';
 
 class LayoutContainer extends Component {
   componentWillMount() {
     const { actions } = this.props;
 
-    actions.fetchRoomStatuses();
-    actions.fetchMarkers();
+    // TODO replace with fancy pants websockets
+    setInterval(() => {
+      actions.fetchRoomStatuses();
+      actions.fetchMarkers();
+    }, LAYOUT_UPDATE_INTERVAL);
   }
 
   renderError(layout) {
