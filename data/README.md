@@ -1,6 +1,6 @@
 # Configurable appliction data
 
-In addition to these files, remember to save map backdrops to `client/assets`.
+In addition to these files, remember to save map backdrops to `client/assets` with descriptive names.
 
 ### room-coordinates.json
 Room SVG shape properties.
@@ -9,7 +9,7 @@ Room SVG shape properties.
 Room device properties. Git ignored to prevent exposing account authentication keys.
 
 ## markers.json
-Markers to overlay on map.
+Markers to overlay on maps.
 
 ### mock-data.json
 Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated.
