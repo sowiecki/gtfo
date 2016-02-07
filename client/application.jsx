@@ -8,7 +8,7 @@ import history from './config/history';
 import configureStore from './store/configure-store';
 
 import Body from './components/body';
-import RoomsContainer from './components/rooms/container';
+import LayoutContainer from './components/layout/container';
 
 const store = configureStore();
 const node = document.getElementById('root');
@@ -17,9 +17,10 @@ const Application = (
   <Provider store={store}>
     <Router history={history}>
       <Route path='/' component={Body}>
-        <IndexRoute component={RoomsContainer}/>
+        <IndexRoute component={LayoutContainer}/>
+        <Route path=':markerLocation' component={LayoutContainer}/>
       </Route>
-      <Route path='/map' component={RoomsContainer}/>
+      <Route path='/map' component={LayoutContainer}/>
     </Router>
   </Provider>
 );

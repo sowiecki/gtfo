@@ -6,7 +6,7 @@ import { styles, rules, TEXT_DX, TEXT_DY } from './styles';
 import { shapeModifier } from '../../utils/room-layout';
 import { OFFLINE } from '../../constants/svg';
 
-const Room = ({ room }) => {
+const MeetingRoom = ({ room }) => {
   // console.log(room);
   return (
     <svg>
@@ -26,8 +26,8 @@ const Room = ({ room }) => {
   );
 };
 
-Room.propTypes = {
+MeetingRoom.propTypes = {
   room: PropTypes.object.isRequired
 };
 
-export default applyStyles(Room);
+export default applyStyles(MeetingRoom);

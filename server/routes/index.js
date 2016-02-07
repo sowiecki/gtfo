@@ -2,10 +2,12 @@
 import express from 'express';
 import find from 'lodash/collection/find';
 
-import store from '../store/configure-store';
+import devicesController from '../controllers/devices';
+import markersController from '../controllers/markers';
 
 const router = express.Router();
-const { rooms } = store().getState();
+const rooms = devicesController.getRooms();
+const markers = markersController.getMarkers();
 
 /* Individual room status */
 router.get('/api/rooms/:id', (req, res) => {
@@ -18,6 +20,14 @@ router.get('/api/rooms/:id', (req, res) => {
 /* Room statuses */
 router.get('/api/rooms', (req, res) => {
   res.json(rooms);
+});
+
+/* Map markers */
+router.get('/api/markers', (req, res) => {
+  res.json(markers);
+});
+router.post('/api/mark/:TODO', (req, res) => {
+  res.json(markers);
 });
 
 /* Serve client - must be last route */

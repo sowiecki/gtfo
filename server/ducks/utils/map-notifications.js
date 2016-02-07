@@ -1,14 +1,14 @@
 /* eslint no-console:0 */
-import * as flash from './utils/flash';
-import { logRoomNotification } from './utils/logging';
+import * as flash from './flash';
+import { logRoomNotification } from './logging';
 import {
   VACANT,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED
-} from '../constants/room-statuses';
+} from '../../constants/room-statuses';
 
-const notificationsController = (roomStatus, accessories) => {
+const mapNotifications = (roomStatus, accessories) => {
   // TODO better handling of no reservations left
   if (!roomStatus) {
     return;
@@ -35,4 +35,4 @@ const notificationsController = (roomStatus, accessories) => {
   }
 };
 
-export default notificationsController;
+export default mapNotifications;

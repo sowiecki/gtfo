@@ -1,0 +1,10 @@
+[
+  {
+    "name": "west lobby",
+    "type": "locator"
+  },
+  {
+    "name": "east lobby",
+    "type": "locator"
+  }
+]

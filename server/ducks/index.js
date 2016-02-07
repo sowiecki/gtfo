@@ -1,5 +1,7 @@
-import rooms from './rooms';
+import roomsReducer from './rooms';
+import markersReducer from './markers';
 
 export default {
-  rooms
+  roomsReducer,
+  markersReducer
 };

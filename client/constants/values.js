@@ -1,0 +1,1 @@
+export const LAYOUT_UPDATE_INTERVAL = 500;
