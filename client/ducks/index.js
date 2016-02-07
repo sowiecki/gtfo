@@ -1,12 +1,12 @@
 import { routeReducer } from 'react-router-redux';
 
-import navigation from './navigation';
-import rooms from './rooms';
-import markers from './markers';
+import navigationReducer from './navigation';
+import layoutReducer from './layout';
+import markersReducer from './markers';
 
 export default {
   routeReducer,
-  navigation,
-  rooms,
-  markers
+  navigationReducer,
+  layoutReducer,
+  markersReducer
 };

@@ -15,18 +15,22 @@ const initialState = {
   markerLocation: ''
 };
 
-const markers = (state = initialState, action) => {
-  switch (action.type) {
+const markersReducer = (state = initialState, action) => {
+  const { type, markers } = action;
+
+  switch (type) {
     case UPDATE_LOCATION:
-      state.markerLocation = action.payload.search.replace('?whereAmI=', '');
+      state = {
+        marker: action.payload.search.replace('?whereAmI=', '')
+      };
 
       break;
     case EMIT_MARKER_ACTIVATED:
-      state = action.markers;
+      state = { markers };
 
       break;
     case EMIT_MARKER_DEACTIVED:
-      state = '';
+      state = initialState;
 
       break;
   }
@@ -34,4 +38,4 @@ const markers = (state = initialState, action) => {
   return immutable.fromJS(state);
 };
 
-export default markers;
+export default markersReducer;

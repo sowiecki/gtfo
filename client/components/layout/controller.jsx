@@ -1,27 +1,27 @@
 import React from 'react';
 import { Style } from 'radium';
-import { List } from 'immutable-props';
+import ImmutablePropTypes from 'immutable-props';
 
 import Paper from 'material-ui/lib/paper';
 
-import Room from './room';
+import MeetingRoom from './meeting-room';
 
 import { applyStyles } from '../../config/composition';
 import { rules } from './styles';
 
-const RoomsController = ({ rooms }) => (
+const LayoutController = ({ layout }) => (
   <Paper zDepth={1}>
     <Style rules={rules.officeLayout}/>
     <image className='office-layout' src={require('../../assets/layout.svg')}>
       <svg className='office-layout'>
-        {rooms.toJS().map((room) => <Room key={`${room.name}`} room={room}/>)}
+        {layout.toJS().meetingRooms.map((room) => <MeetingRoom key={`${room.name}`} room={room}/>)}
       </svg>
     </image>
   </Paper>
 );
 
-RoomsController.propTypes = {
-  rooms: List
+LayoutController.propTypes = {
+  layout: ImmutablePropTypes.Map.isRequired
 };
 
-export default applyStyles(RoomsController);
+export default applyStyles(LayoutController);

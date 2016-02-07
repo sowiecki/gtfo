@@ -32,7 +32,7 @@ MarkerContainer.propTypes = {
   markers: ImmutablePropTypes.Map.isRequired
 };
 
-const mapStateToProps = ({ markers }) => ({ markers });
+const mapStateToProps = ({ markersReducer }) => ({ markers: markersReducer });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(MarkerActions, dispatch)

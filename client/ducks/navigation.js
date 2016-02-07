@@ -11,10 +11,12 @@ const initialState = {
   siteNavOpen: false
 };
 
-const navigation = (state = initialState, action) => {
-  switch (action.type) {
+const navigationReducer = (state = initialState, action) => {
+  const { type, navigation } = action;
+
+  switch (type) {
     case EMIT_SITE_NAV_TOGGLE:
-      state = action.navigation;
+      state = { navigation };
 
       break;
   }
@@ -22,4 +24,4 @@ const navigation = (state = initialState, action) => {
   return immutable.fromJS(state);
 };
 
-export default navigation;
+export default navigationReducer;

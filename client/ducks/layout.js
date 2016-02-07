@@ -9,22 +9,29 @@ export const fetchRoomStatuses = (rooms) => ({
   rooms
 });
 
-const initialState = immutable.fromJS({});
+const initialState = immutable.fromJS({
+  meetingRooms: []
+});
 
-const rooms = (state = initialState, action) => {
-  switch (action.type) {
+const layoutReducer = (state = initialState, action) => {
+  const { type, meetingRooms, error } = action;
+
+  switch (type) {
     case FETCH_ROOM_STATUSES:
-      return action.rooms;
+      state = { meetingRooms };
 
+      break;
     case EMIT_ROOM_STATUSES_UPDATE:
-      return action.rooms;
+      state = { meetingRooms };
 
+      break;
     case EMIT_FETCH_ROOM_STATUSES_ERROR:
-      // TODO error handling
+      state = { error };
 
-    default:
-      return state;
+      break;
   }
+
+  return immutable.fromJS(state);
 };
 
-export default rooms;
+export default layoutReducer;
