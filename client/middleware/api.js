@@ -1,13 +1,15 @@
 import http from 'http';
 import immutable from 'immutable';
 
-import {
-  FETCH_ROOM_STATUSES,
-  EMIT_ROOM_STATUSES_UPDATE,
-  EMIT_FETCH_ROOM_STATUSES_ERROR
-} from '../ducks/layout';
+import { FETCH_ROOM_STATUSES,
+         EMIT_ROOM_STATUSES_UPDATE,
+         EMIT_FETCH_ROOM_STATUSES_ERROR,
+         FETCH_MARKERS,
+         EMIT_MARKERS_UPDATE,
+         EMIT_FETCH_MARKERS_ERROR } from '../ducks/layout';
 import * as urls from '../constants/urls';
-import { failedToFetchRooms } from '../constants/errors';
+import { failedToFetchMeetingRooms,
+         failedToFetchMarkers } from '../constants/errors';
 
 const fetchRoomStatuses = (next) => {
   http.get(urls.ROOMS, (response) => {
@@ -22,7 +24,25 @@ const fetchRoomStatuses = (next) => {
   }).on('error', () => {
     next({
       type: EMIT_FETCH_ROOM_STATUSES_ERROR,
-      error: failedToFetchRooms
+      error: failedToFetchMeetingRooms
+    });
+  });
+};
+
+const fetchMarkers = (next) => {
+  http.get(urls.MARKERS, (response) => {
+    response.on('data', (data) => {
+      const markers = immutable.fromJS(JSON.parse(data));
+
+      next({
+        type: EMIT_MARKERS_UPDATE,
+        markers
+      });
+    });
+  }).on('error', () => {
+    next({
+      type: EMIT_FETCH_MARKERS_ERROR,
+      error: failedToFetchMarkers
     });
   });
 };
@@ -31,10 +51,16 @@ export default () => (next) => (action) => {
   switch (action.type) {
     case FETCH_ROOM_STATUSES:
       fetchRoomStatuses(next, action);
+
       break;
 
+    case FETCH_MARKERS:
+      fetchMarkers(next, action);
+
+      break;
     default:
       next(action);
+
       break;
   }
 };

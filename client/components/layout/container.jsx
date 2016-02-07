@@ -16,6 +16,7 @@ class LayoutContainer extends Component {
     const { actions } = this.props;
 
     actions.fetchRoomStatuses();
+    actions.fetchMarkers();
   }
 
   renderError(layout) {

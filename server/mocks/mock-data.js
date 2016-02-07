@@ -17,7 +17,7 @@ import {
   generateMockReservation
 } from './utils';
 
-const { devices } = JSON.parse(readFileSync('./devices.json', 'utf8'));
+const { devices } = JSON.parse(readFileSync('./data/devices.json', 'utf8'));
 const mockRooms = pluck(devices, 'id');
 
 const generateMockData = () => {

@@ -1,12 +1,12 @@
 import { readFileSync } from 'fs';
 
-import notificationsController from '../controllers/notifications';
+import mapNotifications from './utils/map-notifications';
 
-const { devices } = JSON.parse(readFileSync('./devices.json', 'utf8'));
-const coordinates = JSON.parse(readFileSync('./coordinates.json', 'utf8'));
+const { devices } = JSON.parse(readFileSync('./data/devices.json', 'utf8'));
+const roomCoordinates = JSON.parse(readFileSync('./data/room-coordinates.json', 'utf8'));
 
 // Map room coordinates to device object
-devices.map((device) => device.coordinates = coordinates[device.id]);
+devices.map((device) => device.coordinates = roomCoordinates[device.id]);
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
@@ -24,7 +24,7 @@ const reducer = (state = devices, action) => {
 
   switch (action.type) {
     case EMIT_ROOM_STATUSES_UPDATE:
-      notificationsController(room, accessories);
+      mapNotifications(room, accessories);
 
       return room;
 

@@ -8,32 +8,28 @@
 
 import colors from 'colors/safe';
 
-import {
-  registerBoard,
-  registerLed,
-  registerPiezo,
-  registerThermo,
-  registerMotion
-} from './utils/register-hardware';
-import {
-  FETCH_ROOM_RESERVATIONS,
-  MOCK_ROOM_RESERVATIONS,
-  FETCH_ROOM_TEMPERATURE,
-  FETCH_ROOM_MOTION
-} from '../ducks/rooms';
+import { registerBoard,
+         registerLed,
+         registerPiezo,
+         registerThermo,
+         registerMotion } from './utils/register-hardware';
+import { FETCH_ROOM_RESERVATIONS,
+         MOCK_ROOM_RESERVATIONS,
+         FETCH_ROOM_TEMPERATURE,
+         FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants/values';
 
 import store from '../store/configure-store';
 
-const { rooms } = store().getState();
+const { roomsReducer } = store().getState();
 
 export default {
-  run() {
+  initRooms() {
     if (process.env.MOCKS) {
       console.log(colors.gray.italic('Using mock data'));
     }
 
-    rooms.map((room) => {
+    roomsReducer.map((room) => {
       // Initialize board
       const board = registerBoard(room);
 
@@ -85,5 +81,8 @@ export default {
         console.log(`Connection failure to ${board.id}`);
       });
     });
+  },
+  getRooms() {
+    return store().getState().roomsReducer;
   }
 };

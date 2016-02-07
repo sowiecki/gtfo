@@ -58,7 +58,7 @@ First, wire a common cathode RGB LED to each Photon board.
 
 After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
 
-Finally, retrieve the access tokens and device id for each Photon, and place them into `devices.json`.
+Finally, retrieve the access tokens and device id for each Photon, and place them into `data/devices.json`.
 
 ###### `devices.json` configuration
 | Parameter        | Description                | Required? |
@@ -94,7 +94,7 @@ Example of a `devices.json` with a single device configured to The Loop:
 ### Client map
 To integrate a meeting room into the client map, the room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured and placed into `coordinates.json`.
 
-Example of a `coordinates.json` file configured to display Bronzeville:
+Example of a `data/room-coordinates.json` file configured to display Bronzeville:
 ```json
 {
   "bronzeville": {

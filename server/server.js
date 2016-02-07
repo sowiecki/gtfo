@@ -51,7 +51,7 @@ const app = server.listen(config.serverPort, (err) => {
   console.log(`Listening at http://localhost:${config.serverPort}`);
 
   if (!process.env.DISABLE_DEVICES) {
-    devices.run();
+    devices.getRooms();
   }
 });
 
