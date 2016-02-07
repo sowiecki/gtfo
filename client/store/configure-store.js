@@ -1,15 +1,22 @@
 import { createStore,
          applyMiddleware,
-         combineReducers } from 'redux';
+         combineReducers,
+         compose } from 'redux';
+import { syncHistory } from 'react-router-redux';
 
 import reducers from '../ducks';
+import history from '../config/history';
 import api from '../middleware/api';
 
+const reduxRouterMiddleware = syncHistory(history);
 const rootReducer = combineReducers(reducers);
 
 const configureStore = (initialState) => {
-  const createStoreWithMiddleware = applyMiddleware(api)(createStore);
-  const store = createStoreWithMiddleware(rootReducer, initialState);
+  const composeStoreWithMiddleware = compose(
+    applyMiddleware(api),
+    applyMiddleware(reduxRouterMiddleware)
+  )(createStore);
+  const store = composeStoreWithMiddleware(rootReducer, initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
