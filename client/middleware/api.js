@@ -6,10 +6,13 @@ import { FETCH_ROOM_STATUSES,
          EMIT_FETCH_ROOM_STATUSES_ERROR,
          FETCH_MARKERS,
          EMIT_MARKERS_UPDATE,
-         EMIT_FETCH_MARKERS_ERROR } from '../ducks/layout';
+         EMIT_FETCH_MARKERS_ERROR,
+         EMIT_CLEAR_FETCH_ERRORS } from '../ducks/layout';
 import * as urls from '../constants/urls';
 import { failedToFetchMeetingRooms,
          failedToFetchMarkers } from '../constants/errors';
+
+const clearFetchErrors = (next) => next({ type: EMIT_CLEAR_FETCH_ERRORS });
 
 const fetchRoomStatuses = (next) => {
   http.get(urls.ROOMS, (response) => {
@@ -20,6 +23,8 @@ const fetchRoomStatuses = (next) => {
         type: EMIT_ROOM_STATUSES_UPDATE,
         meetingRooms
       });
+
+      clearFetchErrors(next);
     });
   }).on('error', () => {
     next({

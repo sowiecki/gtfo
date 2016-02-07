@@ -10,6 +10,7 @@ export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
+export const EMIT_CLEAR_FETCH_ERRORS = 'EMIT_CLEAR_FETCH_ERRORS';
 
 export const fetchRoomStatuses = () => ({
   type: FETCH_ROOM_STATUSES
@@ -43,11 +44,15 @@ const layoutReducer = (state = initialState, action) => {
 
   switch (type) {
     case EMIT_ROOM_STATUSES_UPDATE:
-      state = state.merge({ meetingRooms });
+      state = state.set('meetingRooms', meetingRooms);
 
       break;
     case EMIT_FETCH_ROOM_STATUSES_ERROR:
-      state = state.merge({ error });
+      state = state.set('error', error);
+
+      break;
+    case EMIT_CLEAR_FETCH_ERRORS:
+      state = state.delete('error');
 
       break;
     case UPDATE_LOCATION:
@@ -60,7 +65,7 @@ const layoutReducer = (state = initialState, action) => {
       break;
     case EMIT_MARKERS_UPDATE:
     case EMIT_MARKERS_ACTIVATED:
-      state = state.merge({ markers });
+      state = state.set('markers', markers);
 
       break;
     case EMIT_MARKERS_DEACTIVED:
@@ -69,7 +74,7 @@ const layoutReducer = (state = initialState, action) => {
       break;
   }
 
-  return immutable.fromJS(state);
+  return state;
 };
 
 export default layoutReducer;

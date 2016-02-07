@@ -17,7 +17,11 @@ class LayoutContainer extends Component {
   componentWillMount() {
     const { actions } = this.props;
 
-    // TODO replace with fancy pants websockets
+    /**
+     * TODO
+     * This needs to be replaced with websockets ASAP,
+     * and most likely initiated at the reducer level.
+     */
     setInterval(() => {
       actions.fetchRoomStatuses();
       actions.fetchMarkers();
