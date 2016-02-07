@@ -18,6 +18,7 @@ const Application = (
     <Router history={history}>
       <Route path='/' component={Body}>
         <IndexRoute component={RoomsContainer}/>
+        <Route path=':markerLocation' component={RoomsContainer}/>
       </Route>
       <Route path='/map' component={RoomsContainer}/>
     </Router>

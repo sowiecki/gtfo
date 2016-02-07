@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
 import { AppBar, LeftNav } from 'material-ui/lib';
@@ -28,6 +28,7 @@ const NavigationController = ({ actions, navigation }) => {
 };
 
 NavigationController.propTypes = {
+  actions: PropTypes.object.isRequired,
   navigation: ImmutablePropTypes.Map.isRequired
 };
 
