@@ -17,12 +17,13 @@ export const logRoomNotification = ({ name, alert }) => {
   const logColors = {
     VACANT: 'green',
     ONE_MINUTE_WARNING: 'red',
-    FIVE_MINUTE_WARNING: 'orange',
+    FIVE_MINUTE_WARNING: 'yellow',
     BOOKED: 'cyan',
     OFFLINE: 'black'
   };
 
-  const logColor = alert ? logColors[alert] : logColors.OFFLINE;
+  const logColor = logColors[alert] || logColors.OFFLINE;
+  const message = statusMessages[alert];
 
-  console.log(colors[logColor](statusMessages[alert]));
+  console.log(colors[logColor](message));
 };

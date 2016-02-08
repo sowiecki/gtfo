@@ -21,7 +21,8 @@ export const breakpoints = {
   beforeMedium: 'screen and (max-width: 629px)',
   afterMedium: 'screen and (min-width: 720px)',
   afterLarge: 'screen and (min-width: 1024px)',
-  afterExtraLarge: 'screen and (min-width: 2048px)'
+  afterExtraLarge: 'screen and (min-width: 2048px)',
+  widescreen: 'screen and (min-aspect-ratio: 16/10)'
 };
 
 export const styles = {
@@ -40,7 +41,12 @@ export const styles = {
   },
 
   progressColor: colors.primary,
-  progressSize: 5
+  progressSize: 5,
+
+  errorSnackbar: {
+    fontSize: '36px',
+    fontFamily: `'Titillium Web', sans-serif`
+  }
 };
 
 export const rules = {

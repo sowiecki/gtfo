@@ -1,66 +1,77 @@
-import http from 'http';
-import immutable from 'immutable';
-
-import { FETCH_ROOM_STATUSES,
+/* eslint no-console:0 */
+/* globals WebSocket, console, setInterval, clearInterval */
+import { getSocketPort,
+         WEBSOCKET_PROTOCOL,
+         WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
+import { CONNECT_LAYOUT_SOCKET,
          EMIT_ROOM_STATUSES_UPDATE,
          EMIT_FETCH_ROOM_STATUSES_ERROR,
-         FETCH_MARKERS,
-         EMIT_MARKERS_UPDATE,
-         EMIT_FETCH_MARKERS_ERROR,
-         EMIT_CLEAR_FETCH_ERRORS } from '../ducks/layout';
-import * as urls from '../constants/urls';
-import { failedToFetchMeetingRooms,
-         failedToFetchMarkers } from '../constants/errors';
+         EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
+import { lostConnectionToHost } from '../constants/errors';
 
-const clearFetchErrors = (next) => next({ type: EMIT_CLEAR_FETCH_ERRORS });
+let interval;
 
-const fetchRoomStatuses = (next) => {
-  http.get(urls.ROOMS, (response) => {
-    response.on('data', (data) => {
-      const meetingRooms = immutable.fromJS(JSON.parse(data));
+const clearSocketErrors = (next) => next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
 
-      next({
-        type: EMIT_ROOM_STATUSES_UPDATE,
-        meetingRooms
-      });
+const handleEvent = (next, event) => {
+  const { meetingRooms } = JSON.parse(event.data);
 
-      clearFetchErrors(next);
-    });
-  }).on('error', () => {
+  if (meetingRooms) {
+    console.log('Room status update received');
+
     next({
-      type: EMIT_FETCH_ROOM_STATUSES_ERROR,
-      error: failedToFetchMeetingRooms
+      type: EMIT_ROOM_STATUSES_UPDATE,
+      meetingRooms
     });
-  });
+  }
 };
 
-const fetchMarkers = (next) => {
-  http.get(urls.MARKERS, (response) => {
-    response.on('data', (data) => {
-      const markers = immutable.fromJS(JSON.parse(data));
+const attemptToReconnect = (next) => {
+  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
+  console.log('Attempting to reconnect...');
 
-      next({
-        type: EMIT_MARKERS_UPDATE,
-        markers
-      });
-    });
-  }).on('error', () => {
+  webSocket.onopen = () => {
+    console.log('Reconnected to host.');
+    webSocket.send('Reconnected to client');
+
+    clearInterval(interval);
+    clearSocketErrors(next);
+  };
+
+  webSocket.onmessage = handleEvent.bind(null, next);
+};
+
+const connectLayoutSocket = (next) => {
+  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
+
+  webSocket.onopen = () => {
+    console.log('Connected to host.');
+    webSocket.send('Connected to client');
+
+    clearSocketErrors(next);
+  };
+
+  webSocket.onmessage = handleEvent.bind(null, next);
+
+  webSocket.onclose = () => {
+    interval = setInterval(() => attemptToReconnect(next), WEBSOCKET_RECONNECT_INTERVAL);
+
     next({
-      type: EMIT_FETCH_MARKERS_ERROR,
-      error: failedToFetchMarkers
+      type: EMIT_FETCH_ROOM_STATUSES_ERROR,
+      error: lostConnectionToHost
     });
-  });
+  };
 };
 
 export default () => (next) => (action) => {
   switch (action.type) {
-    case FETCH_ROOM_STATUSES:
-      fetchRoomStatuses(next, action);
+    case EMIT_FETCH_ROOM_STATUSES_ERROR:
+    case CONNECT_LAYOUT_SOCKET:
+      connectLayoutSocket(next);
 
       break;
-
-    case FETCH_MARKERS:
-      fetchMarkers(next, action);
+    case EMIT_CLEAR_CONNECTION_ERRORS:
+      clearSocketErrors(next);
 
       break;
     default:

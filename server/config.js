@@ -13,7 +13,8 @@ const normalizePort = (val) => {
 };
 
 /* Ports */
-export const serverPort = normalizePort(process.env.PORT || '3000');
+export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
+export const WEB_SOCKET_PORT = 3001;
 
 /* Server public path */
-export const publicPath = 'public';
+export const PUBLIC_PATH = 'public';
