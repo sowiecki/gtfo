@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
 /* globals WebSocket, console, setInterval, clearInterval */
-import { WEBSOCKET_HOST,
+import { getSocketPort,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
 import { CONNECT_LAYOUT_SOCKET,
@@ -27,7 +27,7 @@ const handleEvent = (next, event) => {
 };
 
 const attemptToReconnect = (next) => {
-  const webSocket = new WebSocket(WEBSOCKET_HOST, WEBSOCKET_PROTOCOL);
+  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
   console.log('Attempting to reconnect...');
 
   webSocket.onopen = () => {
@@ -42,7 +42,7 @@ const attemptToReconnect = (next) => {
 };
 
 const connectLayoutSocket = (next) => {
-  const webSocket = new WebSocket(WEBSOCKET_HOST, WEBSOCKET_PROTOCOL);
+  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
   webSocket.onopen = () => {
     console.log('Connected to host.');
