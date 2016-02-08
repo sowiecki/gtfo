@@ -8,7 +8,7 @@ import MeetingRoom from './meeting-room';
 import Marker from './marker';
 
 import { applyStyles } from '../../config/composition';
-import { rules } from './styles';
+import { rules, styles } from './styles';
 
 const LayoutController = ({ layout }) => {
   const { meetingRooms, markers } = layout.toJS();
@@ -24,12 +24,14 @@ const LayoutController = ({ layout }) => {
   return (
     <Paper zDepth={1}>
       <Style rules={rules.officeLayout}/>
-      <image className='office-layout' src={require('../../assets/prudential-51.svg')}>
-        <svg className='office-layout'>
-        {renderMeetingRooms}
-        {renderMarkers}
-        </svg>
-      </image>
+      <div style={styles.officeLayoutContainer}>
+        <image className='office-layout' src={require('../../assets/prudential-51.svg')}>
+          <svg className='office-layout'>
+          {renderMeetingRooms}
+          {renderMarkers}
+          </svg>
+        </image>
+      </div>
     </Paper>
   );
 };

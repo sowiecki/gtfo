@@ -3,6 +3,12 @@ import { colors, breakpoints } from '../common/styles';
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export const styles = {
+  officeLayoutContainer: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center'
+  },
+
   svgStroke: '#BBBBBB',
 
   OFFLINE: GREY,
@@ -17,6 +23,7 @@ export const styles = {
 };
 
 export const rules = {
+  // TODO fix left adjustments after updating map
   officeLayout: {
     'img.office-layout, svg.office-layout': {
       position: 'absolute',
@@ -29,7 +36,7 @@ export const rules = {
     mediaQueries: {
       [breakpoints.afterMedium]: {
         'img.office-layout, svg.office-layout': {
-          left: '-200px',
+          // left: '-200px',
           height: '1200px',
           width: '1200px'
         }
@@ -37,7 +44,7 @@ export const rules = {
 
       [breakpoints.afterLarge]: {
         'img.office-layout, svg.office-layout': {
-          left: '150px',
+          left: '-100px',
           height: '1600px',
           width: '1600px'
         }
@@ -45,9 +52,15 @@ export const rules = {
 
       [breakpoints.afterExtraLarge]: {
         'img.office-layout, svg.office-layout': {
-          left: '300px',
+          // left: '300px',
           height: '1800px',
           width: '1800px'
+        }
+      },
+
+      [breakpoints.widescreen]: {
+        'img.office-layout, svg.office-layout': {
+          // left: '150px'
         }
       }
     }
