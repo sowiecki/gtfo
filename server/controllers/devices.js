@@ -16,8 +16,7 @@ import { registerBoard,
 import { FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
-         FETCH_ROOM_MOTION,
-         SEND_ROOMS_UPDATE } from '../ducks/rooms';
+         FETCH_ROOM_MOTION } from '../ducks/rooms';
 // import { SEND_LAYOUT_UPDATE } from '../ducks/layout';
 import { CHECK_INTERVAL } from '../constants/values';
 
@@ -61,10 +60,6 @@ export default {
 
         // Set interval for checking and responding to room state
         setInterval(() => {
-          store().dispatch({
-            type: SEND_ROOMS_UPDATE
-          });
-
           if (process.env.MOCKS) {
             store().dispatch({
               type: MOCK_ROOM_RESERVATIONS,

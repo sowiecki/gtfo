@@ -10,11 +10,10 @@ const roomCoordinates = JSON.parse(readFileSync('./data/room-coordinates.json', 
 // Map room coordinates to device object
 devices.map((device) => device.coordinates = roomCoordinates[device.id]);
 
-export const SEND_ROOMS_UPDATE = 'SEND_ROOMS_UPDATE';
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
-// export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
-// export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
+export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
+export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
 export const EMIT_ROOM_STATUSES_ERROR = 'EMIT_ROOM_STATUSES_ERROR';
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
@@ -30,6 +29,7 @@ const reducer = (state = devices, action) => {
   switch (action.type) {
     case EMIT_ROOM_STATUSES_UPDATE:
       mapNotifications(room, accessories);
+      socket.send(ROOMS_UPDATE, state);
 
       break;
 
@@ -42,10 +42,6 @@ const reducer = (state = devices, action) => {
       break;
     case EMIT_ROOM_MOTION_UPDATE:
       state.lastMotion = lastMotion || false;
-
-      break;
-    case SEND_ROOMS_UPDATE:
-      socket.send(ROOMS_UPDATE, state);
 
       break;
   }
