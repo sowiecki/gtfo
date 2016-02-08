@@ -40,7 +40,12 @@ export const styles = {
   },
 
   progressColor: colors.primary,
-  progressSize: 5
+  progressSize: 5,
+
+  errorSnackbar: {
+    fontSize: '36px',
+    fontFamily: `'Titillium Web', sans-serif`
+  }
 };
 
 export const rules = {

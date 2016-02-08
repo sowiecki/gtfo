@@ -4,16 +4,18 @@ import React from 'react';
 import { Snackbar } from 'material-ui/lib';
 
 import { base } from '../../config/composition';
-// import { styles } from './styles';
+import { styles } from './styles';
 
-// TODO consider this stubbed out, it needs work
-// Might lift it to Body and create a reducer for it
+const DisplayError = ({ layout }) => {
+  const hasError = layout.has('error');
+  const { error } = layout.toJS();
+  const message = hasError ? error.message : '';
 
-const DisplayError = ({ error }) => {
   return (
     <Snackbar
-      open={true}
-      message={error.message}
+      style={styles.errorSnackbar}
+      open={hasError}
+      message={message}
       onRequestClose={() => {}}
       autoHideDuration={4000}/>
   );

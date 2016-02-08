@@ -18,12 +18,6 @@ class LayoutContainer extends Component {
     actions.connectLayoutSocket();
   }
 
-  renderError(layout) {
-    return (
-      <DisplayError error={layout.toJS().error}/>
-    );
-  }
-
   renderRooms() {
     return (
       <RoomsController {...this.props}/>
@@ -41,7 +35,7 @@ class LayoutContainer extends Component {
 
     return (
       <span>
-        {layout.has('error') ? this.renderError(layout) : null}
+        <DisplayError {...this.props}/>
         <ReactCSSTransition
           transitionName='root-container'
           transitionEnterTimeout={TRANSITION_ENTER_TIMEOUT}
