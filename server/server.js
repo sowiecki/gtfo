@@ -10,7 +10,6 @@ import colors from 'colors/safe';
 
 import { SERVER_PORT, PUBLIC_PATH } from './config';
 import routes from './routes';
-import socket from './socket';
 import devicesController from './controllers/devices';
 
 const server = express();
@@ -55,7 +54,5 @@ const app = server.listen(SERVER_PORT, (err) => {
     devicesController.initRooms();
   }
 });
-
-socket.open();
 
 export default app;

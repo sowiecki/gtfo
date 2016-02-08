@@ -17,21 +17,22 @@ import { FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-// import { SEND_LAYOUT_UPDATE } from '../ducks/layout';
-import { CHECK_INTERVAL } from '../constants/values';
+import { CHECK_INTERVAL, ROOMS_UPDATE } from '../constants/values';
 
 import store from '../store/configure-store';
+import socket from '../socket';
 
-const { roomsReducer } = store().getState();
-const { rooms } = store().getState().roomsReducer;
+const rooms = store().getState().roomsReducer;
 
 export default {
   initRooms() {
+    socket.open(ROOMS_UPDATE, rooms);
+
     if (process.env.MOCKS) {
       console.log(colors.gray.italic('Using mock data'));
     }
 
-    roomsReducer.map((room) => {
+    rooms.map((room) => {
       // Initialize board
       const board = registerBoard(room);
 

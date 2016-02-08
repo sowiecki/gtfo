@@ -10,7 +10,21 @@ import { CONNECT_LAYOUT_SOCKET,
 import { lostConnectionToHost } from '../constants/errors';
 
 let interval;
+
 const clearSocketErrors = (next) => next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
+
+const handleEvent = (next, event) => {
+  const { meetingRooms } = JSON.parse(event.data);
+
+  if (meetingRooms) {
+    console.log('Room status update received');
+
+    next({
+      type: EMIT_ROOM_STATUSES_UPDATE,
+      meetingRooms
+    });
+  }
+};
 
 const attemptToReconnect = (next) => {
   const webSocket = new WebSocket(WEBSOCKET_HOST, WEBSOCKET_PROTOCOL);
@@ -23,6 +37,8 @@ const attemptToReconnect = (next) => {
     clearInterval(interval);
     clearSocketErrors(next);
   };
+
+  webSocket.onmessage = handleEvent.bind(null, next);
 };
 
 const connectLayoutSocket = (next) => {
@@ -35,18 +51,7 @@ const connectLayoutSocket = (next) => {
     clearSocketErrors(next);
   };
 
-  webSocket.onmessage = (event) => {
-    const { meetingRooms } = JSON.parse(event.data);
-
-    if (meetingRooms) {
-      console.log('Room status update received');
-
-      next({
-        type: EMIT_ROOM_STATUSES_UPDATE,
-        meetingRooms
-      });
-    }
-  };
+  webSocket.onmessage = handleEvent.bind(null, next);
 
   webSocket.onclose = () => {
     interval = setInterval(() => attemptToReconnect(next), WEBSOCKET_RECONNECT_INTERVAL);
