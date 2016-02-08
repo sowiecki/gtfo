@@ -8,9 +8,10 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
 
-import * as config from './config';
+import { SERVER_PORT, PUBLIC_PATH } from './config';
 import routes from './routes';
-import devices from './controllers/devices';
+import socket from './socket';
+import devicesController from './controllers/devices';
 
 const server = express();
 
@@ -31,28 +32,30 @@ if (process.env.HOT) {
 }
 
 /* Configuration */
-server.use(favicon(`server/${config.publicPath}/favicon.ico`));
+server.use(favicon(`server/${PUBLIC_PATH}/favicon.ico`));
 server.use(logger('dev'));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
-server.set('port', config.serverPort);
+server.set('port', SERVER_PORT);
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
-server.use('/', express.static(path.join(__dirname, config.publicPath)));
+server.use('/', express.static(path.join(__dirname, PUBLIC_PATH)));
 server.use('/', routes);
 
-const app = server.listen(config.serverPort, (err) => {
+const app = server.listen(SERVER_PORT, (err) => {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log(`Listening at http://localhost:${config.serverPort}`);
+  console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
   if (!process.env.DISABLE_DEVICES) {
-    devices.initRooms();
+    devicesController.initRooms();
   }
 });
+
+socket.open();
 
 export default app;

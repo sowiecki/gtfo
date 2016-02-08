@@ -19,5 +19,6 @@ module.exports = {
   ],
   module: base.module,
   devtool: 'eval-source-map',
-  debug: true
+  debug: true,
+  externals: base.externals
 }

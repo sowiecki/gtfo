@@ -1,4 +1,3 @@
-/* globals setInterval */
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 import ReactCSSTransition from 'react-addons-css-transition-group';
@@ -11,21 +10,12 @@ import DisplayError from '../common/display-error';
 
 import * as RoomsActions from '../../ducks/layout';
 import { TRANSITION_ENTER_TIMEOUT, TRANSITION_EXIT_TIMEOUT } from '../common/styles';
-import { LAYOUT_UPDATE_INTERVAL } from '../../constants/values';
 
 class LayoutContainer extends Component {
   componentWillMount() {
     const { actions } = this.props;
 
-    /**
-     * TODO
-     * This needs to be replaced with websockets ASAP,
-     * and most likely initiated at the reducer level.
-     */
-    setInterval(() => {
-      actions.fetchRoomStatuses();
-      actions.fetchMarkers();
-    }, LAYOUT_UPDATE_INTERVAL);
+    actions.connectLayoutSocket();
   }
 
   renderError(layout) {
