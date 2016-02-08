@@ -13,7 +13,7 @@ export const THERMO_FREQ = 1000; // milliseconds
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';
 
-export const CHECK_INTERVAL = 8000;
+export const CHECK_INTERVAL = 2000;
 
 export const IN = 'IN';
 export const OUT = 'OUT';
