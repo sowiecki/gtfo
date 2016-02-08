@@ -1,16 +1,38 @@
 /* eslint no-console:0 */
-/* globals console */
-import webSocket from '../config/web-socket';
+/* globals WebSocket, console, setInterval, clearInterval */
+import { WEBSOCKET_HOST,
+         WEBSOCKET_PROTOCOL,
+         WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
 import { CONNECT_LAYOUT_SOCKET,
          EMIT_ROOM_STATUSES_UPDATE,
+         EMIT_FETCH_ROOM_STATUSES_ERROR,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
+import { lostConnectionToHost } from '../constants/errors';
 
+let interval;
 const clearSocketErrors = (next) => next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
 
+const attemptToReconnect = (next) => {
+  const webSocket = new WebSocket(WEBSOCKET_HOST, WEBSOCKET_PROTOCOL);
+  console.log('Attempting to reconnect...');
+
+  webSocket.onopen = () => {
+    console.log('Reconnected to host.');
+    webSocket.send('Reconnected to client');
+
+    clearInterval(interval);
+    clearSocketErrors(next);
+  };
+};
+
 const connectLayoutSocket = (next) => {
+  const webSocket = new WebSocket(WEBSOCKET_HOST, WEBSOCKET_PROTOCOL);
+
   webSocket.onopen = () => {
     console.log('Connected to host.');
     webSocket.send('Connected to client');
+
+    clearSocketErrors(next);
   };
 
   webSocket.onmessage = (event) => {
@@ -25,10 +47,20 @@ const connectLayoutSocket = (next) => {
       });
     }
   };
+
+  webSocket.onclose = () => {
+    interval = setInterval(() => attemptToReconnect(next), WEBSOCKET_RECONNECT_INTERVAL);
+
+    next({
+      type: EMIT_FETCH_ROOM_STATUSES_ERROR,
+      error: lostConnectionToHost
+    });
+  };
 };
 
 export default () => (next) => (action) => {
   switch (action.type) {
+    case EMIT_FETCH_ROOM_STATUSES_ERROR:
     case CONNECT_LAYOUT_SOCKET:
       connectLayoutSocket(next);
 

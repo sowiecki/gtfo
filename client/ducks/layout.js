@@ -13,7 +13,7 @@ export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
-export const EMIT_CLEAR_FETCH_ERRORS = 'EMIT_CLEAR_FETCH_ERRORS';
+export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 export const connectLayoutSocket = () => ({
   type: CONNECT_LAYOUT_SOCKET
@@ -50,7 +50,7 @@ const layoutReducer = (state = initialState, action) => {
       state = state.set('error', error);
 
       break;
-    case EMIT_CLEAR_FETCH_ERRORS:
+    case EMIT_CLEAR_CONNECTION_ERRORS:
       state = state.delete('error');
 
       break;
