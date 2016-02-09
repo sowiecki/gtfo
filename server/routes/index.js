@@ -4,6 +4,9 @@ import find from 'lodash/collection/find';
 
 import devicesController from '../controllers/devices';
 import markersController from '../controllers/markers';
+import store from '../store/configure-store';
+
+import { EMIT_ROOM_PING_UPDATE } from '../ducks/rooms';
 
 const router = express.Router();
 const rooms = devicesController.getRooms();
@@ -22,10 +25,35 @@ router.get('/api/rooms', (req, res) => {
   res.json(rooms);
 });
 
+/* Room pings */
+router.get('/api/ping/:id', (req, res) => { // TODO change to post
+  const { id } = req.params;
+  const room = find(rooms, {id});
+
+  if (room) {
+    store().dispatch({
+      type: EMIT_ROOM_PING_UPDATE,
+      room
+    });
+    res.json({
+      status: 200
+    });
+  } else {
+    res.json({
+      status: 404,
+      error: {
+        message: 'Room not found'
+      }
+    });
+    // TODO emit room not found, move error message to constants
+  }
+});
+
 /* Map markers */
-router.get('/api/markers', (req, res) => {
+router.post('/api/mark/:TODO', (req, res) => {
   res.json(markers);
 });
+
 router.post('/api/mark/:TODO', (req, res) => {
   res.json(markers);
 });

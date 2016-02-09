@@ -26,8 +26,8 @@ const LayoutController = ({ layout }) => {
       <Style rules={rules.officeLayout}/>
       <image className='office-layout' src={require('../../assets/prudential-51.png')}>
         <svg className='office-layout'>
-        {renderMeetingRooms}
-        {renderMarkers}
+          {renderMeetingRooms}
+          {renderMarkers}
         </svg>
       </image>
     </Paper>

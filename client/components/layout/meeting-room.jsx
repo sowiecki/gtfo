@@ -10,7 +10,7 @@ const MeetingRoom = ({ room }) => {
   // console.log(room);
   return (
     <svg>
-      <Style rules={rules.meetingRoom}/>
+      <Style rules={rules.roomText}/>
       <rect
         fill={styles[room.alert || OFFLINE]}
         stroke={styles.svgStroke}
