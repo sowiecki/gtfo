@@ -1,20 +1,20 @@
 {
   "wrigleyville": {
-    "height": 3.5,
-    "width": 3.7,
-    "x": 60.7,
-    "y": 19
+    "height": 6.9,
+    "width": 8.4,
+    "x": 76.2,
+    "y": 37.6
   },
   "bronzeville": {
-    "height": 3.3,
-    "width": 5.6,
-    "x": 55,
-    "y": 40.1
+    "height": 6.8,
+    "width": 13.25,
+    "x": 62.3,
+    "y": 81.9
   },
   "the loop": {
-    "height": 9.2,
-    "width": 4.3,
-    "x": 66.2,
-    "y": 20.4
+    "height": 18.9,
+    "width": 10,
+    "x": 89.5,
+    "y": 40.5
   }
 }

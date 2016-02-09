@@ -21,7 +21,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.svg$/,
+        test: /\.(svg|png)$/,
         loader: 'file-loader',
         include: path.join(__dirname, 'client')
       }

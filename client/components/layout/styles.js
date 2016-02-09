@@ -3,12 +3,6 @@ import { colors, breakpoints } from '../common/styles';
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export const styles = {
-  officeLayoutContainer: {
-    position: 'absolute',
-    width: '100%',
-    textAlign: 'center'
-  },
-
   svgStroke: '#BBBBBB',
 
   OFFLINE: GREY,
@@ -23,50 +17,50 @@ export const styles = {
 };
 
 export const rules = {
-  // TODO fix left adjustments after updating map
   officeLayout: {
     'img.office-layout, svg.office-layout': {
       position: 'absolute',
-      top: '65px',
-      left: '-200px',
-      height: '1000px',
-      width: '1000px'
+      top: '85px',
+      left: '50%',
+      marginRight: '50%',
+      transform: 'translate(-50%, 0)',
+      width: '500px',
+      height: '576px',
+      backgroundSize: 'fill'
     },
 
     mediaQueries: {
+      [breakpoints.widescreen]: {
+        'img.office-layout, svg.office-layout': {
+          width: '700px',
+          height: '806px'
+        }
+      },
+
       [breakpoints.afterMedium]: {
         'img.office-layout, svg.office-layout': {
-          // left: '-200px',
-          height: '1200px',
-          width: '1200px'
+          width: '600px',
+          height: '691px'
         }
       },
 
       [breakpoints.afterLarge]: {
         'img.office-layout, svg.office-layout': {
-          left: '-100px',
-          height: '1600px',
-          width: '1600px'
+          width: '700px',
+          height: '806px'
         }
       },
 
       [breakpoints.afterExtraLarge]: {
         'img.office-layout, svg.office-layout': {
-          // left: '300px',
-          height: '1800px',
-          width: '1800px'
-        }
-      },
-
-      [breakpoints.widescreen]: {
-        'img.office-layout, svg.office-layout': {
-          // left: '150px'
+          width: '1050px',
+          height: '1209px'
         }
       }
     }
   },
 
-  roomText: {
+  meetingRoom: {
     'text.room-text': {
       zIndex: '200',
       fontSize: '14px',

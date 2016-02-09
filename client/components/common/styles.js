@@ -51,8 +51,7 @@ export const styles = {
 
 export const rules = {
   body: {
-    'html, body': {
-      position: 'absolute',
+    'body': {
       margin: '0',
       height: '100%',
       width: '100%',
@@ -61,6 +60,10 @@ export const rules = {
     },
 
     ...transitions
+  },
+
+  '*': {
+    boxSizing: 'border-box'
   }
 };
 
