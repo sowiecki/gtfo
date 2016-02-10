@@ -15,8 +15,8 @@ const markers = markersController.getMarkers();
 const getHost = (req) => req.headers.host.slice(0, -5);
 
 /* Room pings */
-router.post('/api/ping/:id', (req, res) => {
-  const { id } = req.params;
+router.post('/api/ping/:id/from/:locator', (req, res) => {
+  const { id, locator } = req.params;
   const room = find(rooms, {id});
 
   if (room) {
@@ -26,6 +26,7 @@ router.post('/api/ping/:id', (req, res) => {
       ping: {
         origin: getHost(req),
         id,
+        locator,
         room
       }
     });

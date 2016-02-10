@@ -34,7 +34,7 @@ const initialState = immutable.fromJS({
   markers: []
 });
 
-const mapPing = (state, origin, ping) => {
+const mapPing = (state, ping) => {
   return state.get('meetingRooms').map((meetingRoom) => {
     if (meetingRoom.id === ping.id) {
       meetingRoom.pinged = true;
@@ -56,8 +56,8 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('error', error);
     case EMIT_CLEAR_CONNECTION_ERRORS:
       return state.delete('error');
-    case EMIT_SET_ROOM_PING: // TODO add conditional for locator origin!
-      return state.set('meetingRooms', mapPing(state, origin, ping));
+    case EMIT_SET_ROOM_PING:
+      return state.set('meetingRooms', mapPing(state, ping));
     case UPDATE_LOCATION:
       // return state.merge({
       //   markers: [{

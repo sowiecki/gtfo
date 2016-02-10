@@ -8,6 +8,9 @@ import { CONNECT_LAYOUT_SOCKET,
          EMIT_FETCH_ROOM_STATUSES_ERROR,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
 import { lostConnectionToHost } from '../constants/errors';
+import { HANDSHAKE, RECONNECTED } from '../constants/events';
+
+// TODO this file needs some TLC
 
 let interval;
 
@@ -19,7 +22,7 @@ const attemptToReconnect = (next) => {
 
   webSocket.onopen = () => {
     console.log('Reconnected to host.');
-    webSocket.send('Reconnected to client');
+    webSocket.send({ event: RECONNECTED, payload: { message: 'Reconnected to client' }});
 
     clearInterval(interval);
     clearSocketErrors(next);
@@ -28,12 +31,12 @@ const attemptToReconnect = (next) => {
   webSocket.onmessage = handleEvent.bind(null, next);
 };
 
-const connectLayoutSocket = (next) => {
+const connectLayoutSocket = (next, locator) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
   webSocket.onopen = () => {
     console.log('Connected to host.');
-    webSocket.send('Connected to client');
+    webSocket.send(JSON.stringify({ event: HANDSHAKE, payload: { locator } }));
 
     clearSocketErrors(next);
   };
@@ -50,11 +53,13 @@ const connectLayoutSocket = (next) => {
   };
 };
 
-export default () => (next) => (action) => {
+export default (store) => (next) => (action) => {
+  const locator = store.getState().routeReducer.location.pathname.replace(/[/]/g, '');
+
   switch (action.type) {
     case EMIT_FETCH_ROOM_STATUSES_ERROR:
     case CONNECT_LAYOUT_SOCKET:
-      connectLayoutSocket(next);
+      connectLayoutSocket(next, locator);
 
       break;
     default:
