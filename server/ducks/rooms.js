@@ -4,8 +4,8 @@ import socket from '../socket';
 import mapNotifications from './utils/map-notifications';
 import { ROOM_STATUSES_UPDATE } from '../constants/events';
 
-const { devices } = JSON.parse(readFileSync('./data/devices.json', 'utf8'));
-const roomCoordinates = JSON.parse(readFileSync('./data/room-coordinates.json', 'utf8'));
+const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
+const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
 
 // Map room coordinates to device object
 devices.map((device) => device.coordinates = roomCoordinates[device.id]);

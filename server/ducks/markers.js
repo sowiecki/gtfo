@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-const clientMarkers = JSON.parse(readFileSync('./data/clients.json', 'utf8'));
+const clientMarkers = JSON.parse(readFileSync('./environment/clients.json', 'utf8'));
 
 export const SET_MARKERS = 'SET_MARKERS';
 
