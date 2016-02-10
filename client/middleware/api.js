@@ -1,10 +1,10 @@
 /* eslint no-console:0 */
 /* globals WebSocket, console, setInterval, clearInterval */
+import handleEvent from './handlers';
 import { getSocketPort,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
 import { CONNECT_LAYOUT_SOCKET,
-         EMIT_ROOM_STATUSES_UPDATE,
          EMIT_FETCH_ROOM_STATUSES_ERROR,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
 import { lostConnectionToHost } from '../constants/errors';
@@ -12,19 +12,6 @@ import { lostConnectionToHost } from '../constants/errors';
 let interval;
 
 const clearSocketErrors = (next) => next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
-
-const handleEvent = (next, event) => {
-  const { meetingRooms } = JSON.parse(event.data);
-
-  if (meetingRooms) {
-    console.log('Room status update received');
-
-    next({
-      type: EMIT_ROOM_STATUSES_UPDATE,
-      meetingRooms
-    });
-  }
-};
 
 const attemptToReconnect = (next) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
@@ -68,10 +55,6 @@ export default () => (next) => (action) => {
     case EMIT_FETCH_ROOM_STATUSES_ERROR:
     case CONNECT_LAYOUT_SOCKET:
       connectLayoutSocket(next);
-
-      break;
-    case EMIT_CLEAR_CONNECTION_ERRORS:
-      clearSocketErrors(next);
 
       break;
     default:

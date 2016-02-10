@@ -1,10 +1,10 @@
 import { readFileSync } from 'fs';
 
-const baseMarkers = JSON.parse(readFileSync('./data/markers.json', 'utf8'));
+const clientMarkers = JSON.parse(readFileSync('./data/clients.json', 'utf8'));
 
 export const SET_MARKERS = 'SET_MARKERS';
 
-const markersReducer = (state = baseMarkers, action) => {
+const markersReducer = (state = clientMarkers, action) => {
   const { type, markers } = action;
 
   switch (type) {

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "west-lobby",
+    "id": "192.168.1.148",
+    "type": "locator"
+  },
+  {
+    "name": "east-lobby",
+    "id": "localhost",
+    "type": "locator"
+  }
+]

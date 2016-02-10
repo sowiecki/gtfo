@@ -6,38 +6,30 @@ import devicesController from '../controllers/devices';
 import markersController from '../controllers/markers';
 import store from '../store/configure-store';
 
-import { EMIT_ROOM_PING_UPDATE } from '../ducks/rooms';
+import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 
 const router = express.Router();
 const rooms = devicesController.getRooms();
 const markers = markersController.getMarkers();
 
-/* Individual room status */
-router.get('/api/rooms/:id', (req, res) => {
-  const { id } = req.params;
-  const room = find(rooms, {id});
-
-  res.json(room);
-});
-
-/* Room statuses */
-router.get('/api/rooms', (req, res) => {
-  res.json(rooms);
-});
+const getHost = (req) => req.headers.host.slice(0, -5);
 
 /* Room pings */
-router.get('/api/ping/:id', (req, res) => { // TODO change to post
+router.post('/api/ping/:id', (req, res) => {
   const { id } = req.params;
   const room = find(rooms, {id});
 
   if (room) {
+    // TODO break out into new file
     store().dispatch({
-      type: EMIT_ROOM_PING_UPDATE,
-      room
+      type: EMIT_ROOM_PING_RECEIVED,
+      ping: {
+        origin: getHost(req),
+        id,
+        room
+      }
     });
-    res.json({
-      status: 200
-    });
+    res.json({ status: 200 });
   } else {
     res.json({
       status: 404,

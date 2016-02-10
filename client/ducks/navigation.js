@@ -16,12 +16,10 @@ const navigationReducer = (state = initialState, action) => {
 
   switch (type) {
     case EMIT_SITE_NAV_TOGGLE:
-      state = state.set('siteNavOpen', siteNavOpen);
-
-      break;
+      return state.set('siteNavOpen', siteNavOpen);
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export default navigationReducer;

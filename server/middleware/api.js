@@ -2,11 +2,13 @@ import fetchRoomReservations from './fetch-room-reservation';
 import fetchMockedReservations from './fetch-mocked-reservations';
 import fetchRoomTemperature from './fetch-room-temperature';
 import fetchRoomMotion from './fetch-room-motion';
+import forwardRoomPing from './forward-room-ping';
 import {
   MOCK_ROOM_RESERVATIONS,
   FETCH_ROOM_RESERVATIONS,
   FETCH_ROOM_TEMPERATURE,
-  FETCH_ROOM_MOTION
+  FETCH_ROOM_MOTION,
+  EMIT_ROOM_PING_RECEIVED
 } from '../ducks/rooms';
 
 export default () => (next) => (action) => {
@@ -25,6 +27,10 @@ export default () => (next) => (action) => {
 
     case FETCH_ROOM_MOTION:
       fetchRoomMotion(next, action);
+      break;
+
+    case EMIT_ROOM_PING_RECEIVED:
+      forwardRoomPing(next, action);
       break;
 
     default:

@@ -17,7 +17,8 @@ import { FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-import { CHECK_INTERVAL, ROOMS_UPDATE } from '../constants/values';
+import { CHECK_INTERVAL } from '../constants/values';
+import { ROOM_STATUSES_UPDATE } from '../constants/events';
 
 import store from '../store/configure-store';
 import socket from '../socket';
@@ -26,7 +27,7 @@ const rooms = store().getState().roomsReducer;
 
 export default {
   initRooms() {
-    socket.open(ROOMS_UPDATE, rooms);
+    socket.open(ROOM_STATUSES_UPDATE, rooms);
 
     if (process.env.MOCKS) {
       console.log(colors.gray.italic('Using mock data'));
