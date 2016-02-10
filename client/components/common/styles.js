@@ -18,9 +18,12 @@ export const colors = {
 };
 
 export const breakpoints = {
-  beforeMedium: 'screen and (max-width: 629px)',
-  afterMedium: 'screen and (min-width: 720px)',
-  afterLarge: 'screen and (min-width: 1024px)',
+  beforeSmall: 'screen and (max-width: 719px)',
+  beforeMedium: 'screen and (max-width: 1023px)',
+  afterExtraSmall: 'screen and (min-width: 512px)',
+  afterSmall: 'screen and (min-width: 720px)',
+  afterMedium: 'screen and (min-width: 1024px)',
+  afterLarge: 'screen and (min-width: 1500px)',
   afterExtraLarge: 'screen and (min-width: 2048px)',
   widescreen: 'screen and (min-aspect-ratio: 16/10)'
 };

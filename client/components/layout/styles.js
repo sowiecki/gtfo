@@ -24,30 +24,37 @@ export const rules = {
       left: '50%',
       marginRight: '50%',
       transform: 'translate(-50%, 0)',
-      width: '500px',
-      height: '576px',
+      width: '300px',
+      height: '345px',
       backgroundSize: 'fill'
     },
 
     mediaQueries: {
-      [breakpoints.widescreen]: {
+      [breakpoints.afterExtraSmall]: {
         'img.office-layout, svg.office-layout': {
-          width: '700px',
-          height: '806px'
+          width: '500px',
+          height: '576px'
+        }
+      },
+
+      [breakpoints.afterSmall]: {
+        'img.office-layout, svg.office-layout': {
+          width: '608px',
+          height: '700px'
         }
       },
 
       [breakpoints.afterMedium]: {
         'img.office-layout, svg.office-layout': {
-          width: '600px',
-          height: '691px'
+          width: '608px',
+          height: '700px'
         }
       },
 
       [breakpoints.afterLarge]: {
         'img.office-layout, svg.office-layout': {
-          width: '700px',
-          height: '806px'
+          width: '695px',
+          height: '800px'
         }
       },
 
@@ -60,32 +67,40 @@ export const rules = {
     }
   },
 
-  meetingRoom: {
+  roomText: {
     'text.room-text': {
       zIndex: '200',
-      fontSize: '14px',
+      fontSize: '10px',
       fontFamily: `'Wire One', sans-serif`,
-      fontVariantCaps: 'all-small-caps'
+      fontWeight: 'bold',
+      fontVariantCaps: 'all-small-caps',
+      transform: 'translateY(-10px)'
     },
 
     mediaQueries: {
-      [breakpoints.beforeMedium]: {
+      [breakpoints.afterExtraSmall]: {
         'text.room-text': {
-          transform: 'translateY(-10px)'
+          fontSize: '15px'
+        }
+      },
+
+      [breakpoints.afterSmall]: {
+        'text.room-text': {
+          fontSize: '18px',
+          transform: 'translateY(2px)'
         }
       },
 
       [breakpoints.afterMedium]: {
         'text.room-text': {
-          fontSize: '16px'
+          transform: 'translateY(4px)'
         }
       },
 
       [breakpoints.afterLarge]: {
         'text.room-text': {
-          top: '20px',
           fontSize: '22px',
-          lineHeight: '200'
+          transform: 'translateY(8px)'
         }
       }
     }
