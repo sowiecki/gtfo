@@ -26,7 +26,7 @@ const mapNotifications = (roomStatus, accessories) => {
     [BOOKED]: () => flash.occupied(accessories.led)
   };
 
-  handleFlash[roomStatus.alert]();
+  handleFlash[roomStatus.alert || VACANT]();
 };
 
 export default mapNotifications;
