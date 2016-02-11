@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 
 import socket from '../middleware/socket';
-import mapNotifications from './utils/map-notifications';
+import mapNotifications from '../utils/map-notifications';
 import { ROOM_STATUSES_UPDATE } from '../constants/events';
 
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));

@@ -14,7 +14,7 @@ import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion } from './utils/register-hardware';
+         registerMotion } from '../utils/register-hardware';
 import { INIT_ROOM_STATUSES,
          FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,

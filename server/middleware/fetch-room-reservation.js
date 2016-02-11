@@ -2,10 +2,10 @@
 /* globals console */
 import http from 'http';
 
-import setAlertByReservationStatus from './utils/set-reservation-alert';
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants/urls';
-import filterExpiredReservations from './utils/filter-reservations';
+import filterExpiredReservations from '../utils/filter-reservations';
+import setAlertByReservationStatus from '../utils/set-reservation-alert';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
