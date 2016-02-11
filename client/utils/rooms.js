@@ -22,7 +22,6 @@ export const mapPing = (state, ping) => {
     if (meetingRoom.id === ping.id) {
       meetingRoom.pinged = true;
     }
-
     return meetingRoom;
   });
 };

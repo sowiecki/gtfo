@@ -19,8 +19,7 @@ const pingsController = {
         ping: {
           origin: getHost(req),
           id,
-          locator,
-          room
+          locator
         }
       });
 

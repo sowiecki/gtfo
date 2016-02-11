@@ -6,8 +6,7 @@ import { styles, rules, TEXT_DX, TEXT_DY } from './styles';
 import { shapeModifier } from '../../utils/rooms';
 import { OFFLINE } from '../../constants/svg';
 
-const MeetingRoom = ({ room }) => {
-  // console.log(room);
+const MeetingRoom = ({ room, pinged }) => {
   return (
     <svg>
       <Style rules={rules.roomText}/>
@@ -20,7 +19,7 @@ const MeetingRoom = ({ room }) => {
         dx={TEXT_DX}
         dy={TEXT_DY}
         {...shapeModifier(room.coordinates)}>
-          {room.name}
+          {pinged ? 'PINGED!' : room.name}
       </text>
     </svg>
   );
