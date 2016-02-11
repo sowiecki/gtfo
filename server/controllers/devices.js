@@ -8,30 +8,25 @@
 
 import colors from 'colors/safe';
 
+import store from '../store/configure-store';
+
 import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
          registerMotion } from './utils/register-hardware';
-import { FETCH_ROOM_RESERVATIONS,
+import { INIT_ROOM_STATUSES,
+         FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants/values';
-import { ROOM_STATUSES_UPDATE } from '../constants/events';
-
-import store from '../store/configure-store';
-import socket from '../socket';
 
 const rooms = store().getState().roomsReducer;
 
-export default {
+const devicesController = {
   initRooms() {
-    socket.open(ROOM_STATUSES_UPDATE, rooms);
-
-    if (process.env.MOCKS) {
-      console.log(colors.gray.italic('Using mock data'));
-    }
+    store().dispatch({ type: INIT_ROOM_STATUSES });
 
     rooms.map((room) => {
       // Initialize board
@@ -90,3 +85,5 @@ export default {
     return rooms;
   }
 };
+
+export default devicesController;

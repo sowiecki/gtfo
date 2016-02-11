@@ -30,7 +30,7 @@ if (process.env.HOT) {
   console.log(colors.bgRed('Hot reloading enabled'));
 }
 
-/* Configuration */
+/* Setup */
 server.use(favicon(`server/${PUBLIC_PATH}/favicon.ico`));
 server.use(logger('dev'));
 server.use(cookieParser());
@@ -54,5 +54,9 @@ const app = server.listen(SERVER_PORT, (err) => {
     devicesController.initRooms();
   }
 });
+
+if (process.env.MOCKS) {
+  console.log(colors.gray.italic('Using mock data'));
+}
 
 export default app;

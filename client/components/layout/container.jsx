@@ -15,7 +15,7 @@ class LayoutContainer extends Component {
   componentWillMount() {
     const { actions } = this.props;
 
-    actions.connectLayoutSocket();
+    actions.connectSocket();
   }
 
   renderRooms() {
