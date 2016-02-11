@@ -7,7 +7,7 @@ import {
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED
-} from '../../constants/room-statuses';
+} from '../constants/room-statuses';
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 

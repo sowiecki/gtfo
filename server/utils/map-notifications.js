@@ -6,7 +6,7 @@ import {
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED
-} from '../../constants/room-statuses';
+} from '../constants/room-statuses';
 
 const mapNotifications = (roomStatus, accessories) => {
   // TODO better handling of no reservations left
@@ -16,23 +16,17 @@ const mapNotifications = (roomStatus, accessories) => {
 
   logRoomNotification(roomStatus);
 
-  switch (roomStatus.alert) {
-    case VACANT:
-      flash.vacant(accessories.led);
-      break;
+  const handleFlash = {
+    [VACANT]: () => flash.vacant(accessories.led),
 
-    case ONE_MINUTE_WARNING:
-      flash.oneMinuteWarning(accessories.led);
-      break;
+    [ONE_MINUTE_WARNING]: () => flash.oneMinuteWarning(accessories.led),
 
-    case FIVE_MINUTE_WARNING:
-      flash.fiveMinuteWarning(accessories.led);
-      break;
+    [FIVE_MINUTE_WARNING]: () => flash.fiveMinuteWarning(accessories.led),
 
-    case BOOKED:
-      flash.occupied(accessories.led);
-      break;
-  }
+    [BOOKED]: () => flash.occupied(accessories.led)
+  };
+
+  handleFlash[roomStatus.alert]();
 };
 
 export default mapNotifications;

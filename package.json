@@ -65,6 +65,7 @@
     "react-tap-event-plugin": "^0.2.1",
     "recompose": "^0.14.5",
     "redux": "^3.0.5",
+    "redux-immutable": "^3.0.3",
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "ws": "^1.0.1"

@@ -1,22 +1,26 @@
 import immutable from 'immutable';
-import { UPDATE_LOCATION } from 'react-router-redux';
 
-export const CONNECT_LAYOUT_SOCKET = 'CONNECT_LAYOUT_SOCKET';
+export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
 
-// export const FETCH_ROOM_STATUSES = 'FETCH_ROOM_STATUSES';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
 export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 
-// export const FETCH_MARKERS = 'FETCH_MARKERS';
+export const EMIT_SET_ROOM_PING = 'EMIT_SET_ROOM_PING';
+export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
+
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
-export const connectLayoutSocket = () => ({
-  type: CONNECT_LAYOUT_SOCKET
+export const connectSocket = () => ({
+  type: CONNECT_SOCKET
+});
+
+export const clearPing = () => ({
+  type: EMIT_CLEAR_PING
 });
 
 export const emitMarkersActivated = (markers) => ({
@@ -35,45 +39,33 @@ const initialState = immutable.fromJS({
 });
 
 const layoutReducer = (state = initialState, action) => {
-  const { type,
-          meetingRooms,
-          markers,
-          // payload,
-          error } = action;
+  const reducers = {
+    [EMIT_ROOM_STATUSES_UPDATE]() {
+      return state.set('meetingRooms', action.meetingRooms);
+    },
 
-  switch (type) {
-    case EMIT_ROOM_STATUSES_UPDATE:
-      state = state.set('meetingRooms', meetingRooms);
+    [EMIT_FETCH_ROOM_STATUSES_ERROR]() {
+      return state.set('error', action.error);
+    },
 
-      break;
-    case EMIT_FETCH_ROOM_STATUSES_ERROR:
-      state = state.set('error', error);
+    [EMIT_CLEAR_CONNECTION_ERRORS]() {
+      return state.delete('error');
+    },
 
-      break;
-    case EMIT_CLEAR_CONNECTION_ERRORS:
-      state = state.delete('error');
+    [EMIT_SET_ROOM_PING]() {
+      return state.set('ping', action.ping);
+    },
 
-      break;
-    case UPDATE_LOCATION:
-      // state = state.merge({
-      //   markers: [{
-      //     name: payload.search.replace('?whereAmI=', '')
-      //   }]
-      // });
+    [EMIT_CLEAR_PING]() {
+      return state.set('ping', null);
+    },
 
-      break;
-    case EMIT_MARKERS_UPDATE:
-    case EMIT_MARKERS_ACTIVATED:
-      state = state.set('markers', markers);
+    [EMIT_MARKERS_DEACTIVED]() {
+      return initialState;
+    }
+  };
 
-      break;
-    case EMIT_MARKERS_DEACTIVED:
-      state = initialState;
-
-      break;
-  }
-
-  return state;
+  return reducers[action.type] ? reducers[action.type]() : state;
 };
 
 export default layoutReducer;

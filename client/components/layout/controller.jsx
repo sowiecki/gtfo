@@ -1,3 +1,4 @@
+/* globals setInterval, clearInterval */
 import React from 'react';
 import { Style } from 'radium';
 import ImmutablePropTypes from 'immutable-props';
@@ -9,12 +10,23 @@ import Marker from './marker';
 
 import { applyStyles } from '../../config/composition';
 import { rules } from './styles';
+import { PING_TIMEOUT } from '../../constants/svg';
 
-const LayoutController = ({ layout }) => {
-  const { meetingRooms, markers } = layout.toJS();
+const LayoutController = ({ actions, layout }) => {
+  const { meetingRooms, markers, ping } = layout.toJS();
+
+  if (ping) {
+    const setPingTimeout = setInterval(() => {
+      actions.clearPing();
+      clearInterval(setPingTimeout);
+    }, PING_TIMEOUT);
+  }
 
   const renderMeetingRooms = meetingRooms.map((room) => (
-    <MeetingRoom key={`${room.name}`} room={room}/>
+    <MeetingRoom
+      key={`${room.name}`}
+      room={room}
+      pinged={ping && ping.id === room.id}/>
   ));
 
   const renderMarkers = markers.map((marker) => (
@@ -26,8 +38,8 @@ const LayoutController = ({ layout }) => {
       <Style rules={rules.officeLayout}/>
       <image className='office-layout' src={require('../../assets/prudential-51.png')}>
         <svg className='office-layout'>
-        {renderMeetingRooms}
-        {renderMarkers}
+          {renderMeetingRooms}
+          {renderMarkers}
         </svg>
       </image>
     </Paper>
