@@ -6,7 +6,7 @@ import pingsController from '../controllers/pings';
 
 const router = express.Router();
 
-/* Room pings */
+/* Room pings */ // TODO change to use payload
 router.post('/api/ping/:id/from/:locator', (req, res) => pingsController.handlePing(req, res));
 
 /* Map markers */

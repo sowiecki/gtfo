@@ -10,7 +10,7 @@ import { styles } from './styles';
 const LeftNavContent = ({ toggleSiteNavOpen }) => (
   <List>
     <ListItem
-      onClick={() => history.replaceState(null, '/map')}
+      onClick={() => history.replaceState(null, '/fullscreen')}
       leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>fullscreen</FontIcon>}
       primaryText='Open fullscreen'/>
     <ListItem

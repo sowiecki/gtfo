@@ -18,9 +18,9 @@ const Application = (
     <Router history={history}>
       <Route path='/' component={Body}>
         <IndexRoute component={LayoutContainer}/>
-        <Route path=':markerLocation' component={LayoutContainer}/>
+        <Route path='/anchor/:id' component={LayoutContainer}/>
       </Route>
-      <Route path='/map' component={LayoutContainer}/>
+      <Route path='/fullscreen' component={LayoutContainer}/>
     </Router>
   </Provider>
 );
