@@ -1,7 +1,9 @@
+import get from 'lodash/object/get';
+
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
 export const getAnchor = (store) => {
-  const { pathname } = store.getState().routeReducer.location;
+  const { pathname } = get(store.getState(), 'routeReducer.location');
 
   return pathname.replace(ANCHOR_PATH_REGEX, '');
 };

@@ -1,5 +1,5 @@
-/* eslint no-console:0 */
-/* globals WebSocket, console, setInterval, clearInterval */
+/* eslint max-params:0 */
+/* globals WebSocket, setInterval, clearInterval */
 import parseEvent from './parse-event';
 
 import { getSocketPort,
@@ -12,30 +12,29 @@ import { lostConnectionToHost } from '../constants/errors';
 
 let interval;
 
-const handleSocketOpen = (webSocket, next, payload) => {
+const handleSocketOpen = (webSocket, next, event, payload) => {
   webSocket.send(JSON.stringify({ event: HANDSHAKE, payload }));
 
   next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
 };
 
 const handleSocketReconnected = (webSocket, next, payload) => {
-  console.log('Reconnected to host.');
   webSocket.send(JSON.stringify({ event: RECONNECTED, payload }));
 
   next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
   clearInterval(interval);
 };
 
-const reconnectSocket = (next, payload) => {
+const reconnectSocket = (next, event, payload) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
-  webSocket.onopen = handleSocketReconnected.bind(null, webSocket, next, payload).bind();
+  webSocket.onopen = handleSocketReconnected.bind(null, webSocket, next, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
 };
 
-const handleSocketClose = (next, payload) => {
+const handleSocketClose = (next, event, payload) => {
   interval = setInterval(() => {
-    reconnectSocket(next, payload);
+    reconnectSocket(next, event, payload);
   }, WEBSOCKET_RECONNECT_INTERVAL);
 
   next({
@@ -44,12 +43,12 @@ const handleSocketClose = (next, payload) => {
   });
 };
 
-const connectSocket = (next, anchor) => {
+const connectSocket = (next, event, payload) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
-  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, { anchor });
+  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, event, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
-  webSocket.onclose = handleSocketClose.bind(null, next, { anchor });
+  webSocket.onclose = handleSocketClose.bind(null, next, event, payload);
 };
 
 export default connectSocket;

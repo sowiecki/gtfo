@@ -1,51 +1,72 @@
 /* eslint new-cap:0, no-console:0 */
+/* globals console */
 import WebSocket from 'ws';
 import { filter, forEach } from 'lodash/collection';
 
 import { WEB_SOCKET_PORT } from '../config';
-import { HANDSHAKE, NEW_ROOM_PING } from '../constants/events';
-// import { UNEXPECTED_SOCKET_ERROR } from '../constants/errors';
+import { HANDSHAKE, RECONNECTED, NEW_ROOM_PING } from '../constants/events';
 
 import { getOrigin } from '../utils/traversals';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
+
+/**
+ * Clients with active WebSocket connections.
+ */
 const clients = {};
+
+/**
+ * Deletes client from stored clients hash.
+ * @param {object} ws WebSocket properties for client
+ */
 const flushClient = (ws) => delete clients[getOrigin(ws)];
+
+/**
+ * Registers client with stored clients hash.
+ * Overwrites clients from same origin.
+ * @param {object} ws WebSocket properties for client
+ * @param {string} anchor Anchor key of client
+ */
+const registerClient = (ws, anchor) => {
+  const origin = getOrigin(ws);
+
+  clients[origin] = Object.assign(ws, { anchor });
+};
 
 const WSWrapper = {
   open(event, payload) {
     wss.on('connection', (ws) => {
-      clients[getOrigin(ws)] = ws;
-
-      WSWrapper.handle(event, payload);
+      WSWrapper.handle(event, payload, ws);
 
       ws.on('message', (message) => {
         message = JSON.parse(message);
-        message.payload.ws = ws;
 
-        WSWrapper.handle(message.event, message.payload);
+        WSWrapper.handle(message.event, message.payload, ws);
       });
 
       ws.on('close', () => flushClient(ws));
     });
   },
 
-  send(client, message) {
+  send(client, payload) {
     try {
-      client.send(JSON.stringify(message));
+      client.send(JSON.stringify(payload));
     } catch (e) {
-      // console.log(UNEXPECTED_SOCKET_ERROR); // TODO make less spammy
+      console.log(e);
     }
   },
 
-  handle(event, payload) {
-    const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
-
+  handle(event, payload, ws) {
     const handlers = {
-      [HANDSHAKE]() {
-        clients[getOrigin(payload.ws)].anchor = payload.anchor;
+      [HANDSHAKE]() { // Register client socket with anchor property.
+        registerClient(ws, payload.anchor);
       },
-      [NEW_ROOM_PING]() {
+      [RECONNECTED]() { // Reregister client socket with anchor property.
+        registerClient(ws, payload.anchor);
+      },
+      [NEW_ROOM_PING]() { // Send ping to clients with matching anchor.
+        const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
+
         forEach(clientsWithAnchor, (client) => {
           WSWrapper.send(client, { event, payload });
         });
