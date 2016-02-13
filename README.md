@@ -65,6 +65,7 @@ Finally, retrieve the access tokens and device id for each Photon, and place the
 |------------------|----------------------------|-----------|
 | id               | ID of exchange account     | Yes       |
 | name             | Display name for room      | Yes       |
+| location         | Floor or location of room  | Yes       |
 | deviceId         | ID of Photon board         | Yes       |
 | deviceAuthToken  | Auth token of Photon board | Yes       |
 | deviceAlias      | Name of module             | No        |

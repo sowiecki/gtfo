@@ -16,9 +16,9 @@ const node = document.getElementById('root');
 const Application = (
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/' component={Body}>
+      <Route path='/:location' component={Body}>
         <IndexRoute component={LayoutContainer}/>
-        <Route path='/anchor/:id' component={LayoutContainer}/>
+        <Route path='/:location/anchor/:id' component={LayoutContainer}/>
       </Route>
       <Route path='/fullscreen' component={LayoutContainer}/>
     </Router>

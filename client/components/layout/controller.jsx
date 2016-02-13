@@ -10,10 +10,16 @@ import Marker from './marker';
 
 import { applyStyles } from '../../config/composition';
 import { rules } from './styles';
+import { getPathname } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
-const LayoutController = ({ actions, layout }) => {
+const locationBackdrops = {
+  51: require('../../assets/prudential-51.png')
+};
+
+const LayoutController = ({ actions, location, layout }) => {
   const { meetingRooms, markers, ping } = layout.toJS();
+  const pathname = getPathname(location);
 
   if (ping) {
     const setPingTimeout = setInterval(() => {
@@ -36,7 +42,7 @@ const LayoutController = ({ actions, layout }) => {
   return (
     <Paper zDepth={1}>
       <Style rules={rules.officeLayout}/>
-      <image className='office-layout' src={require('../../assets/prudential-51.png')}>
+      <image className='office-layout' src={locationBackdrops[pathname]}>
         <svg className='office-layout'>
           {renderMeetingRooms}
           {renderMarkers}

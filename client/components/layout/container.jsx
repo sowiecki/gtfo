@@ -58,7 +58,12 @@ LayoutContainer.propTypes = {
   layout: ImmutablePropTypes.Map.isRequired
 };
 
-const mapStateToProps = ({ layoutReducer }) => ({ layout: layoutReducer });
+const mapStateToProps = ({ layoutReducer }, { location }) => {
+  return {
+    layout: layoutReducer,
+    location
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(RoomsActions, dispatch)
