@@ -1,4 +1,3 @@
-/* eslint max-params:0 */
 /* globals WebSocket, setInterval, clearInterval */
 import parseEvent from './parse-event';
 
@@ -12,7 +11,7 @@ import { lostConnectionToHost } from '../constants/errors';
 
 let interval;
 
-const handleSocketOpen = (webSocket, next, event, payload) => {
+const handleSocketOpen = (webSocket, next, payload) => {
   webSocket.send(JSON.stringify({ event: HANDSHAKE, payload }));
 
   next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
@@ -25,16 +24,16 @@ const handleSocketReconnected = (webSocket, next, payload) => {
   clearInterval(interval);
 };
 
-const reconnectSocket = (next, event, payload) => {
+const reconnectSocket = (next, payload) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
   webSocket.onopen = handleSocketReconnected.bind(null, webSocket, next, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
 };
 
-const handleSocketClose = (next, event, payload) => {
+const handleSocketClose = (next, payload) => {
   interval = setInterval(() => {
-    reconnectSocket(next, event, payload);
+    reconnectSocket(next, payload);
   }, WEBSOCKET_RECONNECT_INTERVAL);
 
   next({
@@ -43,12 +42,12 @@ const handleSocketClose = (next, event, payload) => {
   });
 };
 
-const connectSocket = (next, event, payload) => {
+const connectSocket = (next, payload) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
-  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, event, payload);
+  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
-  webSocket.onclose = handleSocketClose.bind(null, next, event, payload);
+  webSocket.onclose = handleSocketClose.bind(null, next, payload);
 };
 
 export default connectSocket;
