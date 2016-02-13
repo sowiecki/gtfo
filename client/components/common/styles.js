@@ -58,7 +58,7 @@ export const rules = {
       margin: '0',
       height: '100%',
       width: '100%',
-      overflow: 'hidden',
+      overflow: 'scroll',
       backgroundColor: '#F8F8FF'
     },
 
