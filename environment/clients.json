@@ -2,11 +2,11 @@
   {
     "name": "west-lobby",
     "id": "192.168.1.148",
-    "type": "locator"
+    "type": "anchor"
   },
   {
     "name": "east-lobby",
     "id": "localhost",
-    "type": "locator"
+    "type": "anchor"
   }
 ]

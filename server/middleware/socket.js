@@ -39,14 +39,14 @@ const WSWrapper = {
   },
 
   handle(event, payload) {
-    const clientsWithLocator = filter(clients, { locator: payload.locator });
+    const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
 
     const handlers = {
       [HANDSHAKE]() {
-        clients[getOrigin(payload.ws)].locator = payload.locator;
+        clients[getOrigin(payload.ws)].anchor = payload.anchor;
       },
       [NEW_ROOM_PING]() {
-        forEach(clientsWithLocator, (client) => {
+        forEach(clientsWithAnchor, (client) => {
           WSWrapper.send(client, { event, payload });
         });
       },

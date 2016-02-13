@@ -44,12 +44,12 @@ const handleSocketClose = (next, payload) => {
   });
 };
 
-const connectSocket = (next, locator) => {
+const connectSocket = (next, anchor) => {
   const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
-  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, { locator });
+  webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, { anchor });
   webSocket.onmessage = parseEvent.bind(null, next);
-  webSocket.onclose = handleSocketClose.bind(null, next, { locator });
+  webSocket.onclose = handleSocketClose.bind(null, next, { anchor });
 };
 
 export default connectSocket;

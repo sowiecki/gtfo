@@ -10,7 +10,7 @@ const rooms = store().getState().roomsReducer;
 
 const pingsController = {
   handlePing(req, res) {
-    const { id, locator } = req.params;
+    const { id, anchor } = req.params;
     const room = find(rooms, { id });
 
     if (room) {
@@ -19,7 +19,7 @@ const pingsController = {
         ping: {
           origin: getHost(req),
           id,
-          locator
+          anchor
         }
       });
 

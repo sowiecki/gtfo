@@ -1,7 +1,9 @@
-export const getLocator = (store) => {
+import { ANCHOR_PATH_REGEX } from '../constants/urls';
+
+export const getAnchor = (store) => {
   const { pathname } = store.getState().routeReducer.location;
 
-  return pathname.replace(/[/]/g, '');
+  return pathname.replace(ANCHOR_PATH_REGEX, '');
 };
 
 export const shapeModifier = ({ height, width, x, y }) => {
