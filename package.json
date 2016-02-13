@@ -65,7 +65,6 @@
     "react-tap-event-plugin": "^0.2.1",
     "recompose": "^0.14.5",
     "redux": "^3.0.5",
-    "redux-immutable": "^3.0.3",
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "ws": "^1.0.1"
@@ -80,8 +79,8 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.1.0",
     "eslint": "^1.10.3",
-    "eslint-config-defaults": "^8.0.2",
-    "eslint-plugin-filenames": "^0.1.2",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-plugin-filenames": "^0.2.0",
     "eslint-plugin-react": "^3.16.1",
     "file-loader": "^0.8.5",
     "nodemon": "^1.8.0",
