@@ -13,6 +13,7 @@ import { rules } from './styles';
 import { getPathname } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
+// TODO determine more generically
 const locationBackdrops = {
   51: require('../../assets/prudential-51.png')
 };

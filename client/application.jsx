@@ -16,11 +16,12 @@ const node = document.getElementById('root');
 const Application = (
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/:location' component={Body}>
+      <Route path='/' component={Body}>
         <IndexRoute component={LayoutContainer}/>
-        <Route path='/:location/anchor/:id' component={LayoutContainer}/>
+        <Route path=':location' component={LayoutContainer}/>
+        <Route path=':location/fullscreen' component={LayoutContainer}/>
+        <Route path=':location/anchor/:id' component={LayoutContainer}/>
       </Route>
-      <Route path='/fullscreen' component={LayoutContainer}/>
     </Router>
   </Provider>
 );

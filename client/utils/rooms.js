@@ -2,15 +2,17 @@ import get from 'lodash/object/get';
 
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
+const DEFAULT_LOCATION = 51; // TODO better default handling
+
 /**
  * Gets pathname from location parameter.
  * @param {object} location Location parameter.
  * @returns {string} Parsed pathname.
  */
 export const getPathname = (location) => {
-  const { pathname } = location;
+  const pathname = get(location, 'pathname', DEFAULT_LOCATION);
 
-  return pathname.replace(/\//i, '');
+  return pathname;
 };
 
 /**

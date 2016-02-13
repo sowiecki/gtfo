@@ -50,7 +50,7 @@ class LayoutContainer extends Component {
 
 LayoutContainer.propTypes = {
   history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,
@@ -58,12 +58,10 @@ LayoutContainer.propTypes = {
   layout: ImmutablePropTypes.Map.isRequired
 };
 
-const mapStateToProps = ({ layoutReducer }, { location }) => {
-  return {
-    layout: layoutReducer,
-    location
-  };
-};
+const mapStateToProps = ({ layoutReducer }, { params }) => ({
+  layout: layoutReducer,
+  location: params.location
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(RoomsActions, dispatch)
