@@ -1,5 +1,7 @@
 import immutable from 'immutable';
 
+import { pluckLocations } from '../utils/rooms';
+
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
 
@@ -39,9 +41,13 @@ const initialState = immutable.fromJS({
 });
 
 const layoutReducer = (state = initialState, action) => {
+  const { meetingRooms } = action;
+
   const reducers = {
     [EMIT_ROOM_STATUSES_UPDATE]() {
-      return state.set('meetingRooms', action.meetingRooms);
+      return state
+        .set('meetingRooms', meetingRooms)
+        .set('locations', pluckLocations(meetingRooms));
     },
 
     [EMIT_FETCH_ROOM_STATUSES_ERROR]() {

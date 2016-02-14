@@ -9,7 +9,7 @@ import LeftNavContent from './left-nav-content';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const NavigationController = ({ actions, navigation }) => {
+const NavigationController = ({ actions, navigation/*, locations*/ }) => { // TODO
   const { siteNavOpen } = navigation.toJS();
   const toggleSiteNavOpen = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
 
@@ -29,7 +29,8 @@ const NavigationController = ({ actions, navigation }) => {
 
 NavigationController.propTypes = {
   actions: PropTypes.object.isRequired,
-  navigation: ImmutablePropTypes.Map.isRequired
+  navigation: ImmutablePropTypes.Map.isRequired,
+  locations: PropTypes.array
 };
 
 export default applyStyles(NavigationController);

@@ -1,4 +1,5 @@
-import filter from 'lodash/collection/filter';
+import { filter, pluck } from 'lodash/collection';
+import uniq from 'lodash/array/uniq';
 import get from 'lodash/object/get';
 
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
@@ -24,6 +25,31 @@ export const getPathname = (location) => {
  */
 export const filterRooms = (rooms, location = DEFAULT_LOCATION) => {
   return filter(rooms, (room) => room.location === location);
+};
+
+/**
+ * Converts slug to the appropriate formatting for displaying proper nouns.
+ * @param {string} name Name in hyphenated slug form.
+ * @returns {string} Formatted name.
+ */
+const formatForDisplay = (name) => {
+  return name.split(/-/).map((word) => {
+    const firstCharacter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1);
+
+    return `${firstCharacter}${restOfWord}`;
+  }).join(' ');
+};
+
+/**
+ * Plucks locations from a collection of rooms.
+ * @param {array} rooms Collection of room objects.
+ * @returns {array} Collection of location objects with pretty-printed keys.
+ */
+export const pluckLocations = (rooms) => {
+  const locations = uniq(pluck(rooms, 'location'));
+
+  return locations.map((location) => ({ [formatForDisplay(location)]: location }));
 };
 
 /**
