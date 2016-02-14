@@ -10,7 +10,7 @@ import Marker from './marker';
 
 import { applyStyles } from '../../config/composition';
 import { rules } from './styles';
-import { getPathname } from '../../utils/rooms';
+import { getPathname, filterRooms } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
 // TODO determine more generically
@@ -22,6 +22,8 @@ const LayoutController = ({ actions, location, layout }) => {
   const { meetingRooms, markers, ping } = layout.toJS();
   const pathname = getPathname(location);
 
+  const filteredMeetingRooms = filterRooms(meetingRooms, location);
+
   if (ping) {
     const setPingTimeout = setInterval(() => {
       actions.clearPing();
@@ -29,11 +31,11 @@ const LayoutController = ({ actions, location, layout }) => {
     }, PING_TIMEOUT);
   }
 
-  const renderMeetingRooms = meetingRooms.map((room) => (
+  const renderMeetingRooms = filteredMeetingRooms.map((meetingRoom) => (
     <MeetingRoom
-      key={`${room.name}`}
-      room={room}
-      pinged={ping && ping.id === room.id}/>
+      key={`${meetingRoom.name}`}
+      room={meetingRoom}
+      pinged={ping && ping.id === meetingRoom.id}/>
   ));
 
   const renderMarkers = markers.map((marker) => (

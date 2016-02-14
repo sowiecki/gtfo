@@ -50,7 +50,7 @@ class LayoutContainer extends Component {
 
 LayoutContainer.propTypes = {
   history: PropTypes.object.isRequired,
-  location: PropTypes.object,
+  location: PropTypes.string,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,

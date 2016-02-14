@@ -1,3 +1,4 @@
+import filter from 'lodash/collection/filter';
 import get from 'lodash/object/get';
 
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
@@ -13,6 +14,16 @@ export const getPathname = (location) => {
   const pathname = get(location, 'pathname', DEFAULT_LOCATION);
 
   return pathname;
+};
+
+/**
+ * Filters rooms by location.
+ * @param {array} rooms Collection of room objects
+ * @param {string} location Location to filter for.
+ * @returns {array} Collection of only rooms from specified location.
+ */
+export const filterRooms = (rooms, location = DEFAULT_LOCATION) => {
+  return filter(rooms, (room) => room.location === location);
 };
 
 /**
