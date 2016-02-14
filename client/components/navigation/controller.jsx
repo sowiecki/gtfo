@@ -5,11 +5,13 @@ import { AppBar, LeftNav } from 'material-ui/lib';
 
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
+import LocationModal from './location-modal';
 
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const NavigationController = ({ actions, navigation/*, locations*/ }) => { // TODO
+const NavigationController = (props) => { // TODO
+  const { actions, navigation } = props;
   const { siteNavOpen } = navigation.toJS();
   const toggleSiteNavOpen = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
 
@@ -23,6 +25,7 @@ const NavigationController = ({ actions, navigation/*, locations*/ }) => { // TO
       <LeftNav open={siteNavOpen}>
         <LeftNavContent toggleSiteNavOpen={toggleSiteNavOpen}/>
       </LeftNav>
+      <LocationModal {...props}/>
     </div>
   );
 };

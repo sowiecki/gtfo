@@ -8,7 +8,8 @@ export const emitSiteNavToggle = (siteNavOpen) => ({
 });
 
 const initialState = immutable.fromJS({
-  siteNavOpen: false
+  siteNavOpen: false,
+  locationModalOpen: false
 });
 
 const navigationReducer = (state = initialState, action) => {
