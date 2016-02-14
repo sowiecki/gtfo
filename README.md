@@ -65,15 +65,13 @@ Finally, retrieve the access tokens and device id for each Photon, and place the
 |------------------|---------------------------------------|-----------|
 | id               | ID of exchange account<sup>1</sup>    | Yes       |
 | name             | Display name for room<sup>2</sup>     | Yes       |
-| location         | Floor or location of room <sup>3</sup>| Yes       |
+| location         | Floor or location of room <sup>2</sup>| Yes       |
 | deviceId         | ID of Photon board                    | Yes       |
 | deviceAuthToken  | Auth token of Photon board            | Yes       |
 | deviceAlias      | Name of module                        | No        |
 <sup>1</sup> Formatted exactly as displayed on Exchange Services.
 
-<sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
-
-<sup>3</sup> All lowercase, hyphenated.
+<sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`. Make sure that all rooms in the same location have **exactly** matching locations properties.
 
 Example of a `devices.json` with a single device configured to The Loop:
 ```json

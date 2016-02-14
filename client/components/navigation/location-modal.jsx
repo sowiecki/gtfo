@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'immutable-props';
 
 import { Dialog, FlatButton } from 'material-ui/lib';
 
-const LocationModal = ({ navigation, actions }) => {
+const LocationModal = (props) => {
+  const { navigation, toggleLocationModal, submitLocationUpdate } = props;
   const { locationModalOpen } = navigation.toJS();
 
   const buttons = [
@@ -10,12 +12,12 @@ const LocationModal = ({ navigation, actions }) => {
       key='cancel-location-modal'
       label='Cancel'
       secondary={true}
-      onTouchTap={actions.handleCloseLocationModal}/>,
+      onClick={toggleLocationModal}/>,
     <FlatButton
       key='submit-location-modal'
       label='Submit'
       primary={true}
-      onTouchTap={actions.handleSubmitLocationModal}/>
+      onClick={submitLocationUpdate}/>
   ];
 
   return (
@@ -27,6 +29,12 @@ const LocationModal = ({ navigation, actions }) => {
         Select a location to view.
     </Dialog>
   );
+};
+
+LocationModal.propTypes = {
+  navigation: ImmutablePropTypes.Map.isRequired,
+  toggleLocationModal: PropTypes.func.isRequired,
+  submitLocationUpdate: PropTypes.func.isRequired
 };
 
 export default LocationModal;

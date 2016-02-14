@@ -7,21 +7,26 @@ import { List, ListItem } from 'material-ui/lib/lists';
 import { base } from '../../config/composition';
 import { styles } from './styles';
 
-const LeftNavContent = ({ toggleSiteNavOpen }) => (
+const LeftNavContent = ({ toggleLocationModal, toggleSiteNav }) => (
   <List>
+    <ListItem
+      onClick={toggleLocationModal}
+      leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>place</FontIcon>}
+      primaryText='Edit Location'/>
     <ListItem
       onClick={() => history.replaceState(null, '/fullscreen')}
       leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>fullscreen</FontIcon>}
       primaryText='Open fullscreen'/>
     <ListItem
-      onClick={toggleSiteNavOpen}
+      onClick={toggleSiteNav}
       leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>clear</FontIcon>}
       primaryText='Close'/>
   </List>
 );
 
 LeftNavContent.propTypes = {
-  toggleSiteNavOpen: PropTypes.func.isRequired
+  toggleLocationModal: PropTypes.func.isRequired,
+  toggleSiteNav: PropTypes.func.isRequired
 };
 
 export default base(LeftNavContent);

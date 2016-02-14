@@ -12,26 +12,37 @@ import { styles } from './styles';
 
 const NavigationController = (props) => { // TODO
   const { actions, navigation } = props;
-  const { siteNavOpen } = navigation.toJS();
-  const toggleSiteNavOpen = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+  const { siteNavOpen, locationModalOpen } = navigation.toJS();
+  const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+  const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
+  const submitLocationUpdate = actions.emitLocationUpdate;
 
   return (
     <div>
       <AppBar
         title='Office Insight'
-        iconElementLeft={<MenuButton toggleSiteNavOpen={toggleSiteNavOpen}/>}
+        iconElementLeft={<MenuButton toggleSiteNav={toggleSiteNav}/>}
         titleStyle={styles.appTitle}
         style={styles.appBar}/>
       <LeftNav open={siteNavOpen}>
-        <LeftNavContent toggleSiteNavOpen={toggleSiteNavOpen}/>
+        <LeftNavContent
+          toggleSiteNav={toggleSiteNav}
+          toggleLocationModal={toggleLocationModal}/>
       </LeftNav>
-      <LocationModal {...props}/>
+      <LocationModal
+        toggleLocationModal={toggleLocationModal}
+        submitLocationUpdate={submitLocationUpdate}
+        {...props}/>
     </div>
   );
 };
 
 NavigationController.propTypes = {
-  actions: PropTypes.object.isRequired,
+  actions: PropTypes.shape({
+    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitLocationModalToggle: PropTypes.func.isRequired,
+    emitLocationUpdate: PropTypes.func.isRequired
+  }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
   locations: PropTypes.array
 };

@@ -1,10 +1,11 @@
 import { filter, pluck } from 'lodash/collection';
 import uniq from 'lodash/array/uniq';
 import get from 'lodash/object/get';
+import slug from 'slug';
 
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
-const DEFAULT_LOCATION = 51; // TODO better default handling
+const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
 
 /**
  * Gets pathname from location parameter.
@@ -23,8 +24,8 @@ export const getPathname = (location) => {
  * @param {string} location Location to filter for.
  * @returns {array} Collection of only rooms from specified location.
  */
-export const filterRooms = (rooms, location = DEFAULT_LOCATION) => {
-  return filter(rooms, (room) => room.location === location);
+export const filterRoomsByLocation = (rooms, location = DEFAULT_LOCATION) => {
+  return filter(rooms, (room) => location === slug(room.location, { lower: true }));
 };
 
 /**
@@ -32,7 +33,7 @@ export const filterRooms = (rooms, location = DEFAULT_LOCATION) => {
  * @param {string} name Name in hyphenated slug form.
  * @returns {string} Formatted name.
  */
-const formatForDisplay = (name) => {
+export const formatForDisplay = (name) => {
   return name.split(/-/).map((word) => {
     const firstCharacter = word.charAt(0).toUpperCase();
     const restOfWord = word.slice(1);
@@ -44,12 +45,10 @@ const formatForDisplay = (name) => {
 /**
  * Plucks locations from a collection of rooms.
  * @param {array} rooms Collection of room objects.
- * @returns {array} Collection of location objects with pretty-printed keys.
+ * @returns {array} Collection of location strings.
  */
 export const pluckLocations = (rooms) => {
-  const locations = uniq(pluck(rooms, 'location'));
-
-  return locations.map((location) => ({ [formatForDisplay(location)]: location }));
+  return uniq(pluck(rooms, 'location'));
 };
 
 /**

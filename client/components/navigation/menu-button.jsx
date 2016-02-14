@@ -5,18 +5,18 @@ import { IconButton } from 'material-ui/lib';
 import { base } from '../../config/composition';
 import { styles } from './styles';
 
-const MenuButton = ({ toggleSiteNavOpen }) => {
+const MenuButton = ({ toggleSiteNav }) => {
   return (
     <IconButton
       style={styles.menuButton}
-      onClick={toggleSiteNavOpen}>
+      onClick={toggleSiteNav}>
         <i className='material-icons'>menu</i>
     </IconButton>
   );
 };
 
 MenuButton.propTypes = {
-  toggleSiteNavOpen: PropTypes.func.isRequired
+  toggleSiteNav: PropTypes.func.isRequired
 };
 
 export default base(MenuButton);
