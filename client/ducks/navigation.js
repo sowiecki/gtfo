@@ -25,13 +25,15 @@ const initialState = immutable.fromJS({
 });
 
 const navigationReducer = (state = initialState, action) => {
-  const { type, siteNavOpen, locationModalOpen } = action;
+  const { type, siteNavOpen, location, locationModalOpen } = action;
 
   switch (type) {
     case EMIT_SITE_NAV_TOGGLE:
       return state.set('siteNavOpen', siteNavOpen);
     case EMIT_LOCATION_MODAL_TOGGLE:
       return state.set('locationModalOpen', locationModalOpen);
+    case EMIT_LOCATION_UPDATE:
+      return state;
     default:
       return state;
   }

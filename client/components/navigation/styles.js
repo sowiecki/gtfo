@@ -4,17 +4,20 @@ const { WHITE } = colors;
 
 export const styles = {
   appBar: {
-    position: 'absolute'
+    // position: 'absolute',
+    // backgroundColor: 'none',
+    pointerEvents: 'none'
   },
 
   appTitle: {
-    fontSize: '50px',
+    fontSize: '35px',
     fontWeight: '8',
     fontFamily: `'Wire One', sans-serif`
   },
 
   menuButton: {
-    color: WHITE
+    color: WHITE,
+    pointerEvents: 'all'
   },
 
   navIcons: {

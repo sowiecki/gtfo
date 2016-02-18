@@ -3,6 +3,15 @@ import { colors, breakpoints } from '../common/styles';
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export const styles = {
+  paperOverride: {
+    height: '100%'
+  },
+
+  swipableOverride: {
+    overflowY: 'auto',
+    height: '100%'
+  },
+
   svgStroke: '#BBBBBB',
 
   OFFLINE: GREY,
@@ -20,12 +29,13 @@ export const rules = {
   officeLayout: {
     'img.office-layout, svg.office-layout': {
       position: 'absolute',
-      top: '85px',
+      top: '15px',
       left: '50%',
       marginRight: '50%',
       transform: 'translate(-50%, 0)',
       width: '300px',
       height: '345px',
+      overflow: 'hidden',
       backgroundSize: 'fill'
     },
 

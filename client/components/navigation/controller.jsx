@@ -29,10 +29,10 @@ const NavigationController = (props) => { // TODO
           toggleSiteNav={toggleSiteNav}
           toggleLocationModal={toggleLocationModal}/>
       </LeftNav>
-      <LocationModal
+      {/*<LocationModal
         toggleLocationModal={toggleLocationModal}
         submitLocationUpdate={submitLocationUpdate}
-        {...props}/>
+        {...props}/>*/}
     </div>
   );
 };

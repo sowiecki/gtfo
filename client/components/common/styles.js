@@ -54,13 +54,17 @@ export const styles = {
 
 export const rules = {
   body: {
-    'body': {
+    'html, body, #root, #root > div': {
       margin: '0',
       height: '100%',
       width: '100%',
-      overflow: 'scroll',
+      overflow: 'hidden',
       backgroundColor: '#F8F8FF'
     },
+
+    // 'body': {
+    //   overflow: 'scroll'
+    // },
 
     ...transitions
   },
