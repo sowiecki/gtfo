@@ -36,10 +36,10 @@ class LayoutController extends Component {
     super(props);
 
     this.flashPing = this.flashPing.bind(this);
+    this.changeLocation = this.changeLocation.bind(this);
+    this.renderLocation = this.renderLocation.bind(this);
     this.renderMeetingRoom = this.renderMeetingRoom.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
-    // this.renderLocationTab = this.renderLocationTab.bind(this);
-    this.renderLocation = this.renderLocation.bind(this);
   }
 
   componentDidMount() {
@@ -98,10 +98,13 @@ class LayoutController extends Component {
     );
   }
 
-  changeLocation(newLocation, anchorId) {
-    console.log(newLocation)
-    const anchor = anchorId ? `/anchor/${anchorId}` : '';
-    history.push(`/${newLocation}${anchor}`);
+  // TODO make generic func to share with nav action
+  changeLocation(newIndex, oldIndex) {
+    const { meetingRooms, params } = this.props;
+    const locations = pluckLocations(meetingRooms).concat(['two-prudential-51', 'two-prudential-53']); // TODO
+    console.log(locations[newIndex], oldIndex)
+    const anchor = params.id ? `/anchor/${params.id}` : '';
+    history.push(`/${locations[newIndex]}${anchor}`);
   }
 
   render() {
@@ -110,14 +113,14 @@ class LayoutController extends Component {
     const { meetingRooms/*, locations TODO */ } = layout.toJS();
     const pathname = getPathname(location);
     const locations = pluckLocations(meetingRooms).concat(['two-prudential-51', 'two-prudential-53']); // TODO
-// TODO properly switch browser history when swiping
+    // TODO properly switch browser history when swiping
     return (
       <Paper style={styles.paperOverride} zDepth={1}>
         <Style rules={rules.officeLayout}/>
         <SwipeableViews
           style={styles.swipableOverride}
           index={locationIndexes[location]}
-          onChangeIndex={this.changeLocation.bind(null, location, params.id)}>
+          onChangeIndex={this.changeLocation}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
       </Paper>

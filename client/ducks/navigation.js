@@ -7,6 +7,7 @@ export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
+// TODO make generic func to share with layout controller
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   const anchor = anchorId ? `/anchor/${anchorId}` : '';
   history.push(`/${newLocation}${anchor}`);
