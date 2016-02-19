@@ -10,6 +10,7 @@ import SwipeableViews from 'react-swipeable-views';
 import MeetingRoom from './meeting-room';
 import Marker from './marker';
 
+import history from '../../config/history';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
 import { formatForDisplay,
@@ -37,7 +38,7 @@ class LayoutController extends Component {
     this.flashPing = this.flashPing.bind(this);
     this.renderMeetingRoom = this.renderMeetingRoom.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
-    this.renderLocationTab = this.renderLocationTab.bind(this);
+    // this.renderLocationTab = this.renderLocationTab.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
   }
 
@@ -80,25 +81,15 @@ class LayoutController extends Component {
     );
   }
 
-  renderLocationTab(location, index) {
-    return (
-      <Tab
-        key={`${location}-${index}`}
-        label={formatForDisplay(location)}
-        value={index}/>
-    );
-  }
-
   renderLocation(location) {
     const { meetingRooms, markers } = this.props.layout.toJS();
-    const locationSlug = slug('Two Prudential 51', { lower: true}); // TODO
     const filteredMeetingRooms = filterRoomsByLocation(meetingRooms, location);
 
     return (
       <image
         key={location}
         className='office-layout'
-        src={locationBackdrops[locationSlug]}>
+        src={locationBackdrops[this.props.location]}>
           <svg className='office-layout'>
             {filteredMeetingRooms.map(this.renderMeetingRoom)}
             {markers.map(this.renderMarker)}
@@ -107,26 +98,26 @@ class LayoutController extends Component {
     );
   }
 
+  changeLocation(newLocation, anchorId) {
+    console.log(newLocation)
+    const anchor = anchorId ? `/anchor/${anchorId}` : '';
+    history.push(`/${newLocation}${anchor}`);
+  }
+
   render() {
     // console.log(props.layout.toJS())
-    const { actions, location, layout } = this.props;
-    const { meetingRooms } = layout.toJS();
-    const changeLocationIndex = actions.emitLocationIndexUpdate;
+    const { actions, location, layout, params } = this.props;
+    const { meetingRooms/*, locations TODO */ } = layout.toJS();
     const pathname = getPathname(location);
     const locations = pluckLocations(meetingRooms).concat(['two-prudential-51', 'two-prudential-53']); // TODO
-
+// TODO properly switch browser history when swiping
     return (
       <Paper style={styles.paperOverride} zDepth={1}>
         <Style rules={rules.officeLayout}/>
-        <Tabs
-          onChange={changeLocationIndex}
-          value={locationIndexes[location]}>
-            {locations.map(this.renderLocationTab)}
-        </Tabs>
         <SwipeableViews
           style={styles.swipableOverride}
           index={locationIndexes[location]}
-          onChangeIndex={changeLocationIndex}>
+          onChangeIndex={this.changeLocation.bind(null, location, params.id)}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
       </Paper>

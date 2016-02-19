@@ -1,29 +1,61 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
-import { AppBar, LeftNav } from 'material-ui/lib';
+import { ToolbarTitle,
+         Toolbar,
+         ToolbarGroup,
+         Tabs,
+         Tab,
+         LeftNav } from 'material-ui/lib';
 
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
 import LocationModal from './location-modal';
 
+import { formatForDisplay } from '../../utils/rooms';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const NavigationController = (props) => { // TODO
-  const { actions, navigation } = props;
+// TODO change from hardcoded
+const locationIndexes = {
+  ['two-prudential-51']: 0,
+  ['two-prudential-53']: 1
+};
+
+const NavigationController = (props) => {
+  const { actions, navigation, params/*, locations // TODO */ } = props;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
   const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
   const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
-  const submitLocationUpdate = actions.emitLocationUpdate;
+  const locations = ['two-prudential-51', 'two-prudential-53'];
+
+  const renderLocationTab = (location, index) => {
+    return (
+      <Tab
+        key={`${location}-${index}`}
+        label={formatForDisplay(location)}
+        value={locationIndexes[location]}
+        onClick={actions.emitLocationIndexUpdate.bind(null, location, params.id)}
+        style={styles.toolbarTab}/>
+    );
+  };
 
   return (
     <div>
-      <AppBar
-        title='Office Insight'
-        iconElementLeft={<MenuButton toggleSiteNav={toggleSiteNav}/>}
-        titleStyle={styles.appTitle}
-        style={styles.appBar}/>
+      <Toolbar style={styles.toolbar}>
+        <ToolbarGroup firstChild={true}>
+          <MenuButton toggleSiteNav={toggleSiteNav}/>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
+        </ToolbarGroup>
+        <ToolbarGroup style={styles.toolbarTabs}>
+          <Tabs
+            value={locationIndexes[params.location]}>
+              {locations.map(renderLocationTab)}
+          </Tabs>
+        </ToolbarGroup>
+      </Toolbar>
       <LeftNav open={siteNavOpen}>
         <LeftNavContent
           toggleSiteNav={toggleSiteNav}

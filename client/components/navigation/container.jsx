@@ -25,8 +25,8 @@ NavigationContainer.propTypes = {
   navigation: ImmutablePropTypes.Map.isRequired
 };
 
-const mapStateToProps = (props) => {
-  const { navigationReducer, layoutReducer } = props;
+const mapStateToProps = (state) => {
+  const { navigationReducer, layoutReducer } = state;
 
   return {
     navigation: navigationReducer,

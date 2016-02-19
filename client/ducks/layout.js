@@ -1,6 +1,7 @@
 import immutable from 'immutable';
 
 import { pluckLocations } from '../utils/rooms';
+// import { EMIT_LOCATION_INDEX_UPDATE } from './navigation';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
@@ -10,8 +11,6 @@ export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 
 export const EMIT_SET_ROOM_PING = 'EMIT_SET_ROOM_PING';
 export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
-
-export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
@@ -26,14 +25,6 @@ export const connectSocket = () => ({
 export const clearPing = () => ({
   type: EMIT_CLEAR_PING
 });
-
-export const emitLocationIndexUpdate = (newIndex) => {
-  console.log(newIndex)
-  return {
-    type: EMIT_LOCATION_INDEX_UPDATE,
-    newIndex
-  }
-};
 
 export const emitMarkersActivated = (markers) => ({
   type: EMIT_MARKERS_ACTIVATED,
@@ -72,10 +63,10 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('ping', action.ping);
     },
 
-    [EMIT_LOCATION_INDEX_UPDATE]() {
-      console.log('test', action)
-      return state;
-    },
+    // [EMIT_LOCATION_INDEX_UPDATE]() {
+    //   console.log('test', action)
+    //   return state;
+    // },
 
     [EMIT_CLEAR_PING]() {
       return state.set('ping', null);

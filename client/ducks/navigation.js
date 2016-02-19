@@ -1,8 +1,22 @@
 import immutable from 'immutable';
 
+import history from '../config/history';
+
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
+export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
+
+export const emitLocationIndexUpdate = (newLocation, anchorId) => {
+  const anchor = anchorId ? `/anchor/${anchorId}` : '';
+  history.push(`/${newLocation}${anchor}`);
+
+  return {
+    type: EMIT_LOCATION_INDEX_UPDATE,
+    newLocation,
+    anchorId
+  };
+};
 
 export const emitSiteNavToggle = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
@@ -27,16 +41,25 @@ const initialState = immutable.fromJS({
 const navigationReducer = (state = initialState, action) => {
   const { type, siteNavOpen, location, locationModalOpen } = action;
 
-  switch (type) {
-    case EMIT_SITE_NAV_TOGGLE:
+  const reducers = {
+    [EMIT_SITE_NAV_TOGGLE]() {
       return state.set('siteNavOpen', siteNavOpen);
-    case EMIT_LOCATION_MODAL_TOGGLE:
+    },
+
+    [EMIT_LOCATION_MODAL_TOGGLE]() {
       return state.set('locationModalOpen', locationModalOpen);
-    case EMIT_LOCATION_UPDATE:
+    },
+
+    [EMIT_LOCATION_UPDATE]() {
       return state;
-    default:
+    },
+
+    [EMIT_LOCATION_INDEX_UPDATE]() {
       return state;
+    }
   }
+
+  return reducers[action.type] ? reducers[action.type]() : state;
 };
 
 export default navigationReducer;

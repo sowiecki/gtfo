@@ -29,7 +29,7 @@ export const rules = {
   officeLayout: {
     'img.office-layout, svg.office-layout': {
       position: 'absolute',
-      top: '15px',
+      top: '30px',
       left: '50%',
       marginRight: '50%',
       transform: 'translate(-50%, 0)',
