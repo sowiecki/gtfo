@@ -9,15 +9,12 @@ import { Dialog,
 
 import { base } from '../../config/composition';
 
-/**
- * TODO decide wtf to do with this, if anything
- */
 const LocationModal = (props) => {
-  const { params,
+  const { actions,
+          params,
           navigation,
           locations,
-          toggleLocationModal,
-          submitLocationUpdate } = props;
+          toggleLocationModal } = props;
   const { locationModalOpen } = navigation.toJS();
 
   const renderLocation = (location, index) => (
@@ -43,7 +40,7 @@ const LocationModal = (props) => {
       open={locationModalOpen}>
       <SelectField
         value={params.location}
-        onChange={(e, i, value) => submitLocationUpdate.bind(null, value)}
+        onChange={actions.emitLocationIndexUpdate.bind(null, params.location, params.id)}
         floatingLabelText='Select a Location'>
           {locations.map(renderLocation)}
       </SelectField>
@@ -52,12 +49,12 @@ const LocationModal = (props) => {
 };
 
 LocationModal.propTypes = {
+  actions: PropTypes.object.isRequired,
   params: PropTypes.shape({
     location: PropTypes.string.isRequired
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
-  toggleLocationModal: PropTypes.func.isRequired,
-  submitLocationUpdate: PropTypes.func.isRequired
+  toggleLocationModal: PropTypes.func.isRequired
 };
 
 export default base(LocationModal);

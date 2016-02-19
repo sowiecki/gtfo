@@ -10,18 +10,17 @@ import { ToolbarTitle,
 
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
-// import LocationModal from './location-modal';
+import LocationModal from './location-modal';
 
 import { formatForDisplay } from '../../utils/rooms';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
 const NavigationController = (props) => {
-  const { actions, navigation, params/*, locations // TODO */ } = props;
+  const { actions, navigation, locations, params } = props;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
   const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
   const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
-  const locations = ['two-prudential-51', 'two-prudential-53'];
 
   const renderLocationTab = (location, index) => (
     <Tab
@@ -32,7 +31,8 @@ const NavigationController = (props) => {
       style={styles.toolbarTab}/>
   );
 
-  return (
+  // TODO better null safety rendering
+  return locations ? (
     <div>
       <Toolbar style={styles.toolbar}>
         <ToolbarGroup firstChild={true}>
@@ -53,12 +53,11 @@ const NavigationController = (props) => {
           toggleSiteNav={toggleSiteNav}
           toggleLocationModal={toggleLocationModal}/>
       </LeftNav>
-      {/*<LocationModal
+      <LocationModal
         toggleLocationModal={toggleLocationModal}
-        submitLocationUpdate={submitLocationUpdate}
-        {...props}/>*/}
+        {...props}/>
     </div>
-  );
+  ) : <div/>;
 };
 
 NavigationController.propTypes = {

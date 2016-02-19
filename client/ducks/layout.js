@@ -1,7 +1,6 @@
 import immutable from 'immutable';
 
 import { pluckLocations } from '../utils/rooms';
-// import { EMIT_LOCATION_INDEX_UPDATE } from './navigation';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
@@ -62,11 +61,6 @@ const layoutReducer = (state = initialState, action) => {
     [EMIT_SET_ROOM_PING]() {
       return state.set('ping', action.ping);
     },
-
-    // [EMIT_LOCATION_INDEX_UPDATE]() {
-    //   console.log('test', action)
-    //   return state;
-    // },
 
     [EMIT_CLEAR_PING]() {
       return state.set('ping', null);
