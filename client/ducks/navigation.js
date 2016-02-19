@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import history from '../config/history';
+import { updateLocationIndex } from '../utils/rooms';
 
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
@@ -9,8 +9,7 @@ export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
 // TODO make generic func to share with layout controller
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
-  const anchor = anchorId ? `/anchor/${anchorId}` : '';
-  history.push(`/${newLocation}${anchor}`);
+  updateLocationIndex(newLocation, anchorId);
 
   return {
     type: EMIT_LOCATION_INDEX_UPDATE,
@@ -40,7 +39,7 @@ const initialState = immutable.fromJS({
 });
 
 const navigationReducer = (state = initialState, action) => {
-  const { type, siteNavOpen, location, locationModalOpen } = action;
+  const { type, siteNavOpen, locationModalOpen } = action;
 
   const reducers = {
     [EMIT_SITE_NAV_TOGGLE]() {
@@ -58,9 +57,9 @@ const navigationReducer = (state = initialState, action) => {
     [EMIT_LOCATION_INDEX_UPDATE]() {
       return state;
     }
-  }
+  };
 
-  return reducers[action.type] ? reducers[action.type]() : state;
+  return reducers[type] ? reducers[type]() : state;
 };
 
 export default navigationReducer;

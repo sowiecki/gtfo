@@ -9,8 +9,9 @@ import { Dialog,
 
 import { base } from '../../config/composition';
 
-// TODO f this, switch to swipable tab views
-// http://www.material-ui.com/#/components/tabs
+/**
+ * TODO decide wtf to do with this, if anything
+ */
 const LocationModal = (props) => {
   const { params,
           navigation,
@@ -19,16 +20,13 @@ const LocationModal = (props) => {
           submitLocationUpdate } = props;
   const { locationModalOpen } = navigation.toJS();
 
-  const renderLocation = (location, index) => {
-    console.log(slug(location, { lower: true }))
-    return (
-      <MenuItem
-        key={index}
-        label={location}
-        primaryText={location}
-        value={slug(location, { lower: true })}/>
-    );
-  };
+  const renderLocation = (location, index) => (
+    <MenuItem
+      key={index}
+      label={location}
+      primaryText={location}
+      value={slug(location, { lower: true })}/>
+  );
 
   const buttons = [
     <FlatButton

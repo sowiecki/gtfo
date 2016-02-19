@@ -2,21 +2,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
 import ImmutablePropTypes from 'immutable-props';
-import slug from 'slug';
 
-import { Paper, Tabs, Tab } from 'material-ui/lib';
+import Paper from 'material-ui/lib/paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import MeetingRoom from './meeting-room';
 import Marker from './marker';
 
-import history from '../../config/history';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { formatForDisplay,
-         getPathname,
-         filterRoomsByLocation,
-         pluckLocations } from '../../utils/rooms';
+import { filterRoomsByLocation,
+         pluckLocations,
+         updateLocationIndex } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
 // TODO change from hardoded
@@ -36,7 +33,7 @@ class LayoutController extends Component {
     super(props);
 
     this.flashPing = this.flashPing.bind(this);
-    this.changeLocation = this.changeLocation.bind(this);
+    this.handleChangeLocation = this.handleChangeLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
     this.renderMeetingRoom = this.renderMeetingRoom.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
@@ -58,6 +55,14 @@ class LayoutController extends Component {
       clearPing();
       clearInterval(setPingTimeout);
     }, PING_TIMEOUT);
+  }
+
+  handleChangeLocation(newIndex) {
+    const { meetingRooms, params } = this.props;
+    const locations = pluckLocations(meetingRooms);
+    //.concat(['two-prudential-51', 'two-prudential-53']); // TODO remove after mocking
+
+    updateLocationIndex(locations[newIndex], params.id);
   }
 
   renderMeetingRoom(meetingRoom) {
@@ -98,29 +103,19 @@ class LayoutController extends Component {
     );
   }
 
-  // TODO make generic func to share with nav action
-  changeLocation(newIndex, oldIndex) {
-    const { meetingRooms, params } = this.props;
-    const locations = pluckLocations(meetingRooms).concat(['two-prudential-51', 'two-prudential-53']); // TODO
-    console.log(locations[newIndex], oldIndex)
-    const anchor = params.id ? `/anchor/${params.id}` : '';
-    history.push(`/${locations[newIndex]}${anchor}`);
-  }
-
   render() {
-    // console.log(props.layout.toJS())
-    const { actions, location, layout, params } = this.props;
-    const { meetingRooms/*, locations TODO */ } = layout.toJS();
-    const pathname = getPathname(location);
-    const locations = pluckLocations(meetingRooms).concat(['two-prudential-51', 'two-prudential-53']); // TODO
-    // TODO properly switch browser history when swiping
+    const { location, layout } = this.props;
+    const { meetingRooms } = layout.toJS();
+    const locations = pluckLocations(meetingRooms);
+    //.concat(['two-prudential-51', 'two-prudential-53']); // TODO remove after mocking
+
     return (
       <Paper style={styles.paperOverride} zDepth={1}>
         <Style rules={rules.officeLayout}/>
         <SwipeableViews
           style={styles.swipableOverride}
           index={locationIndexes[location]}
-          onChangeIndex={this.changeLocation}>
+          onChangeIndex={this.handleChangeLocation}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
       </Paper>
@@ -129,8 +124,10 @@ class LayoutController extends Component {
 }
 
 LayoutController.propTypes = {
-  location: PropTypes.string.isRequired,
+  location: PropTypes.string,
   layout: ImmutablePropTypes.Map.isRequired,
+  meetingRooms: ImmutablePropTypes.Map,
+  params: PropTypes.object.isRequired,
   ping: PropTypes.object,
   actions: PropTypes.shape({
     clearPing: PropTypes.func.isRequired

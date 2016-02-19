@@ -10,7 +10,7 @@ import { ToolbarTitle,
 
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
-import LocationModal from './location-modal';
+// import LocationModal from './location-modal';
 
 import { formatForDisplay } from '../../utils/rooms';
 import { applyStyles } from '../../config/composition';
@@ -76,7 +76,8 @@ NavigationController.propTypes = {
     emitLocationUpdate: PropTypes.func.isRequired
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
-  locations: PropTypes.array
+  locations: PropTypes.array,
+  params: PropTypes.object.isRequired
 };
 
 export default applyStyles(NavigationController);

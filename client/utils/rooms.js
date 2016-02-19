@@ -3,9 +3,19 @@ import uniq from 'lodash/array/uniq';
 import get from 'lodash/object/get';
 import slug from 'slug';
 
+import history from '../config/history';
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
 const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
+
+/**
+ *
+ */
+export const updateLocationIndex = (newLocation, anchorId) => {
+  const anchor = anchorId ? `/anchor/${anchorId}` : '';
+
+  history.push(`/${newLocation}${anchor}`);
+};
 
 /**
  * Gets pathname from location parameter.
