@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+/* globals console */
 import { filter, pluck } from 'lodash/collection';
 import uniq from 'lodash/array/uniq';
 import get from 'lodash/object/get';
@@ -9,7 +11,23 @@ import { ANCHOR_PATH_REGEX } from '../constants/urls';
 const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
 
 /**
- *
+ * Imports and assigns corresponding backdrop for room.
+ * @param {string} location Name of relevant location.
+ * @returns {string} Path of location backdrop asset.
+ */
+export const getLocationBackdrop = (location) => {
+  try {
+    return require(`../assets/${location}.png`);
+  } catch (e) {
+    console.log(`Failed to render backdrop for ${location}`);
+  }
+};
+
+/**
+ * Constructs and pushes new route to history API.
+ * @param {string} newLocation New location to push to routes.
+ * @param {string} Parameter identifying anchors.
+ * @returns {undefined}
  */
 export const updateLocationIndex = (newLocation, anchorId) => {
   const anchor = anchorId ? `/anchor/${anchorId}` : '';

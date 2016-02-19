@@ -11,16 +11,11 @@ import Marker from './marker';
 
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { filterRoomsByLocation,
+import { getLocationBackdrop,
+         filterRoomsByLocation,
          pluckLocations,
          updateLocationIndex } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
-
-// TODO change from hardoded
-const locationBackdrops = {
-  ['two-prudential-51']: require('../../assets/prudential-51.png'),
-  ['two-prudential-53']: require('../../assets/prudential-51.png')
-};
 
 // TODO change from hardcoded
 const locationIndexes = {
@@ -94,7 +89,7 @@ class LayoutController extends Component {
       <image
         key={location}
         className='office-layout'
-        src={locationBackdrops[this.props.location]}>
+        src={getLocationBackdrop(this.props.location)}>
           <svg className='office-layout'>
             {filteredMeetingRooms.map(this.renderMeetingRoom)}
             {markers.map(this.renderMarker)}
