@@ -17,12 +17,6 @@ import { getLocationBackdrop,
          updateLocationIndex } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
-// TODO change from hardcoded
-const locationIndexes = {
-  ['two-prudential-51']: 0,
-  ['two-prudential-53']: 1
-};
-
 class LayoutController extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +49,6 @@ class LayoutController extends Component {
   handleChangeLocation(newIndex) {
     const { meetingRooms, params } = this.props;
     const locations = pluckLocations(meetingRooms);
-    //.concat(['two-prudential-51', 'two-prudential-53']); // TODO remove after mocking
 
     updateLocationIndex(locations[newIndex], params.id);
   }
@@ -102,14 +95,13 @@ class LayoutController extends Component {
     const { location, layout } = this.props;
     const { meetingRooms } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
-    //.concat(['two-prudential-51', 'two-prudential-53']); // TODO remove after mocking
 
     return (
       <Paper style={styles.paperOverride} zDepth={1}>
         <Style rules={rules.officeLayout}/>
         <SwipeableViews
           style={styles.swipableOverride}
-          index={locationIndexes[location]}
+          index={locations.indexOf(location)}
           onChangeIndex={this.handleChangeLocation}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>

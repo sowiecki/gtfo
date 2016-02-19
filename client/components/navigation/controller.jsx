@@ -16,12 +16,6 @@ import { formatForDisplay } from '../../utils/rooms';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-// TODO change from hardcoded
-const locationIndexes = {
-  ['two-prudential-51']: 0,
-  ['two-prudential-53']: 1
-};
-
 const NavigationController = (props) => {
   const { actions, navigation, params/*, locations // TODO */ } = props;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
@@ -29,16 +23,14 @@ const NavigationController = (props) => {
   const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
   const locations = ['two-prudential-51', 'two-prudential-53'];
 
-  const renderLocationTab = (location, index) => {
-    return (
-      <Tab
-        key={`${location}-${index}`}
-        label={formatForDisplay(location)}
-        value={locationIndexes[location]}
-        onClick={actions.emitLocationIndexUpdate.bind(null, location, params.id)}
-        style={styles.toolbarTab}/>
-    );
-  };
+  const renderLocationTab = (location, index) => (
+    <Tab
+      key={`${location}-${index}`}
+      label={formatForDisplay(location)}
+      value={locations.indexOf(location)}
+      onClick={actions.emitLocationIndexUpdate.bind(null, location, params.id)}
+      style={styles.toolbarTab}/>
+  );
 
   return (
     <div>
@@ -51,7 +43,7 @@ const NavigationController = (props) => {
         </ToolbarGroup>
         <ToolbarGroup style={styles.toolbarTabs}>
           <Tabs
-            value={locationIndexes[params.location]}>
+            value={locations.indexOf(params.location)}>
               {locations.map(renderLocationTab)}
           </Tabs>
         </ToolbarGroup>
