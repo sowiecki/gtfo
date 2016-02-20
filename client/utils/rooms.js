@@ -6,6 +6,7 @@ import get from 'lodash/object/get';
 import slug from 'slug';
 
 import history from '../config/history';
+import { getBackdropErrorMessage } from './errors';
 import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
 const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
@@ -21,9 +22,7 @@ export const getLocationBackdrop = (location) => {
   try {
     return backdrops(`./${location}.png`);
   } catch (e) {
-    const errorMessage = `Failed to backdrop for ${location}.
-      Make sure it's correctly saved in /client/assets/`;
-    console.log(errorMessage);
+    console.log(getBackdropErrorMessage(location));
   }
 };
 
