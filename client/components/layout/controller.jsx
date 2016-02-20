@@ -29,7 +29,7 @@ class LayoutController extends Component {
   }
 
   componentDidMount() {
-    if (this.props.ping) {
+    if (this.props.layout.toJS().ping) {
       this.flashPing();
     }
   }
@@ -44,6 +44,10 @@ class LayoutController extends Component {
 
     if (!params.location && locations.length) {
       updateLocationIndex(locations[0]);
+    }
+
+    if (layout.toJS().ping) {
+      this.flashPing();
     }
   }
 
@@ -68,7 +72,7 @@ class LayoutController extends Component {
   }
 
   renderMeetingRoom(meetingRoom) {
-    const { ping } = this.props;
+    const { ping } = this.props.layout.toJS();
 
     return (
       <MeetingRoom

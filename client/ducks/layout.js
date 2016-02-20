@@ -64,6 +64,7 @@ const layoutReducer = (state = initialState, action) => {
     },
 
     [EMIT_CLEAR_PING]() {
+      console.log('clearing...')
       return state.set('ping', null);
     },
 
