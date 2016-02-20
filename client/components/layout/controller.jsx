@@ -35,6 +35,19 @@ class LayoutController extends Component {
   }
 
   /**
+   * Forces default location parameter to first location.
+   */
+  componentDidUpdate() {
+    const { layout, params } = this.props;
+    const { meetingRooms } = layout.toJS();
+    const locations = pluckLocations(meetingRooms);
+
+    if (!params.location && locations.length) {
+      updateLocationIndex(locations[0]);
+    }
+  }
+
+  /**
    * Automatically clears pings after defined amount of time.
    */
   flashPing() {
