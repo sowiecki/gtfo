@@ -8,7 +8,10 @@ import { ROOM_STATUSES_UPDATE } from '../constants/events';
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
 const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
 
-// Map room coordinates to device objects
+/**
+ * Map room coordinates to device objects.
+ * Properly format location.
+ */
 devices.map((device) => {
   device.location = slug(device.location, { lower: true });
   device.coordinates = roomCoordinates[device.id]
