@@ -1,4 +1,4 @@
-import { colors, breakpoints } from '../common/styles';
+import { colors, breakpoints, devices } from '../common/styles';
 
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
@@ -8,7 +8,7 @@ export const styles = {
   },
 
   swipableOverride: {
-    overflowY: 'hidden',
+    overflowY: 'scroll',
     height: '100%',
     width: '100%'
   },
@@ -32,6 +32,12 @@ export const styles = {
   FIVE_MINUTE_WARNING: ORANGE
 };
 
+const layoutSelectors = [
+  'img.office-layout',
+  'svg.office-layout',
+  '.office-layout-container'
+].join(', ');
+
 export const rules = {
   officeLayout: {
     'img.office-layout, svg.office-layout': {
@@ -45,36 +51,49 @@ export const rules = {
     },
 
     mediaQueries: {
+      [devices.iphone]: {
+        [layoutSelectors]: {
+          width: '908px',
+          height: '1046px'
+        }
+      },
+
+      [breakpoints.portrait]: {
+        [layoutSelectors]: {
+          top: '100px'
+        }
+      },
+
       [breakpoints.afterExtraSmall]: {
-        'img.office-layout, svg.office-layout, .office-layout-container': {
+        [layoutSelectors]: {
           width: '500px',
           height: '576px'
         }
       },
 
       [breakpoints.afterSmall]: {
-        'img.office-layout, svg.office-layout, .office-layout-container': {
+        [layoutSelectors]: {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterMedium]: {
-        'img.office-layout, svg.office-layout, .office-layout-container': {
+        [layoutSelectors]: {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterLarge]: {
-        'img.office-layout, svg.office-layout, .office-layout-container': {
+        [layoutSelectors]: {
           width: '695px',
           height: '800px'
         }
       },
 
       [breakpoints.afterExtraLarge]: {
-        'img.office-layout, svg.office-layout, .office-layout-container': {
+        [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
         }
