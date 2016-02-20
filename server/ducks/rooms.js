@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import slug from 'slug';
 
 import socket from '../middleware/socket';
 import mapNotifications from '../utils/map-notifications';
@@ -7,8 +8,14 @@ import { ROOM_STATUSES_UPDATE } from '../constants/events';
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
 const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
 
-// Map room coordinates to device objects
-devices.map((device) => device.coordinates = roomCoordinates[device.id]);
+/**
+ * Map room coordinates to device objects.
+ * Properly format location.
+ */
+devices.map((device) => {
+  device.location = slug(device.location, { lower: true });
+  device.coordinates = roomCoordinates[device.id];
+});
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';

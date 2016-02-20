@@ -25,7 +25,14 @@ export const breakpoints = {
   afterMedium: 'screen and (min-width: 1024px)',
   afterLarge: 'screen and (min-width: 1500px)',
   afterExtraLarge: 'screen and (min-width: 2048px)',
-  widescreen: 'screen and (min-aspect-ratio: 16/10)'
+  widescreen: 'screen and (min-aspect-ratio: 16/10)',
+  portrait: 'screen and (orientation: portrait)'
+};
+
+export const devices = {
+  iphone: `screen and (min-device-width: 320px)
+           and (max-device-width: 568px)
+           and (-webkit-min-device-pixel-ratio: 2)`
 };
 
 export const styles = {
@@ -54,11 +61,12 @@ export const styles = {
 
 export const rules = {
   body: {
-    'body': {
+    'html, body, #root, #root > div': {
       margin: '0',
       height: '100%',
       width: '100%',
       overflow: 'hidden',
+      textAlign: 'center',
       backgroundColor: '#F8F8FF'
     },
 

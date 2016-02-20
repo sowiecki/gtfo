@@ -1,8 +1,24 @@
-import { colors, breakpoints } from '../common/styles';
+import { colors, breakpoints, devices } from '../common/styles';
 
 const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
 
 export const styles = {
+  paperOverride: {
+    height: '100%'
+  },
+
+  swipableOverride: {
+    overflowY: 'scroll',
+    height: '100%',
+    width: '100%'
+  },
+
+  officeLayoutContainer: {
+    right: '0',
+    left: '0',
+    margin: 'auto auto'
+  },
+
   svgStroke: '#BBBBBB',
 
   OFFLINE: GREY,
@@ -16,50 +32,68 @@ export const styles = {
   FIVE_MINUTE_WARNING: ORANGE
 };
 
+const layoutSelectors = [
+  'img.office-layout',
+  'svg.office-layout',
+  '.office-layout-container'
+].join(', ');
+
 export const rules = {
   officeLayout: {
     'img.office-layout, svg.office-layout': {
+      display: 'block',
       position: 'absolute',
-      top: '85px',
-      left: '50%',
-      marginRight: '50%',
-      transform: 'translate(-50%, 0)',
+      top: '30px',
       width: '300px',
       height: '345px',
+      overflow: 'hidden',
       backgroundSize: 'fill'
     },
 
     mediaQueries: {
+      [devices.iphone]: {
+        [layoutSelectors]: {
+          width: '908px',
+          height: '1046px'
+        }
+      },
+
+      [breakpoints.portrait]: {
+        [layoutSelectors]: {
+          top: '100px'
+        }
+      },
+
       [breakpoints.afterExtraSmall]: {
-        'img.office-layout, svg.office-layout': {
+        [layoutSelectors]: {
           width: '500px',
           height: '576px'
         }
       },
 
       [breakpoints.afterSmall]: {
-        'img.office-layout, svg.office-layout': {
+        [layoutSelectors]: {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterMedium]: {
-        'img.office-layout, svg.office-layout': {
+        [layoutSelectors]: {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterLarge]: {
-        'img.office-layout, svg.office-layout': {
+        [layoutSelectors]: {
           width: '695px',
           height: '800px'
         }
       },
 
       [breakpoints.afterExtraLarge]: {
-        'img.office-layout, svg.office-layout': {
+        [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
         }

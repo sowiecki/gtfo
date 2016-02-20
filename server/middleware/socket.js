@@ -17,15 +17,15 @@ const clients = {};
 
 /**
  * Deletes client from stored clients hash.
- * @param {object} ws WebSocket properties for client
+ * @param {object} ws WebSocket properties for client.
  */
 const flushClient = (ws) => delete clients[getOrigin(ws)];
 
 /**
  * Registers client with stored clients hash.
  * Overwrites clients from same origin.
- * @param {object} ws WebSocket properties for client
- * @param {string} anchor Anchor key of client
+ * @param {object} ws WebSocket properties for client.
+ * @param {string} anchor Anchor key of client.
  */
 const registerClient = (ws, anchor) => {
   const origin = getOrigin(ws);

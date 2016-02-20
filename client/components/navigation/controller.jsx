@@ -1,35 +1,75 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
-import { AppBar, LeftNav } from 'material-ui/lib';
+import { ToolbarTitle,
+         Toolbar,
+         ToolbarGroup,
+         Tabs,
+         Tab,
+         LeftNav } from 'material-ui/lib';
 
 import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
+import LocationModal from './location-modal';
 
+import { formatForDisplay } from '../../utils/rooms';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const NavigationController = ({ actions, navigation }) => {
-  const { siteNavOpen } = navigation.toJS();
-  const toggleSiteNavOpen = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+const NavigationController = (props) => {
+  const { actions, navigation, locations, params } = props;
+  const { siteNavOpen, locationModalOpen } = navigation.toJS();
+  const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+  const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
 
-  return (
-    <div>
-      <AppBar
-        title='Office Insight'
-        iconElementLeft={<MenuButton toggleSiteNavOpen={toggleSiteNavOpen}/>}
-        titleStyle={styles.appTitle}
-        style={styles.appBar}/>
-      <LeftNav open={siteNavOpen}>
-        <LeftNavContent toggleSiteNavOpen={toggleSiteNavOpen}/>
-      </LeftNav>
-    </div>
+  const renderLocationTab = (location, index) => (
+    <Tab
+      key={`${location}-${index}`}
+      label={formatForDisplay(location)}
+      value={locations.indexOf(location)}
+      onClick={actions.emitLocationIndexUpdate.bind(null, location, params.id)}
+      style={styles.toolbarTab}/>
   );
+
+  // TODO better null safety rendering
+  return locations ? (
+    <div>
+      <Toolbar style={styles.toolbar}>
+        <ToolbarGroup firstChild={true}>
+          <MenuButton toggleSiteNav={toggleSiteNav}/>
+        </ToolbarGroup>
+        <ToolbarGroup>
+          <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
+        </ToolbarGroup>
+        <ToolbarGroup style={styles.toolbarTabs}>
+          <Tabs
+            value={locations.indexOf(params.location)}>
+              {locations.map(renderLocationTab)}
+          </Tabs>
+        </ToolbarGroup>
+      </Toolbar>
+      <LeftNav open={siteNavOpen} docked={false}>
+        <LeftNavContent
+          toggleSiteNav={toggleSiteNav}
+          toggleLocationModal={toggleLocationModal}
+          location={params.location}/>
+      </LeftNav>
+      <LocationModal
+        toggleLocationModal={toggleLocationModal}
+        {...props}/>
+    </div>
+  ) : <div/>;
 };
 
 NavigationController.propTypes = {
-  actions: PropTypes.object.isRequired,
-  navigation: ImmutablePropTypes.Map.isRequired
+  actions: PropTypes.shape({
+    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitLocationModalToggle: PropTypes.func.isRequired,
+    emitLocationUpdate: PropTypes.func.isRequired
+  }).isRequired,
+  navigation: ImmutablePropTypes.Map.isRequired,
+  locations: PropTypes.array,
+  params: PropTypes.object.isRequired
 };
 
 export default applyStyles(NavigationController);
