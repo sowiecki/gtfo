@@ -70,10 +70,6 @@ export const rules = {
       backgroundColor: '#F8F8FF'
     },
 
-    // 'body': {
-    //   overflow: 'scroll'
-    // },
-
     ...transitions
   },
 

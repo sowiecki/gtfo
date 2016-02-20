@@ -20,8 +20,8 @@ const Application = (
         <IndexRoute component={LayoutContainer}/>
         <Route path=':location' component={LayoutContainer}/>
         <Route path=':location/anchor/:id' component={LayoutContainer}/>
+        <Route path=':location/fullscreen' component={LayoutContainer}/>
       </Route>
-      <Route path=':location/fullscreen' component={LayoutContainer}/>
     </Router>
   </Provider>
 );
