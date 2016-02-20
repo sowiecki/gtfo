@@ -51,7 +51,7 @@ const LocationModal = (props) => {
 LocationModal.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.shape({
-    location: PropTypes.string.isRequired
+    location: PropTypes.string
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
   toggleLocationModal: PropTypes.func.isRequired

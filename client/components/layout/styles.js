@@ -8,8 +8,15 @@ export const styles = {
   },
 
   swipableOverride: {
-    overflowY: 'auto',
-    height: '100%'
+    overflowY: 'hidden',
+    height: '100%',
+    width: '100%'
+  },
+
+  officeLayoutContainer: {
+    right: '0',
+    left: '0',
+    margin: 'auto auto'
   },
 
   svgStroke: '#BBBBBB',
@@ -28,11 +35,9 @@ export const styles = {
 export const rules = {
   officeLayout: {
     'img.office-layout, svg.office-layout': {
+      display: 'block',
       position: 'absolute',
       top: '30px',
-      left: '50%',
-      marginRight: '50%',
-      transform: 'translate(-50%, 0)',
       width: '300px',
       height: '345px',
       overflow: 'hidden',
@@ -41,35 +46,35 @@ export const rules = {
 
     mediaQueries: {
       [breakpoints.afterExtraSmall]: {
-        'img.office-layout, svg.office-layout': {
+        'img.office-layout, svg.office-layout, .office-layout-container': {
           width: '500px',
           height: '576px'
         }
       },
 
       [breakpoints.afterSmall]: {
-        'img.office-layout, svg.office-layout': {
+        'img.office-layout, svg.office-layout, .office-layout-container': {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterMedium]: {
-        'img.office-layout, svg.office-layout': {
+        'img.office-layout, svg.office-layout, .office-layout-container': {
           width: '608px',
           height: '700px'
         }
       },
 
       [breakpoints.afterLarge]: {
-        'img.office-layout, svg.office-layout': {
+        'img.office-layout, svg.office-layout, .office-layout-container': {
           width: '695px',
           height: '800px'
         }
       },
 
       [breakpoints.afterExtraLarge]: {
-        'img.office-layout, svg.office-layout': {
+        'img.office-layout, svg.office-layout, .office-layout-container': {
           width: '1050px',
           height: '1209px'
         }

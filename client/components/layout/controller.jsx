@@ -47,7 +47,8 @@ class LayoutController extends Component {
   }
 
   handleChangeLocation(newIndex) {
-    const { meetingRooms, params } = this.props;
+    const { layout, params } = this.props;
+    const { meetingRooms } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
     updateLocationIndex(locations[newIndex], params.id);
@@ -79,15 +80,19 @@ class LayoutController extends Component {
     const filteredMeetingRooms = filterRoomsByLocation(meetingRooms, location);
 
     return (
-      <image
+      <div
         key={location}
-        className='office-layout'
-        src={getLocationBackdrop(this.props.location)}>
-          <svg className='office-layout'>
-            {filteredMeetingRooms.map(this.renderMeetingRoom)}
-            {markers.map(this.renderMarker)}
-          </svg>
-      </image>
+        className='office-layout-container'
+        style={styles.officeLayoutContainer}>
+          <image
+            className='office-layout'
+            src={getLocationBackdrop(this.props.location)}>
+              <svg className='office-layout'>
+                {filteredMeetingRooms.map(this.renderMeetingRoom)}
+                {markers.map(this.renderMarker)}
+              </svg>
+          </image>
+      </div>
     );
   }
 
@@ -100,9 +105,11 @@ class LayoutController extends Component {
       <Paper style={styles.paperOverride} zDepth={1}>
         <Style rules={rules.officeLayout}/>
         <SwipeableViews
+          className='swipeable-viewport'
           style={styles.swipableOverride}
           index={locations.indexOf(location)}
-          onChangeIndex={this.handleChangeLocation}>
+          onChangeIndex={this.handleChangeLocation}
+          resistance={true}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
       </Paper>

@@ -16,10 +16,14 @@ const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handl
  * @returns {string} Path of location backdrop asset.
  */
 export const getLocationBackdrop = (location) => {
+  const backdrops = require.context('../assets/', true, /^\.\/.*\.png$/);
+
   try {
-    return require(`../assets/${location}.png`);
+    return backdrops(`./${location}.png`);
   } catch (e) {
-    console.log(`Failed to render backdrop for ${location}`);
+    const errorMessage = `Failed to backdrop for ${location}.
+      Make sure it's correctly saved in /client/assets/`;
+    console.log(errorMessage);
   }
 };
 

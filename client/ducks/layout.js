@@ -42,12 +42,13 @@ const initialState = immutable.fromJS({
 
 const layoutReducer = (state = initialState, action) => {
   const { meetingRooms } = action;
+  const locations = pluckLocations(meetingRooms);
 
   const reducers = {
     [EMIT_ROOM_STATUSES_UPDATE]() {
       return state
         .set('meetingRooms', meetingRooms)
-        .set('locations', pluckLocations(meetingRooms));
+        .set('locations', locations);
     },
 
     [EMIT_FETCH_ROOM_STATUSES_ERROR]() {

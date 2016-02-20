@@ -59,6 +59,7 @@ export const rules = {
       height: '100%',
       width: '100%',
       overflow: 'hidden',
+      textAlign: 'center',
       backgroundColor: '#F8F8FF'
     },
 
