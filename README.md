@@ -65,13 +65,15 @@ Finally, retrieve the access tokens and device id for each Photon, and place the
 |------------------|---------------------------------------|-----------|
 | id               | ID of exchange account<sup>1</sup>    | Yes       |
 | name             | Display name for room<sup>2</sup>     | Yes       |
-| location         | Floor or location of room <sup>2</sup>| Yes       |
+| location         | Floor or location of room <sup>2, 3</sup>| Yes       |
 | deviceId         | ID of Photon board                    | Yes       |
 | deviceAuthToken  | Auth token of Photon board            | Yes       |
 | deviceAlias      | Name of module                        | No        |
 <sup>1</sup> Formatted exactly as displayed on Exchange Services.
 
-<sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`. Make sure that all rooms in the same location have **exactly** matching locations properties.
+<sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
+
+<sup>3</sup> Make sure that all rooms in the same location have **exactly** matching locations properties. Location tabs are displayed in order of first device entry in the file, e.g. if the first device has the location `Two Prudential 51` it will be the first tab rendered.
 
 Example of a `devices.json` with a single device configured to The Loop:
 ```json
@@ -80,6 +82,7 @@ Example of a `devices.json` with a single device configured to The Loop:
     {
       "id": "the loop",
       "name": "The Loop",
+      "location": "Two Prudential 51",
       "deviceAlias": "Skynet",
       "deviceId": "123456789abcd",
       "deviceAuthToken": "abc123"
