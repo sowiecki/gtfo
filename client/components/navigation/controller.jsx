@@ -48,7 +48,7 @@ const NavigationController = (props) => {
           </Tabs>
         </ToolbarGroup>
       </Toolbar>
-      <LeftNav open={siteNavOpen}>
+      <LeftNav open={siteNavOpen} docked={false}>
         <LeftNavContent
           toggleSiteNav={toggleSiteNav}
           toggleLocationModal={toggleLocationModal}

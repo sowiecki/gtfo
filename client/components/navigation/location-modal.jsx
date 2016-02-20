@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
-import slug from 'slug';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { Dialog,
          FlatButton,
          SelectField,
          MenuItem } from 'material-ui/lib';
 
+import { formatForDisplay } from '../../utils/rooms';
 import { base } from '../../config/composition';
+
+injectTapEventPlugin();
 
 const LocationModal = (props) => {
   const { actions,
@@ -15,14 +18,20 @@ const LocationModal = (props) => {
           navigation,
           locations,
           toggleLocationModal } = props;
-  const { locationModalOpen } = navigation.toJS();
+  const { siteNavOpen, locationModalOpen } = navigation.toJS();
+
+  const handleLocationSelection = (location, anchorId) => {
+    actions.emitSiteNavToggle(!siteNavOpen);
+    actions.emitLocationModalToggle(!locationModalOpen);
+    actions.emitLocationIndexUpdate(location, anchorId);
+  };
 
   const renderLocation = (location, index) => (
     <MenuItem
       key={index}
-      label={location}
-      primaryText={location}
-      value={slug(location, { lower: true })}/>
+      value={index}
+      primaryText={formatForDisplay(location)}
+      onClick={handleLocationSelection.bind(null, location, params.id)}/>
   );
 
   const buttons = [
@@ -39,13 +48,16 @@ const LocationModal = (props) => {
       modal={true}
       open={locationModalOpen}>
       <SelectField
-        value={params.location}
-        onChange={actions.emitLocationIndexUpdate.bind(null, params.location, params.id)}
+        value={locations.indexOf(params.location)}
         floatingLabelText='Select a Location'>
           {locations.map(renderLocation)}
       </SelectField>
     </Dialog>
-  ) : <span/>;
+  ) : (
+    <span>
+      There are no locations to select.
+    </span>
+  );
 };
 
 LocationModal.propTypes = {

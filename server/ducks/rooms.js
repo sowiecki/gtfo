@@ -14,7 +14,7 @@ const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.
  */
 devices.map((device) => {
   device.location = slug(device.location, { lower: true });
-  device.coordinates = roomCoordinates[device.id]
+  device.coordinates = roomCoordinates[device.id];
 });
 
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
