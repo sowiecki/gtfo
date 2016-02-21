@@ -1,8 +1,8 @@
 import getMockData from '../mocks/mock-data';
 import { EMIT_ROOM_STATUSES_UPDATE,
          EMIT_ROOM_STATUSES_ERROR } from '../ducks/rooms';
-import filterExpiredReservations from '../utils/filter-reservations';
-import setAlertByReservationStatus from '../utils/set-reservation-alert';
+import { filterExpiredReservations } from '../utils/reservations';
+import { getRoomAlert } from '../utils/rooms';
 
 const fetchMockedReservations = (next, action) => {
   const { room, accessories } = action;
@@ -14,11 +14,12 @@ const fetchMockedReservations = (next, action) => {
   }
 
   const reservations = filterExpiredReservations(mockData[room.id]);
-  const roomWithAlert = setAlertByReservationStatus(room, reservations);
+  const alert = getRoomAlert(room, reservations);
 
   next({
     type: EMIT_ROOM_STATUSES_UPDATE,
-    room: roomWithAlert,
+    room,
+    alert,
     accessories
   });
 };

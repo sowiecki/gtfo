@@ -11,7 +11,7 @@ import {
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
-const setAlertByReservationStatus = (room, reservations = []) => {
+export const getRoomAlert = (room, reservations = []) => {
   let alert;
 
   // TODO Should determine meetings by comparing to current time
@@ -49,9 +49,5 @@ const setAlertByReservationStatus = (room, reservations = []) => {
     alert = BOOKED;
   }
 
-  room.alert = alert;
-
-  return room;
+  return alert;
 };
-
-export default setAlertByReservationStatus;

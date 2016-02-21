@@ -10,7 +10,7 @@ import filter from 'lodash/collection/filter';
  * @param {array} reservations Meeting room reservations.
  * @return {array} Unexpired meeting room reservations.
  */
-export default (reservations) => {
+export const filterExpiredReservations = (reservations) => {
   return filter(reservations, (reservation) => {
     const reservationNotExpired = !moment(reservation.endDate).isBefore(Date.now());
 
