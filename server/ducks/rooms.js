@@ -9,13 +9,12 @@ import { ROOM_STATUSES_UPDATE } from '../constants/events';
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
 const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
 
-/**
- * Map room coordinates to device objects.
- * Properly format location.
- */
 devices.map((device) => {
-  device.location = slug(device.location, { lower: true });
+  // Map room coordinates to device objects.
   device.coordinates = roomCoordinates[device.id];
+
+  // Properly format location.
+  device.location = slug(device.location, { lower: true });
 });
 
 export const CLIENT_CONNECTED = 'CLIENT_CONNECTED';
