@@ -1,14 +1,18 @@
 /* eslint no-console:0 */
 import * as flash from './flash';
 import { logRoomNotification } from './logging';
-import {
-  VACANT,
-  ONE_MINUTE_WARNING,
-  FIVE_MINUTE_WARNING,
-  BOOKED
-} from '../constants/room-statuses';
+import { VACANT,
+         ONE_MINUTE_WARNING,
+         FIVE_MINUTE_WARNING,
+         BOOKED } from '../constants/room-statuses';
 
-const mapNotifications = (roomStatus, accessories) => {
+/**
+ * Sends command to board LED to flash room status color.
+ * @param {string} roomStatus Status of room.
+ * @param {object} accessories Board accessories object.
+ * @returns {undefined}
+ */
+export const flashNotifications = (roomStatus, accessories) => {
   // TODO better handling of no reservations left
   if (!roomStatus) {
     return;
@@ -28,5 +32,3 @@ const mapNotifications = (roomStatus, accessories) => {
 
   handleFlash[roomStatus.alert || VACANT]();
 };
-
-export default mapNotifications;

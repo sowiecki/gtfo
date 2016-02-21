@@ -4,8 +4,8 @@ import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants/urls';
-import filterExpiredReservations from '../utils/filter-reservations';
-import setAlertByReservationStatus from '../utils/set-reservation-alert';
+import { filterExpiredReservations } from '../utils/reservations';
+import { getRoomAlert } from '../utils/rooms';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
@@ -16,7 +16,7 @@ const fetchRoomReservations = (next, action) => {
     response.on('data', (data) => {
       const reservationsResponse = JSON.parse(data.toString('utf8'));
       const reservations = filterExpiredReservations(reservationsResponse);
-      const roomWithAlert = setAlertByReservationStatus(room, reservations);
+      const roomWithAlert = getRoomAlert(room, reservations);
 
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,

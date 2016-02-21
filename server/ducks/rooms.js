@@ -2,7 +2,8 @@ import { readFileSync } from 'fs';
 import slug from 'slug';
 
 import socket from '../middleware/socket';
-import mapNotifications from '../utils/map-notifications';
+
+import { flashNotifications } from '../utils/notifications';
 import { ROOM_STATUSES_UPDATE } from '../constants/events';
 
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
@@ -30,7 +31,7 @@ export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 const roomsReducer = (state = devices, action) => {
-  let hasChanged = false;
+  let alertChanged = false;
   const { accessories,
           temperature,
           lastMotion } = action;
@@ -52,29 +53,25 @@ const roomsReducer = (state = devices, action) => {
       /**
        * TODO
        * This is pretty gross, but necessary pending further major refactoring.
-       * hasChanged is set and used to prevent spamming updates with duplicate data.
+       * alertChanged is set and used to prevent spamming updates with duplicate data.
        */
       state = state.map((room) => {
         if (room.id === action.room.id) {
-          const oldSate = room.alert;
-          const newState = action.room.alert;
+          const stateDiff = room.alert !== action.alert;
 
-          if (oldSate !== newState) {
-            hasChanged = true;
+          if (stateDiff) {
+            alertChanged = true;
           }
 
-          room.alert = action.room.alert;
+          room.alert = action.alert;
+          flashNotifications(room, accessories);
         }
         return room;
       });
 
-      mapNotifications(action.room, accessories);
-
-      if (hasChanged) {
+      if (alertChanged) {
         socket.handle(ROOM_STATUSES_UPDATE, state);
       }
-
-      hasChanged = false;
 
       break;
 
