@@ -4,8 +4,8 @@ import WebSocket from 'ws';
 import { filter, forEach } from 'lodash/collection';
 
 import { WEB_SOCKET_PORT } from '../config';
-import { CLIENT_CONNECTED } from '../ducks/rooms';
-import { HANDSHAKE, RECONNECTED, NEW_ROOM_PING } from '../constants/events';
+import { EMIT_CLIENT_REGISTERED } from '../ducks/rooms';
+import { INITIALIZE, HANDSHAKE, RECONNECTED, NEW_ROOM_PING } from '../constants/events';
 import store from '../store/configure-store';
 
 import { getOrigin } from '../utils/traversals';
@@ -34,7 +34,11 @@ const registerClient = (ws, anchor) => {
 
   clients[origin] = Object.assign(ws, { anchor });
 
-  store().dispatch({ type: CLIENT_CONNECTED });
+  store().dispatch({
+    type: EMIT_CLIENT_REGISTERED,
+    anchor,
+    ws
+  });
 };
 
 const WSWrapper = {
@@ -64,6 +68,9 @@ const WSWrapper = {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor property.
         registerClient(ws, payload.anchor);
+      },
+      [INITIALIZE]() {
+        WSWrapper.send(ws, { event, payload });
       },
       [RECONNECTED]() { // Reregister client socket with anchor property.
         registerClient(ws, payload.anchor);

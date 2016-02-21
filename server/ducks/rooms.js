@@ -4,7 +4,7 @@ import slug from 'slug';
 import socket from '../middleware/socket';
 
 import { flashNotifications } from '../utils/notifications';
-import { ROOM_STATUSES_UPDATE } from '../constants/events';
+import { INITIALIZE, ROOM_STATUSES_UPDATE } from '../constants/events';
 
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
 const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
@@ -17,7 +17,7 @@ devices.map((device) => {
   device.location = slug(device.location, { lower: true });
 });
 
-export const CLIENT_CONNECTED = 'CLIENT_CONNECTED';
+export const EMIT_CLIENT_REGISTERED = 'EMIT_CLIENT_REGISTERED';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
@@ -40,12 +40,8 @@ const roomsReducer = (state = devices, action) => {
       socket.open(ROOM_STATUSES_UPDATE, state);
 
       break;
-    case CLIENT_CONNECTED:
-      /**
-       * TODO
-       * Refactor to send update only to newly connected client.
-       */
-      socket.handle(ROOM_STATUSES_UPDATE, state);
+    case EMIT_CLIENT_REGISTERED:
+      socket.handle(INITIALIZE, state, action.ws);
 
       break;
     case EMIT_ROOM_STATUSES_UPDATE:
