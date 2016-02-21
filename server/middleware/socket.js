@@ -4,7 +4,9 @@ import WebSocket from 'ws';
 import { filter, forEach } from 'lodash/collection';
 
 import { WEB_SOCKET_PORT } from '../config';
+import { CLIENT_CONNECTED } from '../ducks/rooms';
 import { HANDSHAKE, RECONNECTED, NEW_ROOM_PING } from '../constants/events';
+import store from '../store/configure-store';
 
 import { getOrigin } from '../utils/traversals';
 
@@ -31,6 +33,8 @@ const registerClient = (ws, anchor) => {
   const origin = getOrigin(ws);
 
   clients[origin] = Object.assign(ws, { anchor });
+
+  store().dispatch({ type: CLIENT_CONNECTED });
 };
 
 const WSWrapper = {

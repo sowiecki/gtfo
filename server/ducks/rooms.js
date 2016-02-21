@@ -17,6 +17,7 @@ devices.map((device) => {
   device.coordinates = roomCoordinates[device.id];
 });
 
+export const CLIENT_CONNECTED = 'CLIENT_CONNECTED';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
@@ -29,6 +30,7 @@ export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 const roomsReducer = (state = devices, action) => {
+  let hasChanged = false;
   const { accessories,
           temperature,
           lastMotion } = action;
@@ -38,11 +40,44 @@ const roomsReducer = (state = devices, action) => {
       socket.open(ROOM_STATUSES_UPDATE, state);
 
       break;
-    case EMIT_ROOM_STATUSES_UPDATE:
-      mapNotifications(action.room, accessories);
+    case CLIENT_CONNECTED:
+      /**
+       * TODO
+       * Refactor to send update only to newly connected client.
+       */
       socket.handle(ROOM_STATUSES_UPDATE, state);
 
       break;
+    case EMIT_ROOM_STATUSES_UPDATE:
+      /**
+       * TODO
+       * This is pretty gross, but necessary pending further major refactoring.
+       * hasChanged is set and used to prevent spamming updates with duplicate data.
+       */
+      state = state.map((room) => {
+        if (room.id === action.room.id) {
+          const oldSate = room.alert;
+          const newState = action.room.alert;
+
+          if (oldSate !== newState) {
+            hasChanged = true;
+          }
+
+          room.alert = action.room.alert;
+        }
+        return room;
+      });
+
+      mapNotifications(action.room, accessories);
+
+      if (hasChanged) {
+        socket.handle(ROOM_STATUSES_UPDATE, state);
+      }
+
+      hasChanged = false;
+
+      break;
+
     case EMIT_ROOM_STATUSES_ERROR:
       // TODO error handling
       break;
@@ -56,7 +91,7 @@ const roomsReducer = (state = devices, action) => {
       break;
   }
 
-  return state;
+  return [].concat(state);
 };
 
 export default roomsReducer;

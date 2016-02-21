@@ -49,9 +49,7 @@ const setAlertByReservationStatus = (room, reservations = []) => {
     alert = BOOKED;
   }
 
-  room.alert = alert;
-
-  return room;
+  return Object.assign({}, room, { alert });
 };
 
 export default setAlertByReservationStatus;
