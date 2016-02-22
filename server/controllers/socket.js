@@ -1,7 +1,7 @@
 /* eslint new-cap:0, no-console:0 */
 /* globals console */
 import WebSocket from 'ws';
-import { filter, forEach } from 'lodash/collection';
+import { filter, forEach } from 'lodash';
 
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED } from '../ducks/rooms';

@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { Dialog,
          FlatButton,
@@ -9,8 +8,6 @@ import { Dialog,
 
 import { formatForDisplay } from '../../utils/rooms';
 import { base } from '../../config/composition';
-
-injectTapEventPlugin();
 
 const LocationModal = (props) => {
   const { actions,

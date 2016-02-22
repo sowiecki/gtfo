@@ -1,8 +1,8 @@
 import transitions from './transitions';
 
 export const colors = {
-  primary: '#00BCD4',
-  secondary: '',
+  primary: '#0072C8',
+  secondary: '#2591E2',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
   WHITE: '#FFFFFF',
@@ -14,7 +14,8 @@ export const colors = {
   DARK_PINK: '#FF0066',
   RED: '#FF0000',
   GREEN: '#72E837',
-  ORANGE: '#FFBB00'
+  ORANGE: '#FFBB00',
+  YELLOW: '#FFFF00'
 };
 
 export const breakpoints = {

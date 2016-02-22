@@ -1,6 +1,6 @@
 /* eslint max-statements:0 no-magic-numbers:0 */
 import moment from 'moment';
-import isEmpty from 'lodash/lang/isEmpty';
+import { isEmpty } from 'lodash';
 
 import {
   VACANT,

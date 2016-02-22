@@ -3,12 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRoute, Route } from 'react-router';
 import { Provider } from 'react-redux';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import history from './config/history';
 import configureStore from './store/configure-store';
 
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';
+
+require('velocity-animate');
+require('velocity-animate/velocity.ui');
+
+injectTapEventPlugin();
 
 const store = configureStore();
 const node = document.getElementById('root');

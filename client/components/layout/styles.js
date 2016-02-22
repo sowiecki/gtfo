@@ -1,6 +1,6 @@
 import { colors, breakpoints, devices } from '../common/styles';
 
-const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
+const { GREY, GREEN, BLUE, ORANGE, YELLOW, RED } = colors;
 
 export const styles = {
   paperOverride: {
@@ -29,7 +29,9 @@ export const styles = {
 
   ONE_MINUTE_WARNING: RED,
 
-  FIVE_MINUTE_WARNING: ORANGE
+  FIVE_MINUTE_WARNING: ORANGE,
+
+  PINGED: YELLOW
 };
 
 const layoutSelectors = [
@@ -40,6 +42,7 @@ const layoutSelectors = [
 
 export const rules = {
   officeLayout: {
+
     'img.office-layout, svg.office-layout': {
       display: 'block',
       position: 'absolute',
@@ -51,13 +54,6 @@ export const rules = {
     },
 
     mediaQueries: {
-      [devices.iphone]: {
-        [layoutSelectors]: {
-          width: '908px',
-          height: '1046px'
-        }
-      },
-
       [breakpoints.portrait]: {
         [layoutSelectors]: {
           top: '100px'
@@ -97,6 +93,13 @@ export const rules = {
           width: '1050px',
           height: '1209px'
         }
+      },
+
+      [devices.iphone]: {
+        [layoutSelectors]: {
+          width: '908px',
+          height: '1046px'
+        }
       }
     }
   },
@@ -108,7 +111,7 @@ export const rules = {
       fontFamily: `'Wire One', sans-serif`,
       fontWeight: 'bold',
       fontVariantCaps: 'all-small-caps',
-      transform: 'translateY(-10px)'
+      textShadow: `${GREY} 0px 0px 0px`
     },
 
     mediaQueries: {

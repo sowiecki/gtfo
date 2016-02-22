@@ -1,8 +1,7 @@
 /* eslint no-console:0 */
 /* globals console */
-import { filter, pluck } from 'lodash/collection';
-import uniq from 'lodash/array/uniq';
-import get from 'lodash/object/get';
+import { filter, map } from 'lodash';
+import { uniq, get } from 'lodash';
 import slug from 'slug';
 
 import history from '../config/history';
@@ -79,7 +78,7 @@ export const formatForDisplay = (name) => {
  * @returns {array} Collection of location strings.
  */
 export const pluckLocations = (rooms) => {
-  return uniq(pluck(rooms, 'location'));
+  return uniq(map(rooms, 'location'));
 };
 
 /**
@@ -98,16 +97,24 @@ export const getAnchor = (store) => {
  * @param {object} coordinates Raw coordinates of room SVG element.
  * @returns {object} Formatted coordinates of room SVG element.
  */
-export const shapeModifier = ({ height, width, x, y }) => {
-  // height = 18.9;
-  // width = 10;
-  // x = 89.5;
-  // y = 40.5;
+export const positionModifier = ({ x, y }) => {
   return {
-    height: `${height}%`,
-    width: `${width}%`,
     x: `${x}%`,
     y: `${y}%`
+  };
+};
+
+/**
+ * Formats room size parameters for display in SVG element.
+ * @param {object} coordinates Size of room SVG element.
+ * @returns {object} Formatted size parameters of room SVG element.
+ */
+export const shapeModifier = ({ height, width }) => {
+  // height = 18.9;
+  // width = 10;
+  return {
+    height: `${height}%`,
+    width: `${width}%`
   };
 };
 
