@@ -5,7 +5,10 @@ import { VelocityComponent } from 'velocity-react';
 import { applyStyles } from '../../config/composition';
 import { styles, rules, TEXT_DX, TEXT_DY } from './styles';
 import { positionModifier, shapeModifier } from '../../utils/rooms';
-import { OFFLINE, PINGED, PING_TIMEOUT } from '../../constants/svg';
+import { OFFLINE,
+         PINGED,
+         RECT_ANIMATION_LOOPS,
+         RECT_ANIMATION_TIMEOUT } from '../../constants/svg';
 
 const MeetingRoom = ({ room, pinged }) => {
   const rectAnimation = {
@@ -16,8 +19,8 @@ const MeetingRoom = ({ room, pinged }) => {
     <svg {...positionModifier(room.coordinates)}>
       <Style rules={rules.roomText}/>
       <VelocityComponent
-        animation={rectAnimation} loop={8}
-        duration={PING_TIMEOUT / 25}>
+        animation={rectAnimation} loop={RECT_ANIMATION_LOOPS}
+        duration={RECT_ANIMATION_TIMEOUT}>
           <rect
             fill={styles[room.alert || OFFLINE]}
             stroke={styles.svgStroke}

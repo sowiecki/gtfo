@@ -1,4 +1,7 @@
+/* eslint no-magic-numbers:0 */
 export const OFFLINE = 'OFFLINE';
 export const PINGED = 'PINGED';
 
 export const PING_TIMEOUT = 5000;
+export const RECT_ANIMATION_LOOPS = 8;
+export const RECT_ANIMATION_TIMEOUT = PING_TIMEOUT / 25;
