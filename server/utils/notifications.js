@@ -1,6 +1,5 @@
 /* eslint no-console:0 */
 import * as flash from './flash';
-import { logRoomNotification } from './logging';
 import { VACANT,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
@@ -17,8 +16,6 @@ export const flashNotifications = (roomStatus, accessories) => {
   if (!roomStatus) {
     return;
   }
-
-  logRoomNotification(roomStatus);
 
   const handleFlash = {
     [VACANT]: () => flash.vacant(accessories.led),

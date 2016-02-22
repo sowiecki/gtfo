@@ -4,6 +4,7 @@ import slug from 'slug';
 import socketController from '../controllers/socket';
 
 import { flashNotifications } from '../utils/notifications';
+import { logRoomStatuses } from '../utils/logging';
 import { INITIALIZE, ROOM_STATUSES_UPDATE } from '../constants/events';
 
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
@@ -65,6 +66,7 @@ const roomsReducer = (state = devices, action) => {
       });
 
       if (alertChanged) {
+        logRoomStatuses(state);
         socketController.handle(ROOM_STATUSES_UPDATE, state);
       }
 
