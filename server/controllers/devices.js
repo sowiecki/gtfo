@@ -15,7 +15,7 @@ import { registerBoard,
          registerPiezo,
          registerThermo,
          registerMotion } from '../utils/hardware';
-import { INIT_ROOM_STATUSES,
+import { EMIT_INIT_DEVICES,
          FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -26,7 +26,7 @@ const rooms = store().getState().roomsReducer;
 
 const devicesController = {
   initRooms() {
-    store().dispatch({ type: INIT_ROOM_STATUSES });
+    store().dispatch({ type: EMIT_INIT_DEVICES });
 
     rooms.map((room) => {
       // Initialize board
