@@ -41,7 +41,7 @@ const initialState = immutable.fromJS({
 });
 
 const layoutReducer = (state = initialState, action) => {
-  const { meetingRooms } = action;
+  const { meetingRooms, ping } = action;
   const locations = pluckLocations(meetingRooms);
 
   const reducers = {
@@ -60,7 +60,7 @@ const layoutReducer = (state = initialState, action) => {
     },
 
     [EMIT_SET_ROOM_PING]() {
-      return state.set('ping', action.ping);
+      return state.set('ping', ping);
     },
 
     [EMIT_CLEAR_PING]() {

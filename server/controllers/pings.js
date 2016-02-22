@@ -18,6 +18,7 @@ const pingsController = {
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           origin: getHost(req),
+          location: room.location,
           id,
           anchor
         }

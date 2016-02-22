@@ -52,13 +52,20 @@ class LayoutController extends Component {
   }
 
   /**
+   * Checks that view is on correct location for ping.
    * Automatically clears pings after defined amount of time.
    */
   flashPing() {
-    const { clearPing } = this.props.actions;
+    const { actions, layout, params, location } = this.props;
+    const { anchor } = location.query;
+    const { ping } = layout.toJS();
+
+    if (params.location !== ping.location) {
+      updateLocationIndex(ping.location, anchor);
+    }
 
     const setPingTimeout = setInterval(() => {
-      clearPing();
+      actions.clearPing();
       clearInterval(setPingTimeout);
     }, PING_TIMEOUT);
   }
@@ -104,7 +111,7 @@ class LayoutController extends Component {
         style={styles.officeLayoutContainer}>
           <image
             className='office-layout'
-            src={getLocationBackdrop(this.props.location)}>
+            src={getLocationBackdrop(this.props.params.location)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
                 {markers.map(this.renderMarker)}
@@ -115,7 +122,7 @@ class LayoutController extends Component {
   }
 
   render() {
-    const { location, layout } = this.props;
+    const { params, layout } = this.props;
     const { meetingRooms } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
@@ -125,7 +132,7 @@ class LayoutController extends Component {
         <SwipeableViews
           className='swipeable-viewport'
           style={styles.swipableOverride}
-          index={locations.indexOf(location)}
+          index={locations.indexOf(params.location)}
           onChangeIndex={this.handleChangeLocation}
           resistance={true}>
             {locations.map(this.renderLocation)}
@@ -136,10 +143,12 @@ class LayoutController extends Component {
 }
 
 LayoutController.propTypes = {
-  location: PropTypes.string,
+  location: PropTypes.object.isRequired,
   layout: ImmutablePropTypes.Map.isRequired,
   meetingRooms: ImmutablePropTypes.Map,
-  params: PropTypes.object.isRequired,
+  params: PropTypes.shape({
+    location: PropTypes.string.isRequired
+  }).isRequired,
   ping: PropTypes.object,
   actions: PropTypes.shape({
     clearPing: PropTypes.func.isRequired
