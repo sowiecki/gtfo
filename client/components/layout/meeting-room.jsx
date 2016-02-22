@@ -21,10 +21,12 @@ const MeetingRoom = ({ room, pinged }) => {
   return (
     <svg {...positionModifier(room.coordinates)}>
       <Style rules={rules.roomText}/>
-      <rect
-        fill={styles[room.alert || OFFLINE]}
-        stroke={styles.svgStroke}
-        {...shapeModifier(room.coordinates)}/>
+      <VelocityComponent
+        animation={{fill: styles[room.alert || OFFLINE]}}>
+        <rect
+          stroke={styles.svgStroke}
+          {...shapeModifier(room.coordinates)}/>
+      </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
