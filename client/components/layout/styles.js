@@ -54,13 +54,6 @@ export const rules = {
     },
 
     mediaQueries: {
-      [devices.iphone]: {
-        [layoutSelectors]: {
-          width: '908px',
-          height: '1046px'
-        }
-      },
-
       [breakpoints.portrait]: {
         [layoutSelectors]: {
           top: '100px'
@@ -99,6 +92,13 @@ export const rules = {
         [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
+        }
+      },
+
+      [devices.iphone]: {
+        [layoutSelectors]: {
+          width: '908px',
+          height: '1046px'
         }
       }
     }
