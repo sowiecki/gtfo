@@ -1,4 +1,4 @@
-import find from 'lodash/collection/find';
+import { find } from 'lodash';
 
 import store from '../store/configure-store';
 import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';

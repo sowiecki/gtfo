@@ -1,4 +1,4 @@
-import get from 'lodash/object/get';
+import { get } from 'lodash';
 
 /**
  * Parses host parameter.

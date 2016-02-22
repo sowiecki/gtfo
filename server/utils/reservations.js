@@ -1,5 +1,5 @@
 import moment from 'moment';
-import filter from 'lodash/collection/filter';
+import { filter } from 'lodash';
 
 /**
  * Filters out expired reservations.

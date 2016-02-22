@@ -3,8 +3,7 @@
 import colors from 'colors';
 import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
-import { every, map, pluck } from 'lodash/collection';
-import { flatten } from 'lodash/array';
+import { every, map, flatten } from 'lodash';
 
 import {
   MOCK_DATA_FILE,
@@ -18,7 +17,7 @@ import {
 } from './utils';
 
 const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
-const mockRooms = pluck(devices, 'id');
+const mockRooms = map(devices, 'id');
 
 const generateMockData = () => {
   const mockData = {};
@@ -55,7 +54,7 @@ const getMockData = () => {
 
     if (lstatSync(MOCK_DATA_FILE).isFile()) {
       // Validate that each reservation is for today
-      const allReservations = flatten(map(mockData, (room) => pluck(room, 'startDate')));
+      const allReservations = flatten(map(mockData, (room) => map(room, 'startDate')));
       const current = every(allReservations, (startDate) => {
         return moment().calendar(startDate, {sameDay: '[Today]'}) === 'Today';
       });

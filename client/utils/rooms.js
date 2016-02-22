@@ -1,8 +1,7 @@
 /* eslint no-console:0 */
 /* globals console */
-import { filter, pluck } from 'lodash/collection';
-import uniq from 'lodash/array/uniq';
-import get from 'lodash/object/get';
+import { filter, map } from 'lodash';
+import { uniq, get } from 'lodash';
 import slug from 'slug';
 
 import history from '../config/history';
@@ -79,7 +78,7 @@ export const formatForDisplay = (name) => {
  * @returns {array} Collection of location strings.
  */
 export const pluckLocations = (rooms) => {
-  return uniq(pluck(rooms, 'location'));
+  return uniq(map(rooms, 'location'));
 };
 
 /**
