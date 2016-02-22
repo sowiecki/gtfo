@@ -1,4 +1,4 @@
-import socket from './socket';
+import socketController from '../controllers/socket';
 import fetchRoomReservations from './fetch-room-reservation';
 import fetchMockedReservations from './fetch-mocked-reservations';
 import fetchRoomTemperature from './fetch-room-temperature';
@@ -30,7 +30,7 @@ export default () => (next) => (action) => {
       break;
 
     case EMIT_ROOM_PING_RECEIVED:
-      socket.handle(NEW_ROOM_PING, action.ping);
+      socketController.handle(NEW_ROOM_PING, action.ping);
       break;
 
     default:
