@@ -1,6 +1,6 @@
 import { colors, breakpoints, devices } from '../common/styles';
 
-const { GREY, GREEN, BLUE, ORANGE, RED } = colors;
+const { GREY, GREEN, BLUE, ORANGE, YELLOW, RED } = colors;
 
 export const styles = {
   paperOverride: {
@@ -29,7 +29,9 @@ export const styles = {
 
   ONE_MINUTE_WARNING: RED,
 
-  FIVE_MINUTE_WARNING: ORANGE
+  FIVE_MINUTE_WARNING: ORANGE,
+
+  PINGED: YELLOW
 };
 
 const layoutSelectors = [
@@ -109,7 +111,7 @@ export const rules = {
       fontFamily: `'Wire One', sans-serif`,
       fontWeight: 'bold',
       fontVariantCaps: 'all-small-caps',
-      transform: 'translateY(-10px)'
+      textShadow: `${GREY} 0px 0px 0px`
     },
 
     mediaQueries: {

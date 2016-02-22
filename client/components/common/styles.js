@@ -14,7 +14,8 @@ export const colors = {
   DARK_PINK: '#FF0066',
   RED: '#FF0000',
   GREEN: '#72E837',
-  ORANGE: '#FFBB00'
+  ORANGE: '#FFBB00',
+  YELLOW: '#FFFF00'
 };
 
 export const breakpoints = {
