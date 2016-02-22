@@ -11,6 +11,9 @@ import configureStore from './store/configure-store';
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';
 
+require('velocity-animate');
+require('velocity-animate/velocity.ui');
+
 injectTapEventPlugin();
 
 const store = configureStore();
