@@ -40,6 +40,7 @@ const layoutSelectors = [
 
 export const rules = {
   officeLayout: {
+
     'img.office-layout, svg.office-layout': {
       display: 'block',
       position: 'absolute',

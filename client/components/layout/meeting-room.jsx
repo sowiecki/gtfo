@@ -13,7 +13,8 @@ const MeetingRoom = ({ room, pinged }) => {
       <rect
         fill={styles[room.alert || OFFLINE]}
         stroke={styles.svgStroke}
-        {...shapeModifier(room.coordinates)}/>
+        {...shapeModifier(room.coordinates)}>
+      </rect>
       <text
         className='room-text'
         dx={TEXT_DX}

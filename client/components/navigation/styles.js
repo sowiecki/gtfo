@@ -18,13 +18,12 @@ export const styles = {
   },
 
   toolbarTabs: {
-    // position: 'absolute',
     margin: '0 0 0 -4px'
-    // width: '50%'
   },
 
   toolbarTab: {
-    minWidth: '200px'
+    minWidth: '200px',
+    backgroundColor: primary
   },
 
   menuButton: {

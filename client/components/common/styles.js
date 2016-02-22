@@ -1,8 +1,8 @@
 import transitions from './transitions';
 
 export const colors = {
-  primary: '#00BCD4',
-  secondary: '',
+  primary: '#0072C8',
+  secondary: '#2591E2',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
   WHITE: '#FFFFFF',
