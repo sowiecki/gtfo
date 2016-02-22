@@ -32,7 +32,7 @@ export const getLocationBackdrop = (location) => {
  * @returns {undefined}
  */
 export const updateLocationIndex = (newLocation, anchorId) => {
-  const anchor = anchorId ? `/anchor/${anchorId}` : '';
+  const anchor = anchorId ? `?anchor=${anchorId}` : '';
 
   history.push(`/${newLocation}${anchor}`);
 };
@@ -87,9 +87,9 @@ export const pluckLocations = (rooms) => {
  * @returns {string} Parsed anchor parameter.
  */
 export const getAnchor = (store) => {
-  const { pathname } = get(store.getState(), 'routeReducer.location');
+  const { anchor } = get(store.getState(), 'routeReducer.location.query');
 
-  return pathname.replace(ANCHOR_PATH_REGEX, '');
+  return anchor.replace(ANCHOR_PATH_REGEX, '');
 };
 
 /**

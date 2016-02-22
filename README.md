@@ -30,14 +30,6 @@ npm run dev # Development mode with live data
 npm run prod # Production mode with live data
 ```
 
-## Action Items
-- Node process automatically restarts on board errors, but we should still probably have some bash automation.
-- Moving EWS API to Slalom AWS instance and authenticating without using a real person's account
-- Improve hardware
-  - Better lighting, nicer cases
-- Configuring Raspi to host and run program on Hackathon access point
-- Place a demo unit on 53
-
 ## Configuration
 
 - Raspberry Pi 2 Model B v1.1 running JESSIE (other models and distros likely work, but are untested)
@@ -112,3 +104,22 @@ Example of a `environment/room-coordinates.json` file configured to display Bron
   }
 }
 ```
+
+### Ping API
+*Alexa, where is Wrigleyville?*
+
+*Wrigleyville is on the east side of the office. I've highlighted it on map for you.*
+
+The Ping API allows services to "ping" specific rooms. Pings must be directed to specific clients that "anchored" to a particular id. The id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
+
+To "anchor" a client, simply add an `anchor` query paramter to its route. E.g., `http://hostname:3000/two-prudential?anchor=east-lobby` defines the client's anchor as `east-lobby`.
+
+To ping this client, direct a POST request to `http://hostname:3000/api/ping` with the headers:
+
+```
+{
+  id: wrigleyville,
+  anchor: east-lobby
+}
+```
+The result of this ping is that Wrigleyville lights up on the client anchored to the east lobby. An example use of this is anchoring a client on the east lobby piTV, and assigning the nearby Amazon Echo to highlight queried rooms on the TV.

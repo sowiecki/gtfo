@@ -64,11 +64,12 @@ class LayoutController extends Component {
   }
 
   handleChangeLocation(newIndex) {
-    const { layout, params } = this.props;
+    const { layout, location } = this.props;
+    const { anchor } = location.query;
     const { meetingRooms } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
-    updateLocationIndex(locations[newIndex], params.id);
+    updateLocationIndex(locations[newIndex], anchor);
   }
 
   renderMeetingRoom(meetingRoom) {

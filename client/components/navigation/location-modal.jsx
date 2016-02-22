@@ -15,6 +15,7 @@ const LocationModal = (props) => {
           navigation,
           locations,
           toggleLocationModal } = props;
+  const { anchor } = props.location.query;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
 
   const handleLocationSelection = (location, anchorId) => {
@@ -28,7 +29,7 @@ const LocationModal = (props) => {
       key={index}
       value={index}
       primaryText={formatForDisplay(location)}
-      onClick={handleLocationSelection.bind(null, location, params.id)}/>
+      onClick={handleLocationSelection.bind(null, location, anchor)}/>
   );
 
   const buttons = [
