@@ -10,7 +10,7 @@ const rooms = store().getState().roomsReducer;
 
 const pingsController = {
   handlePing(req, res) {
-    const { id, anchor } = req.params;
+    const { id, anchor } = req.headers;
     const room = find(rooms, { id });
 
     if (room) {

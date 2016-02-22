@@ -18,6 +18,7 @@ import { styles } from './styles';
 
 const NavigationController = (props) => {
   const { actions, navigation, locations, params } = props;
+  const { anchor } = props.location.query;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
   const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
   const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
@@ -27,7 +28,7 @@ const NavigationController = (props) => {
       key={`${location}-${index}`}
       label={formatForDisplay(location)}
       value={locations.indexOf(location)}
-      onClick={actions.emitLocationIndexUpdate.bind(null, location, params.id)}
+      onClick={actions.emitLocationIndexUpdate.bind(null, location, anchor)}
       style={styles.toolbarTab}/>
   );
 
