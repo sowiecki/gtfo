@@ -12,16 +12,13 @@ import {
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
 export const getRoomAlert = (room, reservations = []) => {
-  let alert;
-
   // TODO Should determine meetings by comparing to current time
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
 
   // No reservations left for today
   if (!reservations.length) {
-    room.alert = VACANT;
-    return room;
+    return VACANT;
   }
 
   // Reservation conditions
@@ -40,14 +37,12 @@ export const getRoomAlert = (room, reservations = []) => {
   const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon();
 
   if (currentlyVacant && !nextMeetingStartingSoon()) {
-    alert = VACANT;
+    return VACANT;
   } else if (oneMinuteWarning && nextMeetingStartingSoon()) {
-    alert = ONE_MINUTE_WARNING;
+    return ONE_MINUTE_WARNING;
   } else if (fiveMinuteWarning && nextMeetingStartingSoon()) {
-    alert = FIVE_MINUTE_WARNING;
+    return FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
-    alert = BOOKED;
+    return BOOKED;
   }
-
-  return alert;
 };
