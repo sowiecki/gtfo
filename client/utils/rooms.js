@@ -87,7 +87,7 @@ export const pluckLocations = (rooms) => {
  * @returns {string} Parsed anchor parameter.
  */
 export const getAnchor = (store) => {
-  const { anchor } = get(store.getState(), 'routeReducer.location.query');
+  const anchor = get(store.getState(), 'routeReducer.location.query.anchor', '');
 
   return anchor.replace(ANCHOR_PATH_REGEX, '');
 };

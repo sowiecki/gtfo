@@ -158,7 +158,7 @@ LayoutController.propTypes = {
   layout: ImmutablePropTypes.Map.isRequired,
   meetingRooms: ImmutablePropTypes.Map,
   params: PropTypes.shape({
-    location: PropTypes.string.isRequired
+    location: PropTypes.string
   }).isRequired,
   ping: PropTypes.object,
   actions: PropTypes.shape({
