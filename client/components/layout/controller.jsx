@@ -17,6 +17,8 @@ import { getLocationBackdrop,
          updateLocationIndex } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
+let originalLocation;
+
 class LayoutController extends Component {
   constructor(props) {
     super(props);
@@ -40,13 +42,14 @@ class LayoutController extends Component {
   componentDidUpdate() {
     const { layout, params } = this.props;
     const { meetingRooms } = layout.toJS();
+    const { ping } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
     if (!params.location && locations.length) {
       updateLocationIndex(locations[0]);
     }
 
-    if (layout.toJS().ping) {
+    if (ping) {
       this.flashPing();
     }
   }
@@ -60,12 +63,20 @@ class LayoutController extends Component {
     const { anchor } = location.query;
     const { ping } = layout.toJS();
 
+    // Save original location.
+    originalLocation = originalLocation || params.location;
+
     if (params.location !== ping.location) {
       updateLocationIndex(ping.location, anchor);
     }
 
     const setPingTimeout = setInterval(() => {
       actions.clearPing();
+
+      // Revert to original location and re-save.
+      updateLocationIndex(originalLocation, anchor);
+      originalLocation = params.location;
+
       clearInterval(setPingTimeout);
     }, PING_TIMEOUT);
   }
