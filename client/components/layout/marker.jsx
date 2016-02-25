@@ -1,15 +1,20 @@
 import React, { PropTypes } from 'react';
-// import { Style } from 'radium';
 
 import { applyStyles } from '../../config/composition';
-// import { rules } from './styles';
+import { TEXT_DX, TEXT_DY } from './styles';
+import { parsePosition } from '../../utils/svg';
 
 const Marker = ({ marker }) => {
-  // console.log(marker);
+  // TODO make use of props.shouldHighlight
   return (
-    <div>
-      WIP {marker.name}
-    </div>
+    <svg {...parsePosition(marker.coordinates)}>
+      <text
+        className='marker-text'
+        dx={TEXT_DX}
+        dy={TEXT_DY}>
+        {marker.name}
+      </text>
+    </svg>
   );
 };
 

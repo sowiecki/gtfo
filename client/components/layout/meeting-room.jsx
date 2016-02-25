@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Style } from 'radium';
 import { VelocityComponent } from 'velocity-react';
 
 import { applyStyles } from '../../config/composition';
-import { styles, rules, TEXT_DX, TEXT_DY } from './styles';
-import { positionModifier, shapeModifier } from '../../utils/rooms';
+import { styles, TEXT_DX, TEXT_DY } from './styles';
+import { parsePosition, parseShape } from '../../utils/svg';
 import { OFFLINE,
          PINGED,
          PING_ANIMATION_LOOPS,
@@ -19,26 +18,25 @@ const MeetingRoom = ({ room, pinged }) => {
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
 
   return (
-    <svg {...positionModifier(room.coordinates)}>
-      <Style rules={rules.roomText}/>
+    <svg {...parsePosition(room.coordinates)}>
       <VelocityComponent
         animation={{fill: styles[room.alert || OFFLINE]}}>
         <rect
           stroke={styles.svgStroke}
-          {...shapeModifier(room.coordinates)}/>
+          {...parseShape(room.coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
         style={{stroke: styles.svgStroke}}>
-          <rect {...shapeModifier(room.coordinates)}/>
+          <rect {...parseShape(room.coordinates)}/>
       </VelocityComponent>
       <text
         className='room-text'
         dx={TEXT_DX}
         dy={TEXT_DY}
-        {...shapeModifier(room.coordinates)}>
+        {...parseShape(room.coordinates)}>
           {room.name}
       </text>
     </svg>

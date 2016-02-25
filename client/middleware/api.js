@@ -2,10 +2,10 @@ import connectSocket from './connect-socket';
 import { CONNECT_SOCKET,
          EMIT_FETCH_ROOM_STATUSES_ERROR } from '../ducks/layout';
 
-import { getAnchor } from '../utils/rooms';
+import { getAnchorFromStore } from '../utils/rooms';
 
 export default (store) => (next) => (action) => {
-  const payload = { anchor: getAnchor(store) };
+  const payload = { anchor: getAnchorFromStore(store) };
 
   switch (action.type) {
     case CONNECT_SOCKET:

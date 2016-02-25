@@ -1,5 +1,6 @@
 import { EMIT_ROOM_STATUSES_UPDATE,
          EMIT_SET_ROOM_PING,
+         EMIT_MARKERS_UPDATE,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
 import { HANDSHAKE,
          INITIALIZE_ROOMS,
@@ -22,7 +23,10 @@ const parseEvent = (next, response) => {
       });
     },
     [INITIALIZE_MARKERS]() {
-      // console.log(payload) TODO finish
+      next({
+        type: EMIT_MARKERS_UPDATE,
+        markers: payload
+      });
     },
     [RECONNECTED]() {
       next({ type: EMIT_CLEAR_CONNECTION_ERRORS });

@@ -12,9 +12,10 @@ import Marker from './marker';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
 import { getLocationBackdrop,
-         filterRoomsByLocation,
+         filterByLocation,
          pluckLocations,
-         updateLocationIndex } from '../../utils/rooms';
+         updateLocationIndex,
+         youAreHere } from '../../utils/rooms';
 import { PING_TIMEOUT } from '../../constants/svg';
 
 let originalLocation;
@@ -102,18 +103,20 @@ class LayoutController extends Component {
   }
 
   renderMarker(marker, index) {
-    const { markers } = this.props;
+    const { location } = this.props;
 
     return (
       <Marker
         key={`${marker.name}-${index}`}
-        marker={marker} {...markers}/>
+        marker={marker}
+        shouldHighlight={youAreHere(marker, location)}/>
     );
   }
 
   renderLocation(location) {
     const { meetingRooms, markers } = this.props.layout.toJS();
-    const filteredMeetingRooms = filterRoomsByLocation(meetingRooms, location);
+    const filteredMeetingRooms = filterByLocation(meetingRooms, location);
+    const filteredMarkers = filterByLocation(markers, location);
 
     return (
       <div
@@ -125,7 +128,7 @@ class LayoutController extends Component {
             src={getLocationBackdrop(this.props.params.location)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
-                {markers.map(this.renderMarker)}
+                {filteredMarkers.map(this.renderMarker)}
               </svg>
           </image>
       </div>

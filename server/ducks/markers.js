@@ -10,7 +10,7 @@ const clientMarkers = JSON.parse(readFileSync('./environment/clients.json', 'utf
 export const EMIT_SEND_MARKERS = 'EMIT_SEND_MARKERS';
 
 const markersReducer = (state = clientMarkers, action) => {
-  const { type, markers } = action;
+  const { type } = action;
 
   switch (type) {
     case EMIT_CLIENT_CONNECTED:
