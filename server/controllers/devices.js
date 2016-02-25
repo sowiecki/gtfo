@@ -2,7 +2,7 @@
 /* globals console, setInterval */
 
 /**
- * Initializes x number of devices
+ * INITIALIZE_ROOMSs x number of devices
  * Registers accessories for each device
  */
 
@@ -29,7 +29,7 @@ const devicesController = {
     store().dispatch({ type: EMIT_INIT_DEVICES });
 
     rooms.map((room) => {
-      // Initialize board
+      // INITIALIZE_ROOMS board
       const board = registerBoard(room);
 
       board.on('ready', () => {
