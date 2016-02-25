@@ -4,7 +4,6 @@
 Push reservation status notifications to meeting rooms! And do other things...
 
 ## Getting Started
-This program is designed to be run in conjuction with [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on the same machine, **except in production mode**. In production mode, it assumed `ems-wrapper` is deployed on another domain, which is then used to fetch Exchange Services data.
 ```bash
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
@@ -13,9 +12,13 @@ npm run hot-mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
 
+To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on the same local machine.
+
+In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `/server/constants/urls.js`.
+
 #### Other commands
 ```bash
-npm run hot # Development mode with live data and hot-reloading
+npm run hot # Development mode with live data (must be running ems-wrapper locally) and hot-reloading
 ```
 ```bash
 npm run dev-mocks # Development mode with mock data
@@ -24,10 +27,10 @@ npm run dev-mocks # Development mode with mock data
 npm run dev-mocks-dd # Development mode with mock data and disabled devices (experimental)
 ```
 ```bash
-npm run dev # Development mode with live data
+npm run dev # Development mode with live data (must be running ems-wrapper locally)
 ```
 ```bash
-npm run prod # Production mode with live data
+npm run prod # Production mode with live data (ems-wrapper must be deployed)
 ```
 
 ## Configuration
@@ -110,7 +113,7 @@ Example of a `environment/room-coordinates.json` file configured to display Bron
 
 *Wrigleyville is on the east side of the office. I've highlighted it on map for you.*
 
-The Ping API allows services to "ping" specific rooms. Pings must be directed to specific clients that "anchored" to a particular id. The id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
+The Ping API allows services to "ping" specific rooms. Pings must be directed to specific clients that are "anchored" to a particular id. The id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
 
 To "anchor" a client, simply add an `anchor` query paramter to its route. E.g., `http://hostname:3000/two-prudential?anchor=east-lobby` defines the client's anchor as `east-lobby`.
 
