@@ -109,7 +109,7 @@ class LayoutController extends Component {
       <Marker
         key={`${marker.name}-${index}`}
         marker={marker}
-        shouldHighlight={youAreHere(marker, location)}/>
+        youAreHere={youAreHere(marker, location)}/>
     );
   }
 

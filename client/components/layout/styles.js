@@ -1,3 +1,4 @@
+/* eslint no-magic-numbers:0 */
 import { colors, fonts, breakpoints, devices } from '../common/styles';
 
 export const styles = {
@@ -15,6 +16,13 @@ export const styles = {
     right: '0',
     left: '0',
     margin: 'auto auto'
+  },
+
+  locationHighlight: {
+    height: '24px',
+    width: '24px',
+    x: '24px',
+    y: '0'
   },
 
   svgStroke: colors.GREY,
@@ -56,12 +64,13 @@ export const rules = {
       fontSize: '10px',
       fontFamily: fonts.primary,
       fontWeight: 'bold',
-      fontVariantCaps: 'all-small-caps',
       textShadow: `${colors.GREY} 0px 0px 0px`
     },
 
     'text.marker-text': {
-      fontSize: '14px'
+      fontSize: '14px',
+      fontWeight: 'bold',
+      opacity: 0.5
     },
 
     mediaQueries: {
@@ -136,3 +145,4 @@ export const rules = {
 
 export const TEXT_DX = 2;
 export const TEXT_DY = 24;
+export const MARKER_TEXT_DY = TEXT_DY + 16;
