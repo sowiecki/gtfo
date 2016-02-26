@@ -1,14 +1,11 @@
-import { readFileSync } from 'fs';
 import slug from 'slug';
 
 import socketController from '../controllers/socket';
 
+import { devices, roomCoordinates } from '../environment';
 import { flashNotifications } from '../utils/notifications';
 import { logRoomStatuses } from '../utils/logging';
-import { INITIALIZE, ROOM_STATUSES_UPDATE } from '../constants/events';
-
-const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
-const roomCoordinates = JSON.parse(readFileSync('./environment/room-coordinates.json', 'utf8'));
+import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants/events';
 
 devices.map((device) => {
   // Map room coordinates to device objects.
@@ -42,7 +39,7 @@ const roomsReducer = (state = devices, action) => {
 
       break;
     case EMIT_CLIENT_CONNECTED:
-      socketController.handle(INITIALIZE, state, action.client);
+      socketController.handle(INITIALIZE_ROOMS, state, action.client);
 
       break;
     case EMIT_ROOM_STATUSES_UPDATE:

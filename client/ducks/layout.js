@@ -67,8 +67,8 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('ping', null);
     },
 
-    [EMIT_MARKERS_DEACTIVED]() {
-      return initialState;
+    [EMIT_MARKERS_UPDATE]() {
+      return state.set('markers', action.markers);
     }
   };
 

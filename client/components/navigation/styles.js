@@ -1,20 +1,18 @@
-import { colors } from '../common/styles';
-
-const { primary, WHITE } = colors;
+import { colors, fonts } from '../common/styles';
 
 export const styles = {
   toolbar: {
-    backgroundColor: primary,
+    backgroundColor: colors.primary,
     height: '48px'
   },
 
   toolbarTitle: {
     margin: '0',
-    color: WHITE,
+    color: colors.WHITE,
     fontSize: '35px',
     lineHeight: '48px',
     fontWeight: '8',
-    fontFamily: `'Wire One', sans-serif`
+    fontFamily: fonts.primary
   },
 
   toolbarTabs: {
@@ -23,11 +21,11 @@ export const styles = {
 
   toolbarTab: {
     minWidth: '200px',
-    backgroundColor: primary
+    backgroundColor: colors.primary
   },
 
   menuButton: {
-    color: WHITE,
+    color: colors.WHITE,
     pointerEvents: 'all'
   },
 

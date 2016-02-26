@@ -5,7 +5,11 @@ import { filter, forEach } from 'lodash';
 
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED } from '../ducks/rooms';
-import { INITIALIZE, HANDSHAKE, RECONNECTED, NEW_ROOM_PING } from '../constants/events';
+import { HANDSHAKE,
+         INITIALIZE_ROOMS,
+         INITIALIZE_MARKERS,
+         RECONNECTED,
+         NEW_ROOM_PING } from '../constants/events';
 import store from '../store/configure-store';
 
 import { getOrigin } from '../utils/traversals';
@@ -69,7 +73,10 @@ const socketController = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
         registerClient(payload.anchor, client);
       },
-      [INITIALIZE]() {
+      [INITIALIZE_ROOMS]() {
+        socketController.send(event, payload, client);
+      },
+      [INITIALIZE_MARKERS]() {
         socketController.send(event, payload, client);
       },
       [RECONNECTED]() { // Reregister client socket with anchor parameter.
