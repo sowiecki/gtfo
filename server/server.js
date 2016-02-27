@@ -55,8 +55,4 @@ const app = server.listen(SERVER_PORT, (err) => {
   }
 });
 
-if (process.env.MOCKS) {
-  console.log(colors.gray.italic('Using mock data'));
-}
-
 export default app;
