@@ -1,3 +1,17 @@
+/* eslint no-console:0 */
+/* globals console */
+import colors from 'colors/safe';
+import { argv } from 'yargs';
+
+if (argv.mocks) {
+  process.env.MOCKS = true;
+  console.log(colors.gray.italic('Using mock data'));
+}
+
+if (argv.dd) {
+  process.env.DISABLE_DEVICES = true;
+}
+
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 

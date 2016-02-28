@@ -7,7 +7,7 @@ import slug from 'slug';
 import history from '../config/history';
 import { getBackdropErrorMessage } from './errors';
 
-const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
+const DEFAULT_LOCATION = slug('Sears Tower 251'); // TODO better default handling
 
 /**
  * Imports and assigns corresponding backdrop for room.

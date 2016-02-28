@@ -1,8 +1,8 @@
 export class FileValidationError extends Error {
-  constructor(type) {
-    super(type);
-    this.message = `Invalid ${type}.json formatting!`;
-    this.stack = (new Error()).stack;
+  constructor(fileName) {
+    super(fileName);
     this.name = this.constructor.name;
+    this.message = `Invalid ${fileName}.json!
+      \nCheck the documentation for how to create and correctly format ${fileName}.json.\n`;
   }
 }

@@ -2,16 +2,17 @@ import slug from 'slug';
 
 import socketController from '../controllers/socket';
 
-import { devices, roomCoordinates } from '../environment';
+import { devices, coordinates } from '../environment';
 import { flashNotifications } from '../utils/notifications';
 import { logRoomStatuses } from '../utils/logging';
 import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants/events';
 
 devices.map((device) => {
-  // Map room coordinates to device objects.
-  device.coordinates = roomCoordinates[device.id];
+  // Map additional properties to device objects.
+  device.id = device.name.toLowerCase();
+  device.coordinates = coordinates[device.id];
 
-  // Properly format location.
+  // Slugify location.
   device.location = slug(device.location, { lower: true });
 });
 

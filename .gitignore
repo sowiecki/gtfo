@@ -3,11 +3,15 @@ logs
 *.log
 npm-debug.log*
 secrets
-devices.json
-mock-data.json
 env
 /server/public/dist
 .DS_Store
+
+# Environment variables
+devices.json
+mock-data.json
+markers.json
+coordinates.json
 
 # Runtime data
 pids

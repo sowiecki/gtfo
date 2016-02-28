@@ -8,7 +8,7 @@ Push reservation status notifications to meeting rooms! And do other things...
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
 node gtfo.js
-npm run hot-mocks
+npm run hot -- --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
 
@@ -16,21 +16,20 @@ To develop with live data, set up and run [ems-wrapper](https://github.com/rishi
 
 In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `/server/constants/urls.js`.
 
-#### Other commands
+##### Options
 ```bash
-npm run hot # Development mode with live data (must be running ems-wrapper locally) and hot-reloading
+--mocks # Disables Outlook api in favor of using mock reservation data
+
+--dd # Disabled devices, useful for testing client without hardware
 ```
-```bash
-npm run dev-mocks # Development mode with mock data
-```
-```bash
-npm run dev-mocks-dd # Development mode with mock data and disabled devices (experimental)
-```
-```bash
-npm run dev # Development mode with live data (must be running ems-wrapper locally)
-```
+##### Production
 ```bash
 npm run prod # Production mode with live data (ems-wrapper must be deployed)
+```
+
+##### Disabling hot reloading
+```bash
+npm run dev # But why would you want to?
 ```
 
 ## Configuration
@@ -68,7 +67,7 @@ Finally, retrieve the access tokens and device id for each Photon, and place the
 
 <sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
 
-<sup>3</sup> Make sure that all rooms in the same location have **exactly** matching locations properties. Location tabs are displayed in order of first device entry in the file, e.g. if the first device has the location `Two Prudential 51` it will be the first tab rendered.
+<sup>3</sup> Make sure that all rooms in the same location have **exactly** matching locations properties. Location tabs are displayed in order of first device entry in the file, e.g. if the first device has the location `Sears Tower 251` it will be the first tab rendered.
 
 Example of a `devices.json` with a single device configured to The Loop:
 ```json
@@ -77,7 +76,7 @@ Example of a `devices.json` with a single device configured to The Loop:
     {
       "id": "the loop",
       "name": "The Loop",
-      "location": "Two Prudential 51",
+      "location": "Sears Tower 251",
       "deviceAlias": "Skynet",
       "deviceId": "123456789abcd",
       "deviceAuthToken": "abc123"
@@ -96,10 +95,10 @@ Example of a `devices.json` with a single device configured to The Loop:
 ### Client map
 To integrate a meeting room into the client map, the room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured and placed into `coordinates.json`.
 
-Example of a `environment/room-coordinates.json` file configured to display Bronzeville:
+Example of an `environment/coordinates.json` file configured to display Duna:
 ```json
 {
-  "bronzeville": {
+  "duna": {
     "height": 3.1,
     "width": 5.6,
     "x": 55,
@@ -109,9 +108,9 @@ Example of a `environment/room-coordinates.json` file configured to display Bron
 ```
 
 ### Ping API
-*Alexa, where is Wrigleyville?*
+*Alexa, where is Kerbin?*
 
-*Wrigleyville is on the east side of the office. I've highlighted it on map for you.*
+*Kerbin is on the east side of the office. I've highlighted it on map for you.*
 
 The Ping API allows services to "ping" specific rooms. Pings must be directed to specific clients that are "anchored" to a particular id. The id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
 
