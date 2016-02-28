@@ -95,7 +95,7 @@ Example of a `devices.json` with a single device configured to The Loop:
 ### Client map
 To integrate a meeting room into the client map, the room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured and placed into `coordinates.json`.
 
-Example of an `environment/room-coordinates.json` file configured to display Duna:
+Example of an `environment/coordinates.json` file configured to display Duna:
 ```json
 {
   "duna": {

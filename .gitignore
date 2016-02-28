@@ -10,7 +10,8 @@ env
 # Environment variables
 devices.json
 mock-data.json
-room-coordinates.json
+markers.json
+coordinates.json
 
 # Runtime data
 pids

@@ -25,6 +25,10 @@ export const styles = {
     y: '0'
   },
 
+  placeMarker: {
+    fill: colors.primary
+  },
+
   svgStroke: colors.GREY,
 
   OFFLINE: colors.GREY,

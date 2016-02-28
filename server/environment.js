@@ -1,41 +1,27 @@
 import path from 'path';
 import { readFileSync } from 'fs';
-import { every, forEach, isString, isObject } from 'lodash';
 
+import validator from '../environment/validation';
 import { FileValidationError } from './errors';
-
-/**
- * Quick and dirty file validations.
- * TODO - devices and roomCoordinates
- */
 
 const readFile = (fileName) => {
   const filePath = path.join('./environment', fileName);
 
-  return JSON.parse(readFileSync(filePath));
+  return JSON.parse(readFileSync(filePath, 'utf8'));
 };
 
-export const { markers } = readFile('markers.json', 'utf8');
-export const { devices } = readFile('devices.json', 'utf8');
-export const { roomCoordinates } = readFile('room-coordinates.json', 'utf8');
+export const { markers } = readFile('markers.json');
+export const { devices } = readFile('devices.json');
+export const { coordinates } = readFile('coordinates.json');
 
-const markerIsValid = (marker) => {
-  const { name, location, type, coordinates } = marker;
+if (validator.validate(devices, '/DevicesSchema').errors.length) {
+  throw new FileValidationError('devices');
+}
 
-  const validations = [
-    isString(name),
-    isString(location),
-    isString(type),
-    isObject(coordinates)
-  ];
+if (validator.validate(markers, '/MarkersSchema').errors.length) {
+  throw new FileValidationError('markers');
+}
 
-  return every(validations, (validation) => validation);
-};
-
-forEach(markers, (marker) => {
-  if (markerIsValid(marker)) {
-    return;
-  } else {
-    throw new FileValidationError('markers');
-  }
-});
+if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
+  throw new FileValidationError('coordinates');
+}
