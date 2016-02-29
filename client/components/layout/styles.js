@@ -1,6 +1,5 @@
-import { colors, breakpoints, devices } from '../common/styles';
-
-const { GREY, GREEN, BLUE, ORANGE, YELLOW, RED } = colors;
+/* eslint no-magic-numbers:0 */
+import { colors, fonts, breakpoints, devices } from '../common/styles';
 
 export const styles = {
   paperOverride: {
@@ -19,19 +18,30 @@ export const styles = {
     margin: 'auto auto'
   },
 
-  svgStroke: '#BBBBBB',
+  locationHighlight: {
+    height: '24px',
+    width: '24px',
+    x: '24px',
+    y: '0'
+  },
 
-  OFFLINE: GREY,
+  placeMarker: {
+    fill: colors.primary
+  },
 
-  BOOKED: BLUE,
+  svgStroke: colors.GREY,
 
-  VACANT: GREEN,
+  OFFLINE: colors.GREY,
 
-  ONE_MINUTE_WARNING: RED,
+  BOOKED: colors.BLUE,
 
-  FIVE_MINUTE_WARNING: ORANGE,
+  VACANT: colors.GREEN,
 
-  PINGED: YELLOW
+  ONE_MINUTE_WARNING: colors.RED,
+
+  FIVE_MINUTE_WARNING: colors.ORANGE,
+
+  PINGED: colors.YELLOW
 };
 
 const layoutSelectors = [
@@ -53,17 +63,29 @@ export const rules = {
       backgroundSize: 'fill'
     },
 
-    mediaQueries: {
-      [breakpoints.portrait]: {
-        [layoutSelectors]: {
-          top: '100px'
-        }
-      },
+    'text.room-text': {
+      zIndex: '200',
+      fontSize: '10px',
+      fontFamily: fonts.primary,
+      fontWeight: 'bold',
+      textShadow: `${colors.GREY} 0px 0px 0px`
+    },
 
+    'text.marker-text': {
+      fontSize: '14px',
+      fontWeight: 'bold',
+      opacity: 0.5
+    },
+
+    mediaQueries: {
       [breakpoints.afterExtraSmall]: {
         [layoutSelectors]: {
           width: '500px',
           height: '576px'
+        },
+
+        'text.room-text': {
+          fontSize: '15px'
         }
       },
 
@@ -71,6 +93,11 @@ export const rules = {
         [layoutSelectors]: {
           width: '608px',
           height: '700px'
+        },
+
+        'text.room-text': {
+          fontSize: '18px',
+          transform: 'translateY(2px)'
         }
       },
 
@@ -78,6 +105,10 @@ export const rules = {
         [layoutSelectors]: {
           width: '608px',
           height: '700px'
+        },
+
+        'text.room-text': {
+          transform: 'translateY(4px)'
         }
       },
 
@@ -85,6 +116,11 @@ export const rules = {
         [layoutSelectors]: {
           width: '695px',
           height: '800px'
+        },
+
+        'text.room-text': {
+          fontSize: '22px',
+          transform: 'translateY(8px)'
         }
       },
 
@@ -100,44 +136,11 @@ export const rules = {
           width: '908px',
           height: '1046px'
         }
-      }
-    }
-  },
-
-  roomText: {
-    'text.room-text': {
-      zIndex: '200',
-      fontSize: '10px',
-      fontFamily: `'Wire One', sans-serif`,
-      fontWeight: 'bold',
-      fontVariantCaps: 'all-small-caps',
-      textShadow: `${GREY} 0px 0px 0px`
-    },
-
-    mediaQueries: {
-      [breakpoints.afterExtraSmall]: {
-        'text.room-text': {
-          fontSize: '15px'
-        }
       },
 
-      [breakpoints.afterSmall]: {
-        'text.room-text': {
-          fontSize: '18px',
-          transform: 'translateY(2px)'
-        }
-      },
-
-      [breakpoints.afterMedium]: {
-        'text.room-text': {
-          transform: 'translateY(4px)'
-        }
-      },
-
-      [breakpoints.afterLarge]: {
-        'text.room-text': {
-          fontSize: '22px',
-          transform: 'translateY(8px)'
+      [breakpoints.portrait]: {
+        [layoutSelectors]: {
+          top: '100px'
         }
       }
     }
@@ -146,4 +149,4 @@ export const rules = {
 
 export const TEXT_DX = 2;
 export const TEXT_DY = 24;
-// export const TEXT_DY_LARGE = 32; // TODO use with a width watcher
+export const MARKER_TEXT_DY = TEXT_DY + 16;

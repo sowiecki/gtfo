@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var cluster = require('cluster');
+const cluster = require('cluster');
 
 // Enable ES6 import/export syntax on all server files but this one
 require('babel-core/register');

@@ -1,0 +1,22 @@
+{
+  "markers": [
+    {
+      "name": "West Lobby",
+      "location": "Two Prudential 51",
+      "type": "anchor",
+      "coordinates": {
+        "x": 20,
+        "y": 54
+      }
+    },
+    {
+      "name": "East Lobby",
+      "location": "Two Prudential 51",
+      "type": "anchor",
+      "coordinates": {
+        "x": 67,
+        "y": 54
+      }
+    }
+  ]
+}

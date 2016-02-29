@@ -6,9 +6,10 @@ secrets
 /server/public/dist
 .DS_Store
 
-# Environment
+# Environment variables
 devices.json
 mock-data.json
+markers.json
 coordinates.json
 env
 

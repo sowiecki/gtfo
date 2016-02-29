@@ -6,8 +6,9 @@ export const colors = {
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
   WHITE: '#FFFFFF',
+  GHOST_WHITE: '#F8F8FF',
   GREY: '#888899',
-  BLACK: '#333333',
+  DARK_GREY: '#333333',
   PURPLE: '#551A8B',
   BLUE: '#3399FF',
   TEAL: '#217C7E',
@@ -16,6 +17,11 @@ export const colors = {
   GREEN: '#72E837',
   ORANGE: '#FFBB00',
   YELLOW: '#FFFF00'
+};
+
+export const fonts = {
+  primary: `'Wire One', sans-serif`,
+  secondary: `'Titillium Web', sans-serif`
 };
 
 export const breakpoints = {
@@ -56,7 +62,7 @@ export const styles = {
 
   errorSnackbar: {
     fontSize: '36px',
-    fontFamily: `'Titillium Web', sans-serif`
+    fontFamily: fonts.secondary
   }
 };
 
@@ -68,7 +74,7 @@ export const rules = {
       width: '100%',
       overflow: 'hidden',
       textAlign: 'center',
-      backgroundColor: '#F8F8FF'
+      backgroundColor: colors.GHOST_WHITE
     },
 
     ...transitions

@@ -1,20 +1,21 @@
-import { readFileSync } from 'fs';
+import socketController from '../controllers/socket';
 
-const clientMarkers = JSON.parse(readFileSync('./environment/clients.json', 'utf8'));
+import { markers } from '../environment';
+import { EMIT_CLIENT_CONNECTED } from './rooms';
+import { INITIALIZE_MARKERS } from '../constants/events';
 
-export const SET_MARKERS = 'SET_MARKERS';
+export const EMIT_SEND_MARKERS = 'EMIT_SEND_MARKERS';
 
-const markersReducer = (state = clientMarkers, action) => {
-  const { type, markers } = action;
+const markersReducer = (state = markers, action) => {
+  const { type } = action;
 
   switch (type) {
-    case SET_MARKERS:
-
-      return markers;
-
-    default:
-      return state;
+    case EMIT_CLIENT_CONNECTED:
+      socketController.handle(INITIALIZE_MARKERS, state, action.client);
+      break;
   }
+
+  return state;
 };
 
 export default markersReducer;

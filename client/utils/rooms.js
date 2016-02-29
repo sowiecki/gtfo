@@ -6,9 +6,8 @@ import slug from 'slug';
 
 import history from '../config/history';
 import { getBackdropErrorMessage } from './errors';
-import { ANCHOR_PATH_REGEX } from '../constants/urls';
 
-const DEFAULT_LOCATION = slug('Two Prudential 51'); // TODO better default handling
+const DEFAULT_LOCATION = slug('Sears Tower 251'); // TODO better default handling
 
 /**
  * Imports and assigns corresponding backdrop for room.
@@ -49,13 +48,13 @@ export const getPathname = (location) => {
 };
 
 /**
- * Filters rooms by location.
- * @param {array} rooms Collection of room objects
+ * Filters array of objects (rooms, markers) by location property.
+ * @param {array} collection Collection of room or marker objects
  * @param {string} location Location to filter for.
- * @returns {array} Collection of only rooms from specified location.
+ * @returns {array} Collection of only rooms or markers from specified location.
  */
-export const filterRoomsByLocation = (rooms, location = DEFAULT_LOCATION) => {
-  return filter(rooms, (room) => location === slug(room.location, { lower: true }));
+export const filterByLocation = (collection, location = DEFAULT_LOCATION) => {
+  return filter(collection, (room) => location === slug(room.location, { lower: true }));
 };
 
 /**
@@ -86,36 +85,23 @@ export const pluckLocations = (rooms) => {
  * @param {object} store State store.
  * @returns {string} Parsed anchor parameter.
  */
-export const getAnchor = (store) => {
+export const getAnchorFromStore = (store) => {
   const anchor = get(store.getState(), 'routeReducer.location.query.anchor', '');
 
-  return anchor.replace(ANCHOR_PATH_REGEX, '');
+  return anchor;
 };
 
 /**
- * Formats room coordinate parameters for display in SVG element.
- * @param {object} coordinates Raw coordinates of room SVG element.
- * @returns {object} Formatted coordinates of room SVG element.
+ * Checks if provided marker represents provided location anchor.
+ * @param {object} marker Marker object.
+ * @param {object} location Location object.
+ * @returns {bool} Parsed anchor parameter.
  */
-export const positionModifier = ({ x, y }) => {
-  return {
-    x: `${x}%`,
-    y: `${y}%`
-  };
-};
+export const youAreHere = (marker, location) => {
+  const anchor = get(location, 'query.anchor', '');
+  const markerName = slug(marker.name, { lower: true });
 
-/**
- * Formats room size parameters for display in SVG element.
- * @param {object} coordinates Size of room SVG element.
- * @returns {object} Formatted size parameters of room SVG element.
- */
-export const shapeModifier = ({ height, width }) => {
-  // height = 18.9;
-  // width = 10;
-  return {
-    height: `${height}%`,
-    width: `${width}%`
-  };
+  return anchor === markerName;
 };
 
 /**
