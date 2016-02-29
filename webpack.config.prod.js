@@ -4,7 +4,7 @@ var base = require('./webpack.config');
 
 module.exports = {
   devtool: 'source-map',
-  contet: base.context,
+  context: base.context,
   entry: base.entry,
   output: {
     path:  path.resolve(__dirname, 'server', 'public', 'dist'),
