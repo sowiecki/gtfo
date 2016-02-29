@@ -1,20 +1,9 @@
-import slug from 'slug';
-
 import socketController from '../controllers/socket';
 
 import { devices, coordinates } from '../environment';
 import { flashNotifications } from '../utils/notifications';
 import { logRoomStatuses } from '../utils/logging';
 import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants/events';
-
-devices.map((device) => {
-  // Map additional properties to device objects.
-  device.id = device.name.toLowerCase();
-  device.coordinates = coordinates[device.id];
-
-  // Slugify location.
-  device.location = slug(device.location, { lower: true });
-});
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';

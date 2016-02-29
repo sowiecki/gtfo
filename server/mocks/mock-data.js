@@ -5,6 +5,7 @@ import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
 import { every, map, flatten } from 'lodash';
 
+import { devices } from '../environment';
 import {
   MOCK_DATA_FILE,
   RESERVATIONS_PER_DAY,
@@ -16,7 +17,6 @@ import {
   generateMockReservation
 } from './utils';
 
-const { devices } = JSON.parse(readFileSync('./environment/devices.json', 'utf8'));
 const mockRooms = map(devices, 'id');
 
 const generateMockData = () => {

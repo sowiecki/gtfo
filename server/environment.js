@@ -1,5 +1,6 @@
 import path from 'path';
 import { readFileSync } from 'fs';
+import slug from 'slug';
 
 import validator from '../environment/validation';
 import { FileValidationError } from './errors';
@@ -10,9 +11,18 @@ const readFile = (fileName) => {
   return JSON.parse(readFileSync(filePath, 'utf8'));
 };
 
-export const { markers } = readFile('markers.json');
-export const { devices } = readFile('devices.json');
-export const { coordinates } = readFile('coordinates.json');
+const { devices } = readFile('devices.json');
+const { markers } = readFile('markers.json');
+const { coordinates } = readFile('coordinates.json');
+
+devices.map((device) => {
+  // Map additional properties to device objects.
+  device.id = device.name.toLowerCase();
+  device.coordinates = coordinates[device.id];
+
+  // Slugify location.
+  device.location = slug(device.location, { lower: true });
+});
 
 if (validator.validate(devices, '/DevicesSchema').errors.length) {
   throw new FileValidationError('devices');
@@ -25,3 +35,5 @@ if (validator.validate(markers, '/MarkersSchema').errors.length) {
 if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
   throw new FileValidationError('coordinates');
 }
+
+export { devices, markers, coordinates };
