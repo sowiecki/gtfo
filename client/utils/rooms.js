@@ -53,7 +53,7 @@ export const getPathname = (location) => {
  * @param {string} location Location to filter for.
  * @returns {array} Collection of only rooms or markers from specified location.
  */
-export const filterByLocation = (collection, location = DEFAULT_LOCATION) => {
+export const filterByLocation = (collection, location) => {
   return filter(collection, (room) => location === slug(room.location, { lower: true }));
 };
 
