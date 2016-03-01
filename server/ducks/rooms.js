@@ -1,6 +1,6 @@
 import socketController from '../controllers/socket';
 
-import { devices, coordinates } from '../environment';
+import { devices } from '../environment';
 import { flashNotifications } from '../utils/notifications';
 import { logRoomStatuses } from '../utils/logging';
 import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants/events';

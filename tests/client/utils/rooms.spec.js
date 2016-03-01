@@ -1,9 +1,9 @@
+/* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 /* globals describe it */
 import expect from 'expect';
-import slug from 'slug';
 import { forEach } from 'lodash';
 
-import * as RoomUtils from '../../utils/rooms';
+import * as RoomUtils from '../../../client/utils/rooms';
 
 describe('Rooms utilities', () => {
   describe('getPathname', () => {

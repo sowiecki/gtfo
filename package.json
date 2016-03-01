@@ -23,7 +23,7 @@
     "deploy-server": "NODE_ENV=production forever start ./application.js",
     "yolo": "rimraf environment/mock-data.json",
     "test": "npm run clean && npm run lint && npm run test-client",
-    "test-client": "mocha ./client/tests/*  --compilers js:babel-core/register"
+    "test-client": "mocha ./tests/**/*  --compilers js:babel-core/register"
   },
   "author": "Sean Owiecki",
   "contributors": [
