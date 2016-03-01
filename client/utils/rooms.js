@@ -7,7 +7,7 @@ import slug from 'slug';
 import history from '../config/history';
 import { getBackdropErrorMessage } from './errors';
 
-const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
+const FALLBACK_LOCATION = 'sears-tower-251'; // TODO better default handling
 
 /**
  * Imports and assigns corresponding backdrop for room.
@@ -42,7 +42,7 @@ export const updateLocationIndex = (newLocation, anchorId) => {
  * @returns {string} Parsed pathname.
  */
 export const getPathname = (location) => {
-  const pathname = get(location, 'pathname', DEFAULT_LOCATION);
+  const pathname = get(location, 'pathname', FALLBACK_LOCATION);
 
   return pathname;
 };
@@ -53,7 +53,7 @@ export const getPathname = (location) => {
  * @param {string} location Location to filter for.
  * @returns {array} Collection of only rooms or markers from specified location.
  */
-export const filterByLocation = (collection, location) => {
+export const filterByLocation = (collection, location = FALLBACK_LOCATION) => {
   return filter(collection, (room) => location === slug(room.location, { lower: true }));
 };
 
