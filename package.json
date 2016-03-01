@@ -44,7 +44,7 @@
     "immutable-props": "^1.0.0",
     "johnny-five": "^0.9.24",
     "jsonschema": "^1.1.0",
-    "lodash": "^4.5.0",
+    "lodash": "^4.5.1",
     "material-ui": "^0.14.4",
     "moment": "^2.11.2",
     "morgan": "^1.7.0",
