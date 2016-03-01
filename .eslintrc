@@ -1,0 +1,28 @@
+{
+  "plugins": ["react", "filenames"],
+  "extends": ["defaults/configurations/walmart/es6-react"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "strict": 0,
+    "quotes": [2, "single"],
+    "react/prefer-es6-class": 2,
+    "jsx-quotes": [2, "prefer-single"],
+    "indent": [2, 2, {"SwitchCase": 1}],
+    "no-invalid-this": 0,
+    "react/jsx-closing-bracket-location": [2, "after-props"],
+    "react/jsx-boolean-value": 0,
+    "valid-jsdoc": 0
+  },
+  "globals": {
+    "require": true
+  }
+}
