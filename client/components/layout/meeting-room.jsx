@@ -44,7 +44,8 @@ const MeetingRoom = ({ room, pinged }) => {
 };
 
 MeetingRoom.propTypes = {
-  room: PropTypes.object.isRequired
+  room: PropTypes.object.isRequired,
+  pinged: PropTypes.bool
 };
 
 export default applyStyles(MeetingRoom);

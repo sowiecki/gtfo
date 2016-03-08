@@ -33,7 +33,8 @@ const Marker = ({ marker, youAreHere }) => {
 };
 
 Marker.propTypes = {
-  marker: PropTypes.object.isRequired
+  marker: PropTypes.object.isRequired,
+  youAreHere: PropTypes.bool
 };
 
 export default applyStyles(Marker);
