@@ -1,10 +1,10 @@
 /* eslint no-console:0 */
-/* globals console, setTimeout */
+/* globals console */
 import colors from 'colors';
 import moment from 'moment';
-import ora from 'ora';
+// import ora from 'ora';
 
-import { SPINNER_DELAY } from '../constants/values';
+// import { SPINNER_DELAY } from '../constants/values';
 
 /**
  * Logs individual room status.
@@ -42,15 +42,15 @@ const logRoomStatus = ({ name, alert }) => {
 export const logRoomStatuses = (rooms) => {
   console.log(`\n--- Room statuses as of ${moment().format('LLLL')} ---`);
 
-  const spinner = ora({
-    text: `Monitoring room statuses`,
-    stream: process.stdout,
-    color: 'yellow'
-  });
-
-  setTimeout(() => {
-    spinner.start();
-  }, SPINNER_DELAY);
+  // const spinner = ora({
+  //   text: `Monitoring room statuses`,
+  //   stream: process.stdout,
+  //   color: 'yellow'
+  // });
+  //
+  // setTimeout(() => {
+  //   spinner.start();
+  // }, SPINNER_DELAY);
 
   rooms.forEach((room) => {
     logRoomStatus(room);
