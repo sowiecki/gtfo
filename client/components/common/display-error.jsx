@@ -1,5 +1,6 @@
 /* eslint no-magic-numbers:0 */
 import React from 'react';
+import ImmutablePropTypes from 'immutable-props';
 
 import { Snackbar } from 'material-ui/lib';
 
@@ -19,6 +20,10 @@ const DisplayError = ({ layout }) => {
       onRequestClose={() => {}}
       autoHideDuration={4000}/>
   );
+};
+
+DisplayError.propTypes = {
+  layout: ImmutablePropTypes.map
 };
 
 export default base(DisplayError);
