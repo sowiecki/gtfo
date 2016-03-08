@@ -48,6 +48,7 @@
     "material-ui": "^0.14.4",
     "moment": "^2.11.2",
     "morgan": "^1.7.0",
+    "ora": "^0.2.0",
     "particle-io": "^0.12.0",
     "radium": "^0.16.5",
     "react": "^0.14.7",
