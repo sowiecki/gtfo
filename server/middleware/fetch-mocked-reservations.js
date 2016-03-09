@@ -14,7 +14,7 @@ const fetchMockedReservations = (next, action) => {
   }
 
   const reservations = filterExpiredReservations(mockData[room.id]);
-  const alert = getRoomAlert(room, reservations);
+  const alert = getRoomAlert(reservations);
 
   next({
     type: EMIT_ROOM_STATUSES_UPDATE,

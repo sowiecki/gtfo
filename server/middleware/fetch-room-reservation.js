@@ -16,11 +16,12 @@ const fetchRoomReservations = (next, action) => {
     response.on('data', (data) => {
       const reservationsResponse = JSON.parse(data.toString('utf8'));
       const reservations = filterExpiredReservations(reservationsResponse);
-      const roomWithAlert = getRoomAlert(room, reservations);
+      const alert = getRoomAlert(reservations);
 
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,
-        room: roomWithAlert,
+        room,
+        alert,
         accessories
       });
     });

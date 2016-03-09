@@ -99,6 +99,7 @@
     "redbox-react": "^1.2.2",
     "rimraf": "^2.4.3",
     "svg-react-loader": "^0.3.2",
+    "timekeeper": "0.0.5",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-dev-server": "^1.12.0",
