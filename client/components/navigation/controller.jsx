@@ -69,6 +69,9 @@ NavigationController.propTypes = {
     emitLocationUpdate: PropTypes.func.isRequired
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.object
+  }),
   locations: PropTypes.array,
   params: PropTypes.object.isRequired
 };

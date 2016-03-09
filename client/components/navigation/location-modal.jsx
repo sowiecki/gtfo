@@ -63,6 +63,10 @@ LocationModal.propTypes = {
   params: PropTypes.shape({
     location: PropTypes.string
   }).isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.object
+  }),
+  locations: PropTypes.array,
   navigation: ImmutablePropTypes.Map.isRequired,
   toggleLocationModal: PropTypes.func.isRequired
 };
