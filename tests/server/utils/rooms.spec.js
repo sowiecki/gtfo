@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
-import timekeeper from 'timekeeper';
+import sinon from 'sinon';
 
 import { filterExpiredReservations } from 'server/utils/reservations';
 import * as RoomUtils from 'server/utils/rooms';
@@ -43,69 +43,71 @@ describe('Server room utilities', () => {
   ]));
 
   describe('getRoomAlert', () => {
+    const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
+
     beforeEach(() => {
-      timekeeper.reset();
+      sinon.useFakeTimers().restore();
     });
 
     afterEach(() => {
-      timekeeper.reset();
+      sinon.useFakeTimers().restore();
     });
 
     it('should correctly determine vacancy.', () => {
       expect(RoomUtils.getRoomAlert([])).toBe(VACANT);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 8:30 AM'));
+      clock('Tuesday, March 8, 2016 8:30 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(VACANT);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 12:31 AM'));
+      clock('Tuesday, March 8, 2016 12:31 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(VACANT);
     });
 
     it('should correctly determine one minute alerts.', () => {
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 8:59 AM'));
+      clock('Tuesday, March 8, 2016 8:59 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:28 AM'));
+      clock('Tuesday, March 8, 2016 9:28 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:29 AM'));
+      clock('Tuesday, March 8, 2016 9:29 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 10:28 AM'));
+      clock('Tuesday, March 8, 2016 10:28 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 10:29 AM'));
+      clock('Tuesday, March 8, 2016 10:29 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
     });
 
     it('should correctly determine five minute alerts.', () => {
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 8:55 AM'));
+      clock('Tuesday, March 8, 2016 8:55 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:28 AM'));
+      clock('Tuesday, March 8, 2016 9:28 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:27 AM'));
+      clock('Tuesday, March 8, 2016 9:27 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 10:25 AM'));
+      clock('Tuesday, March 8, 2016 10:25 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 10:28 AM'));
+      clock('Tuesday, March 8, 2016 10:28 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
     });
 
     it('should correctly determine booked alerts.', () => {
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:20 AM'));
+      clock('Tuesday, March 8, 2016 9:20 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
 
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:32 AM'));
+      clock('Tuesday, March 8, 2016 9:32 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
       //
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 9:45 AM'));
+      clock('Tuesday, March 8, 2016 9:45 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
       //
-      timekeeper.freeze(new Date('Tuesday, March 8, 2016 10:40 AM'));
+      clock('Tuesday, March 8, 2016 10:40 AM');
       expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
     });
   });
