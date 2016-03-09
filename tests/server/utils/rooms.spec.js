@@ -1,9 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
-import moment from 'moment';
 import timekeeper from 'timekeeper';
-import { forEach } from 'lodash';
 
 import { filterExpiredReservations } from 'server/utils/reservations';
 import * as RoomUtils from 'server/utils/rooms';
@@ -49,7 +47,7 @@ describe('Server room utilities', () => {
       timekeeper.reset();
     });
 
-    afterEach(() =>{
+    afterEach(() => {
       timekeeper.reset();
     });
 

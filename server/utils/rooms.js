@@ -30,7 +30,7 @@ export const getRoomAlert = (reservations = []) => {
   // Reservation conditions
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved = moment().isBetween(moment(firstMeeting.startDate), moment(firstMeeting.endDate));
+  const currentlyReserved = moment().isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
   const nextMeetingStartingIn = (minutes) => {
     const nextMeeting = currentlyReserved ? secondMeeting : firstMeeting;

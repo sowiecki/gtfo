@@ -11,7 +11,7 @@ require('babel-core/register');
 if (cluster.isMaster) {
   cluster.fork();
 
-  cluster.on('exit', (deadWorker, code) => {
+  cluster.on('exit', (deadWorker) => {
     const worker = cluster.fork();
 
     console.log(`worker ${deadWorker.process.pid} died`);
