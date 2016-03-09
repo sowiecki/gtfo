@@ -5,7 +5,7 @@ import { forEach } from 'lodash';
 
 import * as RoomUtils from 'client/utils/rooms';
 
-describe('Rooms utilities', () => {
+describe('Client room utilities', () => {
   const meetingRooms = [
     { location: 'Winterfell' },
     { location: `King's Landing` },

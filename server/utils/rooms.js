@@ -11,36 +11,38 @@ import {
 
 const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
 
-export const getRoomAlert = (room, reservations = []) => {
+/**
+ * Gets alert based on reservation times.
+ * Assumes no reservation its start and end times in the past!
+ * @param {array} reservations Array of reservation objects.
+ * @returns {string} Room reservation alert.
+ */
+export const getRoomAlert = (reservations = []) => {
   // TODO Should determine meetings by comparing to current time
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
 
-  // No reservations left for today
   if (!reservations.length) {
+    // No reservations left for today
     return VACANT;
   }
 
   // Reservation conditions
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved = moment(firstMeeting.endDate).isAfter(minutesFromNow(5));
-  const reservationUpInOne = moment(firstMeeting.endDate).isBefore(minutesFromNow(1));
-  const reservationUpInFive = moment(firstMeeting.endDate).isBefore(minutesFromNow(5));
-  const nextMeetingStartingSoon = () => {
-    if (!secondMeeting) {
-      return false;
-    }
-    return moment(secondMeeting.startDate).isBefore(minutesFromNow(5));
-  };
-  const oneMinuteWarning = reservationUpInOne && nextMeetingStartingSoon();
-  const fiveMinuteWarning = reservationUpInFive && nextMeetingStartingSoon();
+  const currentlyReserved = moment().isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
-  if (currentlyVacant && !nextMeetingStartingSoon()) {
+  const nextMeetingStartingIn = (minutes) => {
+    const nextMeeting = currentlyReserved ? secondMeeting : firstMeeting;
+
+    return moment(nextMeeting.startDate).isSameOrBefore(minutesFromNow(minutes));
+  };
+
+  if (currentlyVacant && !nextMeetingStartingIn()) {
     return VACANT;
-  } else if (oneMinuteWarning && nextMeetingStartingSoon()) {
+  } else if (nextMeetingStartingIn(1)) {
     return ONE_MINUTE_WARNING;
-  } else if (fiveMinuteWarning && nextMeetingStartingSoon()) {
+  } else if (nextMeetingStartingIn(5)) {
     return FIVE_MINUTE_WARNING;
   } else if (currentlyReserved) {
     return BOOKED;

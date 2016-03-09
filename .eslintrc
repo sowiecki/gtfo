@@ -20,6 +20,7 @@
     "no-invalid-this": 0,
     "react/jsx-closing-bracket-location": [2, "after-props"],
     "react/jsx-boolean-value": 0,
+    "react/prop-types": 2,
     "valid-jsdoc": 0
   },
   "globals": {
