@@ -13,7 +13,7 @@ import {
   BOOKED
 } from 'server/constants/room-statuses';
 
-describe('Server room utilities', () => {
+describe('Room utilities (server)', () => {
   /**
    * NOTE `getRoomAlert` assumes that none of the provided reservations contain
    * both a startDate and an endDate in the past. Mock reservations must be
