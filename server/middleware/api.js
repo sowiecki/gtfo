@@ -9,7 +9,7 @@ import { MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION,
          EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
-import { NEW_ROOM_PING } from '../constants/events';
+import { NEW_ROOM_PING } from '../constants';
 
 export default () => (next) => (action) => {
   switch (action.type) {

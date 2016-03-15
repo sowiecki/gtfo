@@ -9,7 +9,7 @@ import { HANDSHAKE,
          INITIALIZE_ROOMS,
          INITIALIZE_MARKERS,
          RECONNECTED,
-         NEW_ROOM_PING } from '../constants/events';
+         NEW_ROOM_PING } from '../constants';
 import store from '../store/configure-store';
 
 import { getOrigin } from '../utils/traversals';

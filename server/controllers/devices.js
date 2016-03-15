@@ -20,7 +20,7 @@ import { EMIT_INIT_DEVICES,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants/values';
+import { CHECK_INTERVAL } from '../constants';
 
 const rooms = store().getState().roomsReducer;
 

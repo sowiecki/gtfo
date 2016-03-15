@@ -3,7 +3,7 @@
 import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
-import * as urls from '../constants/urls';
+import * as urls from '../constants';
 import { filterExpiredReservations } from '../utils/reservations';
 import { getRoomAlert } from '../utils/rooms';
 

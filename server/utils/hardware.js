@@ -10,7 +10,7 @@ import { RGB_PINS,
          THERMO_PIN,
          THERMO_FREQ,
          HCSR501,
-         MOTION_PIN } from '../constants/values';
+         MOTION_PIN } from '../constants';
 
 export const registerBoard = (device) => {
   return new Board({
