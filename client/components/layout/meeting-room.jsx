@@ -7,7 +7,7 @@ import { parsePosition, parseShape } from '../../utils/svg';
 import { OFFLINE,
          PINGED,
          PING_ANIMATION_LOOPS,
-         PING_ANIMATION_TIMEOUT } from '../../constants/svg';
+         PING_ANIMATION_TIMEOUT } from '../../constants';
 
 const MeetingRoom = ({ room, pinged }) => {
   const pingAnimation = {
