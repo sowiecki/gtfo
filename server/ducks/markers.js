@@ -2,7 +2,7 @@ import socketController from '../controllers/socket';
 
 import { markers } from '../environment';
 import { EMIT_CLIENT_CONNECTED } from './rooms';
-import { INITIALIZE_MARKERS } from '../constants/events';
+import { INITIALIZE_MARKERS } from '../constants';
 
 export const EMIT_SEND_MARKERS = 'EMIT_SEND_MARKERS';
 

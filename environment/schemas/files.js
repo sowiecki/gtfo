@@ -1,4 +1,13 @@
 export default {
+  config: {
+    title: 'Config Schema',
+    id: '/ConfigSchema',
+    type: 'object',
+    properties: {
+      productionHost: { type: 'string' }
+    },
+    required: ['productionHost']
+  },
   devices: {
     title: 'Devices Schema',
     id: '/DevicesSchema',

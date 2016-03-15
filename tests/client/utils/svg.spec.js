@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import * as SVGUtils from 'client/utils/svg';
+import { parsePosition, parseShape } from 'client/utils';
 
 describe('SVG utilities', () => {
   const mockRoomSvg = {
@@ -14,13 +14,13 @@ describe('SVG utilities', () => {
 
   describe('parsePosition', () => {
     it('should return parsed position coordinates.', () => {
-      expect(SVGUtils.parsePosition(mockRoomSvg)).toEqual({ x: '10.5%', y: '20.25%' });
+      expect(parsePosition(mockRoomSvg)).toEqual({ x: '10.5%', y: '20.25%' });
     });
   });
 
   describe('parseShape', () => {
     it('should return parsed shape parameters.', () => {
-      expect(SVGUtils.parseShape(mockRoomSvg)).toEqual({ height: '200%', width: '300%' });
+      expect(parseShape(mockRoomSvg)).toEqual({ height: '200%', width: '300%' });
     });
   });
 });

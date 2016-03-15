@@ -11,9 +11,14 @@ const readFile = (fileName) => {
   return JSON.parse(readFileSync(filePath, 'utf8'));
 };
 
+const { config } = readFile('config.json');
 const { devices } = readFile('devices.json');
 const { markers } = readFile('markers.json');
 const { coordinates } = readFile('coordinates.json');
+
+if (validator.validate(config, '/ConfigSchema').errors.length) {
+  throw new FileValidationError('config');
+}
 
 if (validator.validate(devices, '/DevicesSchema').errors.length) {
   throw new FileValidationError('devices');
@@ -36,4 +41,4 @@ devices.map((device) => {
   device.location = slug(device.location, { lower: true });
 });
 
-export { devices, markers, coordinates };
+export { config, devices, markers, coordinates };

@@ -2,9 +2,9 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import * as HostUtils from 'server/utils/host';
+import { getHost, getOrigin } from 'server/utils';
 
-describe('Host utilities', () => {
+describe('Traversal utilities', () => {
   describe('getHost', () => {
     const mockReq = {
       headers: {
@@ -13,7 +13,7 @@ describe('Host utilities', () => {
     };
 
     it('should return parsed host name.', () => {
-      expect(HostUtils.getHost(mockReq)).toEqual('1234');
+      expect(getHost(mockReq)).toEqual('1234');
     });
   });
 
@@ -27,7 +27,7 @@ describe('Host utilities', () => {
     };
 
     it('should return parsed origin name.', () => {
-      expect(HostUtils.getOrigin(mockClient)).toEqual('isNotSteam');
+      expect(getOrigin(mockClient)).toEqual('isNotSteam');
     });
   });
 });

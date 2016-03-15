@@ -14,13 +14,13 @@ import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion } from '../utils/hardware';
+         registerMotion } from '../utils';
 import { EMIT_INIT_DEVICES,
          FETCH_ROOM_RESERVATIONS,
          MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants/values';
+import { CHECK_INTERVAL } from '../constants';
 
 const rooms = store().getState().roomsReducer;
 

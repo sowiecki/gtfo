@@ -1,8 +1,11 @@
 /* eslint no-use-before-define:0 */
-import { RED, TEAL, GREEN, ORANGE } from '../constants/colors';
-import { ONE_MINUTE_STROBE,
+import { RED,
+         TEAL,
+         GREEN,
+         ORANGE,
+         ONE_MINUTE_STROBE,
          FIVE_MINUTE_STROBE,
-         FAINT_LIGHT_LEVEL } from '../constants/values';
+         FAINT_LIGHT_LEVEL } from '../constants';
 
 export const vacant = (led) => {
   led.stop(); // Prevent rogue strobing

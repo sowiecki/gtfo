@@ -15,8 +15,8 @@ import { getLocationBackdrop,
          filterByLocation,
          pluckLocations,
          updateLocationIndex,
-         youAreHere } from '../../utils/rooms';
-import { PING_TIMEOUT } from '../../constants/svg';
+         youAreHere } from '../../utils';
+import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
 

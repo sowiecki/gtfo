@@ -7,10 +7,7 @@ secrets
 .DS_Store
 
 # Environment variables
-devices.json
-mock-data.json
-markers.json
-coordinates.json
+environment/*.json
 env
 
 # Runtime data

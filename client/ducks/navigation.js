@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import { updateLocationIndex } from '../utils/rooms';
+import { updateLocationIndex } from '../utils';
 
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';

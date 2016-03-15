@@ -6,8 +6,7 @@ import { getSocketPort,
          WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
 import { EMIT_FETCH_ROOM_STATUSES_ERROR,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
-import { HANDSHAKE, RECONNECTED } from '../constants/events';
-import { lostConnectionToHost } from '../constants/errors';
+import { HANDSHAKE, RECONNECTED, lostConnectionToHost } from '../constants';
 
 let interval;
 

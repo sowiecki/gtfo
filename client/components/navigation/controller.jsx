@@ -12,7 +12,7 @@ import MenuButton from './menu-button';
 import LeftNavContent from './left-nav-content';
 import LocationModal from './location-modal';
 
-import { formatForDisplay } from '../../utils/rooms';
+import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 

@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import { pluckLocations } from '../utils/rooms';
+import { pluckLocations } from '../utils';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';

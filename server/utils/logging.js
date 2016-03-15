@@ -4,7 +4,7 @@ import colors from 'colors';
 import moment from 'moment';
 // import ora from 'ora';
 
-// import { SPINNER_DELAY } from '../constants/values';
+// import { SPINNER_DELAY } from '../constants';
 
 /**
  * Logs individual room status.
