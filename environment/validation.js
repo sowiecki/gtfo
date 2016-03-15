@@ -11,6 +11,7 @@ validator.addSchema(deviceSchema, '/DeviceSchema');
 validator.addSchema(markerSchema, '/MarkerSchema');
 validator.addSchema(coordinateSchema, '/CoordinateSchema');
 
+validator.addSchema(filesSchemas.config, '/ConfigSchema');
 validator.addSchema(filesSchemas.devices, '/DevicesSchema');
 validator.addSchema(filesSchemas.markers, '/MarkersSchema');
 validator.addSchema(filesSchemas.coordinates, '/CoordinatesSchema');
