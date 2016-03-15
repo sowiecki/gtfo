@@ -1,8 +1,25 @@
-# Configurable appliction data
+# Configurable application data
 
 It is essential that specific environment files be created and configured correctly to run this application for a particular office.
 
 These files should remain gitignored to prevent private information from being made available on a public repository. Detailed information about the inside of your office can be used in social engineering attacks!
+
+### config.json
+General configuration.
+
+| Parameter        | Description                           | Required? |
+|------------------|---------------------------------------|-----------|
+| productionHost   | URL of hosted ems_wrapper instance    | Yes       |
+
+Example of a `config.json`:
+```json
+{
+  "config": {
+    "productionHost": "http://heroku-app.com/your-hosted-ems-wrapper"
+  }
+}
+
+```
 
 ### devices.json
 Room device properties.
@@ -17,7 +34,7 @@ Room device properties.
 | deviceAlias      | Name of module                        | No        |
 <sup>1</sup> Formatted exactly as displayed on Exchange Services.
 
-<sup>2</sup> Proper format, including any spaces or capitlization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
+<sup>2</sup> Proper format, including any spaces or capitalization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
 
 <sup>3</sup> Make sure that all rooms in the same location have **exactly** matching locations properties. Location tabs are displayed in order of first device entry in the file, e.g. if the first device has the location `Sears Tower 251` it will be the first tab rendered.
 
