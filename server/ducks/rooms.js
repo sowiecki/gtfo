@@ -1,8 +1,7 @@
 import socketController from '../controllers/socket';
 
 import { devices } from '../environment';
-import { flashNotifications } from '../utils/notifications';
-import { logRoomStatuses } from '../utils/logging';
+import { flashNotifications, logRoomStatuses } from '../utils';
 import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';

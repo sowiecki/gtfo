@@ -4,8 +4,7 @@ import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
-import { filterExpiredReservations } from '../utils/reservations';
-import { getRoomAlert } from '../utils/rooms';
+import { filterExpiredReservations, getRoomAlert } from '../utils';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
