@@ -2,7 +2,7 @@ import connectSocket from './connect-socket';
 import { CONNECT_SOCKET,
          EMIT_FETCH_ROOM_STATUSES_ERROR } from '../ducks/layout';
 
-import { getAnchorFromStore } from '../utils/rooms';
+import { getAnchorFromStore } from '../utils';
 
 export default (store) => (next) => (action) => {
   const payload = { anchor: getAnchorFromStore(store) };

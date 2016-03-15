@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import * as SVGUtils from 'client/utils/svg';
+import { parsePosition, parseShape } from 'client/utils';
 
 describe('SVG utilities', () => {
   const mockRoomSvg = {

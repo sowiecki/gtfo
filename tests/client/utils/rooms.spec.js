@@ -3,7 +3,12 @@
 import expect from 'expect';
 import { forEach } from 'lodash';
 
-import * as RoomUtils from 'client/utils/rooms';
+import { getPathname,
+         filterByLocation,
+         formatForDisplay,
+         pluckLocations,
+         getAnchorFromStore,
+         youAreHere } from 'client/utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -21,16 +26,16 @@ describe('Room utilities (client)', () => {
         pathname: `King's Road`
       };
 
-      expect(RoomUtils.getPathname(location)).toBe(location.pathname);
+      expect(getPathname(location)).toBe(location.pathname);
     });
   });
 
   describe('filterByLocation', () => {
     it('should return only rooms specific to provided location.', () => {
-      expect(RoomUtils.filterByLocation(meetingRooms, 'winterfell').length).toBe(1);
-      expect(RoomUtils.filterByLocation(meetingRooms, 'kings-landing').length).toBe(1);
-      expect(RoomUtils.filterByLocation(meetingRooms, 'moles-town').length).toBe(1);
-      expect(RoomUtils.filterByLocation(meetingRooms, 'asshai').length).toBe(3);
+      expect(filterByLocation(meetingRooms, 'winterfell').length).toBe(1);
+      expect(filterByLocation(meetingRooms, 'kings-landing').length).toBe(1);
+      expect(filterByLocation(meetingRooms, 'moles-town').length).toBe(1);
+      expect(filterByLocation(meetingRooms, 'asshai').length).toBe(3);
     });
   });
 
@@ -52,7 +57,7 @@ describe('Room utilities (client)', () => {
       ];
 
       forEach(examples, (example) => {
-        const result = RoomUtils.formatForDisplay(example.slug);
+        const result = formatForDisplay(example.slug);
 
         expect(result).toBe(example.pretty);
       });
@@ -68,7 +73,7 @@ describe('Room utilities (client)', () => {
         'Asshai'
       ];
 
-      expect(RoomUtils.pluckLocations(meetingRooms)).toEqual(result);
+      expect(pluckLocations(meetingRooms)).toEqual(result);
     });
   });
 
@@ -88,13 +93,13 @@ describe('Room utilities (client)', () => {
     };
 
     it('should return the anchor from a Redux store.', () => {
-      expect(RoomUtils.getAnchorFromStore(mockStore)).toEqual('example-anchor');
+      expect(getAnchorFromStore(mockStore)).toEqual('example-anchor');
     });
 
     it(`should return an empty string if it can't find an anchor.`, () => {
       mockReducers.routeReducer.location.query = null;
 
-      expect(RoomUtils.getAnchorFromStore(mockStore)).toEqual('');
+      expect(getAnchorFromStore(mockStore)).toEqual('');
     });
   });
 
@@ -106,10 +111,10 @@ describe('Room utilities (client)', () => {
     };
 
     it('should check if the provided marker matches the current location.', () => {
-      expect(RoomUtils.youAreHere({ name: 'Lobby' }, location)).toBe(true);
-      expect(RoomUtils.youAreHere({ name: 'lobby' }, location)).toBe(true);
-      expect(RoomUtils.youAreHere({ name: 'attic' }, location)).toBe(false);
-      expect(RoomUtils.youAreHere({ name: 'basement' }, location)).toBe(false);
+      expect(youAreHere({ name: 'Lobby' }, location)).toBe(true);
+      expect(youAreHere({ name: 'lobby' }, location)).toBe(true);
+      expect(youAreHere({ name: 'attic' }, location)).toBe(false);
+      expect(youAreHere({ name: 'basement' }, location)).toBe(false);
     });
   });
 });

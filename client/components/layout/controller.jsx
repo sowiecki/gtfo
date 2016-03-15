@@ -15,7 +15,7 @@ import { getLocationBackdrop,
          filterByLocation,
          pluckLocations,
          updateLocationIndex,
-         youAreHere } from '../../utils/rooms';
+         youAreHere } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
