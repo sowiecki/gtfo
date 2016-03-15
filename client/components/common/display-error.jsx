@@ -23,7 +23,7 @@ const DisplayError = ({ layout }) => {
 };
 
 DisplayError.propTypes = {
-  layout: ImmutablePropTypes.map
+  layout: ImmutablePropTypes.Map
 };
 
 export default base(DisplayError);
