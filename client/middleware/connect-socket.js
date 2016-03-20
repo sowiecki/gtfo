@@ -12,7 +12,7 @@ let interval;
 
 const handleSocketOpen = (webSocket, next, payload) => {
   webSocket.send(JSON.stringify({ event: HANDSHAKE, payload }));
-
+console.log(payload)
   next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
 };
 
