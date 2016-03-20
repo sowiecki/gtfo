@@ -13,7 +13,6 @@ Push reservation status notifications to meeting rooms! And do other things...
 ```bash
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
-node gtfo.js
 npm run hot -- --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
