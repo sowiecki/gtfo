@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = (config) => {
-  config.set({
+  var configuration = {
     basePath: '.',
     frameworks: ['source-map-support', 'mocha', 'sinon'],
     reporters: ['mocha'],
@@ -17,6 +17,12 @@ module.exports = (config) => {
     colors: true,
     autoWatch: true,
     browsers: ['Chrome', 'PhantomJS'],
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: true,
     webpackServer: {
       quiet: false,
@@ -32,5 +38,11 @@ module.exports = (config) => {
       }
     },
     logLevel: config.LOG_INFO
-  });
+  };
+
+  if(process.env.TRAVIS){
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
+
+  config.set(configuration);
 };
