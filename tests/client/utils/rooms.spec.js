@@ -8,7 +8,7 @@ import { getPathname,
          formatForDisplay,
          pluckLocations,
          getAnchorFromStore,
-         youAreHere } from 'client/utils';
+         youAreHere } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [

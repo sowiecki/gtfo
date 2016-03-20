@@ -5,7 +5,7 @@ import expect from 'expect';
 
 import { IconButton } from 'material-ui/lib';
 
-import MenuButton from 'client/components/navigation/menu-button';
+import MenuButton from 'components/navigation/menu-button';
 
 describe('<MenuButton />', () => {
   const props = {
