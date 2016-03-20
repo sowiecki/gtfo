@@ -5,21 +5,21 @@ module.exports = (config) => {
   config.set({
     basePath: '.',
     frameworks: ['source-map-support', 'mocha', 'sinon'],
-    preprocessors: {
-      './tests/config.js': ['webpack']
-    },
-    files: [
-      './tests/config.js'
-    ],
     reporters: ['mocha'],
+    files: [
+      './tests/config.client.js'
+    ],
+    preprocessors: {
+      './tests/config.client.js': ['webpack', 'sourcemap']
+    },
+    webpack: require('./webpack.config.test'),
     port: 9876,
     colors: true,
     autoWatch: true,
     browsers: [/*'Chrome',*/ 'PhantomJS'],
     singleRun: true,
-    webpack: require('./webpack.config.test'),
     webpackServer: {
-      port: 3002, // Choose a non-conflicting port (3000 app, 3001 test dev)
+      // port: 3002, // Choose a non-conflicting port (3000 app, 3001 test dev)
       quiet: false,
       noInfo: true,
       stats: {

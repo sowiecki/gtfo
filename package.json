@@ -1,5 +1,5 @@
 {
-  "name": "gtfo-api",
+  "name": "gtfo",
   "version": "0.0.1",
   "description": "Gently Tell Folks Out of meeting rooms - remote unit control",
   "repository": {
@@ -22,8 +22,9 @@
     "prod-server": "NODE_ENV=production npm run server",
     "deploy-server": "NODE_ENV=production forever start ./application.js",
     "yolo": "rimraf environment/mock-data.json",
-    "test": "npm run clean && npm run lint && npm run test-dev",
-    "test-dev": "mocha ./tests/**/*.spec.*  --compilers js:babel-core/register --require tests/config.js"
+    "test": "npm run clean && npm run lint && npm run test-server && npm run test-client",
+    "test-client": "karma start",
+    "test-server": "mocha ./tests/server/**/*.spec.*  --compilers js:babel-core/register --require tests/config.server.js"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -90,6 +91,7 @@
     "eslint-plugin-react": "^4.1.0",
     "expect": "^1.14.0",
     "file-loader": "^0.8.5",
+    "json-loader": "^0.5.4",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha": "^0.2.2",
