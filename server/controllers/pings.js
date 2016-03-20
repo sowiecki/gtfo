@@ -3,7 +3,7 @@ import { find } from 'lodash';
 import store from '../store/configure-store';
 import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 
-import { getHost } from '../utils/traversals';
+import { getHost } from '../utils';
 
 const rooms = store().getState().roomsReducer;
 
@@ -12,7 +12,7 @@ const pingsController = {
   handlePing(req, res) {
     const { id, anchor } = req.headers;
     const room = find(rooms, { id });
-
+    // console.log(req.headers.host)
     if (room) {
       store().dispatch({
         type: EMIT_ROOM_PING_RECEIVED,

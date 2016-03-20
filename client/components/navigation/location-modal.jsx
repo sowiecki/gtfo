@@ -6,7 +6,7 @@ import { Dialog,
          SelectField,
          MenuItem } from 'material-ui/lib';
 
-import { formatForDisplay } from '../../utils/rooms';
+import { formatForDisplay } from '../../utils';
 import { base } from '../../config/composition';
 
 const LocationModal = (props) => {

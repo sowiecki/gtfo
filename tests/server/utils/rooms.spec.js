@@ -3,17 +3,16 @@
 import expect from 'expect';
 import sinon from 'sinon';
 
-import { filterExpiredReservations } from 'server/utils/reservations';
-import * as RoomUtils from 'server/utils/rooms';
+import { filterExpiredReservations, getRoomAlert } from 'server/utils';
 
 import {
   VACANT,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED
-} from 'server/constants/room-statuses';
+} from 'server/constants';
 
-describe('Server room utilities', () => {
+describe('Room utilities (server)', () => {
   /**
    * NOTE `getRoomAlert` assumes that none of the provided reservations contain
    * both a startDate and an endDate in the past. Mock reservations must be
@@ -54,61 +53,61 @@ describe('Server room utilities', () => {
     });
 
     it('should correctly determine vacancy.', () => {
-      expect(RoomUtils.getRoomAlert([])).toBe(VACANT);
+      expect(getRoomAlert([])).toBe(VACANT);
 
       clock('Tuesday, March 8, 2016 8:30 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(VACANT);
+      expect(getRoomAlert(mockReservations())).toBe(VACANT);
 
       clock('Tuesday, March 8, 2016 12:31 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(VACANT);
+      expect(getRoomAlert(mockReservations())).toBe(VACANT);
     });
 
     it('should correctly determine one minute alerts.', () => {
       clock('Tuesday, March 8, 2016 8:59 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 9:28 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 9:29 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 10:28 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 10:29 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
     });
 
     it('should correctly determine five minute alerts.', () => {
       clock('Tuesday, March 8, 2016 8:55 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 9:28 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 9:27 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 10:25 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
 
       clock('Tuesday, March 8, 2016 10:28 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
     });
 
     it('should correctly determine booked alerts.', () => {
       clock('Tuesday, March 8, 2016 9:20 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
+      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
 
       clock('Tuesday, March 8, 2016 9:32 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
+      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
       //
       clock('Tuesday, March 8, 2016 9:45 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
+      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
       //
       clock('Tuesday, March 8, 2016 10:40 AM CST');
-      expect(RoomUtils.getRoomAlert(mockReservations())).toBe(BOOKED);
+      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
     });
   });
 });

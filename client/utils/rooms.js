@@ -83,9 +83,7 @@ export const formatForDisplay = (name) => {
  * @param {array} rooms Collection of room objects.
  * @returns {array} Collection of location strings.
  */
-export const pluckLocations = (rooms) => {
-  return uniq(map(rooms, 'location'));
-};
+export const pluckLocations = (rooms) => uniq(map(rooms, 'location'));
 
 /**
  * Gets anchor from state store.

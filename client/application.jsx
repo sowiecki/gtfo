@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import history from './config/history';
-import configureStore from './store/configure-store';
+import store from './store/store';
 
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';
@@ -16,7 +16,6 @@ require('velocity-animate/velocity.ui');
 
 injectTapEventPlugin();
 
-const store = configureStore();
 const node = document.getElementById('root');
 
 const Application = (

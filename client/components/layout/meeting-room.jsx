@@ -3,11 +3,11 @@ import { VelocityComponent } from 'velocity-react';
 
 import { applyStyles } from '../../config/composition';
 import { styles, TEXT_DX, TEXT_DY } from './styles';
-import { parsePosition, parseShape } from '../../utils/svg';
+import { parsePosition, parseShape } from '../../utils';
 import { OFFLINE,
          PINGED,
          PING_ANIMATION_LOOPS,
-         PING_ANIMATION_TIMEOUT } from '../../constants/svg';
+         PING_ANIMATION_TIMEOUT } from '../../constants';
 
 const MeetingRoom = ({ room, pinged }) => {
   const pingAnimation = {

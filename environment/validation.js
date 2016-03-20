@@ -1,4 +1,5 @@
 import { Validator } from 'jsonschema';
+import { forEach } from 'lodash';
 
 import deviceSchema from './schemas/device';
 import markerSchema from './schemas/marker';
@@ -7,12 +8,13 @@ import filesSchemas from './schemas/files';
 
 const validator = new Validator;
 
-validator.addSchema(deviceSchema, '/DeviceSchema');
-validator.addSchema(markerSchema, '/MarkerSchema');
-validator.addSchema(coordinateSchema, '/CoordinateSchema');
+const schemas = {
+  deviceSchema,
+  markerSchema,
+  coordinateSchema,
+  ...filesSchemas
+};
 
-validator.addSchema(filesSchemas.devices, '/DevicesSchema');
-validator.addSchema(filesSchemas.markers, '/MarkersSchema');
-validator.addSchema(filesSchemas.coordinates, '/CoordinatesSchema');
+forEach(schemas, (schema) => validator.addSchema(schema, schema.id));
 
 export default validator;

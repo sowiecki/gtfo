@@ -7,7 +7,7 @@ import { HANDSHAKE,
          INITIALIZE_MARKERS,
          RECONNECTED,
          ROOM_STATUSES_UPDATE,
-         NEW_ROOM_PING } from '../constants/events';
+         NEW_ROOM_PING } from '../constants';
 
 const parseEvent = (next, response) => {
   const { event, payload } = JSON.parse(response.data);
