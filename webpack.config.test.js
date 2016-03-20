@@ -4,12 +4,10 @@ const merge = require('lodash/merge');
 
 const base = require('./webpack.config');
 
-require('app-module-path').addPath(`${__dirname}/..`);
-
 module.exports = {
   cache: true,
   devtool: 'inline-source-map',
-  context: path.join(__dirname, 'tests'),
+  context: path.join(__dirname, 'client'),
   module: {
     loaders: [
       {
@@ -28,6 +26,7 @@ module.exports = {
     ]
   },
   resolve: merge(base.resolve, {
+    root: path.resolve('./client'),
     alias: {
       'sinon': 'sinon/pkg/sinon'
     },

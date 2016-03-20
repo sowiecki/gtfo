@@ -33,7 +33,7 @@ export const getRoomAlert = (reservations = []) => {
   const currentlyReserved = moment().isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
   const nextMeetingStartingIn = (minutes) => {
-    const nextMeeting = currentlyReserved ? secondMeeting : firstMeeting;
+    const nextMeeting = currentlyReserved && secondMeeting ? secondMeeting : firstMeeting;
 
     return moment(nextMeeting.startDate).isSameOrBefore(minutesFromNow(minutes));
   };
