@@ -13,9 +13,9 @@ import { TRANSITION_ENTER_TIMEOUT, TRANSITION_EXIT_TIMEOUT } from '../common/sty
 
 class LayoutContainer extends Component {
   componentWillMount() {
-    const { actions } = this.props;
+    const { actions, location } = this.props;
 
-    actions.connectSocket();
+    actions.connectSocket(location.query);
   }
 
   renderRooms() {
@@ -49,6 +49,7 @@ class LayoutContainer extends Component {
 }
 
 LayoutContainer.propTypes = {
+  location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,

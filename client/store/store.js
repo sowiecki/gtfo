@@ -5,10 +5,12 @@ import { createStore,
 import { routerReducer } from 'react-router-redux';
 
 import reducers from '../ducks';
-import history from '../config/history';
 import api from '../middleware/api';
 
-const rootReducer = combineReducers({ ...reducers, routing: routerReducer });
+const rootReducer = combineReducers({
+  ...reducers,
+  routing: routerReducer
+});
 
 const configureStore = (initialState) => {
   const composeStoreWithMiddleware = compose(
