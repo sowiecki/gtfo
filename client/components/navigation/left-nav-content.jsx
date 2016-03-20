@@ -14,7 +14,7 @@ const LeftNavContent = ({ location, toggleLocationModal, toggleSiteNav }) => (
       leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>place</FontIcon>}
       primaryText='Edit Location'/>
     <ListItem
-      onClick={() => history.replaceState(null, `/${location}/fullscreen`)}
+      onClick={() => history.replace(`/${location}/fullscreen`)}
       leftIcon={<FontIcon className='material-icons' style={styles.navIcons}>fullscreen</FontIcon>}
       primaryText='Open fullscreen'/>
     <ListItem

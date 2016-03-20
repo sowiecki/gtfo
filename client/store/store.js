@@ -2,19 +2,19 @@ import { createStore,
          applyMiddleware,
          combineReducers,
          compose } from 'redux';
-import { syncHistory } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 
 import reducers from '../ducks';
-import history from '../config/history';
 import api from '../middleware/api';
 
-const reduxRouterMiddleware = syncHistory(history);
-const rootReducer = combineReducers(reducers);
+const rootReducer = combineReducers({
+  ...reducers,
+  routing: routerReducer
+});
 
 const configureStore = (initialState) => {
   const composeStoreWithMiddleware = compose(
-    applyMiddleware(api),
-    applyMiddleware(reduxRouterMiddleware)
+    applyMiddleware(api)
   )(createStore);
   const store = composeStoreWithMiddleware(rootReducer, initialState);
 
@@ -29,4 +29,5 @@ const configureStore = (initialState) => {
   return store;
 };
 
-export default configureStore;
+const store = configureStore();
+export default store;

@@ -17,8 +17,9 @@ export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
-export const connectSocket = () => ({
-  type: CONNECT_SOCKET
+export const connectSocket = (payload) => ({
+  type: CONNECT_SOCKET,
+  payload
 });
 
 export const clearPing = () => ({
@@ -42,10 +43,11 @@ const initialState = immutable.fromJS({
 
 const layoutReducer = (state = initialState, action) => {
   const { meetingRooms, ping } = action;
-  const locations = pluckLocations(meetingRooms);
 
   const reducers = {
     [EMIT_ROOM_STATUSES_UPDATE]() {
+      const locations = pluckLocations(meetingRooms);
+
       return state
         .set('meetingRooms', meetingRooms)
         .set('locations', locations);
