@@ -25,6 +25,8 @@ export const getLocationBackdrop = (location) => {
 };
 
 /**
+ * TODO replace all uses of this with LocationDescriptor
+ * https://github.com/mjackson/history/blob/master/docs/Glossary.md#locationdescriptor
  * Constructs and pushes new route to history API.
  * @param {string} newLocation New location to push to routes.
  * @param {string} Parameter identifying anchors.
@@ -86,6 +88,7 @@ export const formatForDisplay = (name) => {
 export const pluckLocations = (rooms) => uniq(map(rooms, 'location'));
 
 /**
+ * DEPRECATED
  * Gets anchor from state store.
  * @param {object} store State store.
  * @returns {string} Parsed anchor parameter.

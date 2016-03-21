@@ -53,7 +53,7 @@ const NavigationController = (props) => {
         <LeftNavContent
           toggleSiteNav={toggleSiteNav}
           toggleLocationModal={toggleLocationModal}
-          location={params.location}/>
+          location={props.location}/>
       </LeftNav>
       <LocationModal
         toggleLocationModal={toggleLocationModal}
