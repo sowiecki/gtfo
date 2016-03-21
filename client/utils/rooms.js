@@ -86,6 +86,7 @@ export const formatForDisplay = (name) => {
 export const pluckLocations = (rooms) => uniq(map(rooms, 'location'));
 
 /**
+ * DEPRECATED
  * Gets anchor from state store.
  * @param {object} store State store.
  * @returns {string} Parsed anchor parameter.
