@@ -18,8 +18,4 @@ const DevTools = createDevTools(
   </DockMonitor>
 );
 
-/**
- * Do not use ES6 module export here,
- * must be CommonJS so that it can be conditionally required.
- */
-module.exports = DevTools;
+export default DevTools;
