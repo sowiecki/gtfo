@@ -112,6 +112,7 @@
     "react-transform-render-visualizer": "^0.4.0",
     "redbox-react": "^1.2.2",
     "redux-devtools": "^3.1.1",
+    "redux-devtools-chart-monitor": "^1.2.0",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.5",
     "redux-slider-monitor": "^1.0.2",
