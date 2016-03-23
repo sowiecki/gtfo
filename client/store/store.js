@@ -4,9 +4,6 @@ import { createStore,
          combineReducers,
          compose } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import { persistState } from 'redux-devtools';
-
-import DevTools from '../components/dev-tools';
 
 import reducers from '../ducks';
 import api from '../middleware/api';
@@ -27,10 +24,13 @@ const prodStoreWithMiddleware = compose(
   applyMiddleware(api)
 )(createStore);
 
-const devStoreWithMiddleware = compose(
+/**
+ * Do not require DevTool-related files in production mode!
+ */
+const devStoreWithMiddleware = isProd ? null : compose(
   applyMiddleware(api),
-  DevTools.instrument(),
-  persistState(getDebugSessionKey())
+  require('../components/dev-tools').instrument(),
+  require('redux-devtools').persistState(getDebugSessionKey())
 )(createStore);
 
 const configureStore = (initialState) => {
