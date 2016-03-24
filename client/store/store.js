@@ -24,12 +24,10 @@ const prodStoreWithMiddleware = compose(
   applyMiddleware(api)
 )(createStore);
 
-/**
- * Do not require DevTool-related files in production mode!
- */
+// Do not require DevTool-related files in production mode!
 const devStoreWithMiddleware = isProd ? null : compose(
   applyMiddleware(api),
-  require('../components/dev-tools').instrument(),
+  require('../components/dev-tools').default.instrument(),
   require('redux-devtools').persistState(getDebugSessionKey())
 )(createStore);
 

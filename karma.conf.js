@@ -5,7 +5,7 @@ module.exports = (config) => {
   var configuration = {
     basePath: '.',
     frameworks: ['source-map-support', 'mocha', 'sinon'],
-    reporters: ['mocha'],
+    reporters: ['dots'],
     files: [
       'tests/config.client.js'
     ],

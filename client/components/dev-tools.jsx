@@ -5,6 +5,18 @@ import { createDevTools } from 'redux-devtools';
 import DockMonitor from 'redux-devtools-dock-monitor';
 import LogMonitor from 'redux-devtools-log-monitor';
 import SliderMonitor from 'redux-slider-monitor';
+import ChartMonitor from 'redux-devtools-chart-monitor';
+import DiffMonitor from 'redux-devtools-diff-monitor';
+import Inspector from 'redux-devtools-inspector';
+import Dispatcher from 'redux-devtools-dispatch';
+
+import * as LayoutActions from '../ducks/layout';
+import * as NavigationActions from '../ducks/navigation';
+
+const actions = {
+  ...LayoutActions,
+  ...NavigationActions
+};
 
 const DevTools = createDevTools(
   <DockMonitor
@@ -13,11 +25,11 @@ const DevTools = createDevTools(
     changeMonitorKey='ctrl-e'>
       <LogMonitor theme='tomorrow'/>
       <SliderMonitor keyboardEnabled/>
+      <ChartMonitor keyboardEnabled/>
+      <DiffMonitor keyboardEnabled/>
+      <Inspector keyboardEnabled/>
+      <Dispatcher keyboardEnabled actionCreators={actions}/>
   </DockMonitor>
 );
 
-/**
- * Do not use ES6 module export here,
- * must be CommonJS so that it can be conditionally required.
- */
-module.exports = DevTools;
+export default DevTools;

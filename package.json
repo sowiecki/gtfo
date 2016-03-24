@@ -24,7 +24,7 @@
     "yolo": "rimraf environment/mock-data.json",
     "test": "npm run clean && npm run lint && npm run test-server && npm run test-client",
     "test-client": "karma start",
-    "test-server": "mocha ./tests/server/**/*.spec.*  --compilers js:babel-core/register --require tests/config.server.js"
+    "test-server": "mocha ./tests/server/**/*.spec.*  --compilers js:babel-core/register --require tests/config.server.js --reporter=dot"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -112,7 +112,11 @@
     "react-transform-render-visualizer": "^0.4.0",
     "redbox-react": "^1.2.2",
     "redux-devtools": "^3.1.1",
+    "redux-devtools-chart-monitor": "^1.2.0",
+    "redux-devtools-diff-monitor": "^4.0.1",
+    "redux-devtools-dispatch": "^2.0.1",
     "redux-devtools-dock-monitor": "^1.1.0",
+    "redux-devtools-inspector": "^0.3.1",
     "redux-devtools-log-monitor": "^1.0.5",
     "redux-slider-monitor": "^1.0.2",
     "reporter": "^0.1.0",
