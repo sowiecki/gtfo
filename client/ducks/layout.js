@@ -73,8 +73,8 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('ping', ping);
     },
 
-    [EMIT_SET_ROOM_PING]() {
-      return state.set('ping', ping);
+    [EMIT_CLEAR_PING]() {
+      return state.set('ping', null);
     },
 
     [EMIT_TOGGLE_DISPLAY_LEGEND]() {
