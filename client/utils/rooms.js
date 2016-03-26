@@ -100,6 +100,17 @@ export const getAnchorFromStore = (store) => {
 };
 
 /**
+ * Checks if anchor query parameter exists.
+ * @param {object} Query params.
+ * @returns {bool} True is query anchor is defined.
+ */
+export const hasAnchor = ({ query }) => {
+  const anchor = get(query, 'anchor', '');
+
+  return !!anchor;
+};
+
+/**
  * Checks if provided marker represents provided location anchor.
  * @param {object} marker Marker object.
  * @param {object} location Location object.

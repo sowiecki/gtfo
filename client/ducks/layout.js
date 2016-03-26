@@ -11,6 +11,8 @@ export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 export const EMIT_SET_ROOM_PING = 'EMIT_SET_ROOM_PING';
 export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
 
+export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
+
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
@@ -22,8 +24,13 @@ export const connectSocket = (payload) => ({
   payload
 });
 
-export const clearPing = () => ({
+export const emitClearPing = () => ({
   type: EMIT_CLEAR_PING
+});
+
+export const emitToggleDisplayLegend = (displayLegend) => ({
+  type: EMIT_TOGGLE_DISPLAY_LEGEND,
+  displayLegend
 });
 
 export const emitMarkersActivated = (markers) => ({
@@ -38,7 +45,8 @@ export const emitMarkerDeactivated = (marker) => ({
 
 const initialState = immutable.fromJS({
   meetingRooms: [],
-  markers: []
+  markers: [],
+  displayLegend: true
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -65,8 +73,12 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('ping', ping);
     },
 
-    [EMIT_CLEAR_PING]() {
-      return state.set('ping', null);
+    [EMIT_SET_ROOM_PING]() {
+      return state.set('ping', ping);
+    },
+
+    [EMIT_TOGGLE_DISPLAY_LEGEND]() {
+      return state.set('displayLegend', !action.displayLegend);
     },
 
     [EMIT_MARKERS_UPDATE]() {

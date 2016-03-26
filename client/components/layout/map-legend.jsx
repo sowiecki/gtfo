@@ -6,10 +6,20 @@ import Place from 'material-ui/lib/svg-icons/maps/place';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const MapLegend = ({ enabled }) => {
+const MapLegend = ({ showYouAreHere, enabled }) => {
+  if (!enabled) {
+    return null;
+  }
+
   const placeIcon = (
     <Avatar color={styles.placeMarker.fill} icon={<Place/>}/>
   );
+
+  const youAreHereListItem = showYouAreHere ? (
+    <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={placeIcon}>
+      You are here
+    </ListItem>
+  ) : null;
 
   const offlineIcon = (
     <Avatar backgroundColor={styles.OFFLINE}/>
@@ -31,11 +41,9 @@ const MapLegend = ({ enabled }) => {
     <Avatar backgroundColor={styles.ONE_MINUTE_WARNING}/>
   );
 
-  return enabled ? (
+  return (
     <List className='map-legend'>
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={placeIcon}>
-        You are here
-      </ListItem>
+      {youAreHereListItem}
       <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={offlineIcon}>
         Offline
       </ListItem>
@@ -52,11 +60,12 @@ const MapLegend = ({ enabled }) => {
         One minute warning
       </ListItem>
     </List>
-  ) : <div/>;
+  );
 };
 
 MapLegend.propTypes = {
-  enabled: PropTypes.bool
+  enabled: PropTypes.bool,
+  showYouAreHere: PropTypes.bool.isRequired
 };
 
 export default applyStyles(MapLegend);

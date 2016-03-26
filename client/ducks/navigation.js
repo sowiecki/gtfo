@@ -47,7 +47,7 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', locationModalOpen);
+      return state.set('locationModalOpen', !locationModalOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {

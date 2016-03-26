@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import NavigationController from './controller';
 
+import * as LayoutActions from '../../ducks/layout';
 import * as NavigationActions from '../../ducks/navigation';
 
 class NavigationContainer extends Component {
@@ -30,13 +31,21 @@ const mapStateToProps = (state) => {
 
   return {
     navigation: navigationReducer,
-    locations: layoutReducer.get('locations')
+    locations: layoutReducer.get('locations'),
+    displayLegend: layoutReducer.get('displayLegend')
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(NavigationActions, dispatch)
-});
+const mapDispatchToProps = (dispatch) => {
+  const actions = {
+    ...LayoutActions,
+    ...NavigationActions
+  };
+
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+};
 
 export default connect(
   mapStateToProps,

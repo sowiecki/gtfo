@@ -17,11 +17,12 @@ import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
 const NavigationController = (props) => {
-  const { actions, navigation, locations, params } = props;
+  const { actions, navigation, locations, displayLegend, params } = props;
   const { anchor } = props.location.query;
   const { siteNavOpen, locationModalOpen } = navigation.toJS();
   const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
-  const toggleLocationModal = actions.emitLocationModalToggle.bind(null, !locationModalOpen);
+  const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
+  const toggleDisplayLegend = actions.emitToggleDisplayLegend.bind(null, displayLegend);
 
   const renderLocationTab = (location, index) => (
     <Tab
@@ -56,6 +57,7 @@ const NavigationController = (props) => {
           <LeftNavContent
             toggleSiteNav={toggleSiteNav}
             toggleLocationModal={toggleLocationModal}
+            toggleDisplayLegend={toggleDisplayLegend}
             location={props.location}/>
       </LeftNav>
       <LocationModal
@@ -69,12 +71,14 @@ NavigationController.propTypes = {
   actions: PropTypes.shape({
     emitSiteNavToggle: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
-    emitLocationUpdate: PropTypes.func.isRequired
+    emitLocationUpdate: PropTypes.func.isRequired,
+    emitToggleDisplayLegend: PropTypes.func.isRequired
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
   location: PropTypes.shape({
     query: PropTypes.object
   }),
+  displayLegend: PropTypes.bool.isRequired,
   locations: PropTypes.array,
   params: PropTypes.object.isRequired
 };

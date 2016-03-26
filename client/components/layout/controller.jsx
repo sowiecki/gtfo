@@ -16,7 +16,8 @@ import { getLocationBackdrop,
          filterByLocation,
          pluckLocations,
          updateLocationIndex,
-         youAreHere } from '../../utils';
+         youAreHere,
+         hasAnchor } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
@@ -73,7 +74,7 @@ class LayoutController extends Component {
     }
 
     const setPingTimeout = setInterval(() => {
-      actions.clearPing();
+      actions.emitClearPing();
 
       // Revert to original location and re-save.
       updateLocationIndex(originalLocation, anchor);
@@ -137,8 +138,8 @@ class LayoutController extends Component {
   }
 
   render() {
-    const { params, layout } = this.props;
-    const { meetingRooms } = layout.toJS();
+    const { params, layout, location } = this.props;
+    const { meetingRooms, displayLegend } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
     return (
@@ -152,7 +153,9 @@ class LayoutController extends Component {
           resistance={true}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
-        <MapLegend enabled={true}/>
+        <MapLegend
+          enabled={displayLegend}
+          showYouAreHere={hasAnchor(location)}/>
       </Paper>
     );
   }
@@ -167,7 +170,7 @@ LayoutController.propTypes = {
   }).isRequired,
   ping: PropTypes.object,
   actions: PropTypes.shape({
-    clearPing: PropTypes.func.isRequired
+    emitClearPing: PropTypes.func.isRequired
   }).isRequired,
   markers: PropTypes.array
 };
