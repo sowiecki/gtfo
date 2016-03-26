@@ -8,6 +8,7 @@ import SwipeableViews from 'react-swipeable-views';
 
 import MeetingRoom from './meeting-room';
 import Marker from './marker';
+import MapLegend from './map-legend';
 
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
@@ -151,6 +152,7 @@ class LayoutController extends Component {
           resistance={true}>
             {locations.map(this.renderLocation)}
         </SwipeableViews>
+        <MapLegend enabled={true}/>
       </Paper>
     );
   }

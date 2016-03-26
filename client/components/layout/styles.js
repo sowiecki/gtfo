@@ -25,6 +25,18 @@ export const styles = {
     y: '0'
   },
 
+  mapLegend: {
+    position: 'absolute',
+    top: '100px',
+    left: '100px',
+    backgroundColor: 'rgba(255, 255, 255, .25)'
+  },
+
+  mapLegendItem: {
+    lineHeight: '8px',
+    textAlign: 'left'
+  },
+
   placeMarker: {
     fill: colors.primary
   },
