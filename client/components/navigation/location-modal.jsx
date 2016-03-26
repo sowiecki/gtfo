@@ -20,7 +20,7 @@ const LocationModal = (props) => {
 
   const handleLocationSelection = (location, anchorId) => {
     actions.emitSiteNavToggle(!siteNavOpen);
-    actions.emitLocationModalToggle(!locationModalOpen);
+    actions.emitLocationModalToggle(locationModalOpen);
     actions.emitLocationIndexUpdate(location, anchorId);
   };
 

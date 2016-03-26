@@ -8,7 +8,8 @@ import { getPathname,
          formatForDisplay,
          pluckLocations,
          getAnchorFromStore,
-         youAreHere } from 'utils';
+         youAreHere,
+         hasAnchor } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -105,9 +106,7 @@ describe('Room utilities (client)', () => {
 
   describe('youAreHere', () => {
     const location = {
-      query: {
-        anchor: 'lobby'
-      }
+      query: { anchor: 'lobby' }
     };
 
     it('should check if the provided marker matches the current location.', () => {
@@ -115,6 +114,26 @@ describe('Room utilities (client)', () => {
       expect(youAreHere({ name: 'lobby' }, location)).toBe(true);
       expect(youAreHere({ name: 'attic' }, location)).toBe(false);
       expect(youAreHere({ name: 'basement' }, location)).toBe(false);
+    });
+  });
+
+  describe('youAreHere', () => {
+    const locationWithAnchor = {
+      query: { anchor: 'lobby' }
+    };
+
+    const locationWithoutAnchor = {
+      query: {}
+    };
+
+    const locationWithNullAnchor = {
+      query: { anchor: null }
+    };
+
+    it('should check if the provided marker matches the current location.', () => {
+      expect(hasAnchor(locationWithAnchor)).toBe(true);
+      expect(hasAnchor(locationWithoutAnchor)).toBe(false);
+      expect(hasAnchor(locationWithNullAnchor)).toBe(false);
     });
   });
 });

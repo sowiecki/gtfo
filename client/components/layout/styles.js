@@ -25,6 +25,11 @@ export const styles = {
     y: '0'
   },
 
+  mapLegendItem: {
+    textAlign: 'left',
+    fontSize: '40px'
+  },
+
   placeMarker: {
     fill: colors.primary
   },
@@ -86,6 +91,14 @@ export const rules = {
 
         'text.room-text': {
           fontSize: '15px'
+        },
+
+        '.map-legend': {
+          position: 'absolute',
+          top: '-25px',
+          left: '-50px',
+          transform: 'scale(.25)',
+          backgroundColor: 'rgba(255, 255, 255, .25)'
         }
       },
 
@@ -98,6 +111,12 @@ export const rules = {
         'text.room-text': {
           fontSize: '18px',
           transform: 'translateY(2px)'
+        },
+
+        '.map-legend': {
+          left: 'auto',
+          right: '0',
+          transform: 'scale(.35)'
         }
       },
 
@@ -121,6 +140,13 @@ export const rules = {
         'text.room-text': {
           fontSize: '22px',
           transform: 'translateY(8px)'
+        },
+
+        '.map-legend': {
+          top: '25px',
+          left: '25px',
+          right: 'auto',
+          transform: 'scale(.5)'
         }
       },
 
@@ -135,6 +161,10 @@ export const rules = {
         [layoutSelectors]: {
           width: '908px',
           height: '1046px'
+        },
+
+        '.map-legend': {
+          transform: 'scale(.5)'
         }
       },
 

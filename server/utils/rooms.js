@@ -13,7 +13,7 @@ const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString
 
 /**
  * Gets alert based on reservation times.
- * Assumes no reservation its start and end times in the past!
+ * Assumes no reservation if start and end times are in the past!
  * @param {array} reservations Array of reservation objects.
  * @returns {string} Room reservation alert.
  */

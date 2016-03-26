@@ -8,7 +8,10 @@ import { base } from '../../config/composition';
 import { styles } from './styles';
 
 const LeftNavContent = (props) => {
-  const { location, toggleLocationModal, toggleSiteNav } = props;
+  const { location,
+          toggleLocationModal,
+          toggleSiteNav,
+          toggleDisplayLegend } = props;
   const fullScreenParams = {
     pathname: location.pathname,
     query: {
@@ -19,6 +22,10 @@ const LeftNavContent = (props) => {
 
   const placeIcon = (
     <FontIcon className='material-icons' style={styles.navIcons}>place</FontIcon>
+  );
+
+  const mapLegendIcon = (
+    <FontIcon className='material-icons' style={styles.navIcons}>map</FontIcon>
   );
 
   const fullscreenIcon = (
@@ -40,6 +47,10 @@ const LeftNavContent = (props) => {
         leftIcon={fullscreenIcon}
         primaryText='Open fullscreen'/>
       <ListItem
+        onClick={toggleDisplayLegend}
+        leftIcon={mapLegendIcon}
+        primaryText='Toggle map legend'/>
+      <ListItem
         onClick={toggleSiteNav}
         leftIcon={closeIcon}
         primaryText='Close'/>
@@ -50,7 +61,8 @@ const LeftNavContent = (props) => {
 LeftNavContent.propTypes = {
   location: PropTypes.object,
   toggleLocationModal: PropTypes.func.isRequired,
-  toggleSiteNav: PropTypes.func.isRequired
+  toggleSiteNav: PropTypes.func.isRequired,
+  toggleDisplayLegend: PropTypes.func.isRequired
 };
 
 export default base(LeftNavContent);
