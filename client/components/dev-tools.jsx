@@ -20,9 +20,10 @@ const actions = {
 
 const DevTools = createDevTools(
   <DockMonitor
-    toggleVisibilityKey='ctrl-q'
-    changePositionKey='ctrl-w'
-    changeMonitorKey='ctrl-e'>
+    defaultIsVisible={false}
+    toggleVisibilityKey='shift-q'
+    changePositionKey='shift-w'
+    changeMonitorKey='shift-e'>
       <LogMonitor theme='tomorrow'/>
       <SliderMonitor keyboardEnabled/>
       <ChartMonitor keyboardEnabled/>
