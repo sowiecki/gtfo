@@ -96,8 +96,8 @@ export const rules = {
         '.map-legend': {
           position: 'absolute',
           top: '-25px',
-          left: '25px',
-          transform: 'scale(.5)',
+          left: '-50px',
+          transform: 'scale(.25)',
           backgroundColor: 'rgba(255, 255, 255, .25)'
         }
       },
@@ -114,8 +114,9 @@ export const rules = {
         },
 
         '.map-legend': {
-          left: '-25px',
-          transform: 'scale(.25)'
+          left: 'auto',
+          right: '0',
+          transform: 'scale(.35)'
         }
       },
 
@@ -144,6 +145,7 @@ export const rules = {
         '.map-legend': {
           top: '25px',
           left: '25px',
+          right: 'auto',
           transform: 'scale(.5)'
         }
       },
@@ -159,6 +161,10 @@ export const rules = {
         [layoutSelectors]: {
           width: '908px',
           height: '1046px'
+        },
+
+        '.map-legend': {
+          transform: 'scale(.5)'
         }
       },
 
