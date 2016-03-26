@@ -32,7 +32,7 @@ const MapLegend = ({ enabled }) => {
   );
 
   return enabled ? (
-    <List style={styles.mapLegend}>
+    <List className='map-legend'>
       <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={placeIcon}>
         You are here
       </ListItem>
