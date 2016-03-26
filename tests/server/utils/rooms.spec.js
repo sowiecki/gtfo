@@ -62,6 +62,26 @@ describe('Room utilities (server)', () => {
       expect(getRoomAlert(mockReservations())).toBe(VACANT);
     });
 
+    it('should correctly determine five minute alerts.', () => {
+      clock('Tuesday, March 8, 2016 8:54 AM CST');
+      expect(getRoomAlert(mockReservations())).toNotBe(FIVE_MINUTE_WARNING);
+
+      clock('Tuesday, March 8, 2016 8:55 AM CST');
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+
+      clock('Tuesday, March 8, 2016 9:28 AM CST');
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+
+      clock('Tuesday, March 8, 2016 9:27 AM CST');
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+
+      clock('Tuesday, March 8, 2016 10:25 AM CST');
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+
+      clock('Tuesday, March 8, 2016 10:28 AM CST');
+      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+    });
+
     it('should correctly determine one minute alerts.', () => {
       clock('Tuesday, March 8, 2016 8:59 AM CST');
       expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
@@ -77,23 +97,6 @@ describe('Room utilities (server)', () => {
 
       clock('Tuesday, March 8, 2016 10:29 AM CST');
       expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
-    });
-
-    it('should correctly determine five minute alerts.', () => {
-      clock('Tuesday, March 8, 2016 8:55 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:27 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:25 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
     });
 
     it('should correctly determine booked alerts.', () => {
