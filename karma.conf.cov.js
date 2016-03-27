@@ -6,6 +6,11 @@ const base = require('./karma.conf.base');
 
 module.exports = (config) => {
   const configuration = merge(base, {
+    reporters: ['progress', 'coverage'],
+    coverageReporter: {
+      type: "text"
+    },
+    webpack: require('./webpack.config.cov'),
     logLevel: config.LOG_INFO
   });
 
