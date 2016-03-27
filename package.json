@@ -24,8 +24,10 @@
     "yolo": "rimraf environment/mock-data.json",
     "test": "npm run clean && npm run lint && npm run test-server && npm run test-client",
     "test-client": "karma start",
-    "test-server": "mocha ./tests/server/**/*.spec.*  --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
-    "test-cov": "karma start karma.conf.cov.js"
+    "test-server": "mocha ./tests/server/**/*.spec.* --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
+    "test-client-cov": "karma start karma.conf.cov.js",
+    "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
+    "test-cov": "npm run test-client-cov && npm run test-server-cov"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -92,8 +94,7 @@
     "eslint-plugin-react": "^4.1.0",
     "expect": "^1.14.0",
     "file-loader": "^0.8.5",
-    "istanbul": "^0.4.2",
-    "istanbul-instrumenter-loader": "^0.2.0",
+    "istanbul": "^1.0.0-alpha.2",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",
