@@ -18,10 +18,9 @@ describe('Room utilities (server)', () => {
    * both a startDate and an endDate in the past. Mock reservations must be
    * manipulated to remove expired reservations.
    *
-   * These reservations must wrapped in a function and only invoked once timekeeper
-   * has timetravelled to the correct time for testing.
+   * These reservations must wrapped in a function and only invoked once sinon
+   * has mocked the system time appropriately for testing.
    */
-
   const mockReservations = () => (filterExpiredReservations([
     {
       'startDate': '2016-03-08T15:00:00.000Z',
