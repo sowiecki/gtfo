@@ -41,6 +41,51 @@ describe('Room utilities (server)', () => {
     }
   ]));
 
+  const vacantTimes = [
+    'Tuesday, March 8, 2016 8:30 AM CST',
+    'Tuesday, March 8, 2016 8:31 AM CST',
+    'Tuesday, March 8, 2016 8:32 AM CST',
+    'Tuesday, March 8, 2016 8:33 AM CST',
+    'Tuesday, March 8, 2016 8:34 AM CST',
+    'Tuesday, March 8, 2016 8:35 AM CST',
+    'Tuesday, March 8, 2016 8:54 AM CST',
+    'Tuesday, March 8, 2016 12:30 AM CST',
+    'Tuesday, March 8, 2016 12:31 AM CST',
+    'Tuesday, March 8, 2016 12:32 AM CST',
+    'Tuesday, March 8, 2016 12:33 AM CST',
+    'Tuesday, March 8, 2016 12:34 AM CST',
+    'Tuesday, March 8, 2016 12:35 AM CST'
+  ];
+
+  const fiveMinuteWarningTimes = [
+    'Tuesday, March 8, 2016 8:55 AM CST',
+    'Tuesday, March 8, 2016 8:56 AM CST',
+    'Tuesday, March 8, 2016 8:57 AM CST',
+    'Tuesday, March 8, 2016 8:58 AM CST',
+    'Tuesday, March 8, 2016 9:25 AM CST',
+    'Tuesday, March 8, 2016 9:26 AM CST',
+    'Tuesday, March 8, 2016 9:27 AM CST',
+    'Tuesday, March 8, 2016 9:28 AM CST',
+    'Tuesday, March 8, 2016 10:25 AM CST',
+    'Tuesday, March 8, 2016 10:26 AM CST',
+    'Tuesday, March 8, 2016 10:27 AM CST',
+    'Tuesday, March 8, 2016 10:28 AM CST'
+  ];
+
+  const oneMinuteWarningTimes = [
+    'Tuesday, March 8, 2016 8:59 AM CST',
+    'Tuesday, March 8, 2016 9:29 AM CST',
+    'Tuesday, March 8, 2016 10:29 AM CST'
+  ];
+
+  const bookedTimes = [
+    'Tuesday, March 8, 2016 9:20 AM CST',
+    'Tuesday, March 8, 2016 9:32 AM CST',
+    'Tuesday, March 8, 2016 9:45 AM CST',
+    'Tuesday, March 8, 2016 10:40 AM CST',
+    'Tuesday, March 8, 2016 1:59 PM CST'
+  ];
+
   describe('getRoomAlert', () => {
     const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
 
@@ -55,62 +100,31 @@ describe('Room utilities (server)', () => {
     it('should correctly determine vacancy.', () => {
       expect(getRoomAlert([])).toBe(VACANT);
 
-      clock('Tuesday, March 8, 2016 8:30 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(VACANT);
-
-      clock('Tuesday, March 8, 2016 12:31 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(VACANT);
+      vacantTimes.forEach((vacantTime) => {
+        clock(vacantTime);
+        expect(getRoomAlert(mockReservations())).toBe(VACANT);
+      });
     });
 
     it('should correctly determine five minute alerts.', () => {
-      clock('Tuesday, March 8, 2016 8:54 AM CST');
-      expect(getRoomAlert(mockReservations())).toNotBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 8:55 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:27 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:25 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      fiveMinuteWarningTimes.forEach((fiveMinuteWarningTime) => {
+        clock(fiveMinuteWarningTime);
+        expect(getRoomAlert(mockReservations())).toBe(FIVE_MINUTE_WARNING);
+      });
     });
 
     it('should correctly determine one minute alerts.', () => {
-      clock('Tuesday, March 8, 2016 8:59 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 9:29 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:28 AM CST');
-      expect(getRoomAlert(mockReservations())).toNotBe(ONE_MINUTE_WARNING);
-
-      clock('Tuesday, March 8, 2016 10:29 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
+      oneMinuteWarningTimes.forEach((oneMinuteWarningTime) => {
+        clock(oneMinuteWarningTime);
+        expect(getRoomAlert(mockReservations())).toBe(ONE_MINUTE_WARNING);
+      });
     });
 
     it('should correctly determine booked alerts.', () => {
-      clock('Tuesday, March 8, 2016 9:20 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
-
-      clock('Tuesday, March 8, 2016 9:32 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
-      //
-      clock('Tuesday, March 8, 2016 9:45 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
-      //
-      clock('Tuesday, March 8, 2016 10:40 AM CST');
-      expect(getRoomAlert(mockReservations())).toBe(BOOKED);
+      bookedTimes.forEach((bookedTime) => {
+        clock(bookedTime);
+        expect(getRoomAlert(mockReservations())).toBe(BOOKED);
+      });
     });
   });
 });

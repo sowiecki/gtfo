@@ -9,8 +9,6 @@ import {
   BOOKED
 } from '../constants';
 
-const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
-
 /**
  * Gets alert based on reservation times.
  * Assumes no reservation if start and end times are in the past!
@@ -18,7 +16,6 @@ const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString
  * @returns {string} Room reservation alert.
  */
 export const getRoomAlert = (reservations = []) => {
-  // TODO Should determine meetings by comparing to current time
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
 
@@ -27,18 +24,23 @@ export const getRoomAlert = (reservations = []) => {
     return VACANT;
   }
 
-  // Reservation conditions
+  // Advanced reservation conditions
+  const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
   const currentlyReserved = moment().isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
   const nextMeetingStartingIn = (minutes) => {
-    const nextMeeting = currentlyReserved && secondMeeting ? secondMeeting : firstMeeting;
+    if (!secondMeeting) {
+      return false;
+    }
+
+    const nextMeeting = !currentlyReserved ? firstMeeting : secondMeeting;
 
     return moment(nextMeeting.startDate).isSameOrBefore(minutesFromNow(minutes));
   };
 
-  if (currentlyVacant && !nextMeetingStartingIn()) {
+  if (currentlyVacant) {
     return VACANT;
   } else if (nextMeetingStartingIn(1)) {
     return ONE_MINUTE_WARNING;
