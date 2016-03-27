@@ -46,6 +46,7 @@ npm run test
 ```bash
 npm run test-cov
 ```
+Runs client test coverage, then server test coverage immediately after.
 
 ## Configuration
 
