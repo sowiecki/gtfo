@@ -1,7 +1,7 @@
-[![Build Status](https://img.shields.io/travis/Nase00/gtfo/master.svg?style=flat-square)](https://travis-ci.org/Nase00/gtfo) 
-[![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo) 
-[![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies) 
-[![Known Vulnerabilities](https://snyk.io/test/github/nase00/gtfo/badge.svg?style=flat-square)](https://snyk.io/test/github/nase00/gtfo) 
+[![Build Status](https://img.shields.io/travis/Nase00/gtfo/master.svg?style=flat-square)](https://travis-ci.org/Nase00/gtfo)
+[![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo)
+[![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies)
+[![Known Vulnerabilities](https://snyk.io/test/github/nase00/gtfo/badge.svg?style=flat-square)](https://snyk.io/test/github/nase00/gtfo)
 [![GitHub Release](https://img.shields.io/github/release/Nase00/gtfo.svg?style=flat-square)](https://github.com/Nase00/gtfo/releases)
 
 *This project is still in early development!*
@@ -17,7 +17,7 @@ npm run hot -- --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
 
-To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ems-wrapper) on the same local machine.
+To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
 
 In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `/server/constants/urls.js`.
 
@@ -36,6 +36,17 @@ npm run prod # Production mode with live data (ems-wrapper must be deployed)
 ```bash
 npm run dev # But why would you want to?
 ```
+
+##### Tests
+```bash
+npm run test
+```
+
+##### Test coverage reporter
+```bash
+npm run test-cov
+```
+Runs client test coverage, then server test coverage immediately after.
 
 ## Configuration
 
@@ -66,17 +77,16 @@ Finally, retrieve the access tokens and device id for each Photon, and place the
 4. Create and configure a `devices.json` file in the root directory.
 5. `npm run hot`. (prod under development)
 
-
 ### Ping API
 *Alexa, where is Kerbin?*
 
 *Kerbin is on the east side of the office. I've highlighted it on map for you.*
 
-The Ping API allows services to "ping" specific rooms. Pings must be directed to specific clients that are "anchored" to a particular id. The id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
+The Ping API allows external services to "ping" specific rooms on targetted clients. Clients can be targetted using "anchors." The anchor id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
 
 To "anchor" a client, simply add an `anchor` query paramter to its route. E.g., `http://hostname:3000/sears-tower-251?anchor=east-lobby` defines the client's anchor as `east-lobby`.
 
-To ping this client, direct a POST request to `http://hostname:3000/api/ping` with the headers:
+To ping this client from an external service, direct a POST request to `http://hostname:3000/api/ping` with the headers:
 
 ```
 {
@@ -84,4 +94,5 @@ To ping this client, direct a POST request to `http://hostname:3000/api/ping` wi
   anchor: east-lobby
 }
 ```
-The result of this ping is that Kerbin lights up on the client anchored to the east lobby. An example use of this is anchoring a client on the east lobby piTV, and assigning the nearby Amazon Echo to highlight queried rooms on the TV.
+
+The result of this ping is that Kerbin lights up on the client anchored to the east lobby. An example use of this is anchoring a client on a display in the east lobby, and assigning a nearby Amazon Echo to highlight queried rooms on the TV.
