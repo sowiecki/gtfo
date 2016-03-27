@@ -51,7 +51,7 @@
     "morgan": "^1.7.0",
     "ora": "^0.2.0",
     "particle-io": "^0.12.0",
-    "radium": "^0.16.5",
+    "radium": "^0.17.0",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.1",
     "react-addons-pure-render-mixin": "^0.14.7",
