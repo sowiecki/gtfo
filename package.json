@@ -28,7 +28,7 @@
     "test-client-cov": "karma start karma.conf.cov.js",
     "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* --report lcovonly -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
     "test-cov": "npm run test-client-cov && npm run test-server-cov && npm run upload-cov && rm -rf ./coverage",
-    "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | node_modules/.bin/coveralls"
+    "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -88,6 +88,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-register": "^6.5.2",
+    "coveralls": "^2.11.9",
     "enzyme": "^2.0.0",
     "eslint": "^1.10.3",
     "eslint-config-defaults": "^9.0.0",
