@@ -26,8 +26,9 @@
     "test-client": "karma start",
     "test-server": "mocha ./tests/server/**/*.spec.* --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
     "test-client-cov": "karma start karma.conf.cov.js",
-    "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
-    "test-cov": "npm run test-client-cov && npm run test-server-cov"
+    "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* --report lcovonly -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
+    "test-cov": "npm run test-client-cov && npm run test-server-cov && npm run upload-cov && rm -rf ./coverage",
+    "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -87,6 +88,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-register": "^6.5.2",
+    "coveralls": "^2.11.9",
     "enzyme": "^2.0.0",
     "eslint": "^1.10.3",
     "eslint-config-defaults": "^9.0.0",
@@ -95,6 +97,7 @@
     "expect": "^1.14.0",
     "file-loader": "^0.8.5",
     "istanbul": "^1.0.0-alpha.2",
+    "istanbul-instrumenter-loader": "^0.2.0",
     "json-loader": "^0.5.4",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.2",

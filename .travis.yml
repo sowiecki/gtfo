@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "4.2"
 script:
-  - travis_wait npm run test
+  - travis_wait npm run test-cov
 # Google Chrome
 #
 # https://github.com/travis-ci/travis-ci/issues/272#issuecomment-14402117
