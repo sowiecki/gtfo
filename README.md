@@ -1,4 +1,5 @@
 [![Build Status](https://img.shields.io/travis/Nase00/gtfo/master.svg?style=flat-square)](https://travis-ci.org/Nase00/gtfo)
+[![Coveralls](https://img.shields.io/coveralls/Nase00/gtfo.svg?style=flat-square)]()
 [![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo)
 [![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies)
 [![Known Vulnerabilities](https://snyk.io/test/github/nase00/gtfo/badge.svg?style=flat-square)](https://snyk.io/test/github/nase00/gtfo)
