@@ -8,7 +8,8 @@ module.exports = (config) => {
   const configuration = merge(base, {
     reporters: ['progress', 'coverage'],
     coverageReporter: {
-      type: "text"
+      type: 'lcov',
+      dir: 'coverage/'
     },
     webpack: require('./webpack.config.cov'),
     logLevel: config.LOG_INFO

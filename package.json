@@ -26,8 +26,9 @@
     "test-client": "karma start",
     "test-server": "mocha ./tests/server/**/*.spec.* --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
     "test-client-cov": "karma start karma.conf.cov.js",
-    "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
-    "test-cov": "npm run test-client-cov && npm run test-server-cov"
+    "test-server-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* --report lcovonly -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
+    "test-cov": "npm run test-client-cov && npm run test-server-cov && npm run upload-cov && rm -rf ./coverage",
+    "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | node_modules/.bin/coveralls"
   },
   "author": "Sean Owiecki",
   "contributors": [
