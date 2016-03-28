@@ -43,12 +43,6 @@ npm run dev # But why would you want to?
 npm run test
 ```
 
-##### Test coverage reporter
-```bash
-npm run test-cov
-```
-Runs client test coverage, then server test coverage immediately after.
-
 ## Configuration
 
 - Raspberry Pi 2 Model B v1.1 running JESSIE (other models and distros likely work, but are untested)
