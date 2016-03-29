@@ -4,7 +4,7 @@
   "description": "Gently Tell Folks Out of meeting rooms - remote unit control",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:seanowiecki/gtfo-api.git"
+    "url": "git@github.com:Nase00/gtfo.git"
   },
   "main": "application.js",
   "scripts": {
