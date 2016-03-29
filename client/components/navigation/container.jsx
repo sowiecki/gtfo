@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -8,13 +8,9 @@ import NavigationController from './controller';
 import * as LayoutActions from '../../ducks/layout';
 import * as NavigationActions from '../../ducks/navigation';
 
-class NavigationContainer extends Component {
-  render() {
-    return (
-      <NavigationController {...this.props}/>
-    );
-  }
-}
+const NavigationContainer = (props) => (
+  <NavigationController {...props}/>
+);
 
 NavigationContainer.propTypes = {
   history: PropTypes.object.isRequired,

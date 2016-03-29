@@ -21,6 +21,8 @@
     "react/jsx-closing-bracket-location": [2, "after-props"],
     "react/jsx-boolean-value": 0,
     "react/prop-types": 2,
+    "react/no-set-state": 2,
+    "react/prefer-stateless-function": 2,
     "valid-jsdoc": 0
   },
   "globals": {
