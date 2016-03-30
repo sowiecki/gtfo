@@ -1,3 +1,4 @@
+/* eslint no-case-declarations:0 */
 import socketController from '../controllers/socket';
 
 import { devices } from '../environment';
