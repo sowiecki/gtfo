@@ -1,5 +1,5 @@
 /* eslint no-console:0, max-nested-callbacks:0 */
-/* globals console, setInterval */
+/* globals console, setInterval, clearInterval */
 
 /**
  * INITIALIZE_ROOMSs x number of devices
@@ -17,7 +17,6 @@ import { registerBoard,
          registerMotion } from '../utils';
 import { EMIT_INIT_DEVICES,
          FETCH_ROOM_RESERVATIONS,
-         MOCK_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
@@ -56,23 +55,18 @@ const devicesController = {
         });
 
         // Set interval for checking and responding to room state
-        setInterval(() => {
-          if (process.env.MOCKS) {
-            store().dispatch({
-              type: MOCK_ROOM_RESERVATIONS,
-              room,
-              accessories
-            });
-
-            return;
-          }
-
+        const monitorRoomReservations = setInterval(() => {
           // Retrieve outlook room reservation statuses
           store().dispatch({
             type: FETCH_ROOM_RESERVATIONS,
             room,
             accessories
           });
+
+          if (process.env.MOCKS) {
+            // No need to continually check mock data for updates
+            clearInterval(monitorRoomReservations);
+          }
         }, CHECK_INTERVAL);
       });
 

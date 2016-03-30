@@ -1,7 +1,11 @@
+/* eslint no-case-declarations:0 */
 import socketController from '../controllers/socket';
 
 import { devices } from '../environment';
-import { flashNotifications, logRoomStatuses } from '../utils';
+import { flashNotifications,
+         logRoomStatuses,
+         filterExpiredReservations,
+         getRoomAlert } from '../utils';
 import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -32,6 +36,9 @@ const roomsReducer = (state = devices, action) => {
 
       break;
     case EMIT_ROOM_STATUSES_UPDATE:
+      const filteredReservations = filterExpiredReservations(action.reservations);
+      const alert = getRoomAlert(filteredReservations);
+
       /**
        * TODO
        * This is pretty gross, but necessary pending further major refactoring.
@@ -39,13 +46,13 @@ const roomsReducer = (state = devices, action) => {
        */
       state = state.map((room) => {
         if (room.id === action.room.id) {
-          const stateDiff = room.alert !== action.alert;
+          const stateDiff = room.alert !== alert;
 
           if (stateDiff) {
             alertChanged = true;
           }
 
-          room.alert = action.alert;
+          room.alert = alert;
           flashNotifications(room, accessories);
         }
         return room;

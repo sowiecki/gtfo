@@ -21,7 +21,7 @@ describe('Traversal utilities', () => {
     const mockClient = {
       upgradeReq: {
         headers: {
-          origin: 'isNotSteam'
+          'sec-websocket-key': 'isNotSteam'
         }
       }
     };

@@ -1,6 +1,11 @@
 const ENV_PATH = '../environment';
-const DEVELOPMENT_HOST = 'http://localhost:8080';
 const isProd = process.env.NODE_ENV === 'production';
-const HOST = isProd ? require(ENV_PATH).config.productionHost : DEVELOPMENT_HOST;
 
-export const ROOM_RESERVATIONS = `${HOST}/rest/meetingRoom/lookup/`; // Append Outlook account
+const HOST = isProd ? require(ENV_PATH).config.productionHost : 'http://localhost:8080';
+const MOCKS_HOST = 'http://localhost:3000';
+const PROD_RESERVATIONS_API = '/rest/meetingRoom/lookup/';
+export const MOCK_RESERVATIONS_API = '/mocks/meetingRoom/lookup/';
+
+const MOCK_RESERVATIONS = `${MOCKS_HOST}${MOCK_RESERVATIONS_API}`;
+const PROD_RESERVATIONS = `${HOST}${PROD_RESERVATIONS_API}`;
+export const RESERVATIONS_URL = process.env.MOCKS ? MOCK_RESERVATIONS : PROD_RESERVATIONS;

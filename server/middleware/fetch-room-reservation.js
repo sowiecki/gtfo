@@ -4,23 +4,20 @@ import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
-import { filterExpiredReservations, getRoomAlert } from '../utils';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
-  const source = `${urls.ROOM_RESERVATIONS}${encodeURIComponent(room.id)}`;
+  const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
 
   // Retrieve room reservation statuses from Exchange wrapper
   http.get(source, (response) => {
     response.on('data', (data) => {
-      const reservationsResponse = JSON.parse(data.toString('utf8'));
-      const reservations = filterExpiredReservations(reservationsResponse);
-      const alert = getRoomAlert(reservations);
+      const reservations = JSON.parse(data.toString('utf8'));
 
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,
         room,
-        alert,
+        reservations,
         accessories
       });
     });
