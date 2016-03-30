@@ -2,21 +2,20 @@
 import express from 'express';
 
 import pingsController from '../controllers/pings';
-// import markersController from '../controllers/markers';
+
+import { MOCK_RESERVATIONS_API } from '../constants';
 
 const router = express.Router();
 
+if (process.env.MOCKS) {
+  const mockServices = require('../controllers/mocks').default;
+  const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
+
+  router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
+}
+
 /* Room pings */ // TODO change to use payload
 router.post('/api/ping', (req, res) => pingsController.handlePing(req, res));
-
-/* Map markers */
-router.post('/api/mark/:TODO', () => {
-  // res.json(markers); // TODO
-});
-
-router.post('/api/mark/:TODO', () => {
-  // res.json(markers); // TODO
-});
 
 /* Serve client - must be last route */
 router.get('*', (req, res) => {

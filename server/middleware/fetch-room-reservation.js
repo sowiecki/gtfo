@@ -8,7 +8,7 @@ import { filterExpiredReservations, getRoomAlert } from '../utils';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
-  const source = `${urls.ROOM_RESERVATIONS}${encodeURIComponent(room.id)}`;
+  const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
 
   // Retrieve room reservation statuses from Exchange wrapper
   http.get(source, (response) => {
