@@ -1,3 +1,4 @@
+/* eslint array-callback-return:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
 import slug from 'slug';

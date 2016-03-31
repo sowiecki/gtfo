@@ -29,7 +29,7 @@ module.exports = {
   resolve: merge(base.resolve, {
     root: path.resolve('./client'),
     alias: {
-      'sinon': 'sinon/pkg/sinon'
+      sinon: 'sinon/pkg/sinon'
     }
   }),
   plugins: [
@@ -40,8 +40,8 @@ module.exports = {
     })
   ],
   externals: {
-    'jsdom': 'window',
-    'cheerio': 'window',
+    jsdom: 'window',
+    cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true
   }

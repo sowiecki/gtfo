@@ -14,8 +14,8 @@ import { getPathname,
 describe('Room utilities (client)', () => {
   const meetingRooms = [
     { location: 'Winterfell' },
-    { location: `King's Landing` },
-    { location: `Mole's Town` },
+    { location: 'King\'s Landing' },
+    { location: 'Mole\'s Town' },
     { location: 'Asshai' },
     { location: 'Asshai' },
     { location: 'Asshai' }
@@ -24,7 +24,7 @@ describe('Room utilities (client)', () => {
   describe('getPathname', () => {
     it('should return pathname property of provided object.', () => {
       const location = {
-        pathname: `King's Road`
+        pathname: 'King\'s Road'
       };
 
       expect(getPathname(location)).toBe(location.pathname);
@@ -69,8 +69,8 @@ describe('Room utilities (client)', () => {
     it('should return a set of locations from a collection of rooms.', () => {
       const result = [
         'Winterfell',
-        `King's Landing`,
-        `Mole's Town`,
+        'King\'s Landing',
+        'Mole\'s Town',
         'Asshai'
       ];
 
@@ -97,7 +97,7 @@ describe('Room utilities (client)', () => {
       expect(getAnchorFromStore(mockStore)).toEqual('example-anchor');
     });
 
-    it(`should return an empty string if it can't find an anchor.`, () => {
+    it('should return an empty string if it can\'t find an anchor.', () => {
       mockReducers.routeReducer.location.query = null;
 
       expect(getAnchorFromStore(mockStore)).toEqual('');

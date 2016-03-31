@@ -12,46 +12,46 @@ import { RGB_PINS,
          HCSR501,
          MOTION_PIN } from '../constants';
 
-export const registerBoard = (device) => {
-  return new Board({
+export const registerBoard = (device) => (
+  new Board({
     io: new Particle({
       token: device.deviceAuthToken,
       deviceId: device.deviceId
     })
-  });
-};
+  })
+);
 
-export const registerLed = (board) => {
-  return new Led.RGB({
+export const registerLed = (board) => (
+  new Led.RGB({
     pins: RGB_PINS,
     id: board.id,
     board
-  });
-};
+  })
+);
 
-export const registerPiezo = (board) => {
-  return new Piezo({
+export const registerPiezo = (board) => (
+  new Piezo({
     pin: PIEZO_PIN,
     id: board.id,
     board
-  });
-};
+  })
+);
 
-export const registerThermo = (board) => {
-  return new Thermometer({
+export const registerThermo = (board) => (
+  new Thermometer({
     controller: TMP36,
     pin: THERMO_PIN,
     freq: THERMO_FREQ,
     id: board.id,
     board
-  });
-};
+  })
+);
 
-export const registerMotion = (board) => {
-  return new Motion({
+export const registerMotion = (board) => (
+  new Motion({
     controller: HCSR501,
     pin: MOTION_PIN,
     id: board.id,
     board
-  });
-};
+  })
+);

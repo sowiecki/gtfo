@@ -23,20 +23,20 @@ describe('Room utilities (server)', () => {
    */
   const mockReservations = () => (filterExpiredReservations([
     {
-      'startDate': '2016-03-08T15:00:00.000Z',
-      'endDate': '2016-03-08T15:30:00.000Z'
+      startDate: '2016-03-08T15:00:00.000Z',
+      endDate: '2016-03-08T15:30:00.000Z'
     },
     {
-      'startDate': '2016-03-08T15:30:00.000Z',
-      'endDate': '2016-03-08T16:30:00.000Z'
+      startDate: '2016-03-08T15:30:00.000Z',
+      endDate: '2016-03-08T16:30:00.000Z'
     },
     {
-      'startDate': '2016-03-08T16:30:00.000Z',
-      'endDate': '2016-03-08T19:30:00.000Z'
+      startDate: '2016-03-08T16:30:00.000Z',
+      endDate: '2016-03-08T19:30:00.000Z'
     },
     {
-      'startDate': '2016-03-08T19:30:00.000Z',
-      'endDate': '2016-03-08T20:00:00.000Z'
+      startDate: '2016-03-08T19:30:00.000Z',
+      endDate: '2016-03-08T20:00:00.000Z'
     }
   ]));
 

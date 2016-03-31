@@ -1,3 +1,4 @@
+/* eslint default-case:0 */
 import socketController from '../controllers/socket';
 
 import { markers } from '../environment';
