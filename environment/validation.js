@@ -6,7 +6,7 @@ import markerSchema from './schemas/marker';
 import coordinateSchema from './schemas/coordinate';
 import filesSchemas from './schemas/files';
 
-const validator = new Validator;
+const validator = new Validator();
 
 const schemas = {
   deviceSchema,
