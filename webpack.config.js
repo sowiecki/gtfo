@@ -1,11 +1,11 @@
-var path = require('path');
-var webpack = require('webpack');
+/* globals __dirname */
+const path = require('path');
 
 module.exports = {
   context: __dirname,
   entry: './client/application.jsx',
   output: {
-    path:  path.resolve(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, 'public', 'dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
   },

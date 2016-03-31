@@ -1,4 +1,3 @@
-const path = require('path');
 const webpack = require('webpack');
 const base = require('./webpack.config');
 
@@ -14,4 +13,4 @@ module.exports = {
   module: base.module,
   devtool: 'eval-source-map',
   debug: true
-}
+};

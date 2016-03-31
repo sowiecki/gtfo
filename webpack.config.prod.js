@@ -1,13 +1,14 @@
-var path = require('path');
-var webpack = require('webpack');
-var base = require('./webpack.config');
+/* globals __dirname */
+const path = require('path');
+const webpack = require('webpack');
+const base = require('./webpack.config');
 
 module.exports = {
   devtool: 'source-map',
   context: base.context,
   entry: base.entry,
   output: {
-    path:  path.resolve(__dirname, 'server', 'public', 'dist'),
+    path: path.resolve(__dirname, 'server', 'public', 'dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
   },
@@ -26,4 +27,4 @@ module.exports = {
       }
     })
   ]
-}
+};

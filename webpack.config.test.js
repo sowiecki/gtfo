@@ -1,3 +1,4 @@
+/* globals __dirname */
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('lodash/merge');
@@ -29,7 +30,7 @@ module.exports = {
     root: path.resolve('./client'),
     alias: {
       'sinon': 'sinon/pkg/sinon'
-    },
+    }
   }),
   plugins: [
     new webpack.DefinePlugin({

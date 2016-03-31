@@ -14,7 +14,7 @@ module.exports = {
   autoWatch: true,
   browsers: ['Chrome', 'PhantomJS'],
   customLaunchers: {
-    Chrome_travis_ci: {
+    ChromeTravisCi: {
       base: 'Chrome',
       flags: ['--no-sandbox']
     }
