@@ -56,7 +56,9 @@ const getMockData = () => {
       // Validate that each reservation is for today
       const allReservations = flatten(map(mockData, (room) => map(room, 'startDate')));
       const current = every(allReservations, (startDate) => {
-        return moment().calendar(startDate, {sameDay: '[Today]'}) === 'Today';
+        const isCurrent = moment().calendar(startDate, { sameDay: '[Today]' }) === 'Today';
+
+        return isCurrent;
       });
 
       if (!current) {

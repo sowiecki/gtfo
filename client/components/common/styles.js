@@ -20,8 +20,8 @@ export const colors = {
 };
 
 export const fonts = {
-  primary: `'Wire One', sans-serif`,
-  secondary: `'Titillium Web', sans-serif`
+  primary: '\'Wire One\', sans-serif',
+  secondary: '\'Titillium Web\', sans-serif'
 };
 
 export const breakpoints = {

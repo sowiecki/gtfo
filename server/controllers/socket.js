@@ -50,8 +50,8 @@ const socketController = {
     wss.on('connection', (client) => {
       socketController.handle(event, payload, client);
 
-      client.on('message', (message) => {
-        message = JSON.parse(message);
+      client.on('message', (data) => {
+        const message = JSON.parse(data);
 
         socketController.handle(message.event, message.payload, client);
       });

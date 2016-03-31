@@ -71,14 +71,14 @@ export const filterByLocation = (collection, location) => {
  * @param {string} name Name in hyphenated slug form.
  * @returns {string} Formatted name.
  */
-export const formatForDisplay = (name) => {
-  return name.split(/-/).map((word) => {
+export const formatForDisplay = (name) => (
+  name.split(/-/).map((word) => {
     const firstCharacter = word.charAt(0).toUpperCase();
     const restOfWord = word.slice(1);
 
     return `${firstCharacter}${restOfWord}`;
-  }).join(' ');
-};
+  }).join(' ')
+);
 
 /**
  * Plucks locations from a collection of rooms.
@@ -129,11 +129,11 @@ export const youAreHere = (marker, location) => {
  * @param {object} ping Ping object.
  * @returns {object} Meeting room state with pinged parameter set to true.
  */
-export const mapPing = (state, ping) => {
-  return state.get('meetingRooms').map((meetingRoom) => {
+export const mapPing = (state, ping) => (
+  state.get('meetingRooms').map((meetingRoom) => {
     if (meetingRoom.id === ping.id) {
       meetingRoom.pinged = true;
     }
     return meetingRoom;
-  });
-};
+  })
+);

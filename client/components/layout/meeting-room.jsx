@@ -20,7 +20,7 @@ const MeetingRoom = ({ room, pinged }) => {
   return (
     <svg {...parsePosition(room.coordinates)}>
       <VelocityComponent
-        animation={{fill: styles[room.alert || OFFLINE]}}>
+        animation={{ fill: styles[room.alert || OFFLINE] }}>
         <rect
           stroke={styles.svgStroke}
           {...parseShape(room.coordinates)}/>
@@ -29,7 +29,7 @@ const MeetingRoom = ({ room, pinged }) => {
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
-        style={{stroke: styles.svgStroke}}>
+        style={{ stroke: styles.svgStroke }}>
           <rect {...parseShape(room.coordinates)}/>
       </VelocityComponent>
       <text

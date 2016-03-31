@@ -10,12 +10,6 @@ const Marker = ({ marker, youAreHere }) => {
   const locationHighlight = youAreHere ? (
     <svg {...styles.locationHighlight}>
       <Place style={styles.placeMarker}/>
-      {/*<text
-        className='marker-text'
-        dx={TEXT_DX + 10}
-        dy={TEXT_DY}>
-        You are here!
-      </text>*/}
     </svg>
   ) : null;
 

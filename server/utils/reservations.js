@@ -10,10 +10,10 @@ import { filter } from 'lodash';
  * @param {array} reservations Meeting room reservations.
  * @return {array} Unexpired meeting room reservations.
  */
-export const filterExpiredReservations = (reservations) => {
-  return filter(reservations, (reservation) => {
+export const filterExpiredReservations = (reservations) => (
+  filter(reservations, (reservation) => {
     const reservationNotExpired = !moment(reservation.endDate).isBefore(Date.now());
 
     return reservationNotExpired;
-  });
-};
+  })
+);
