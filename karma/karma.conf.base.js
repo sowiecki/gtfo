@@ -8,7 +8,7 @@ module.exports = {
   preprocessors: {
     '../tests/config.client.js': ['webpack', 'sourcemap']
   },
-  webpack: require('../webpack.config.test'),
+  webpack: require('../webpack/webpack.config.test'),
   port: 9876,
   colors: true,
   autoWatch: true,

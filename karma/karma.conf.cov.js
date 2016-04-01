@@ -9,7 +9,7 @@ module.exports = (config) => {
       type: 'lcov',
       dir: 'coverage/'
     },
-    webpack: require('../webpack.config.cov'),
+    webpack: require('../webpack/webpack.config.cov'),
     logLevel: config.LOG_INFO
   });
 
