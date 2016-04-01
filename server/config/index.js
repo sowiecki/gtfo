@@ -10,6 +10,7 @@ if (argv.mocks) {
 
 if (argv.dd) {
   process.env.DISABLE_DEVICES = true;
+  console.log(colors.gray.italic('Devices disabled'));
 }
 
 const normalizePort = (val) => {
@@ -26,9 +27,8 @@ const normalizePort = (val) => {
   return false;
 };
 
-/* Ports */
 export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
 export const WEB_SOCKET_PORT = 4001;
 
-/* Server public path */
 export const PUBLIC_PATH = 'public';
+export const BUNDLE_PATH = '/dist/bundle.js';
