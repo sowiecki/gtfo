@@ -4,7 +4,11 @@ export default {
     id: '/ConfigSchema',
     type: 'object',
     properties: {
-      title: { type: 'string' },
+      public: {
+        properties: {
+          title: { type: 'string' }
+        }
+      },
       productionHost: { type: 'string' }
     },
     required: ['productionHost']

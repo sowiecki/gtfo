@@ -74,7 +74,9 @@ const socketController = {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
         registerClient(payload.anchor, client);
-        socketController.send(event, config, client);
+        const publicConfig = config.public; // Don't send sensative data out!
+
+        socketController.send(event, publicConfig, client);
       },
       [INITIALIZE_ROOMS]() {
         socketController.send(event, payload, client);
