@@ -1,5 +1,3 @@
-import transitions from './transitions';
-
 export const colors = {
   primary: '#0072C8',
   secondary: '#2591E2',
@@ -41,49 +39,3 @@ export const devices = {
            and (max-device-width: 568px)
            and (-webkit-min-device-pixel-ratio: 2)`
 };
-
-export const styles = {
-  // Used to override element styles on dark backgrounds
-  lightOnDark: {
-    color: colors.WHITE
-  },
-
-  loadingContainer: {
-    zIndex: 200,
-    position: 'absolute',
-    top: '25%',
-    height: '50%',
-    width: '100%',
-    textAlign: 'center'
-  },
-
-  progressColor: colors.primary,
-  progressSize: 5,
-
-  errorSnackbar: {
-    fontSize: '36px',
-    fontFamily: fonts.secondary
-  }
-};
-
-export const rules = {
-  body: {
-    'html, body, #root, #root > div': {
-      margin: '0',
-      height: '100%',
-      width: '100%',
-      overflow: 'hidden',
-      textAlign: 'center',
-      backgroundColor: colors.GHOST_WHITE
-    },
-
-    ...transitions
-  },
-
-  '*': {
-    boxSizing: 'border-box'
-  }
-};
-
-export const TRANSITION_ENTER_TIMEOUT = 2000;
-export const TRANSITION_EXIT_TIMEOUT = 2000;

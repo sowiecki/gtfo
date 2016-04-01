@@ -1,4 +1,4 @@
-import { colors, fonts } from '../common/styles';
+import { colors, fonts } from '../../common/styles';
 
 export const styles = {
   toolbar: {
