@@ -7,7 +7,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/nase00/gtfo/badge.svg?style=flat-square)](https://snyk.io/test/github/nase00/gtfo)
 [![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo)
 [![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies)
-[![bitHound](https://img.shields.io/bithound/code/github/Nase00/gtfo.svg?style=flat-square)]()
+[![bitHound](https://img.shields.io/bithound/code/github/Nase00/gtfo.svg?style=flat-square)](https://www.bithound.io/github/Nase00/gtfo/master/files)
 
 *This project is still in early development!*
 
