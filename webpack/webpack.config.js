@@ -7,7 +7,7 @@ module.exports = {
   context: baseContext,
   entry: '../client/application.jsx',
   output: {
-    path: path.resolve(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, '../server', 'public', 'dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
   },

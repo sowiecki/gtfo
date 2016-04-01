@@ -7,11 +7,7 @@ module.exports = {
   devtool: 'source-map',
   context: base.context,
   entry: base.entry,
-  output: {
-    path: path.resolve(__dirname, '../server', 'public', 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
-  },
+  output: base.output,
   resolve: base.resolve,
   module: base.module,
   plugins: [
