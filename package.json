@@ -44,6 +44,7 @@
     "cookie-parser": "^1.4.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "express-react-views": "^0.10.0",
     "foreman": "^1.4.1",
     "immutable": "^3.7.6",
     "immutable-props": "^1.0.0",
