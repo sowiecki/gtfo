@@ -3,12 +3,12 @@ module.exports = {
   frameworks: ['source-map-support', 'mocha', 'sinon'],
   reporters: ['dots'],
   files: [
-    'tests/config.client.js'
+    '../tests/config.client.js'
   ],
   preprocessors: {
-    'tests/config.client.js': ['webpack', 'sourcemap']
+    '../tests/config.client.js': ['webpack', 'sourcemap']
   },
-  webpack: require('./webpack.config.test'),
+  webpack: require('../webpack.config.test'),
   port: 9876,
   colors: true,
   autoWatch: true,
