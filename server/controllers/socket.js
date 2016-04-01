@@ -3,6 +3,9 @@
 import WebSocket from 'ws';
 import { filter, forEach } from 'lodash';
 
+import { config } from '../environment';
+import store from '../store/configure-store';
+
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED } from '../ducks/rooms';
 import { HANDSHAKE,
@@ -10,7 +13,6 @@ import { HANDSHAKE,
          INITIALIZE_MARKERS,
          RECONNECTED,
          NEW_ROOM_PING } from '../constants';
-import store from '../store/configure-store';
 
 import { getOrigin } from '../utils';
 
@@ -72,6 +74,9 @@ const socketController = {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
         registerClient(payload.anchor, client);
+        const publicConfig = config.public; // Don't send sensative data out!
+
+        socketController.send(event, publicConfig, client);
       },
       [INITIALIZE_ROOMS]() {
         socketController.send(event, payload, client);

@@ -1,5 +1,4 @@
 /* globals __dirname */
-const path = require('path');
 const webpack = require('webpack');
 const base = require('./webpack.config');
 

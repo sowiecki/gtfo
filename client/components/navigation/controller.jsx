@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
 import { ToolbarTitle,
@@ -16,56 +16,68 @@ import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const NavigationController = (props) => {
-  const { actions, navigation, locations, displayLegend, params } = props;
-  const { anchor } = props.location.query;
-  const { siteNavOpen, locationModalOpen } = navigation.toJS();
-  const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
-  const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
-  const toggleDisplayLegend = actions.emitToggleDisplayLegend.bind(null, displayLegend);
+class NavigationController extends Component {
+  componentWillReceiveProps(nextProps) {
+    const { documentTitle } = nextProps.navigation.toJS();
 
-  const renderLocationTab = (location, index) => (
-    <Tab
-      key={`${location}-${index}`}
-      label={formatForDisplay(location)}
-      value={locations.indexOf(location)}
-      onClick={actions.emitLocationIndexUpdate.bind(null, location, anchor)}
-      style={styles.toolbarTab}/>
-  );
+    document.title = documentTitle;
+  }
 
-  // TODO better null safety rendering
-  return locations ? (
-    <div>
-      <Toolbar style={styles.toolbar}>
-        <ToolbarGroup firstChild={true}>
-          <MenuButton toggleSiteNav={toggleSiteNav}/>
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
-        </ToolbarGroup>
-        <ToolbarGroup style={styles.toolbarTabs}>
-          <Tabs
-            value={locations.indexOf(params.location)}>
-              {locations.map(renderLocationTab)}
-          </Tabs>
-        </ToolbarGroup>
-      </Toolbar>
-      <LeftNav
-        open={siteNavOpen}
-        onRequestChange={toggleSiteNav}
-        docked={false}>
-          <LeftNavContent
-            toggleSiteNav={toggleSiteNav}
-            toggleLocationModal={toggleLocationModal}
-            toggleDisplayLegend={toggleDisplayLegend}
-            location={props.location}/>
-      </LeftNav>
-      <LocationModal
-        toggleLocationModal={toggleLocationModal}
-        {...props}/>
-    </div>
-  ) : <div/>;
-};
+  renderLocationTab(location, index) {
+    const { actions, locations } = this.props;
+    const { anchor } = this.props.location.query;
+
+    return (
+      <Tab
+        key={`${location}-${index}`}
+        label={formatForDisplay(location)}
+        value={locations.indexOf(location)}
+        onClick={actions.emitLocationIndexUpdate.bind(null, location, anchor)}
+        style={styles.toolbarTab}/>
+    );
+  }
+
+  render() {
+    const { actions, navigation, locations, displayLegend, params } = this.props;
+    const { siteNavOpen, locationModalOpen } = navigation.toJS();
+    const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+    const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
+    const toggleDisplayLegend = actions.emitToggleDisplayLegend.bind(null, displayLegend);
+
+    // TODO better null safety rendering
+    return locations ? (
+      <div>
+        <Toolbar style={styles.toolbar}>
+          <ToolbarGroup firstChild={true}>
+            <MenuButton toggleSiteNav={toggleSiteNav}/>
+          </ToolbarGroup>
+          <ToolbarGroup>
+            <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
+          </ToolbarGroup>
+          <ToolbarGroup style={styles.toolbarTabs}>
+            <Tabs
+              value={locations.indexOf(params.location)}>
+                {locations.map(this.renderLocationTab.bind(this))}
+            </Tabs>
+          </ToolbarGroup>
+        </Toolbar>
+        <LeftNav
+          open={siteNavOpen}
+          onRequestChange={toggleSiteNav}
+          docked={false}>
+            <LeftNavContent
+              toggleSiteNav={toggleSiteNav}
+              toggleLocationModal={toggleLocationModal}
+              toggleDisplayLegend={toggleDisplayLegend}
+              location={location}/>
+        </LeftNav>
+        <LocationModal
+          toggleLocationModal={toggleLocationModal}
+          {...this.props}/>
+      </div>
+    ) : <div/>;
+  }
+}
 
 NavigationController.propTypes = {
   actions: PropTypes.shape({
