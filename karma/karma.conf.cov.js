@@ -7,7 +7,7 @@ module.exports = (config) => {
     reporters: ['progress', 'coverage'],
     coverageReporter: {
       type: 'lcov',
-      dir: 'coverage/'
+      dir: '../coverage/'
     },
     webpack: require('../webpack/webpack.config.cov'),
     logLevel: config.LOG_INFO
