@@ -1,6 +1,7 @@
 /* eslint no-console:0 */
 /* globals console __dirname */
 import express from 'express';
+import expressReactViews from 'express-react-views';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -38,7 +39,8 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.set('port', SERVER_PORT);
 server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'ejs');
+server.set('view engine', 'jsx');
+server.engine('jsx', expressReactViews.createEngine());
 server.use('/', express.static(path.join(__dirname, PUBLIC_PATH)));
 server.use('/', routes);
 
