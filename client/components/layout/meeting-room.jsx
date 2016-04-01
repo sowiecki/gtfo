@@ -2,12 +2,14 @@ import React, { PropTypes } from 'react';
 import { VelocityComponent } from 'velocity-react';
 
 import { applyStyles } from '../../config/composition';
-import { styles, TEXT_DX, TEXT_DY } from './styles';
+import { styles } from './styles';
 import { parsePosition, parseShape } from '../../utils';
 import { OFFLINE,
          PINGED,
          PING_ANIMATION_LOOPS,
-         PING_ANIMATION_TIMEOUT } from '../../constants';
+         PING_ANIMATION_TIMEOUT,
+         TEXT_DX,
+         TEXT_DY } from '../../constants';
 
 const MeetingRoom = ({ room, pinged }) => {
   const pingAnimation = {

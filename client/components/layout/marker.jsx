@@ -3,7 +3,8 @@ import React, { PropTypes } from 'react';
 import Place from 'material-ui/lib/svg-icons/maps/place';
 
 import { applyStyles } from '../../config/composition';
-import { styles, TEXT_DX, MARKER_TEXT_DY } from './styles';
+import { styles } from './styles';
+import { TEXT_DX, MARKER_TEXT_DY } from '../../constants';
 import { parsePosition } from '../../utils';
 
 const Marker = ({ marker, youAreHere }) => {
