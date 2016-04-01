@@ -1,3 +1,4 @@
+import { EMIT_HANDSHAKE_RECEIVED } from '../ducks/navigation';
 import { EMIT_ROOM_STATUSES_UPDATE,
          EMIT_SET_ROOM_PING,
          EMIT_MARKERS_UPDATE,
@@ -14,7 +15,10 @@ const parseEvent = (next, response) => {
 
   const handlers = {
     [HANDSHAKE]() {
-      next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
+      next({
+        type: EMIT_HANDSHAKE_RECEIVED,
+        config: payload
+      });
     },
     [INITIALIZE_ROOMS]() {
       next({
