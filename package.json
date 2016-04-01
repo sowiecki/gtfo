@@ -10,7 +10,7 @@
   "scripts": {
     "start": "npm run prod",
     "clean": "rimraf server/public/dist",
-    "lint": "eslint --ext .js,.jsx *.js client server environment tests",
+    "lint": "eslint --ext .js,.jsx *.js client server environment tests webpack karma",
     "server": "node ./application.js",
     "dev": "npm run clean && nf start dev-server,dev-client --",
     "hot": "npm run clean && HOT=true npm run dev-server --",
