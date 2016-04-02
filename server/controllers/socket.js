@@ -71,37 +71,40 @@ const socketController = {
   },
 
   handle(event, payload, client) {
-    const handlers = {
-      [HANDSHAKE]() { // Register client socket with anchor parameter.
+    switch (event) {
+      case HANDSHAKE: // Register client socket with anchor parameter.
         registerClient(payload.anchor, client);
         const publicConfig = config.public; // Don't send sensative data out!
 
         socketController.send(event, publicConfig, client);
-      },
-      [INITIALIZE_ROOMS]() {
+        break;
+
+      case INITIALIZE_ROOMS:
         socketController.send(event, payload, client);
-      },
-      [INITIALIZE_MARKERS]() {
+      break;
+
+      case INITIALIZE_MARKERS:
         socketController.send(event, payload, client);
-      },
-      [RECONNECTED]() { // Reregister client socket with anchor parameter.
+        break;
+
+      case RECONNECTED: // Reregister client socket with anchor parameter.
         registerClient(payload.anchor, client);
-      },
-      [NEW_ROOM_PING]() { // Send ping to clients with matching anchor parameter.
+        break;
+
+      case NEW_ROOM_PING: // Send ping to clients with matching anchor parameter.
         const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
 
         forEach(clientsWithAnchor, (clientWithAnchor) => {
           socketController.send(event, payload, clientWithAnchor);
         });
-      },
-      sendToAll() {
+        break;
+
+      default:
         forEach(clients, (ws) => {
           socketController.send(event, payload, ws);
         });
-      }
-    };
-
-    return handlers[event] ? handlers[event]() : handlers.sendToAll();
+        break;
+    }
   }
 };
 

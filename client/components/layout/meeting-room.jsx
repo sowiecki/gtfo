@@ -18,7 +18,7 @@ const MeetingRoom = ({ room, pinged }) => {
   };
 
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
-
+console.log(room)
   return (
     <svg {...parsePosition(room.coordinates)}>
       <VelocityComponent

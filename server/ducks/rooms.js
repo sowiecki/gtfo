@@ -6,7 +6,10 @@ import { flashNotifications,
          logRoomStatuses,
          filterExpiredReservations,
          getRoomAlert } from '../utils';
-import { INITIALIZE_ROOMS, ROOM_STATUSES_UPDATE } from '../constants';
+import { INITIALIZE_ROOMS,
+         TEMPERATURE_UPDATE,
+         MOTION_UPDATE,
+         ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
@@ -70,10 +73,12 @@ const roomsReducer = (state = devices, action) => {
       break;
     case EMIT_ROOM_TEMPERATURE_UPDATE:
       state.temperature = temperature;
+      // socketController.handle(TEMPERATURE_UPDATE, state, action.client);
 
       break;
     case EMIT_ROOM_MOTION_UPDATE:
       state.lastMotion = lastMotion || false;
+      // socketController.handle(MOTION_UPDATE, state, action.client);
 
       break;
   }
