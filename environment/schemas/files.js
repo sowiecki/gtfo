@@ -11,7 +11,7 @@ export default {
       },
       productionHost: { type: 'string' }
     },
-    required: ['productionHost']
+    required: ['public', 'productionHost']
   },
   devices: {
     title: 'Devices Schema',
