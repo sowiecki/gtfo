@@ -16,7 +16,6 @@ export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
-export const EMIT_ROOM_STATUSES_ERROR = 'EMIT_ROOM_STATUSES_ERROR';
 export const EMIT_INIT_DEVICES = 'EMIT_INIT_DEVICES';
 export const EMIT_ROOM_PING_RECEIVED = 'EMIT_ROOM_PING_RECEIVED';
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
@@ -66,9 +65,6 @@ const roomsReducer = (state = devices, action) => {
 
       break;
 
-    case EMIT_ROOM_STATUSES_ERROR:
-      // TODO error handling
-      break;
     case EMIT_ROOM_TEMPERATURE_UPDATE:
       socketController.handle(ROOM_TEMPERATURE_UPDATE, action.room);
 

@@ -76,7 +76,7 @@ const socketController = {
         registerClient(payload.anchor, client);
         const publicConfig = config.public; // Don't send sensative data out!
 
-        socketController.send(event, publicConfig, client);
+        socketController.send(event, publicConfig, client); // Reply with config
       },
       [INITIALIZE_ROOMS]() {
         socketController.send(event, payload, client);
