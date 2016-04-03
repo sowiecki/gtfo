@@ -21,43 +21,48 @@ const MapLegend = ({ showYouAreHere, enabled }) => {
     </ListItem>
   ) : null;
 
-  const offlineIcon = (
-    <Avatar backgroundColor={styles.OFFLINE}/>
-  );
-
-  const bookedIcon = (
-    <Avatar backgroundColor={styles.BOOKED}/>
-  );
-
-  const vacantIcon = (
-    <Avatar backgroundColor={styles.VACANT}/>
-  );
-
-  const fiveMinuteWarningIcon = (
-    <Avatar backgroundColor={styles.FIVE_MINUTE_WARNING}/>
-  );
-
-  const oneMinuteWarningIcon = (
-    <Avatar backgroundColor={styles.ONE_MINUTE_WARNING}/>
+  const getIcon = (style) => (
+    <Avatar backgroundColor={style}/>
   );
 
   return (
     <List className='map-legend'>
       {youAreHereListItem}
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={offlineIcon}>
-        Offline
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.OFFLINE)}>
+          Offline
       </ListItem>
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={bookedIcon}>
-        Booked
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.BOOKED)}>
+          Booked
       </ListItem>
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={vacantIcon}>
-        Vacant
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.SQUATTED)}>
+          Squatted with no reservation
       </ListItem>
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={fiveMinuteWarningIcon}>
-        Five minute warning
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.VACANT)}>
+          Vacant
       </ListItem>
-      <ListItem style={styles.mapLegendItem} disabled={true} leftAvatar={oneMinuteWarningIcon}>
-        One minute warning
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.FIVE_MINUTE_WARNING)}>
+          Five minute warning
+      </ListItem>
+      <ListItem
+        style={styles.mapLegendItem}
+        disabled={true}
+        leftAvatar={getIcon(styles.ONE_MINUTE_WARNING)}>
+          One minute warning
       </ListItem>
     </List>
   );

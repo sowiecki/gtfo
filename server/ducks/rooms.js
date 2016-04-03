@@ -1,4 +1,4 @@
-/* eslint no-case-declarations:0, default-case:0 */
+/* eslint no-case-declarations:0, default-case:0, no-fallthrough:0 */
 import socketController from '../controllers/socket';
 
 import { devices } from '../environment';
@@ -10,7 +10,6 @@ import { flashNotifications,
          secureRooms } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
-         ROOM_MOTION_UPDATE,
          ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -33,12 +32,10 @@ const roomsReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case EMIT_INIT_DEVICES:
-      secureRoom,
       socketController.open(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
 
       break;
     case EMIT_CLIENT_CONNECTED:
-      secureRoom,
       socketController.handle(INITIALIZE_ROOMS, secureRooms(state.rooms), action.client);
 
       break;

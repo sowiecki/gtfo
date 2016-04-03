@@ -9,9 +9,9 @@ import { RED,
          FAINT_LIGHT_LEVEL } from '../constants';
 
 export const squatted = (led) => {
- led.stop(); // Prevent rogue strobing
- led.intensity(FAINT_LIGHT_LEVEL);
- led.color(PURPLE);
+  led.stop(); // Prevent rogue strobing
+  led.intensity(FAINT_LIGHT_LEVEL);
+  led.color(PURPLE);
 };
 
 export const vacant = (led) => {

@@ -25,7 +25,6 @@ const parseEvent = (next, response) => {
       });
     },
     [INITIALIZE_ROOMS]() {
-      console.log(payload)
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,
         meetingRooms: payload

@@ -57,17 +57,13 @@ export const getRoomAlert = (reservations = [], hasRecentMotion) => {
  * @param {object} Room object.
  * @returns {object} Room object safe for public consumption.
  */
-export const secureRoom = (room) => {
-  const secureRoom = {
-    id: room.id,
-    alert: room.alert,
-    coordinates: room.coordinates,
-    location: room.location,
-    name: room.name
-  };
-
-  return secureRoom;
-};
+export const secureRoom = (room) => ({
+  id: room.id,
+  alert: room.alert,
+  coordinates: room.coordinates,
+  location: room.location,
+  name: room.name
+});
 
 /**
  * Clones rooms without sensative properties before sending to clients.
