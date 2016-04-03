@@ -16,7 +16,7 @@
     "hot": "npm run clean && HOT=true npm run dev-server --",
     "prod": "npm run clean && npm run prod-client && npm run prod-server --",
     "dev-client": "webpack-dev-server --config webpack/webpack.config.dev.js --color --progress --inline --content-base webpack",
-    "dev-server": "nodemon --ignore mock-data.json --ignore client/ ./application.js",
+    "dev-server": "nodemon --ignore mock-data.json --ignore client/ --ignore /tests ./application.js",
     "prod-client": "npm run lint && NODE_ENV=production webpack --config webpack/webpack.config.prod.js",
     "prod-server": "NODE_ENV=production npm run server",
     "deploy-server": "NODE_ENV=production forever start ./application.js",
