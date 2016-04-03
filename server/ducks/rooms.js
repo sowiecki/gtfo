@@ -1,14 +1,15 @@
-/* eslint no-case-declarations:0, default-case:0 */
+/* eslint no-case-declarations:0, default-case:0, no-fallthrough:0 */
 import socketController from '../controllers/socket';
 
 import { devices } from '../environment';
 import { flashNotifications,
          logRoomStatuses,
          filterExpiredReservations,
-         getRoomAlert } from '../utils';
+         getRoomAlert,
+         secureRoom,
+         secureRooms } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
-         ROOM_MOTION_UPDATE,
          ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -22,60 +23,67 @@ export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
-const roomsReducer = (state = devices, action) => {
+const initialState = {
+  rooms: devices
+};
+
+const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
-  const { accessories } = action;
 
   switch (action.type) {
     case EMIT_INIT_DEVICES:
-      socketController.open(ROOM_STATUSES_UPDATE, state);
+      socketController.open(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
 
       break;
     case EMIT_CLIENT_CONNECTED:
-      socketController.handle(INITIALIZE_ROOMS, state, action.client);
+      socketController.handle(INITIALIZE_ROOMS, secureRooms(state.rooms), action.client);
 
       break;
-    case EMIT_ROOM_STATUSES_UPDATE:
-      const filteredReservations = filterExpiredReservations(action.reservations);
-      const alert = getRoomAlert(filteredReservations);
-
-      /**
-       * TODO
-       * This is pretty gross, but necessary pending further major refactoring.
-       * alertChanged is set and used to prevent spamming updates with duplicate data.
-       */
-      state = state.map((room) => {
+    case EMIT_ROOM_MOTION_UPDATE:
+      state.rooms.map((room) => {
         if (room.id === action.room.id) {
-          const stateDiff = room.alert !== alert;
+          room.motion = action.motion;
+        }
 
-          if (stateDiff) {
+        return room;
+      });
+    case EMIT_ROOM_STATUSES_UPDATE:
+      state.rooms = state.rooms.map((room) => {
+        if (room.id === action.room.id) {
+          const accessories = room.accessories || action.accessories;
+          const reservations = room.reservations || action.reservations;
+          const filteredReservations = filterExpiredReservations(reservations);
+          const alert = getRoomAlert(filteredReservations, room.motion);
+
+          if (room.alert !== alert) {
             alertChanged = true;
           }
 
           room.alert = alert;
+
+          if (action.type === EMIT_ROOM_STATUSES_UPDATE) {
+            room.accessories = action.accessories;
+            room.reservations = action.reservations;
+          }
+
           flashNotifications(room, accessories);
         }
         return room;
       });
 
       if (alertChanged) {
-        logRoomStatuses(state);
-        socketController.handle(ROOM_STATUSES_UPDATE, state);
+        logRoomStatuses(state.rooms);
+        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
       }
 
       break;
-
     case EMIT_ROOM_TEMPERATURE_UPDATE:
-      socketController.handle(ROOM_TEMPERATURE_UPDATE, action.room);
-
-      break;
-    case EMIT_ROOM_MOTION_UPDATE:
-      socketController.handle(ROOM_MOTION_UPDATE, action.room);
+      socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(action.room));
 
       break;
   }
 
-  return [].concat(state);
+  return state;
 };
 
 export default roomsReducer;

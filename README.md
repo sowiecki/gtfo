@@ -20,7 +20,12 @@ git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
 npm run hot -- --mocks
 ```
-This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate).
+This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate) and [Redux DevTools](https://github.com/gaearon/redux-devtools).
+
+##### DevTools keybindings
+ `shift+q` Open/close DevTools dock.
+<br/> `shift+w` Change DevTools dock position.
+<br/> `shift+e` Change active DevTools monitor.
 
 To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
 
@@ -29,12 +34,11 @@ In production mode, it assumed `ems-wrapper` is deployed on another domain, defi
 ##### Options
 ```bash
 --mocks # Disables Outlook api in favor of using mock reservation data
-
 --dd # Disabled devices, useful for testing client without hardware
 ```
 ##### Production
 ```bash
-npm run prod # Production mode with live data (ems-wrapper must be deployed)
+npm run prod # Production mode with live data. ems-wrapper must be deployed!
 ```
 
 ##### Disabling hot reloading
@@ -44,12 +48,12 @@ npm run dev # But why would you want to?
 
 ##### Tests
 ```bash
-npm run test
+npm run test # Runs linting, tests client and server code.
 ```
 
 ## Configuration
 
-- Raspberry Pi 2 Model B v1.1 running JESSIE (other models and distros likely work, but are untested)
+- Raspberry Pi 2 Model B v1.1 running JESSIE (any *nix system likely works)
 - *n* number of [Particle Photons](https://store.particle.io)
 
 ## Setup
@@ -58,6 +62,8 @@ npm run test
 First, wire a common cathode RGB LED to each Photon board.
 
 ###### RGB pin configuration
+Hardware: Common cathode RGB LED
+
 | Wire   | Pin   |
 |:------:|:-----:|
 | R      | D0    |
@@ -69,12 +75,30 @@ After setting up each device to [Particle's cloud service](https://docs.particle
 
 Finally, retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
 
-#### Raspberry Pi
+###### Temperature sensor pin configuration (optional)
+Hardware: [TMP36](http://www.instructables.com/id/How-to-use-the-TMP36-temp-sensor-Arduino-Tutorial/)
+
+| Wire   | Pin   |
+|:------:|:-----:|
+| Data   | A1    |
+| Power  | 3v3   |
+| Ground | Ground|
+
+###### Motion sensor pin configuration (optional)
+Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/)
+
+| Wire   | Pin   |
+|:------:|:-----:|
+| Data   | A0    |
+| Power  | 3v3   |
+| Ground | Ground|
+
+###### Raspberry Pi
 1. Load Debian JESSIE variant onto Raspiberry Pi.
 2. Configure SSH and other desired settings.
 3. Clone this program onto the Raspberry Pi.
-4. Create and configure a `devices.json` file in the root directory.
-5. `npm run hot`. (prod under development)
+4. Create and configure [environment files](./environment/README.md) in the `/environment` directory.
+5. `npm run prod`.
 
 ### Ping API
 *Alexa, where is Kerbin?*

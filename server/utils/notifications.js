@@ -1,6 +1,7 @@
 /* eslint no-console:0 */
 import * as flash from './flash';
-import { VACANT,
+import { SQUATTED,
+         VACANT,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
          BOOKED } from '../constants';
@@ -18,6 +19,8 @@ export const flashNotifications = (roomStatus, accessories) => {
   }
 
   const handleFlash = {
+    [SQUATTED]: () => flash.squatted(accessories.led),
+
     [VACANT]: () => flash.vacant(accessories.led),
 
     [ONE_MINUTE_WARNING]: () => flash.oneMinuteWarning(accessories.led),

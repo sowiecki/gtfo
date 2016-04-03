@@ -35,15 +35,17 @@ export const styles = {
 
   svgStroke: colors.GREY,
 
-  OFFLINE: colors.GREY,
-
-  BOOKED: colors.BLUE,
+  SQUATTED: colors.TEAL,
 
   VACANT: colors.GREEN,
 
   ONE_MINUTE_WARNING: colors.RED,
 
   FIVE_MINUTE_WARNING: colors.ORANGE,
+
+  BOOKED: colors.BLUE,
+
+  OFFLINE: colors.GREY,
 
   PINGED: colors.YELLOW
 };

@@ -24,7 +24,7 @@ import { EMIT_INIT_DEVICES,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
-const rooms = store().getState().roomsReducer;
+const { rooms } = store().getState().roomsReducer;
 
 const devicesController = {
   initRooms() {
