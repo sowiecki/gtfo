@@ -5,10 +5,11 @@ const fetchRoomTemperature = (next, action) => {
   const { thermo } = accessories;
 
   thermo.on('data', () => {
+    room.tmpVoltage = thermo.F;
+
     next({
       type: EMIT_ROOM_TEMPERATURE_UPDATE,
-      room,
-      temperature: thermo.F
+      room
     });
   });
 };

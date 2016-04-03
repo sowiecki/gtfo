@@ -7,8 +7,8 @@ import { flashNotifications,
          filterExpiredReservations,
          getRoomAlert } from '../utils';
 import { INITIALIZE_ROOMS,
-         TEMPERATURE_UPDATE,
-         MOTION_UPDATE,
+         ROOM_TEMPERATURE_UPDATE,
+         ROOM_MOTION_UPDATE,
          ROOM_STATUSES_UPDATE } from '../constants';
 
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -25,9 +25,7 @@ export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 const roomsReducer = (state = devices, action) => {
   let alertChanged = false;
-  const { accessories,
-          temperature,
-          lastMotion } = action;
+  const { accessories } = action;
 
   switch (action.type) {
     case EMIT_INIT_DEVICES:
@@ -72,13 +70,11 @@ const roomsReducer = (state = devices, action) => {
       // TODO error handling
       break;
     case EMIT_ROOM_TEMPERATURE_UPDATE:
-      state.temperature = temperature;
-      // socketController.handle(TEMPERATURE_UPDATE, state, action.client);
+      socketController.handle(ROOM_TEMPERATURE_UPDATE, action.room);
 
       break;
     case EMIT_ROOM_MOTION_UPDATE:
-      state.lastMotion = lastMotion || false;
-      // socketController.handle(MOTION_UPDATE, state, action.client);
+      socketController.handle(ROOM_MOTION_UPDATE, action.room);
 
       break;
   }

@@ -16,6 +16,8 @@ export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
+export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
+export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
@@ -50,14 +52,12 @@ const initialState = immutable.fromJS({
 });
 
 const layoutReducer = (state = initialState, action) => {
-  const { meetingRooms, ping } = action;
-
   const reducers = {
     [EMIT_ROOM_STATUSES_UPDATE]() {
-      const locations = pluckLocations(meetingRooms);
+      const locations = pluckLocations(action.meetingRooms);
 
       return state
-        .set('meetingRooms', meetingRooms)
+        .set('meetingRooms', action.meetingRooms)
         .set('locations', locations);
     },
 
@@ -70,7 +70,7 @@ const layoutReducer = (state = initialState, action) => {
     },
 
     [EMIT_SET_ROOM_PING]() {
-      return state.set('ping', ping);
+      return state.set('ping', action.ping);
     },
 
     [EMIT_CLEAR_PING]() {
@@ -83,6 +83,21 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_MARKERS_UPDATE]() {
       return state.set('markers', action.markers);
+    },
+
+    [EMIT_ROOM_TEMPERATURE_UPDATE]() {
+      const meetingRooms = state.get('meetingRooms').map((room) => {
+        if (action.room.id === room.id) {
+          room.tmpVoltage = action.room.tmpVoltage;
+        }
+        return room;
+      });
+
+      return state.set('meetingRooms', meetingRooms);
+    },
+
+    [EMIT_ROOM_MOTION_UPDATE]() {
+      return state;
     }
   };
 

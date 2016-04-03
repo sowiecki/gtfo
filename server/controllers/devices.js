@@ -70,9 +70,9 @@ const devicesController = {
         }, CHECK_INTERVAL);
       });
 
-      board.on('fail', () => {
-        console.log(`Connection failure to ${board.id}`);
-      });
+      board.on('warn', (warning) => console.log(`Warning received from ${board.id}`, warning));
+      board.on('message', (message) => console.log(`Message received from ${board.id}`, message));
+      board.on('fail', () => console.log(`Connection failure to ${board.id}`));
     });
   },
   getRooms() {

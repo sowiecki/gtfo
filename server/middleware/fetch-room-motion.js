@@ -9,10 +9,11 @@ const fetchRoomMotion = (next, action) => {
   const { motion } = accessories;
 
   motion.on('motionStart', () => {
+    room.lastMotion = moment().toISOString();
+
     next({
       type: EMIT_ROOM_MOTION_UPDATE,
-      room,
-      lastMotion: moment().toISOString()
+      room
     });
   });
 };

@@ -99,8 +99,8 @@ class LayoutController extends Component {
     return (
       <MeetingRoom
         key={`${meetingRoom.name}`}
-        room={meetingRoom}
-        pinged={ping && ping.id === meetingRoom.id}/>
+        pinged={ping && ping.id === meetingRoom.id}
+        {...meetingRoom}/>
     );
   }
 

@@ -1,5 +1,7 @@
 import { EMIT_HANDSHAKE_RECEIVED } from '../ducks/navigation';
 import { EMIT_ROOM_STATUSES_UPDATE,
+         EMIT_ROOM_TEMPERATURE_UPDATE,
+         EMIT_ROOM_MOTION_UPDATE,
          EMIT_SET_ROOM_PING,
          EMIT_MARKERS_UPDATE,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
@@ -8,7 +10,9 @@ import { HANDSHAKE,
          INITIALIZE_MARKERS,
          RECONNECTED,
          ROOM_STATUSES_UPDATE,
-         NEW_ROOM_PING } from '../constants';
+         NEW_ROOM_PING,
+         ROOM_TEMPERATURE_UPDATE,
+         ROOM_MOTION_UPDATE } from '../constants';
 
 const parseEvent = (next, response) => {
   const { event, payload } = JSON.parse(response.data);
@@ -39,6 +43,18 @@ const parseEvent = (next, response) => {
       next({
         type: EMIT_ROOM_STATUSES_UPDATE,
         meetingRooms: payload
+      });
+    },
+    [ROOM_TEMPERATURE_UPDATE]() {
+      next({
+        type: EMIT_ROOM_TEMPERATURE_UPDATE,
+        room: payload
+      });
+    },
+    [ROOM_MOTION_UPDATE]() {
+      next({
+        type: EMIT_ROOM_MOTION_UPDATE,
+        room: payload
       });
     },
     [NEW_ROOM_PING]() {

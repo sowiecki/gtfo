@@ -4,7 +4,7 @@ import Place from 'material-ui/lib/svg-icons/maps/place';
 
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
-import { TEXT_DX, MARKER_TEXT_DY } from '../../constants';
+import { ROOM_NAME_TEXT_DX, MARKER_ROOM_NAME_TEXT_DY } from '../../constants';
 import { parsePosition } from '../../utils';
 
 const Marker = ({ marker, youAreHere }) => {
@@ -18,8 +18,8 @@ const Marker = ({ marker, youAreHere }) => {
     <svg {...parsePosition(marker.coordinates)}>
       <text
         className='marker-text'
-        dx={TEXT_DX}
-        dy={MARKER_TEXT_DY}>
+        dx={ROOM_NAME_TEXT_DX}
+        dy={MARKER_ROOM_NAME_TEXT_DY}>
         {marker.name}
       </text>
       {locationHighlight}
