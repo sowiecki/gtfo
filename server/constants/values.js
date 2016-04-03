@@ -19,7 +19,6 @@ export const SPINNER_DELAY = 2500;
 export const IN = 'IN';
 export const OUT = 'OUT';
 
-export const SQUATTING_STROKE = 800;
 export const ONE_MINUTE_STROBE = 200; // milliseconds
 export const FIVE_MINUTE_STROBE = 400; // milliseconds
 export const FAINT_LIGHT_LEVEL = 25;
