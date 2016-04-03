@@ -150,4 +150,4 @@ export const calcFahrenheitTemp = (fahrenheitTmpVoltage) => parseInt(fahrenheitT
  * @params {number} fahrenheitTmpVoltage Fahrenheit-adjusted TMP36 voltage.
  * @returns {number} Temperature in Fahrenheit.
  */
-export const calcCelciusTemp = (celciusTmpVoltage) => parseInt(celciusTmpVoltage, 10) + 60;
+export const calcCelciusTemp = (celciusTmpVoltage) => parseInt(celciusTmpVoltage, 10) + 32;

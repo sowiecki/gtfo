@@ -14,10 +14,14 @@ const Temperature = (props) => {
           celciusTmpVoltage,
           coordinates } = props;
 
+  if (!fahrenheitTmpVoltage || !celciusTmpVoltage) {
+    return <text/>;
+  }
+
   const temperature = tempScale === FAHRENHEIT ?
     calcFahrenheitTemp(fahrenheitTmpVoltage) : calcCelciusTemp(celciusTmpVoltage);
 
-  return fahrenheitTmpVoltage ? (
+  return (
       <text
         className='temperature-text'
         dx={ROOM_TEMPERATURE_TEXT_DX}
@@ -25,7 +29,7 @@ const Temperature = (props) => {
         {...parseShape(coordinates)}>
           {`${temperature} °${tempScale === FAHRENHEIT ? 'F' : 'C'}`}
       </text>
-  ) : <text/>;
+  );
 };
 
 Temperature.propTypes = {

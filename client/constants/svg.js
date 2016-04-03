@@ -13,3 +13,4 @@ export const ROOM_TEMPERATURE_TEXT_DY = 54;
 export const MARKER_ROOM_NAME_TEXT_DY = ROOM_NAME_TEXT_DY + 16;
 
 export const FAHRENHEIT = 'fahrenheit';
+export const CELCIUS = 'celcius';

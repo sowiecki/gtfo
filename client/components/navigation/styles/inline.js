@@ -31,5 +31,16 @@ export const styles = {
 
   navIcons: {
     marginLeft: '24'
+  },
+
+  tempScaleNavIcon: {
+    margin: '6px 6px 6px 29px',
+    fontFamily: fonts.secondary
+  },
+
+  fadedIcon: {
+    opacity: 0.5
   }
 };
+
+export const LEFT_HAND_NAV_WIDTH = 300;

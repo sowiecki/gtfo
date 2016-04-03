@@ -29,7 +29,8 @@ const mapStateToProps = (state) => {
     navigation: navigationReducer,
     locations: layoutReducer.get('locations'),
     displayLegend: layoutReducer.get('displayLegend'),
-    displayTemp: layoutReducer.get('displayTemp')
+    displayTemp: layoutReducer.get('displayTemp'),
+    tempScale: layoutReducer.get('tempScale')
   };
 };
 

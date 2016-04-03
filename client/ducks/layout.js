@@ -3,6 +3,7 @@ import immutable from 'immutable';
 import { pluckLocations } from '../utils';
 
 import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
+import { FAHRENHEIT, CELCIUS } from '../constants';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
@@ -15,6 +16,7 @@ export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
 
 export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
 export const EMIT_TOGGLE_DISPLAY_TEMPERATURE = 'EMIT_TOGGLE_DISPLAY_TEMPERATURE';
+export const EMIT_TOGGLE_TEMP_SCALE = 'EMIT_TOGGLE_TEMP_SCALE';
 
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
@@ -38,9 +40,14 @@ export const emitToggleDisplayLegend = (displayLegend) => ({
   displayLegend
 });
 
-export const emittoggleDisplayTemp = (displayTemp) => ({
+export const emitToggleDisplayTemp = (displayTemp) => ({
   type: EMIT_TOGGLE_DISPLAY_TEMPERATURE,
   displayTemp
+});
+
+export const emitToggleTempScale = (tempScale) => ({
+  type: EMIT_TOGGLE_TEMP_SCALE,
+  tempScale
 });
 
 export const emitMarkersActivated = (markers) => ({
@@ -97,6 +104,12 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_TOGGLE_DISPLAY_TEMPERATURE]() {
       return state.set('displayTemp', !action.displayTemp);
+    },
+
+    [EMIT_TOGGLE_TEMP_SCALE]() {
+      const tempScale = action.tempScale === FAHRENHEIT ? CELCIUS : FAHRENHEIT;
+
+      return state.set('tempScale', tempScale);
     },
 
     [EMIT_MARKERS_UPDATE]() {
