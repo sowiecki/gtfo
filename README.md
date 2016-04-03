@@ -1,7 +1,7 @@
 <!-- Build & code status -->
 [![GitHub Release](https://img.shields.io/github/release/Nase00/gtfo.svg?style=flat-square)](https://github.com/Nase00/gtfo/releases)
 [![Build Status](https://img.shields.io/travis/Nase00/gtfo/master.svg?style=flat-square)](https://travis-ci.org/Nase00/gtfo)
-[![Coveralls](https://img.shields.io/coveralls/Nase00/gtfo.svg?style=flat-square)]()
+[![Coveralls](https://img.shields.io/coveralls/Nase00/gtfo.svg?style=flat-square)](https://coveralls.io/github/Nase00/gtfo)
 [![bitHound](https://img.shields.io/bithound/code/github/Nase00/gtfo.svg?style=flat-square)](https://www.bithound.io/github/Nase00/gtfo/master/files)
 
 <!-- Dependency status -->
