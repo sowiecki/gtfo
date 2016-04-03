@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import history from '../../config/history';
 
-import FontIcon from 'material-ui/lib/font-icon';
+import { FontIcon, Divider } from 'material-ui/lib';
 import { List, ListItem } from 'material-ui/lib/lists';
 
 import { base } from '../../config/composition';
@@ -11,7 +11,13 @@ const LeftNavContent = (props) => {
   const { location,
           toggleLocationModal,
           toggleSiteNav,
-          toggleDisplayLegend } = props;
+          toggleDisplayLegend,
+          toggleDisplayTemp,
+          toggleTempScale,
+          displayLegend,
+          displayTemp,
+          tempScale } = props;
+
   const fullScreenParams = {
     pathname: location.pathname,
     query: {
@@ -20,39 +26,40 @@ const LeftNavContent = (props) => {
     }
   };
 
-  const placeIcon = (
-    <FontIcon className='material-icons' style={styles.navIcons}>place</FontIcon>
-  );
-
-  const mapLegendIcon = (
-    <FontIcon className='material-icons' style={styles.navIcons}>map</FontIcon>
-  );
-
-  const fullscreenIcon = (
-    <FontIcon className='material-icons' style={styles.navIcons}>fullscreen</FontIcon>
-  );
-
-  const closeIcon = (
-    <FontIcon className='material-icons' style={styles.navIcons}>clear</FontIcon>
+  const generateIcon = (icon, style) => (
+    <FontIcon className='material-icons' style={style}>{icon}</FontIcon>
   );
 
   return (
     <List>
       <ListItem
         onClick={toggleLocationModal}
-        leftIcon={placeIcon}
+        leftIcon={generateIcon('place', styles.navIcons)}
         primaryText='Edit Location'/>
       <ListItem
         onClick={() => history.push(fullScreenParams)}
-        leftIcon={fullscreenIcon}
+        leftIcon={generateIcon('fullscreen', styles.navIcons)}
         primaryText='Open fullscreen'/>
+      <Divider/>
       <ListItem
         onClick={toggleDisplayLegend}
-        leftIcon={mapLegendIcon}
+        style={displayLegend ? null : styles.fadedIcon}
+        leftIcon={generateIcon('map', styles.navIcons)}
         primaryText='Toggle map legend'/>
       <ListItem
+        onClick={toggleDisplayTemp}
+        style={displayTemp ? null : styles.fadedIcon}
+        leftIcon={generateIcon('ac_unit', styles.navIcons)}
+        primaryText='Toggle temperature display'/>
+      <ListItem
+        onClick={toggleTempScale}
+        style={displayTemp ? null : styles.fadedIcon}
+        leftIcon={generateIcon(tempScale[0].toUpperCase(), styles.tempScaleNavIcon)}
+        primaryText='Toggle fahrenheit/celcius'/>
+      <Divider/>
+      <ListItem
         onClick={toggleSiteNav}
-        leftIcon={closeIcon}
+        leftIcon={generateIcon('clear', styles.navIcons)}
         primaryText='Close'/>
     </List>
   );
@@ -62,7 +69,12 @@ LeftNavContent.propTypes = {
   location: PropTypes.object,
   toggleLocationModal: PropTypes.func.isRequired,
   toggleSiteNav: PropTypes.func.isRequired,
-  toggleDisplayLegend: PropTypes.func.isRequired
+  toggleDisplayLegend: PropTypes.func.isRequired,
+  toggleDisplayTemp: PropTypes.func.isRequired,
+  toggleTempScale: PropTypes.func.isRequired,
+  displayLegend: PropTypes.bool.isRequired,
+  displayTemp: PropTypes.bool.isRequired,
+  tempScale: PropTypes.string.isRequired
 };
 
 export default base(LeftNavContent);

@@ -94,13 +94,15 @@ class LayoutController extends Component {
   }
 
   renderMeetingRoom(meetingRoom) {
-    const { ping } = this.props.layout.toJS();
+    const { ping, displayTemp, tempScale } = this.props.layout.toJS();
 
     return (
       <MeetingRoom
         key={`${meetingRoom.name}`}
-        room={meetingRoom}
-        pinged={ping && ping.id === meetingRoom.id}/>
+        pinged={ping && ping.id === meetingRoom.id}
+        displayTemp={displayTemp}
+        tempScale={tempScale}
+        {...meetingRoom}/>
     );
   }
 

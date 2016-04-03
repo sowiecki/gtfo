@@ -45,7 +45,9 @@ const navigationReducer = (state = initialState, action) => {
 
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]() {
-      return state.set('documentTitle', action.config.title);
+      const { title } = action.config;
+
+      return state.set('documentTitle', title || DEFAULT_DOCUMENT_TITLE);
     },
     [EMIT_SITE_NAV_TOGGLE]() {
       return state.set('siteNavOpen', siteNavOpen);

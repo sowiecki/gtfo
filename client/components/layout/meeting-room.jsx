@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { VelocityComponent } from 'velocity-react';
 
+import Temperature from './temperature';
+
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 import { parsePosition, parseShape } from '../../utils';
@@ -8,10 +10,19 @@ import { OFFLINE,
          PINGED,
          PING_ANIMATION_LOOPS,
          PING_ANIMATION_TIMEOUT,
-         TEXT_DX,
-         TEXT_DY } from '../../constants';
+         ROOM_NAME_TEXT_DX,
+         ROOM_NAME_TEXT_DY } from '../../constants';
 
-const MeetingRoom = ({ room, pinged }) => {
+const MeetingRoom = (props) => {
+  const { name,
+          coordinates,
+          alert,
+          fahrenheitTmpVoltage,
+          celciusTmpVoltage,
+          tempScale,
+          displayTemp,
+          pinged } = props;
+
   const pingAnimation = {
     fill: styles[PINGED],
     opacity: pinged ? 1 : 0
@@ -19,34 +30,49 @@ const MeetingRoom = ({ room, pinged }) => {
 
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
 
+  const temperature = displayTemp ? (
+    <Temperature
+      fahrenheitTmpVoltage={fahrenheitTmpVoltage}
+      celciusTmpVoltage={celciusTmpVoltage}
+      tempScale={tempScale}
+      coordinates={coordinates}/>
+  ) : null;
+
   return (
-    <svg {...parsePosition(room.coordinates)}>
+    <svg {...parsePosition(coordinates)}>
       <VelocityComponent
-        animation={{ fill: styles[room.alert || OFFLINE] }}>
+        animation={{ fill: styles[alert || OFFLINE] }}>
         <rect
           stroke={styles.svgStroke}
-          {...parseShape(room.coordinates)}/>
+          {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
         style={{ stroke: styles.svgStroke }}>
-          <rect {...parseShape(room.coordinates)}/>
+          <rect {...parseShape(coordinates)}/>
       </VelocityComponent>
       <text
         className='room-text'
-        dx={TEXT_DX}
-        dy={TEXT_DY}
-        {...parseShape(room.coordinates)}>
-          {room.name}
+        dx={ROOM_NAME_TEXT_DX}
+        dy={ROOM_NAME_TEXT_DY}
+        {...parseShape(coordinates)}>
+          {name}
       </text>
+      {temperature}
     </svg>
   );
 };
 
 MeetingRoom.propTypes = {
-  room: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  coordinates: PropTypes.object.isRequired,
+  alert: PropTypes.string,
+  fahrenheitTmpVoltage: PropTypes.number,
+  celciusTmpVoltage: PropTypes.number,
+  tempScale: PropTypes.string.isRequired,
+  displayTemp: PropTypes.bool,
   pinged: PropTypes.bool
 };
 

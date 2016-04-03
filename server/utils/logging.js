@@ -56,3 +56,17 @@ export const logRoomStatuses = (rooms) => {
     logRoomStatus(room);
   });
 };
+
+/**
+ * Logs board warnings.
+ * @params {object} data Warning object.
+ * @returns {undefined}
+ */
+export const logBoardWarning = ({ message }) => console.log(colors.bgYellow(message));
+
+/**
+ * Logs board failures.
+ * @params {object} data Failure object.
+ * @returns {undefined}
+ */
+export const logBoardFailure = ({ message }) => console.log(colors.bgRed(message));

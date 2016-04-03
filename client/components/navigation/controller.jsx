@@ -14,7 +14,7 @@ import LocationModal from './location-modal';
 
 import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
-import { styles } from './styles';
+import { styles, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
   componentWillReceiveProps(nextProps) {
@@ -38,11 +38,19 @@ class NavigationController extends Component {
   }
 
   render() {
-    const { actions, navigation, locations, displayLegend, params } = this.props;
+    const { actions,
+            navigation,
+            locations,
+            displayLegend,
+            displayTemp,
+            tempScale,
+            params } = this.props;
     const { siteNavOpen, locationModalOpen } = navigation.toJS();
     const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
     const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
     const toggleDisplayLegend = actions.emitToggleDisplayLegend.bind(null, displayLegend);
+    const toggleDisplayTemp = actions.emitToggleDisplayTemp.bind(null, displayTemp);
+    const toggleTempScale = actions.emitToggleTempScale.bind(null, tempScale);
 
     // TODO better null safety rendering
     return locations ? (
@@ -64,11 +72,17 @@ class NavigationController extends Component {
         <LeftNav
           open={siteNavOpen}
           onRequestChange={toggleSiteNav}
-          docked={false}>
+          docked={false}
+          width={LEFT_HAND_NAV_WIDTH}>
             <LeftNavContent
               toggleSiteNav={toggleSiteNav}
               toggleLocationModal={toggleLocationModal}
               toggleDisplayLegend={toggleDisplayLegend}
+              toggleDisplayTemp={toggleDisplayTemp}
+              toggleTempScale={toggleTempScale}
+              displayLegend={displayLegend}
+              displayTemp={displayTemp}
+              tempScale={tempScale}
               location={location}/>
         </LeftNav>
         <LocationModal
@@ -84,13 +98,17 @@ NavigationController.propTypes = {
     emitSiteNavToggle: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
-    emitToggleDisplayLegend: PropTypes.func.isRequired
+    emitToggleDisplayLegend: PropTypes.func.isRequired,
+    emitToggleDisplayTemp: PropTypes.func.isRequired,
+    emitToggleTempScale: PropTypes.func.isRequired
   }).isRequired,
   navigation: ImmutablePropTypes.Map.isRequired,
   location: PropTypes.shape({
     query: PropTypes.object
   }),
   displayLegend: PropTypes.bool.isRequired,
+  displayTemp: PropTypes.bool.isRequired,
+  tempScale: PropTypes.string.isRequired,
   locations: PropTypes.array,
   params: PropTypes.object.isRequired
 };

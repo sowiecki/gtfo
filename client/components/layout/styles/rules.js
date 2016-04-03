@@ -20,12 +20,17 @@ export const rules = {
       backgroundSize: 'fill'
     },
 
-    'text.room-text': {
+    'text.room-text, text.temperature-text': {
       zIndex: '200',
       fontSize: '10px',
       fontFamily: fonts.primary,
       fontWeight: 'bold',
       textShadow: `${colors.GREY} 0px 0px 0px`
+    },
+
+    'text.temperature-text': {
+      fontFamily: fonts.secondary,
+      opacity: 0.5
     },
 
     'text.marker-text': {
@@ -41,7 +46,7 @@ export const rules = {
           height: '576px'
         },
 
-        'text.room-text': {
+        'text.room-text, text.temperature-text': {
           fontSize: '15px'
         },
 
@@ -60,7 +65,7 @@ export const rules = {
           height: '700px'
         },
 
-        'text.room-text': {
+        'text.room-text, text.temperature-text': {
           fontSize: '18px',
           transform: 'translateY(2px)'
         },
@@ -78,7 +83,7 @@ export const rules = {
           height: '700px'
         },
 
-        'text.room-text': {
+        'text.room-text, text.temperature-text': {
           transform: 'translateY(4px)'
         }
       },
@@ -89,7 +94,7 @@ export const rules = {
           height: '800px'
         },
 
-        'text.room-text': {
+        'text.room-text, text.temperature-text': {
           fontSize: '22px',
           transform: 'translateY(8px)'
         },
