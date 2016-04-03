@@ -14,7 +14,12 @@ import { OFFLINE,
          ROOM_NAME_TEXT_DY } from '../../constants';
 
 const MeetingRoom = (props) => {
-  const { name, coordinates, alert, tmpVoltage, pinged } = props;
+  const { name,
+          coordinates,
+          alert,
+          tmpVoltage,
+          displayTemp,
+          pinged } = props;
 
   const pingAnimation = {
     fill: styles[PINGED],
@@ -22,6 +27,12 @@ const MeetingRoom = (props) => {
   };
 
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
+
+  const temperature = displayTemp ? (
+    <Temperature
+      tmpVoltage={tmpVoltage}
+      coordinates={coordinates}/>
+  ) : null;
 
   return (
     <svg {...parsePosition(coordinates)}>
@@ -45,18 +56,17 @@ const MeetingRoom = (props) => {
         {...parseShape(coordinates)}>
           {name}
       </text>
-      <Temperature
-        tmpVoltage={tmpVoltage}
-        coordinates={coordinates}/>
+      {temperature}
     </svg>
   );
 };
 
 MeetingRoom.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   coordinates: PropTypes.object.isRequired,
   alert: PropTypes.string,
   tmpVoltage: PropTypes.number,
+  displayTemp: PropTypes.bool,
   pinged: PropTypes.bool
 };
 

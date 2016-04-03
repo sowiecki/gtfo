@@ -6,7 +6,8 @@ export default {
     properties: {
       public: {
         properties: {
-          title: { type: 'string' }
+          title: { type: 'string' },
+          enableTemperature: { type: 'bool' }
         }
       },
       productionHost: { type: 'string' }

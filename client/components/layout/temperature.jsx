@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 
 import { applyStyles } from '../../config/composition';
-import { parseShape } from '../../utils';
+import { parseShape, calcTemperature } from '../../utils';
 import { ROOM_TEMPERATURE_TEXT_DX, ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
 
 const Temperature = ({ tmpVoltage, coordinates }) => {
   const scale = '°F';
 
-  const temperature = parseInt(tmpVoltage, 10) + 60;
+  const temperature = calcTemperature(tmpVoltage);
 
   return tmpVoltage ? (
       <text

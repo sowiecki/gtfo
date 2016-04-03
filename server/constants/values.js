@@ -8,7 +8,7 @@ export const PIEZO_PIN = 'D6';
 
 export const TMP36 = 'TMP36';
 export const THERMO_PIN = 'A1';
-export const THERMO_FREQ = 1000; // milliseconds
+export const THERMO_FREQ = 10000; // milliseconds
 
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';

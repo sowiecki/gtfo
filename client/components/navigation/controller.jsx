@@ -38,11 +38,17 @@ class NavigationController extends Component {
   }
 
   render() {
-    const { actions, navigation, locations, displayLegend, params } = this.props;
+    const { actions,
+            navigation,
+            locations,
+            displayLegend,
+            displayTemp,
+            params } = this.props;
     const { siteNavOpen, locationModalOpen } = navigation.toJS();
     const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
     const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
     const toggleDisplayLegend = actions.emitToggleDisplayLegend.bind(null, displayLegend);
+    const toggleDisplayTemp = actions.emittoggleDisplayTemp.bind(null, displayTemp);
 
     // TODO better null safety rendering
     return locations ? (
@@ -69,6 +75,7 @@ class NavigationController extends Component {
               toggleSiteNav={toggleSiteNav}
               toggleLocationModal={toggleLocationModal}
               toggleDisplayLegend={toggleDisplayLegend}
+              toggleDisplayTemp={toggleDisplayTemp}
               location={location}/>
         </LeftNav>
         <LocationModal
@@ -91,6 +98,7 @@ NavigationController.propTypes = {
     query: PropTypes.object
   }),
   displayLegend: PropTypes.bool.isRequired,
+  displayTemp: PropTypes.bool.isRequired,
   locations: PropTypes.array,
   params: PropTypes.object.isRequired
 };

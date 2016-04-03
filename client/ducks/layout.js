@@ -2,6 +2,8 @@ import immutable from 'immutable';
 
 import { pluckLocations } from '../utils';
 
+import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
+
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
 
@@ -12,6 +14,7 @@ export const EMIT_SET_ROOM_PING = 'EMIT_SET_ROOM_PING';
 export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
 
 export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
+export const EMIT_TOGGLE_DISPLAY_TEMPERATURE = 'EMIT_TOGGLE_DISPLAY_TEMPERATURE';
 
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
@@ -35,6 +38,11 @@ export const emitToggleDisplayLegend = (displayLegend) => ({
   displayLegend
 });
 
+export const emittoggleDisplayTemp = (displayTemp) => ({
+  type: EMIT_TOGGLE_DISPLAY_TEMPERATURE,
+  displayTemp
+});
+
 export const emitMarkersActivated = (markers) => ({
   type: EMIT_MARKERS_ACTIVATED,
   markers
@@ -48,11 +56,16 @@ export const emitMarkerDeactivated = (marker) => ({
 const initialState = immutable.fromJS({
   meetingRooms: [],
   markers: [],
-  displayLegend: true
+  displayLegend: true,
+  displayTemp: false
 });
 
 const layoutReducer = (state = initialState, action) => {
   const reducers = {
+    [EMIT_HANDSHAKE_RECEIVED]() {
+      return state.set('displayTemp', action.config.enableTemperature);
+    },
+
     [EMIT_ROOM_STATUSES_UPDATE]() {
       const locations = pluckLocations(action.meetingRooms);
 
@@ -79,6 +92,10 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_TOGGLE_DISPLAY_LEGEND]() {
       return state.set('displayLegend', !action.displayLegend);
+    },
+
+    [EMIT_TOGGLE_DISPLAY_TEMPERATURE]() {
+      return state.set('displayTemp', !action.displayTemp);
     },
 
     [EMIT_MARKERS_UPDATE]() {

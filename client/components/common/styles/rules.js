@@ -8,7 +8,6 @@ export const rules = {
       height: '100%',
       width: '100%',
       overflow: 'hidden',
-      textAlign: 'center',
       backgroundColor: colors.GHOST_WHITE
     },
 

@@ -9,7 +9,8 @@ import { getPathname,
          pluckLocations,
          getAnchorFromStore,
          youAreHere,
-         hasAnchor } from 'utils';
+         hasAnchor,
+         calcTemperature } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -134,6 +135,14 @@ describe('Room utilities (client)', () => {
       expect(hasAnchor(locationWithAnchor)).toBe(true);
       expect(hasAnchor(locationWithoutAnchor)).toBe(false);
       expect(hasAnchor(locationWithNullAnchor)).toBe(false);
+    });
+  });
+
+  describe('calcTemperature', () => {
+    it('should calculate temperature based on TMP36 sensor voltage.', () => {
+      expect(calcTemperature(10)).toBe(70);
+      expect(calcTemperature(15)).toBe(75);
+      expect(calcTemperature(20)).toBe(80);
     });
   });
 });

@@ -10,11 +10,14 @@ import colors from 'colors/safe';
 
 import store from '../store/configure-store';
 
+import { config } from '../environment';
 import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion } from '../utils';
+         registerMotion,
+         logBoardWarning,
+         logBoardFailure } from '../utils';
 import { EMIT_INIT_DEVICES,
          FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -42,11 +45,13 @@ const devicesController = {
           motion: registerMotion(board)
         };
 
-        store().dispatch({
-          type: FETCH_ROOM_TEMPERATURE,
-          room,
-          accessories
-        });
+        if (config.public.enableTemperature) {
+          store().dispatch({
+            type: FETCH_ROOM_TEMPERATURE,
+            room,
+            accessories
+          });
+        }
 
         store().dispatch({
           type: FETCH_ROOM_MOTION,
@@ -70,9 +75,8 @@ const devicesController = {
         }, CHECK_INTERVAL);
       });
 
-      board.on('warn', (warning) => console.log(`Warning received from ${board.id}`, warning));
-      board.on('message', (message) => console.log(`Message received from ${board.id}`, message));
-      board.on('fail', () => console.log(`Connection failure to ${board.id}`));
+      board.on('warn', logBoardWarning);
+      board.on('fail', logBoardFailure);
     });
   },
   getRooms() {

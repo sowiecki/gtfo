@@ -137,3 +137,5 @@ export const mapPing = (state, ping) => (
     return meetingRoom;
   })
 );
+
+export const calcTemperature = (tmpVoltage) => parseInt(tmpVoltage, 10) + 60;
