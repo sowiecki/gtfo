@@ -47,9 +47,11 @@ const roomsReducer = (state = initialState, action) => {
 
         return room;
       });
+      // No break, because alert needs to be redetermined
     case EMIT_ROOM_STATUSES_UPDATE:
       state.rooms = state.rooms.map((room) => {
         if (room.id === action.room.id) {
+          // Get properties from state if available
           const accessories = room.accessories || action.accessories;
           const reservations = room.reservations || action.reservations;
           const filteredReservations = filterExpiredReservations(reservations);
