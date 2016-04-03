@@ -8,7 +8,7 @@ const fetchRoomMotion = (next, action) => {
   const { room, accessories } = action;
   const { motion } = accessories;
 
-  motion.on('motionStart', () => {
+  motion.on('motionstart', () => {
     room.lastMotion = moment().toISOString();
 
     next({

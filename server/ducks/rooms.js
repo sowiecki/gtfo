@@ -22,18 +22,24 @@ export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
-const roomsReducer = (state = devices, action) => {
+const initialState = {
+  rooms: devices
+};
+
+const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
   const { accessories } = action;
 
   switch (action.type) {
     case EMIT_INIT_DEVICES:
-      socketController.open(ROOM_STATUSES_UPDATE, state);
+      socketController.open(ROOM_STATUSES_UPDATE, state.rooms);
 
       break;
     case EMIT_CLIENT_CONNECTED:
-      socketController.handle(INITIALIZE_ROOMS, state, action.client);
+      socketController.handle(INITIALIZE_ROOMS, state.rooms, action.client);
 
+      break;
+    case EMIT_ROOM_MOTION_UPDATE:
       break;
     case EMIT_ROOM_STATUSES_UPDATE:
       const filteredReservations = filterExpiredReservations(action.reservations);
@@ -44,7 +50,7 @@ const roomsReducer = (state = devices, action) => {
        * This is pretty gross, but necessary pending further major refactoring.
        * alertChanged is set and used to prevent spamming updates with duplicate data.
        */
-      state = state.map((room) => {
+      state.rooms = state.rooms.map((room) => {
         if (room.id === action.room.id) {
           const stateDiff = room.alert !== alert;
 
@@ -59,8 +65,8 @@ const roomsReducer = (state = devices, action) => {
       });
 
       if (alertChanged) {
-        logRoomStatuses(state);
-        socketController.handle(ROOM_STATUSES_UPDATE, state);
+        logRoomStatuses(state.rooms);
+        socketController.handle(ROOM_STATUSES_UPDATE, state.rooms);
       }
 
       break;
@@ -69,13 +75,9 @@ const roomsReducer = (state = devices, action) => {
       socketController.handle(ROOM_TEMPERATURE_UPDATE, action.room);
 
       break;
-    case EMIT_ROOM_MOTION_UPDATE:
-      socketController.handle(ROOM_MOTION_UPDATE, action.room);
-
-      break;
   }
 
-  return [].concat(state);
+  return state;
 };
 
 export default roomsReducer;

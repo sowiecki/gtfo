@@ -6,7 +6,7 @@ import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 import { PING_ERROR } from '../constants';
 import { getHost } from '../utils';
 
-const rooms = store().getState().roomsReducer;
+const { rooms } = store().getState().roomsReducer;
 
 
 const pingsController = {
