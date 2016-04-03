@@ -1,28 +1,38 @@
 import React, { PropTypes } from 'react';
 
 import { applyStyles } from '../../config/composition';
-import { parseShape, calcTemperature } from '../../utils';
-import { ROOM_TEMPERATURE_TEXT_DX, ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
+import { parseShape,
+         calcFahrenheitTemp,
+         calcCelciusTemp } from '../../utils';
+import { FAHRENHEIT,
+         ROOM_TEMPERATURE_TEXT_DX,
+         ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
 
-const Temperature = ({ tmpVoltage, coordinates }) => {
-  const scale = '°F';
+const Temperature = (props) => {
+  const { tempScale,
+          fahrenheitTmpVoltage,
+          celciusTmpVoltage,
+          coordinates } = props;
 
-  const temperature = calcTemperature(tmpVoltage);
+  const temperature = tempScale === FAHRENHEIT ?
+    calcFahrenheitTemp(fahrenheitTmpVoltage) : calcCelciusTemp(celciusTmpVoltage);
 
-  return tmpVoltage ? (
+  return fahrenheitTmpVoltage ? (
       <text
         className='temperature-text'
         dx={ROOM_TEMPERATURE_TEXT_DX}
         dy={ROOM_TEMPERATURE_TEXT_DY}
         {...parseShape(coordinates)}>
-          {`${temperature} ${scale}`}
+          {`${temperature} °${tempScale === FAHRENHEIT ? 'F' : 'C'}`}
       </text>
   ) : <text/>;
 };
 
 Temperature.propTypes = {
   coordinates: PropTypes.object.isRequired,
-  tmpVoltage: PropTypes.number
+  fahrenheitTmpVoltage: PropTypes.number,
+  celciusTmpVoltage: PropTypes.number,
+  tempScale: PropTypes.string.isRequired
 };
 
 export default applyStyles(Temperature);

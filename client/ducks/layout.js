@@ -57,7 +57,8 @@ const initialState = immutable.fromJS({
   meetingRooms: [],
   markers: [],
   displayLegend: true,
-  displayTemp: false
+  displayTemp: false,
+  tempScale: 'fahrenheit'
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -105,7 +106,7 @@ const layoutReducer = (state = initialState, action) => {
     [EMIT_ROOM_TEMPERATURE_UPDATE]() {
       const meetingRooms = state.get('meetingRooms').map((room) => {
         if (action.room.id === room.id) {
-          room.tmpVoltage = action.room.tmpVoltage;
+          room.fahrenheitTmpVoltage = action.room.fahrenheitTmpVoltage;
         }
         return room;
       });

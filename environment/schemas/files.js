@@ -7,8 +7,12 @@ export default {
       public: {
         properties: {
           title: { type: 'string' },
-          enableTemperature: { type: 'bool' }
-        }
+          enableTemperature: { type: 'bool' },
+          defaultTempScale: {
+            type: 'string', enum: ['fahrenheit', 'celcius']
+          }
+        },
+        required: ['title', 'enableTemperature', 'defaultTempScale']
       },
       productionHost: { type: 'string' }
     },

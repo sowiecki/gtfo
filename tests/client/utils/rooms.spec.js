@@ -10,7 +10,7 @@ import { getPathname,
          getAnchorFromStore,
          youAreHere,
          hasAnchor,
-         calcTemperature } from 'utils';
+         calcFahrenheitTemp } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -138,11 +138,11 @@ describe('Room utilities (client)', () => {
     });
   });
 
-  describe('calcTemperature', () => {
-    it('should calculate temperature based on TMP36 sensor voltage.', () => {
-      expect(calcTemperature(10)).toBe(70);
-      expect(calcTemperature(15)).toBe(75);
-      expect(calcTemperature(20)).toBe(80);
+  describe('calcFahrenheitTemp', () => {
+    it('should calculate fahrenheit temperature based on TMP36 sensor voltage.', () => {
+      expect(calcFahrenheitTemp(10)).toBe(70);
+      expect(calcFahrenheitTemp(15)).toBe(75);
+      expect(calcFahrenheitTemp(20)).toBe(80);
     });
   });
 });

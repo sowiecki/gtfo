@@ -138,4 +138,16 @@ export const mapPing = (state, ping) => (
   })
 );
 
-export const calcTemperature = (tmpVoltage) => parseInt(tmpVoltage, 10) + 60;
+/**
+ * Calculates temperature from TMP36 voltage J5-parsed into fahrenheit.
+ * @params {number} fahrenheitTmpVoltage Fahrenheit-adjusted TMP36 voltage.
+ * @returns {number} Temperature in Fahrenheit.
+ */
+export const calcFahrenheitTemp = (fahrenheitTmpVoltage) => parseInt(fahrenheitTmpVoltage, 10) + 60;
+
+/**
+ * Calculates temperature from TMP36 voltage J5-parsed into fahrenheit.
+ * @params {number} fahrenheitTmpVoltage Fahrenheit-adjusted TMP36 voltage.
+ * @returns {number} Temperature in Fahrenheit.
+ */
+export const calcCelciusTemp = (celciusTmpVoltage) => parseInt(celciusTmpVoltage, 10) + 60;
