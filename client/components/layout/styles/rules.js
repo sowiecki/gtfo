@@ -29,6 +29,7 @@ export const rules = {
     },
 
     'text.temperature-text': {
+      fontSize: '10px',
       fontFamily: fonts.secondary,
       opacity: 0.5
     },
@@ -46,7 +47,7 @@ export const rules = {
           height: '576px'
         },
 
-        'text.room-text, text.temperature-text': {
+        'text.room-text': {
           fontSize: '15px'
         },
 
@@ -65,7 +66,7 @@ export const rules = {
           height: '700px'
         },
 
-        'text.room-text, text.temperature-text': {
+        'text.room-text': {
           fontSize: '18px',
           transform: 'translateY(2px)'
         },
@@ -94,8 +95,11 @@ export const rules = {
           height: '800px'
         },
 
-        'text.room-text, text.temperature-text': {
+        'text.room-text': {
           fontSize: '22px',
+        },
+
+        'text.room-text, text.temperature-text': {
           transform: 'translateY(8px)'
         },
 
@@ -111,7 +115,11 @@ export const rules = {
         [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
-        }
+        },
+
+        'text.temperature-text': {
+          transform: 'translateY(34px)'
+        },
       },
 
       [devices.iphone]: {
