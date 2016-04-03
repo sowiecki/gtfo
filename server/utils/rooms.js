@@ -3,6 +3,7 @@ import moment from 'moment';
 import { isEmpty } from 'lodash';
 
 import {
+  SQUATTED,
   VACANT,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
@@ -15,7 +16,7 @@ import {
  * @param {array} reservations Array of reservation objects.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = []) => {
+export const getRoomAlert = (reservations = [], hasRecentMotion) => {
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
 
@@ -41,7 +42,7 @@ export const getRoomAlert = (reservations = []) => {
   };
 
   if (currentlyVacant) {
-    return VACANT;
+    return hasRecentMotion ? SQUATTED : VACANT;
   } else if (nextMeetingStartingIn(1)) {
     return ONE_MINUTE_WARNING;
   } else if (nextMeetingStartingIn(5)) {
@@ -50,3 +51,27 @@ export const getRoomAlert = (reservations = []) => {
     return BOOKED;
   }
 };
+
+/**
+ * Clones room without sensative properties before sending to clients.
+ * @param {object} Room object.
+ * @returns {object} Room object safe for public consumption.
+ */
+export const secureRoom = (room) => {
+  const secureRoom = {
+    id: room.id,
+    alert: room.alert,
+    coordinates: room.coordinates,
+    location: room.location,
+    name: room.name
+  };
+
+  return secureRoom;
+};
+
+/**
+ * Clones rooms without sensative properties before sending to clients.
+ * @param {array} Rooms array.
+ * @returns {array} Rooms array safe for public consumption.
+ */
+export const secureRooms = (rooms) => [].concat(rooms).map(secureRoom);

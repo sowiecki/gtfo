@@ -1,11 +1,18 @@
 /* eslint no-use-before-define:0 */
 import { RED,
          TEAL,
+         PURPLE,
          GREEN,
          ORANGE,
          ONE_MINUTE_STROBE,
          FIVE_MINUTE_STROBE,
          FAINT_LIGHT_LEVEL } from '../constants';
+
+export const squatted = (led) => {
+ led.stop(); // Prevent rogue strobing
+ led.intensity(FAINT_LIGHT_LEVEL);
+ led.color(PURPLE);
+};
 
 export const vacant = (led) => {
   led.stop(); // Prevent rogue strobing

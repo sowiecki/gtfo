@@ -4,7 +4,12 @@ import colors from 'colors';
 import moment from 'moment';
 // import ora from 'ora';
 
-// import { SPINNER_DELAY } from '../constants';
+import { SQUATTED,
+         VACANT,
+         ONE_MINUTE_WARNING,
+         FIVE_MINUTE_WARNING,
+         BOOKED,
+         OFFLINE } from '../constants';
 
 /**
  * Logs individual room status.
@@ -13,19 +18,21 @@ import moment from 'moment';
  */
 const logRoomStatus = ({ name, alert }) => {
   const statusMessages = {
-    VACANT: `${name} is vacant for at least 30 minutes`,
-    ONE_MINUTE_WARNING: `${name} has 1 minute left on current reservation`,
-    FIVE_MINUTE_WARNING: `${name} has 5 minutes left on current reservation`,
-    BOOKED: `${name} is currently booked`,
-    OFFLINE: `${name} is offline`
+    [SQUATTED]: `${name} has no current reservation but is being occupied`,
+    [VACANT]: `${name} is vacant for at least 30 minutes`,
+    [ONE_MINUTE_WARNING]: `${name} has 1 minute left on current reservation`,
+    [FIVE_MINUTE_WARNING]: `${name} has 5 minutes left on current reservation`,
+    [BOOKED]: `${name} is currently booked`,
+    [OFFLINE]: `${name} is offline`
   };
 
   const logColors = {
-    VACANT: 'green',
-    ONE_MINUTE_WARNING: 'red',
-    FIVE_MINUTE_WARNING: 'yellow',
-    BOOKED: 'cyan',
-    OFFLINE: 'grey'
+    [SQUATTED]: 'magenta',
+    [VACANT]: 'green',
+    [ONE_MINUTE_WARNING]: 'red',
+    [FIVE_MINUTE_WARNING]: 'yellow',
+    [BOOKED]: 'cyan',
+    [OFFLINE]: 'grey'
   };
 
   const logColor = logColors[alert] || logColors.OFFLINE;

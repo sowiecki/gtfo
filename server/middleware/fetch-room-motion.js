@@ -9,11 +9,18 @@ const fetchRoomMotion = (next, action) => {
   const { motion } = accessories;
 
   motion.on('motionstart', () => {
-    room.lastMotion = moment().toISOString();
-
     next({
       type: EMIT_ROOM_MOTION_UPDATE,
-      room
+      room,
+      motion: true
+    });
+  });
+
+  motion.on('motionend', () => {
+    next({
+      type: EMIT_ROOM_MOTION_UPDATE,
+      room,
+      motion: false
     });
   });
 };
