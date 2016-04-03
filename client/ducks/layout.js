@@ -65,13 +65,17 @@ const initialState = immutable.fromJS({
   markers: [],
   displayLegend: true,
   displayTemp: false,
-  tempScale: 'fahrenheit'
+  tempScale: FAHRENHEIT
 });
 
 const layoutReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]() {
-      return state.set('displayTemp', action.config.enableTemperature);
+      const { enableTemperature, defaultTempScale } = action.config;
+
+      return state
+        .set('displayTemp', enableTemperature || false)
+        .set('tempScale', defaultTempScale || FAHRENHEIT);
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {

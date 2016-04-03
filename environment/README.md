@@ -7,14 +7,23 @@ These files should remain gitignored to prevent private information from being m
 ### config.json
 General configuration.
 
-| Parameter        | Description                           | Required? |
-|------------------|---------------------------------------|-----------|
-| productionHost   | URL of hosted ems_wrapper instance    | Yes       |
+| Parameter           | Description                                 | Required? |
+|---------------------|---------------------------------------------|-----------|
+| public              | Configurations passed to client (insecure!) | Yes       |
+| - title             | Title to display on client                  | No        |
+| - enableTemperature | Enables (experimental) temperature readings | No        |
+| - defaultTempScale  | Must be either 'celcius' or 'fahrenheit'    | No        |
+| productionHost      | URL of hosted ems_wrapper instance          | Yes       |
 
 Example of a `config.json`:
 ```json
 {
   "config": {
+    "public": {
+      "title": "Some Company Name",
+      "enableTemperature": true,
+      "defaultTempScale": "fahrenheit"
+    },
     "productionHost": "http://heroku-app.com/your-hosted-ems-wrapper"
   }
 }

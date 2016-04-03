@@ -11,8 +11,7 @@ export default {
           defaultTempScale: {
             type: 'string', enum: ['fahrenheit', 'celcius']
           }
-        },
-        required: ['title', 'enableTemperature', 'defaultTempScale']
+        }
       },
       productionHost: { type: 'string' }
     },

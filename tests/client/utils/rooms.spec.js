@@ -10,7 +10,8 @@ import { getPathname,
          getAnchorFromStore,
          youAreHere,
          hasAnchor,
-         calcFahrenheitTemp } from 'utils';
+         calcFahrenheitTemp,
+         calcCelciusTemp } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -143,6 +144,14 @@ describe('Room utilities (client)', () => {
       expect(calcFahrenheitTemp(10)).toBe(70);
       expect(calcFahrenheitTemp(15)).toBe(75);
       expect(calcFahrenheitTemp(20)).toBe(80);
+    });
+  });
+
+  describe('calcCelciusTemp', () => {
+    it('should calculate celcius temperature based on TMP36 sensor voltage.', () => {
+      expect(calcCelciusTemp(0)).toBe(32);
+      expect(calcCelciusTemp(5)).toBe(37);
+      expect(calcCelciusTemp(10)).toBe(42);
     });
   });
 });
