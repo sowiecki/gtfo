@@ -124,21 +124,6 @@ export const youAreHere = (marker, location) => {
 };
 
 /**
- * Maps pinged property to meeting room state, set to true is ping is intended for meeting room.
- * @param {object} state Meeting room state.
- * @param {object} ping Ping object.
- * @returns {object} Meeting room state with pinged parameter set to true.
- */
-export const mapPing = (state, ping) => (
-  state.get('meetingRooms').map((meetingRoom) => {
-    if (meetingRoom.id === ping.id) {
-      meetingRoom.pinged = true;
-    }
-    return meetingRoom;
-  })
-);
-
-/**
  * Calculates temperature from TMP36 voltage J5-parsed into fahrenheit.
  * @params {number} fahrenheitTmpVoltage Fahrenheit-adjusted TMP36 voltage.
  * @returns {number} Temperature in Fahrenheit.
