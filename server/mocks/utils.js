@@ -5,7 +5,6 @@
 import moment from 'moment';
 
 import { GAP_PROBABILITY, START_OF_DAY } from './constants';
-import { config } from '../environment';
 
 export const randomMeetingDuration = () => {
   // Most meetings are 30 minutes, some are 60 minutes, and rarely are they 90 minutes
@@ -30,7 +29,7 @@ const generateMockEmail = () => {
   ];
   const randomIndex = () => Math.floor(Math.random() * (mockNames.length - 0)) + 0;
 
-  return `${mockNames[randomIndex()]}${config.emailDomain}`;
+  return `${mockNames[randomIndex()]}@example.domain`;
 };
 
 export const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => ({
