@@ -13,9 +13,10 @@ export default {
           }
         }
       },
+      emailDomain: { type: 'string' },
       productionHost: { type: 'string' }
     },
-    required: ['public', 'productionHost']
+    required: ['public', 'emailDomain', 'productionHost']
   },
   devices: {
     title: 'Devices Schema',
