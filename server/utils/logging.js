@@ -6,6 +6,8 @@ import winston from 'winston';
 import split from 'split';
 import ora from 'ora';
 
+import { isProd } from '../config';
+
 import { SQUATTED,
          VACANT,
          ONE_MINUTE_WARNING,
@@ -32,9 +34,15 @@ const spinner = ora({
 });
 
 export const stream = split().on('data', (message) => {
-  spinner.stop();
+  if (isProd) {
+    spinner.stop();
+  }
+
   winstonLogger.info(message);
-  spinner.start();
+
+  if (isProd) {
+    spinner.start();
+  }
 });
 
 /**
@@ -79,9 +87,11 @@ export const logRoomStatuses = (rooms) => {
     logRoomStatus(room);
   });
 
-  setTimeout(() => {
-    spinner.start();
-  }, SPINNER_DELAY);
+  if (isProd) {
+    setTimeout(() => {
+      spinner.start();
+    }, SPINNER_DELAY);
+  }
 };
 
 /**

@@ -14,6 +14,8 @@ if (argv.dd) {
   console.log(colors.gray.italic('Devices disabled'));
 }
 
+export const isProd = process.env.NODE_ENV === 'production';
+
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 

@@ -1,5 +1,6 @@
+import { isProd } from '../config';
+
 const ENV_PATH = '../environment';
-const isProd = process.env.NODE_ENV === 'production';
 
 const HOST = isProd ? require(ENV_PATH).config.productionHost : 'http://localhost:8080';
 const MOCKS_HOST = 'http://localhost:3000';
