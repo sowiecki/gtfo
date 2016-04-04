@@ -11,6 +11,7 @@ import colors from 'colors/safe';
 import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import devicesController from './controllers/devices';
+import { stream } from './utils';
 
 const server = express();
 
@@ -32,7 +33,7 @@ if (process.env.HOT) {
 
 /* Setup */
 server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
-server.use(logger('dev'));
+server.use(logger('dev', { stream }));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));

@@ -14,7 +14,7 @@ export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';
 
 export const CHECK_INTERVAL = 2000;
-export const SPINNER_DELAY = 2500;
+export const SPINNER_DELAY = 3000;
 
 export const IN = 'IN';
 export const OUT = 'OUT';

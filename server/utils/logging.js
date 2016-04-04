@@ -2,14 +2,40 @@
 /* globals console */
 import colors from 'colors';
 import moment from 'moment';
-// import ora from 'ora';
+import winston from 'winston';
+import split from 'split';
+import ora from 'ora';
 
 import { SQUATTED,
          VACANT,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
          BOOKED,
-         OFFLINE } from '../constants';
+         OFFLINE,
+         SPINNER_DELAY } from '../constants';
+
+const winstonLogger = new winston.Logger({
+  transports: [
+    new winston.transports.Console({
+      level: 'debug',
+      handleExceptions: true,
+      json: false,
+      colorize: true
+    })
+  ],
+  exitOnError: false
+});
+
+const spinner = ora({
+  text: 'Monitoring room statuses',
+  color: 'yellow'
+});
+
+export const stream = split().on('data', (message) => {
+  spinner.stop();
+  winstonLogger.info(message);
+  spinner.start();
+});
 
 /**
  * Logs individual room status.
@@ -49,19 +75,13 @@ const logRoomStatus = ({ name, alert }) => {
 export const logRoomStatuses = (rooms) => {
   console.log(`\n--- Room statuses as of ${moment().format('LLLL')} ---`);
 
-  // const spinner = ora({
-  //   text: `Monitoring room statuses`,
-  //   stream: process.stdout,
-  //   color: 'yellow'
-  // });
-  //
-  // setTimeout(() => {
-  //   spinner.start();
-  // }, SPINNER_DELAY);
-
   rooms.forEach((room) => {
     logRoomStatus(room);
   });
+
+  setTimeout(() => {
+    spinner.start();
+  }, SPINNER_DELAY);
 };
 
 /**
