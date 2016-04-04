@@ -29,7 +29,7 @@ const generateMockEmail = () => {
   ];
   const randomIndex = () => Math.floor(Math.random() * (mockNames.length - 0)) + 0;
 
-  return `${mockNames[randomIndex()]}@slalom.com`;
+  return `${mockNames[randomIndex()]}@example.domain`;
 };
 
 export const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => ({

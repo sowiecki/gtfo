@@ -1,17 +1,17 @@
 /* eslint no-console:0 */
-/* globals console __dirname */
+/* globals console */
 import express from 'express';
 import expressReactViews from 'express-react-views';
-import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
 
-import { SERVER_PORT, PUBLIC_PATH } from './config';
+import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import devicesController from './controllers/devices';
+import { stream } from './utils';
 
 const server = express();
 
@@ -32,16 +32,16 @@ if (process.env.HOT) {
 }
 
 /* Setup */
-server.use(favicon(`server/${PUBLIC_PATH}/favicon.ico`));
-server.use(logger('dev'));
+server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
+server.use(logger('dev', { stream }));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.set('port', SERVER_PORT);
-server.set('views', path.join(__dirname, 'views'));
+server.set('views', VIEWS_PATH);
 server.set('view engine', 'jsx');
 server.engine('jsx', expressReactViews.createEngine());
-server.use('/', express.static(path.join(__dirname, PUBLIC_PATH)));
+server.use('/', express.static(PUBLIC_PATH));
 server.use('/', routes);
 
 const app = server.listen(SERVER_PORT, (err) => {

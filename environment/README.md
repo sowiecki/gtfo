@@ -13,6 +13,7 @@ General configuration.
 | - title             | Title to display on client                  | No        |
 | - enableTemperature | Enables (experimental) temperature readings | No        |
 | - defaultTempScale  | Must be either 'celcius' or 'fahrenheit'    | No        |
+| emailDomain         | @yourCompany.com                            | Yes       |
 | productionHost      | URL of hosted ems_wrapper instance          | Yes       |
 
 Example of a `config.json`:
