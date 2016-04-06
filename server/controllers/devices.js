@@ -17,11 +17,11 @@ import { registerBoard,
          logBoardReady,
          logBoardWarning,
          logBoardFailure } from '../utils';
-import { EMIT_INIT_SOCKETS,
-         FETCH_ROOM_RESERVATIONS,
+import { EMIT_INIT_SOCKETS } from '../ducks/clients';
+import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-import { HANDSHAKE, CHECK_INTERVAL } from '../constants';
+import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
   getRooms() {
@@ -38,7 +38,6 @@ const devicesController = {
   initialize() {
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
-      event: HANDSHAKE,
       publicConfig: config.public
     });
 

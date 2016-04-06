@@ -3,6 +3,7 @@ import immutable from 'immutable';
 
 import socketController from '../controllers/socket';
 
+import { HANDSHAKE } from '../constants';
 import { getWebSocketKey } from '../utils';
 
 export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
@@ -16,9 +17,9 @@ const initialState = immutable.fromJS({
 const clientsReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_INIT_SOCKETS]() {
-      const { event, publicConfig } = action;
+      const { publicConfig } = action;
 
-      socketController.open(event, publicConfig);
+      socketController.open(HANDSHAKE, publicConfig);
 
       return state;
     },

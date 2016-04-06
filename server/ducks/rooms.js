@@ -17,17 +17,16 @@ export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
-export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_ROOM_PING_RECEIVED = 'EMIT_ROOM_PING_RECEIVED';
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
+// TODO Wrap state in Immutable object.
 const initialState = {
   rooms: devices
 };
 
-// TODO integrate with Immutable here, clean up logic.
 const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
 
