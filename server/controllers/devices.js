@@ -6,8 +6,6 @@
  * Registers accessories for each device
  */
 
-import colors from 'colors/safe';
-
 import store from '../store/configure-store';
 
 import { config } from '../environment';
@@ -16,6 +14,7 @@ import { registerBoard,
          registerPiezo,
          registerThermo,
          registerMotion,
+         logBoardReady,
          logBoardWarning,
          logBoardFailure } from '../utils';
 import { EMIT_INIT_DEVICES,
@@ -27,58 +26,63 @@ import { CHECK_INTERVAL } from '../constants';
 const { rooms } = store().getState().roomsReducer;
 
 const devicesController = {
-  initRooms() {
+  initialize() {
     store().dispatch({ type: EMIT_INIT_DEVICES });
 
+    if (process.env.DISABLE_DEVICES) {
+      return;
+    }
+
     rooms.map((room) => {
-      // INITIALIZE_ROOMS board
       const board = registerBoard(room);
 
-      board.on('ready', () => {
-        console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
-
-        // Register room accessories
-        const accessories = {
-          led: registerLed(board),
-          piezo: registerPiezo(board),
-          thermo: registerThermo(board),
-          motion: registerMotion(board)
-        };
-
-        if (config.public.enableTemperature) {
-          store().dispatch({
-            type: FETCH_ROOM_TEMPERATURE,
-            room,
-            accessories
-          });
-        }
-
-        store().dispatch({
-          type: FETCH_ROOM_MOTION,
-          room,
-          accessories
-        });
-
-        // Set interval for checking and responding to room state
-        const monitorRoomReservations = setInterval(() => {
-          // Retrieve outlook room reservation statuses
-          store().dispatch({
-            type: FETCH_ROOM_RESERVATIONS,
-            room,
-            accessories
-          });
-
-          if (process.env.MOCKS) {
-            // No need to continually check mock data for updates
-            clearInterval(monitorRoomReservations);
-          }
-        }, CHECK_INTERVAL);
-      });
-
+      board.on('ready', devicesController.connectToRoom.bind(null, board, room));
       board.on('warn', logBoardWarning);
       board.on('fail', logBoardFailure);
     });
   },
+
+  connectToRoom(board, room) {
+    logBoardReady(board);
+
+    // Register all possible accessories
+    const accessories = {
+      led: registerLed(board),
+      piezo: registerPiezo(board),
+      thermo: registerThermo(board),
+      motion: registerMotion(board)
+    };
+
+    if (config.public.enableTemperature) {
+      store().dispatch({
+        type: FETCH_ROOM_TEMPERATURE,
+        room,
+        accessories
+      });
+    }
+
+    store().dispatch({
+      type: FETCH_ROOM_MOTION,
+      room,
+      accessories
+    });
+
+    // Set interval for checking and responding to room state
+    const monitorRoomReservations = setInterval(() => {
+      // Retrieve outlook room reservation statuses
+      store().dispatch({
+        type: FETCH_ROOM_RESERVATIONS,
+        room,
+        accessories
+      });
+
+      if (process.env.MOCKS) {
+        // No need to continually check mock data for updates
+        clearInterval(monitorRoomReservations);
+      }
+    }, CHECK_INTERVAL);
+  },
+
   getRooms() {
     return rooms;
   }

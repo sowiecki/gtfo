@@ -52,9 +52,7 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
-  if (!process.env.DISABLE_DEVICES) {
-    devicesController.initRooms();
-  }
+  devicesController.initialize();
 });
 
 export default app;

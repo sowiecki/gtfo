@@ -95,6 +95,13 @@ export const logRoomStatuses = (rooms) => {
 };
 
 /**
+ * Logs board ready state.
+ * @params {object} board Board object.
+ * @returns {undefined}
+ */
+export const logBoardReady = (board) => console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
+
+/**
  * Logs board warnings.
  * @params {object} data Warning object.
  * @returns {undefined}
