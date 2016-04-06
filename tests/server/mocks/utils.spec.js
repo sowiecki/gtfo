@@ -3,7 +3,7 @@ import expect from 'expect';
 import moment from 'moment';
 
 import { randomReservationGap,
-         generateMockReservation } from 'server/mocks/utils';
+         generateMockReservation } from 'mocks/utils';
 
 describe('Mock utilities', () => {
   describe('randomReservationGap', () => {

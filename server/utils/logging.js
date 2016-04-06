@@ -48,9 +48,9 @@ export const stream = split().on('data', (message) => {
 /**
  * Logs individual room status.
  * @param {object} room Room object with name and alert.
- * @returns {undefined}
+ * @returns {string} Room status message
  */
-const logRoomStatus = ({ name, alert }) => {
+const getRoomStatusMessage = ({ name, alert }) => {
   const statusMessages = {
     [SQUATTED]: `${name} has no current reservation but is being occupied`,
     [VACANT]: `${name} is vacant for at least 30 minutes`,
@@ -71,8 +71,9 @@ const logRoomStatus = ({ name, alert }) => {
 
   const logColor = logColors[alert] || logColors.OFFLINE;
   const message = statusMessages[alert] || statusMessages.OFFLINE;
+  const leftPadding = ' • ';
 
-  console.log(colors[logColor](message));
+  return `${leftPadding}${colors[logColor](message)}`;
 };
 
 /**
@@ -81,11 +82,14 @@ const logRoomStatus = ({ name, alert }) => {
  * @returns {undefined}
  */
 export const logRoomStatuses = (rooms) => {
-  console.log(`\n--- Room statuses as of ${moment().format('LLLL')} ---`);
+  const statusesHeader = `≡≡≡ Room statuses as of ${moment().format('LLLL')} ≡≡≡`;
+  console.log(`\n${statusesHeader}`);
 
   rooms.forEach((room) => {
-    logRoomStatus(room);
+    console.log(getRoomStatusMessage(room));
   });
+
+  console.log(`${'≡'.repeat(statusesHeader.length)}\n`);
 
   if (isProd) {
     setTimeout(() => {

@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import { getHost, getOrigin } from 'server/utils';
+import { getHost, getOrigin } from 'utils';
 
 describe('Traversal utilities', () => {
   describe('getHost', () => {
