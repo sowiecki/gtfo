@@ -4,6 +4,7 @@ import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
+import { logFetchRoomReservationsError } from '../utils';
 
 const fetchRoomReservations = (next, action) => {
   const { room, accessories } = action;
@@ -21,11 +22,7 @@ const fetchRoomReservations = (next, action) => {
         accessories
       });
     });
-  }).on('error', ({ code }) => {
-    const errorMessage = `Failed to fetch room reservations for ${room.id}.`;
-
-    console.error(errorMessage, code);
-  });
+  }).on('error', logFetchRoomReservationsError);
 };
 
 export default fetchRoomReservations;

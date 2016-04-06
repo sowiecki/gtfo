@@ -8,13 +8,13 @@ import { SQUATTED,
 
 /**
  * Sends command to board LED to flash room status color.
- * @param {string} roomStatus Status of room.
+ * Does nothing --dd flag is set at runtime.
+ * @param {string} room Status of room.
  * @param {object} accessories Board accessories object.
  * @returns {undefined}
  */
-export const flashNotifications = (roomStatus, accessories) => {
-  // TODO better handling of no reservations left
-  if (!roomStatus) {
+export const flashNotifications = (room, accessories) => {
+  if (process.env.DISABLE_DEVICES) {
     return;
   }
 
@@ -30,5 +30,5 @@ export const flashNotifications = (roomStatus, accessories) => {
     [BOOKED]: () => flash.occupied(accessories.led)
   };
 
-  handleFlash[roomStatus.alert || VACANT]();
+  handleFlash[room.alert || VACANT]();
 };

@@ -118,3 +118,12 @@ export const logBoardWarning = ({ message }) => console.log(colors.bgYellow(mess
  * @returns {undefined}
  */
 export const logBoardFailure = ({ message }) => console.log(colors.bgRed(message));
+
+/**
+ * Logs room reservation failures.
+ * @params {object} data Failure object.
+ * @returns {undefined}
+ */
+export const logFetchRoomReservationsError = ({ code, message }) => {
+  console.error('Failed to fetch room reservations.', code, message);
+};

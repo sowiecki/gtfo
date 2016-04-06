@@ -33,8 +33,8 @@ In production mode, it assumed `ems-wrapper` is deployed on another domain, defi
 
 ##### Options
 ```bash
---mocks # Disables Outlook api in favor of using mock reservation data
---dd # Disabled devices, useful for testing client without hardware
+--mocks # Disables Outlook api in favor of using mock reservation data.
+--dd # Disables devices, useful for client testing without room module hardware.
 ```
 ##### Production
 ```bash
