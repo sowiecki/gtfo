@@ -7,50 +7,25 @@ import { config } from '../environment';
 import store from '../store';
 
 import { WEB_SOCKET_PORT } from '../config';
-import { EMIT_CLIENT_CONNECTED } from '../ducks/rooms';
+import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
          INITIALIZE_ROOMS,
          INITIALIZE_MARKERS,
          RECONNECTED,
          NEW_ROOM_PING } from '../constants';
 
-import { getOrigin } from '../utils';
-
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
-/**
- * Clients with active WebSocket connections.
- */
-const clients = {};
-
-/**
- * Deletes client from stored clients hash.
- * @param {object} client WebSocket properties for client.
- */
-const flushClient = (client) => delete clients[getOrigin(client)];
-
-/**
- * Registers client with stored clients hash.
- * Overwrites clients from same origin.
- * @param {string} anchor Anchor key of client.
- * @param {object} client WebSocket properties for client.
- */
-const registerClient = (anchor, client) => {
-  const origin = getOrigin(client);
-
-  clients[origin] = Object.assign(client, { anchor });
-
-  store.dispatch({
-    type: EMIT_CLIENT_CONNECTED,
-    anchor,
-    client
-  });
-};
-
 const socketController = {
-  open(event, payload) {
+  getClients() {
+    const { clients } = store.getState().clientsReducer.toJS();
+
+    return clients;
+  },
+
+  open() {
     wss.on('connection', (client) => {
-      socketController.handle(event, payload, client);
+      // socketController.handle(event, payload, client);
 
       client.on('message', (data) => {
         const message = JSON.parse(data);
@@ -58,7 +33,9 @@ const socketController = {
         socketController.handle(message.event, message.payload, client);
       });
 
-      client.on('close', () => flushClient(client));
+      client.on('close', () => {
+        store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
+      });
     });
   },
 
@@ -73,28 +50,39 @@ const socketController = {
   handle(event, payload, client) {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
-        registerClient(payload.anchor, client);
+        const { anchor } = payload;
+        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
+
         const publicConfig = config.public; // Don't send sensative data out!
 
         socketController.send(event, publicConfig, client); // Reply with config
       },
+
       [INITIALIZE_ROOMS]() {
         socketController.send(event, payload, client);
       },
+
       [INITIALIZE_MARKERS]() {
         socketController.send(event, payload, client);
       },
+
       [RECONNECTED]() { // Reregister client socket with anchor parameter.
-        registerClient(payload.anchor, client);
+        const { anchor } = payload;
+        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
       },
+
       [NEW_ROOM_PING]() { // Send ping to clients with matching anchor parameter.
+        const clients = socketController.getClients();
         const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
 
         forEach(clientsWithAnchor, (clientWithAnchor) => {
           socketController.send(event, payload, clientWithAnchor);
         });
       },
+
       sendToAll() {
+        const clients = socketController.getClients();
+
         forEach(clients, (ws) => {
           socketController.send(event, payload, ws);
         });

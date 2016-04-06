@@ -17,7 +17,7 @@ import { registerBoard,
          logBoardReady,
          logBoardWarning,
          logBoardFailure } from '../utils';
-import { EMIT_INIT_DEVICES,
+import { EMIT_INIT_SOCKETS,
          FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
@@ -25,9 +25,11 @@ import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
   initialize() {
-    store.dispatch({ type: EMIT_INIT_DEVICES });
+    const rooms = devicesController.getRooms();
 
-    devicesController.getRooms().map((room) => {
+    store.dispatch({ type: EMIT_INIT_SOCKETS, rooms });
+
+    rooms.map((room) => {
       if (process.env.DISABLE_DEVICES) {
         /**
          * If devices are disabled, fetch reservations earlier

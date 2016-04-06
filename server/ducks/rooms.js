@@ -11,13 +11,13 @@ import { flashNotifications,
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
          ROOM_STATUSES_UPDATE } from '../constants';
+import { EMIT_CLIENT_CONNECTED } from './clients';
 
-export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
-export const EMIT_INIT_DEVICES = 'EMIT_INIT_DEVICES';
+export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_ROOM_PING_RECEIVED = 'EMIT_ROOM_PING_RECEIVED';
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
@@ -31,10 +31,6 @@ const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
 
   switch (action.type) {
-    case EMIT_INIT_DEVICES:
-      socketController.open(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
-
-      break;
     case EMIT_CLIENT_CONNECTED:
       socketController.handle(INITIALIZE_ROOMS, secureRooms(state.rooms), action.client);
 
