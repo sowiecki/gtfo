@@ -23,17 +23,21 @@ import { EMIT_INIT_DEVICES,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
-const { rooms } = store.getState().roomsReducer;
-
 const devicesController = {
   initialize() {
     store.dispatch({ type: EMIT_INIT_DEVICES });
 
-    if (process.env.DISABLE_DEVICES) {
-      return;
-    }
+    devicesController.getRooms().map((room) => {
+      if (process.env.DISABLE_DEVICES) {
+        /**
+         * If devices are disabled, fetch reservations earlier
+         * and exit scope before creating board objects.
+         */
+        store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
 
-    rooms.map((room) => {
+        return;
+      }
+
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
@@ -84,6 +88,8 @@ const devicesController = {
   },
 
   getRooms() {
+    const { rooms } = store.getState().roomsReducer;
+
     return rooms;
   }
 };
