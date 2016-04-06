@@ -21,11 +21,26 @@ import { EMIT_INIT_SOCKETS,
          FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants';
+import { HANDSHAKE, CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
+  getRooms() {
+    const { rooms } = store.getState().roomsReducer;
+
+    return rooms;
+  },
+
+  /**
+   * Kicks off setting up and connecting to devices.
+   * If devices are disabled, fetches reservations early without starting devices.
+   * @returns {undefined}
+   */
   initialize() {
-    store.dispatch({ type: EMIT_INIT_SOCKETS });
+    store.dispatch({
+      type: EMIT_INIT_SOCKETS,
+      event: HANDSHAKE,
+      publicConfig: config.public
+    });
 
     devicesController.getRooms().map((room) => {
       if (process.env.DISABLE_DEVICES) {
@@ -46,6 +61,14 @@ const devicesController = {
     });
   },
 
+  /**
+   * Top-level scope for handling an individual room's
+   *  board accessories and reservations.
+   * Kicks off actions to monitor accessory states, updating server state as necessary.
+   * @param {object} board JohnnyFive board object.
+   * @param {object} room Corresponding room object.
+   * @returns {undefined}
+   */
   connectToRoom(board, room) {
     logBoardReady(board);
 
@@ -85,12 +108,6 @@ const devicesController = {
         clearInterval(monitorRoomReservations);
       }
     }, CHECK_INTERVAL);
-  },
-
-  getRooms() {
-    const { rooms } = store.getState().roomsReducer;
-
-    return rooms;
   }
 };
 

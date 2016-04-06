@@ -3,7 +3,7 @@ import immutable from 'immutable';
 
 import socketController from '../controllers/socket';
 
-import { getOrigin } from '../utils';
+import { getWebSocketKey } from '../utils';
 
 export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -16,7 +16,9 @@ const initialState = immutable.fromJS({
 const clientsReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_INIT_SOCKETS]() {
-      socketController.open();
+      const { event, publicConfig } = action;
+
+      socketController.open(event, publicConfig);
 
       return state;
     },
@@ -25,13 +27,13 @@ const clientsReducer = (state = initialState, action) => {
       const { client, anchor } = action;
       const clientWithAnchor = Object.assign(client, { anchor });
 
-      return state.mergeIn(['clients'], { [getOrigin(client)]: clientWithAnchor });
+      return state.mergeIn(['clients'], { [getWebSocketKey(client)]: clientWithAnchor });
     },
 
     [EMIT_FLUSH_CLIENT]() {
       const { client } = action;
 
-      return state.deleteIn(['clients', getOrigin(client)]);
+      return state.deleteIn(['clients', getWebSocketKey(client)]);
     }
   };
 

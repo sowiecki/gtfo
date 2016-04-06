@@ -3,7 +3,6 @@
 import WebSocket from 'ws';
 import { filter, forEach } from 'lodash';
 
-import { config } from '../environment';
 import store from '../store';
 
 import { WEB_SOCKET_PORT } from '../config';
@@ -23,9 +22,14 @@ const socketController = {
     return clients;
   },
 
-  open() {
+  /**
+   * Sets up and initializes socket connection with client.
+   * @params{string} event Event constant for initial communication with client.
+   * @returns {undefined}
+   */
+  open(event, payload) {
     wss.on('connection', (client) => {
-      // socketController.handle(event, payload, client);
+      socketController.send(event, payload, client); // Initialize with config
 
       client.on('message', (data) => {
         const message = JSON.parse(data);
@@ -39,6 +43,14 @@ const socketController = {
     });
   },
 
+  /**
+   * Middleware function for all open socket communication.
+   * Fails gracefully if communication with client fails unexpectedly.
+   * @param {string} event Event constant that determines handling client-side.
+   * @param {object} payload Payload to send to client.
+   * @param {ws} client WebSocket object associated with specific targetted client.
+   * @returns {undefined}
+   */
   send(event, payload, client) {
     try {
       client.send(JSON.stringify({ event, payload }));
@@ -47,15 +59,20 @@ const socketController = {
     }
   },
 
+  /**
+   * WebSocket protocol for governing all outgoing socket communications.
+   * @param {string} event Event constant that determines handling server-side.
+   *  Sometimes passed to client.
+   * @param {object} payload Payload to send to client.
+   * @param {ws | undefined} client WebSocket object associated with specific targetted client.
+   * @returns {undefined}
+   */
   handle(event, payload, client) {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
         const { anchor } = payload;
+
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
-
-        const publicConfig = config.public; // Don't send sensative data out!
-
-        socketController.send(event, publicConfig, client); // Reply with config
       },
 
       [INITIALIZE_ROOMS]() {
@@ -68,6 +85,7 @@ const socketController = {
 
       [RECONNECTED]() { // Reregister client socket with anchor parameter.
         const { anchor } = payload;
+
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
       },
 

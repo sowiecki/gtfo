@@ -27,6 +27,7 @@ const initialState = {
   rooms: devices
 };
 
+// TODO integrate with Immutable here, clean up logic.
 const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
 
