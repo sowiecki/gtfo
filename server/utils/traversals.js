@@ -14,4 +14,4 @@ export const getHost = (req) => get(req, 'headers.host').slice(0, hostPort);
  * @param {object} client WebSocket client object.
  * @returns {string} Origin parameter.
  */
-export const getOrigin = (client) => get(client, 'upgradeReq.headers.sec-websocket-key');
+export const getWebSocketKey = (client) => get(client, 'upgradeReq.headers.sec-websocket-key');

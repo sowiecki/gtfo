@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import { getHost, getOrigin } from 'utils';
+import { getHost, getWebSocketKey } from 'utils';
 
 describe('Traversal utilities', () => {
   describe('getHost', () => {
@@ -17,7 +17,7 @@ describe('Traversal utilities', () => {
     });
   });
 
-  describe('getOrigin', () => {
+  describe('getWebSocketKey', () => {
     const mockClient = {
       upgradeReq: {
         headers: {
@@ -27,7 +27,7 @@ describe('Traversal utilities', () => {
     };
 
     it('should return parsed origin name.', () => {
-      expect(getOrigin(mockClient)).toEqual('isNotSteam');
+      expect(getWebSocketKey(mockClient)).toEqual('isNotSteam');
     });
   });
 });

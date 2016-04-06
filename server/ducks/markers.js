@@ -8,9 +8,7 @@ import { INITIALIZE_MARKERS } from '../constants';
 export const EMIT_SEND_MARKERS = 'EMIT_SEND_MARKERS';
 
 const markersReducer = (state = markers, action) => {
-  const { type } = action;
-
-  switch (type) {
+  switch (action.type) {
     case EMIT_CLIENT_CONNECTED:
       socketController.handle(INITIALIZE_MARKERS, state, action.client);
       break;
