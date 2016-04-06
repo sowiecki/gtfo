@@ -9,9 +9,9 @@ const rootReducer = combineReducers(reducers);
 
 const configureStore = (initialState) => {
   const createStoreWithMiddleware = applyMiddleware(api)(createStore);
-  const store = createStoreWithMiddleware(rootReducer, initialState);
 
-  return store;
+  return createStoreWithMiddleware(rootReducer, initialState);
 };
 
-export default configureStore;
+const store = configureStore();
+export default store;

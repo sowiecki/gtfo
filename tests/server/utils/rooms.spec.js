@@ -6,15 +6,13 @@ import sinon from 'sinon';
 import { filterExpiredReservations,
          getRoomAlert,
          secureRoom,
-         secureRooms } from 'server/utils';
+         secureRooms } from 'utils';
 
-import {
-  SQUATTED,
-  VACANT,
-  ONE_MINUTE_WARNING,
-  FIVE_MINUTE_WARNING,
-  BOOKED
-} from 'server/constants';
+import { SQUATTED,
+         VACANT,
+         ONE_MINUTE_WARNING,
+         FIVE_MINUTE_WARNING,
+         BOOKED } from 'constants/room-statuses';
 
 describe('Room utilities (server)', () => {
   describe('getRoomAlert', () => {

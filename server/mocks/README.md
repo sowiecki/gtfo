@@ -1,7 +1,7 @@
 # Mock Reservations
 ```bash
-npm run dev-mocks # Run development mode with mock reservation data
-npm run hot-mocks # Run development mode with hot-reloading and mock reservation data
+npm run dev -- --mocks # Run development mode with mock reservation data
+npm run hot -- --mocks # Run development mode with hot-reloading and mock reservation data
 ```
 
 For testing purposes, mock data can be dynamically generated to simulate meeting reservations.

@@ -1,21 +1,19 @@
 import { find } from 'lodash';
 
-import store from '../store/configure-store';
+import store from '../store';
 import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 
 import { PING_ERROR } from '../constants';
 import { getHost } from '../utils';
 
-const { rooms } = store().getState().roomsReducer;
-
-
 const pingsController = {
   handlePing(req, res) {
+    const { rooms } = store.getState().roomsReducer;
     const { id, anchor } = req.headers;
     const room = find(rooms, { id });
 
     if (room) {
-      store().dispatch({
+      store.dispatch({
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           origin: getHost(req),
