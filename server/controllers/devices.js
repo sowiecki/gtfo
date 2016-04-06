@@ -25,11 +25,9 @@ import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
   initialize() {
-    const rooms = devicesController.getRooms();
+    store.dispatch({ type: EMIT_INIT_SOCKETS });
 
-    store.dispatch({ type: EMIT_INIT_SOCKETS, rooms });
-
-    rooms.map((room) => {
+    devicesController.getRooms().map((room) => {
       if (process.env.DISABLE_DEVICES) {
         /**
          * If devices are disabled, fetch reservations earlier
