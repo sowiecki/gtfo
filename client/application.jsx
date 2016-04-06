@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import history from './config/history';
-import store from './store/store';
+import store from './store';
 
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';

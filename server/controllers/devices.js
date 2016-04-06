@@ -6,7 +6,7 @@
  * Registers accessories for each device
  */
 
-import store from '../store/configure-store';
+import store from '../store';
 
 import { config } from '../environment';
 import { registerBoard,
@@ -23,11 +23,11 @@ import { EMIT_INIT_DEVICES,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
-const { rooms } = store().getState().roomsReducer;
+const { rooms } = store.getState().roomsReducer;
 
 const devicesController = {
   initialize() {
-    store().dispatch({ type: EMIT_INIT_DEVICES });
+    store.dispatch({ type: EMIT_INIT_DEVICES });
 
     if (process.env.DISABLE_DEVICES) {
       return;
@@ -54,14 +54,14 @@ const devicesController = {
     };
 
     if (config.public.enableTemperature) {
-      store().dispatch({
+      store.dispatch({
         type: FETCH_ROOM_TEMPERATURE,
         room,
         accessories
       });
     }
 
-    store().dispatch({
+    store.dispatch({
       type: FETCH_ROOM_MOTION,
       room,
       accessories
@@ -70,7 +70,7 @@ const devicesController = {
     // Set interval for checking and responding to room state
     const monitorRoomReservations = setInterval(() => {
       // Retrieve outlook room reservation statuses
-      store().dispatch({
+      store.dispatch({
         type: FETCH_ROOM_RESERVATIONS,
         room,
         accessories

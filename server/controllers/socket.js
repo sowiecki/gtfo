@@ -4,7 +4,7 @@ import WebSocket from 'ws';
 import { filter, forEach } from 'lodash';
 
 import { config } from '../environment';
-import store from '../store/configure-store';
+import store from '../store';
 
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED } from '../ducks/rooms';
@@ -40,7 +40,7 @@ const registerClient = (anchor, client) => {
 
   clients[origin] = Object.assign(client, { anchor });
 
-  store().dispatch({
+  store.dispatch({
     type: EMIT_CLIENT_CONNECTED,
     anchor,
     client
