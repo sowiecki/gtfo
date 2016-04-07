@@ -2,19 +2,22 @@
 import socketController from '../controllers/socket';
 
 import { markers } from '../environment';
-import { EMIT_CLIENT_CONNECTED } from './rooms';
+import { EMIT_CLIENT_CONNECTED } from './clients';
 import { INITIALIZE_MARKERS } from '../constants';
+import { handleAction } from '../utils';
 
 export const EMIT_SEND_MARKERS = 'EMIT_SEND_MARKERS';
 
 const markersReducer = (state = markers, action) => {
-  switch (action.type) {
-    case EMIT_CLIENT_CONNECTED:
+  const reducers = {
+    [EMIT_CLIENT_CONNECTED]() {
       socketController.handle(INITIALIZE_MARKERS, state, action.client);
-      break;
-  }
 
-  return state;
+      return state;
+    }
+  };
+
+  return handleAction(state, action, reducers);
 };
 
 export default markersReducer;
