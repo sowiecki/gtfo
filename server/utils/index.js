@@ -1,3 +1,4 @@
+export * from '../../universal/utils';
 export * from './flash';
 export * from './hardware';
 export * from './logging';

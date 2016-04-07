@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import { updateLocationIndex } from '../utils';
+import { updateLocationIndex, handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
@@ -41,8 +41,6 @@ const initialState = immutable.fromJS({
 });
 
 const navigationReducer = (state = initialState, action) => {
-  const { type, siteNavOpen, locationModalOpen } = action;
-
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]() {
       const { title } = action.config;
@@ -50,11 +48,11 @@ const navigationReducer = (state = initialState, action) => {
       return state.set('documentTitle', title || DEFAULT_DOCUMENT_TITLE);
     },
     [EMIT_SITE_NAV_TOGGLE]() {
-      return state.set('siteNavOpen', siteNavOpen);
+      return state.set('siteNavOpen', action.siteNavOpen);
     },
 
     [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', !locationModalOpen);
+      return state.set('locationModalOpen', !action.locationModalOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {
@@ -66,7 +64,7 @@ const navigationReducer = (state = initialState, action) => {
     }
   };
 
-  return reducers[type] ? reducers[type]() : state;
+  return handleAction(state, action, reducers);
 };
 
 export default navigationReducer;
