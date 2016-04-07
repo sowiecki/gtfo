@@ -4,7 +4,7 @@ import immutable from 'immutable';
 import socketController from '../controllers/socket';
 
 import { HANDSHAKE } from '../constants';
-import { getWebSocketKey } from '../utils';
+import { getWebSocketKey, handleAction } from '../utils';
 
 export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -38,7 +38,7 @@ const clientsReducer = (state = initialState, action) => {
     }
   };
 
-  return reducers[action.type] ? reducers[action.type]() : state;
+  return handleAction(state, action, reducers);
 };
 
 export default clientsReducer;

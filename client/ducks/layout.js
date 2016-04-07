@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 
-import { pluckLocations } from '../utils';
+import { pluckLocations, handleAction } from '../utils';
 
 import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
 import { FAHRENHEIT, CELCIUS } from '../constants';
@@ -136,7 +136,7 @@ const layoutReducer = (state = initialState, action) => {
     }
   };
 
-  return reducers[action.type] ? reducers[action.type]() : state;
+  return handleAction(state, action, reducers);
 };
 
 export default layoutReducer;

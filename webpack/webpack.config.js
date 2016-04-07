@@ -2,6 +2,7 @@
 const path = require('path');
 
 const baseContext = path.join(__dirname, '../client');
+const universalContext = path.join(__dirname, '../universal');
 
 module.exports = {
   context: baseContext,
@@ -12,6 +13,9 @@ module.exports = {
     publicPath: '/dist/'
   },
   resolve: {
+    alias: {
+      universal: path.resolve(universalContext)
+    },
     extensions: ['', '.js', '.jsx']
   },
   module: {
@@ -19,7 +23,7 @@ module.exports = {
       {
         test: /\.js(x|)?$/,
         loader: 'babel-loader?plugins[]=transform-object-rest-spread',
-        include: baseContext,
+        includes: [baseContext, universalContext],
         exclude: /node_modules/
       },
       {
