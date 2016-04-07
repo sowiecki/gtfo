@@ -7,6 +7,7 @@
     "url": "git@github.com:Nase00/gtfo.git"
   },
   "main": "application.js",
+  "node_test_paths": "./tests/server/**/*.spec.* ./tests/universal/**/*.spec.*",
   "scripts": {
     "clean": "rimraf server/public/dist",
     "deploy-server": "NODE_ENV=production forever start ./application.js",
@@ -24,8 +25,8 @@
     "test-client": "karma start karma/karma.conf",
     "test-client-cov": "karma start karma/karma.conf.cov.js",
     "test-cov": "npm run test-client-cov && npm run test-node-cov && npm run upload-cov && rm -rf ./coverage",
-    "test-node": "mocha ./tests/server/**/*.spec.* ./tests/universal/**/*.spec.* --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
-    "test-node-cov": "istanbul cover node_modules/mocha/bin/_mocha ./tests/server/**/*.spec.* --report lcovonly -- --compilers js:babel-core/register --require tests/config.server.js --reporter=dot",
+    "test-node": "mocha $npm_package_node_test_paths --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
+    "test-node-cov": "istanbul cover mocha $npm_package_node_test_paths --report lcovonly -- --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
     "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls",
     "yolo": "rimraf environment/mock-data.json"
   },
