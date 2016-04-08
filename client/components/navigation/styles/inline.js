@@ -7,11 +7,11 @@ export const styles = {
   },
 
   toolbarTitle: {
-    margin: '0',
+    margin: 0,
     color: colors.WHITE,
     fontSize: '35px',
     lineHeight: '48px',
-    fontWeight: '8',
+    fontWeight: 8,
     fontFamily: fonts.primary
   },
 
@@ -30,7 +30,7 @@ export const styles = {
   },
 
   navIcons: {
-    marginLeft: '24'
+    marginLeft: '24px'
   },
 
   tempScaleNavIcon: {

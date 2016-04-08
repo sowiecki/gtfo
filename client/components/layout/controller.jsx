@@ -129,6 +129,8 @@ class LayoutController extends Component {
         style={styles.officeLayoutContainer}>
           <image
             className='office-layout'
+            // TODO fix this, React v15 seems to have broken it
+            // xlinkHref={getLocationBackdrop(this.props.params.location)}>
             src={getLocationBackdrop(this.props.params.location)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}

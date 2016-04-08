@@ -9,10 +9,10 @@ const layoutSelectors = [
 
 export const rules = {
   officeLayout: {
-
     'img.office-layout, svg.office-layout': {
+      zIndex: 0,
       display: 'block',
-      position: 'absolute',
+      // position: 'absolute',
       top: '30px',
       width: '300px',
       height: '345px',
@@ -21,7 +21,7 @@ export const rules = {
     },
 
     'text.room-text, text.temperature-text': {
-      zIndex: '200',
+      zIndex: 200,
       fontSize: '10px',
       fontFamily: fonts.primary,
       fontWeight: 'bold',
@@ -73,7 +73,7 @@ export const rules = {
 
         '.map-legend': {
           left: 'auto',
-          right: '0',
+          right: 0,
           transform: 'scale(.35)'
         }
       },

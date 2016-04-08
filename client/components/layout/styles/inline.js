@@ -12,8 +12,8 @@ export const styles = {
   },
 
   officeLayoutContainer: {
-    right: '0',
-    left: '0',
+    right: 0,
+    left: 0,
     margin: 'auto auto'
   },
 
@@ -21,7 +21,7 @@ export const styles = {
     height: '24px',
     width: '24px',
     x: '24px',
-    y: '0'
+    y: 0
   },
 
   mapLegendItem: {
