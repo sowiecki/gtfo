@@ -21,6 +21,7 @@ import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION } from '../ducks/rooms';
+import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';
 import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
@@ -44,10 +45,12 @@ const devicesController = {
     devicesController.getRooms().map((room) => {
       if (process.env.DISABLE_DEVICES) {
         /**
-         * If devices are disabled, fetch reservations earlier
+         * If devices are disabled,
+         * fetch reservations and stall occupancies earlier
          * and exit scope before creating board objects.
          */
         store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
+        store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
 
         return;
       }
@@ -94,7 +97,7 @@ const devicesController = {
     });
 
     // Set interval for checking and responding to room state
-    const monitorRoomReservations = setInterval(() => {
+    const monitorExternalServices = setInterval(() => {
       // Retrieve outlook room reservation statuses
       store.dispatch({
         type: FETCH_ROOM_RESERVATIONS,
@@ -102,9 +105,13 @@ const devicesController = {
         accessories
       });
 
+      if (config.public.enableTemperature) {
+        store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
+      }
+
       if (process.env.MOCKS) {
         // No need to continually check mock data for updates
-        clearInterval(monitorRoomReservations);
+        clearInterval(monitorExternalServices);
       }
     }, CHECK_INTERVAL);
   }
