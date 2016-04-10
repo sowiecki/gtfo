@@ -1,7 +1,8 @@
 /* eslint no-case-declarations:0, default-case:0, no-fallthrough:0 */
 import socketController from '../controllers/socket';
+import slug from 'slug';
 
-import { devices } from '../environment';
+import { devices, coordinates } from '../environment';
 import { flashNotifications,
          logRoomStatuses,
          filterExpiredReservations,
@@ -24,7 +25,12 @@ export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 // TODO Wrap state in Immutable object.
 const initialState = {
-  rooms: devices
+  rooms: devices.map((device) => {
+    const id = device.name.toLowerCase();
+    const location = slug(device.location, { lower: true });
+
+    return Object.assign(device, { id, location, coordinates: coordinates[id] });
+  })
 };
 
 const roomsReducer = (state = initialState, action) => {

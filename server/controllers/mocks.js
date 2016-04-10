@@ -2,20 +2,24 @@
  * When running with mocks enabled,
  * this service responds with mocked
  * reservation data to simulate the
- * functionality of ems_wrapper.
+ * functionality of reservation and
+ * stall status APIs.
  */
-import getMockData from '../mocks/mock-data';
+import getMockReservations from '../mocks/reservations';
+import getMockStallOcuppancies from '../mocks/stall-occupancies';
 
 const mocksController = {
   reservationsByRoom(res, req) {
     const { roomId } = req.params;
-    const mockData = getMockData();
+    const mockReservations = getMockReservations();
 
-    res.json(mockData[roomId]);
+    res.json(mockReservations[roomId]);
   },
 
   stalls(res) {
-    res.json({ id: 'meh', foo: 'bar', biz: 'baz' });
+    const mockStallOccupancies = getMockStallOcuppancies();
+
+    res.json(mockStallOccupancies);
   }
 };
 

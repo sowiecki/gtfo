@@ -1,4 +1,12 @@
 import { colors } from '../../common/styles';
+import { OCCUPIED,
+         SQUATTED,
+         VACANT,
+         FIVE_MINUTE_WARNING,
+         ONE_MINUTE_WARNING,
+         BOOKED,
+         OFFLINE,
+         PINGED } from '../../../constants';
 
 export const styles = {
   paperOverride: {
@@ -35,17 +43,19 @@ export const styles = {
 
   svgStroke: colors.GREY,
 
-  SQUATTED: colors.TEAL,
+  [OCCUPIED]: colors.RED,
 
-  VACANT: colors.GREEN,
+  [SQUATTED]: colors.TEAL,
 
-  ONE_MINUTE_WARNING: colors.RED,
+  [VACANT]: colors.GREEN,
 
-  FIVE_MINUTE_WARNING: colors.ORANGE,
+  [ONE_MINUTE_WARNING]: colors.RED,
 
-  BOOKED: colors.BLUE,
+  [FIVE_MINUTE_WARNING]: colors.ORANGE,
 
-  OFFLINE: colors.GREY,
+  [BOOKED]: colors.BLUE,
 
-  PINGED: colors.YELLOW
+  [OFFLINE]: colors.GREY,
+
+  [PINGED]: colors.YELLOW
 };
