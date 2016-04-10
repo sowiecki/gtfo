@@ -162,7 +162,9 @@ describe('Room utilities (server)', () => {
     name: 'Hyrule Castle',
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
-    deviceAuthToken: 'hunter2'
+    deviceAuthToken: 'hunter2',
+    fahrenheitTmpVoltage: '65 °F',
+    celciusTmpVoltage: '18 °C'
   };
 
   const mockSecureRoom = {
@@ -170,7 +172,9 @@ describe('Room utilities (server)', () => {
     alert: 'BOOKED',
     coordinates: {},
     location: 'Hyrule',
-    name: 'Hyrule Castle'
+    name: 'Hyrule Castle',
+    fahrenheitTmpVoltage: '65 °F',
+    celciusTmpVoltage: '18 °C'
   };
 
   describe('secureRoom', () => {
