@@ -2,17 +2,17 @@
 import { colors, fonts, breakpoints, devices } from '../../common/styles';
 
 const layoutSelectors = [
-  'img.office-layout',
+  'image.office-background',
   'svg.office-layout',
   '.office-layout-container'
 ].join(', ');
 
 export const rules = {
   officeLayout: {
-    'img.office-layout, svg.office-layout': {
+    'image.office-background': {
       zIndex: 0,
       display: 'block',
-      // position: 'absolute',
+      position: 'absolute',
       top: '30px',
       width: '300px',
       height: '345px',

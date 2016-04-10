@@ -1,6 +1,12 @@
 import { colors } from '../../common/styles';
+import { getLocationBackdrop } from '../../../utils';
 
 export const styles = {
+  generateOfficeBackgroundStyle: ({ location }) => ({
+    backgroundImage: `url(${getLocationBackdrop(location)})`,
+    backgroundSize: '100%'
+  }),
+
   paperOverride: {
     height: '100%'
   },

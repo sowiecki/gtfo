@@ -12,8 +12,7 @@ import MapLegend from './map-legend';
 
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { getLocationBackdrop,
-         filterByLocation,
+import { filterByLocation,
          pluckLocations,
          updateLocationIndex,
          youAreHere,
@@ -128,10 +127,8 @@ class LayoutController extends Component {
         className='office-layout-container'
         style={styles.officeLayoutContainer}>
           <image
-            className='office-layout'
-            // TODO fix this, React v15 seems to have broken it
-            // xlinkHref={getLocationBackdrop(this.props.params.location)}>
-            src={getLocationBackdrop(this.props.params.location)}>
+            className='office-background'
+            style={styles.generateOfficeBackgroundStyle(this.props.params)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
                 {filteredMarkers.map(this.renderMarker)}
