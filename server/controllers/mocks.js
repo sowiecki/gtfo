@@ -14,7 +14,7 @@ const mocksController = {
     res.json(mockData[roomId]);
   },
 
-  stalls(res, req) {
+  stalls(res) {
     res.json({ id: 'meh', foo: 'bar', biz: 'baz' });
   }
 };
