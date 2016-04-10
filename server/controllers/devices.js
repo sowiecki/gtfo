@@ -50,7 +50,10 @@ const devicesController = {
          * and exit scope before creating board objects.
          */
         store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
-        store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
+
+        if (config.public.enableStalls) {
+          store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
+        }
 
         return;
       }
@@ -105,7 +108,7 @@ const devicesController = {
         accessories
       });
 
-      if (config.public.enableTemperature) {
+      if (config.public.enableStalls) {
         store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
       }
 
