@@ -62,7 +62,9 @@ export const secureRoom = (room) => ({
   alert: room.alert,
   coordinates: room.coordinates,
   location: room.location,
-  name: room.name
+  name: room.name,
+  fahrenheitTmpVoltage: room.fahrenheitTmpVoltage,
+  celciusTmpVoltage: room.celciusTmpVoltage
 });
 
 /**
