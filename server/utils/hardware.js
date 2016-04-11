@@ -10,7 +10,8 @@ import { RGB_PINS,
          THERMO_PIN,
          THERMO_FREQ,
          HCSR501,
-         MOTION_PIN } from '../constants';
+         MOTION_PIN,
+         MOTION_FREQ } from '../constants';
 
 export const registerBoard = (device) => (
   new Board({
@@ -52,6 +53,7 @@ export const registerMotion = (board) => (
     controller: HCSR501,
     pin: MOTION_PIN,
     id: board.id,
+    freq: MOTION_FREQ,
     board
   })
 );

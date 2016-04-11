@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { EMIT_ROOM_MOTION_UPDATE } from '../ducks/rooms';
 
 const fetchRoomMotion = (next, action) => {
@@ -8,15 +10,14 @@ const fetchRoomMotion = (next, action) => {
     next({
       type: EMIT_ROOM_MOTION_UPDATE,
       room,
-      motion: true
+      motion: moment()
     });
   });
 
-  motion.on('motionend', () => {
+  motion.on('data', () => {
     next({
       type: EMIT_ROOM_MOTION_UPDATE,
-      room,
-      motion: false
+      room
     });
   });
 };

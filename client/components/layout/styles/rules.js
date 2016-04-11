@@ -73,7 +73,7 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '18px',
+          fontSize: '16px',
           transform: 'translateY(2px)'
         },
 

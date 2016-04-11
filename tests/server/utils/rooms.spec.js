@@ -1,6 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
+import moment from 'moment';
 import sinon from 'sinon';
 
 import { filterExpiredReservations,
@@ -89,7 +90,7 @@ describe('Room utilities (server)', () => {
     ];
 
     const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
-    const hasActiveMotion = true;
+    const hasActiveMotion = moment();
     const hasNoActiveMotion = false;
 
     beforeEach(() => {
