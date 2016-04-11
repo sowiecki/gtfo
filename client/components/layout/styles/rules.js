@@ -40,6 +40,12 @@ export const rules = {
       opacity: 0.5
     },
 
+    'text.restroom-marker': {
+      position: 'absolute',
+      fontSize: '20px',
+      fill: colors.DARK_GREY
+    },
+
     mediaQueries: {
       [breakpoints.afterExtraSmall]: {
         [layoutSelectors]: {
@@ -108,6 +114,11 @@ export const rules = {
           left: '25px',
           right: 'auto',
           transform: 'scale(.5)'
+        },
+
+        'text.restroom-marker': {
+          fontSize: '30px',
+          transform: 'translateY(8px)'
         }
       },
 
@@ -120,6 +131,11 @@ export const rules = {
         'text.temperature-text': {
           transform: 'translateY(34px)'
         },
+
+        'text.restroom-marker': {
+          fontSize: '40px',
+          transform: 'translateY(28px)'
+        }
       },
 
       [devices.iphone]: {

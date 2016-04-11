@@ -13,6 +13,7 @@ module.exports = {
     publicPath: '/dist/'
   },
   resolve: {
+    root: baseContext,
     alias: {
       universal: path.resolve(universalContext)
     },

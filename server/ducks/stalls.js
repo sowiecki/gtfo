@@ -15,7 +15,7 @@ const initialState = immutable.fromJS({
   stalls: []
 });
 
-const applyCoordinates = (stall) => Object.assign(stall, coordinates[stall.id]);
+const applyCoordinates = (stall) => Object.assign(stall, { coordinates: coordinates[stall.id] });
 
 const clientsReducer = (state = initialState, action) => {
   const reducers = {

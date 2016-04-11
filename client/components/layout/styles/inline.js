@@ -41,7 +41,9 @@ export const styles = {
     fill: colors.primary
   },
 
-  svgStroke: colors.GREY,
+  svgStroke: colors.BLACK,
+
+  svgStrokeWidth: 2,
 
   [OCCUPIED]: colors.RED,
 

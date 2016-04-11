@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import { getHost, getWebSocketKey } from 'utils';
+import { getHost, getWebSocketKey } from 'server/utils';
 
 describe('Traversal utilities', () => {
   describe('getHost', () => {
