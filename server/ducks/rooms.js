@@ -43,7 +43,7 @@ const roomsReducer = (state = initialState, action) => {
       break;
     case EMIT_ROOM_MOTION_UPDATE:
       state.rooms.map((room) => {
-        if (room.id === action.room.id) {
+        if (room.id === action.room.id && action.motion) {
           room.motion = action.motion;
         }
 
@@ -57,7 +57,7 @@ const roomsReducer = (state = initialState, action) => {
           const accessories = room.accessories || action.accessories;
           const reservations = room.reservations || action.reservations;
           const filteredReservations = filterExpiredReservations(reservations);
-          const alert = getRoomAlert(filteredReservations, room.motion);
+          const alert = getRoomAlert(filteredReservations, action.motion || room.motion);
 
           if (room.alert !== alert) {
             alertChanged = true;
@@ -70,7 +70,9 @@ const roomsReducer = (state = initialState, action) => {
             room.reservations = action.reservations;
           }
 
-          flashNotifications(room, accessories);
+          if (accessories) {
+            flashNotifications(room, accessories);
+          }
         }
         return room;
       });
