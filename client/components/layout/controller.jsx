@@ -7,6 +7,7 @@ import Paper from 'material-ui/lib/paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import MeetingRoom from './meeting-room';
+import Stall from './stall';
 import Marker from './marker';
 import MapLegend from './map-legend';
 
@@ -29,6 +30,7 @@ class LayoutController extends Component {
     this.handleChangeLocation = this.handleChangeLocation.bind(this);
     this.renderLocation = this.renderLocation.bind(this);
     this.renderMeetingRoom = this.renderMeetingRoom.bind(this);
+    this.renderStall = this.renderStall.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
   }
 
@@ -43,8 +45,7 @@ class LayoutController extends Component {
    */
   componentDidUpdate() {
     const { layout, params } = this.props;
-    const { meetingRooms } = layout.toJS();
-    const { ping } = layout.toJS();
+    const { meetingRooms, ping } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
     if (!params.location && locations.length) {
@@ -105,6 +106,12 @@ class LayoutController extends Component {
     );
   }
 
+  renderStall(stall) {
+    return (
+      <Stall key={stall.id} {...stall}/>
+    );
+  }
+
   renderMarker(marker, index) {
     const { location } = this.props;
 
@@ -117,8 +124,9 @@ class LayoutController extends Component {
   }
 
   renderLocation(location) {
-    const { meetingRooms, markers } = this.props.layout.toJS();
+    const { meetingRooms, stalls, markers } = this.props.layout.toJS();
     const filteredMeetingRooms = filterByLocation(meetingRooms, location);
+    const filteredStalls = filterByLocation(stalls, location);
     const filteredMarkers = filterByLocation(markers, location);
 
     return (
@@ -131,6 +139,7 @@ class LayoutController extends Component {
             style={styles.generateOfficeBackgroundStyle(this.props.params)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
+                {filteredStalls.map(this.renderStall)}
                 {filteredMarkers.map(this.renderMarker)}
               </svg>
           </image>
@@ -166,6 +175,7 @@ LayoutController.propTypes = {
   location: PropTypes.object.isRequired,
   layout: ImmutablePropTypes.Map.isRequired,
   meetingRooms: ImmutablePropTypes.Map,
+  stalls: ImmutablePropTypes.Map,
   params: PropTypes.shape({
     location: PropTypes.string
   }).isRequired,

@@ -46,7 +46,7 @@ const generateMockData = () => {
  * 3. If mock-data.json does not exist, create it with new data
  */
  // TODO check that reservations exist for each device
-const getMockData = () => {
+const getMockReservations = () => {
   let mockData;
 
   try {
@@ -82,4 +82,4 @@ const getMockData = () => {
   return mockData;
 };
 
-export default getMockData;
+export default getMockReservations;

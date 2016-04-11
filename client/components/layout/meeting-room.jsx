@@ -67,7 +67,12 @@ const MeetingRoom = (props) => {
 
 MeetingRoom.propTypes = {
   name: PropTypes.string.isRequired,
-  coordinates: PropTypes.object.isRequired,
+  coordinates: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired
+  }).isRequired,
   alert: PropTypes.string,
   fahrenheitTmpVoltage: PropTypes.number,
   celciusTmpVoltage: PropTypes.number,

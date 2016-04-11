@@ -8,14 +8,16 @@ export default {
         properties: {
           title: { type: 'string' },
           enableTemperature: { type: 'bool' },
+          enableStalls: { type: 'bool' },
           defaultTempScale: {
             type: 'string', enum: ['fahrenheit', 'celcius']
           }
         }
       },
-      productionHost: { type: 'string' }
+      prodReservationsHost: { type: 'string' },
+      prodStallsHost: { type: 'string' }
     },
-    required: ['public', 'productionHost']
+    required: ['public', 'prodReservationsHost']
   },
   devices: {
     title: 'Devices Schema',

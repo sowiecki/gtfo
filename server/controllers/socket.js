@@ -10,6 +10,7 @@ import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
          INITIALIZE_ROOMS,
          INITIALIZE_MARKERS,
+         INITIALIZE_STALLS,
          RECONNECTED,
          NEW_ROOM_PING } from '../constants';
 
@@ -80,6 +81,10 @@ const socketController = {
       },
 
       [INITIALIZE_MARKERS]() {
+        socketController.send(event, payload, client);
+      },
+
+      [INITIALIZE_STALLS]() {
         socketController.send(event, payload, client);
       },
 

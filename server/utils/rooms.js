@@ -16,13 +16,17 @@ import {
  * @param {array} reservations Array of reservation objects.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], hasRecentMotion) => {
+export const getRoomAlert = (reservations = [], recentMotion) => {
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
+  const noReservations = !reservations.length;
+  const hasRecentMotion = recentMotion ?
+    recentMotion.isAfter(moment().subtract(5, 'seconds')) : false;
 
-  if (!reservations.length) {
-    // No reservations left for today
+  if (noReservations && !hasRecentMotion) {
     return VACANT;
+  } else if (noReservations && hasRecentMotion) {
+    return SQUATTED;
   }
 
   // Advanced reservation conditions
@@ -62,7 +66,9 @@ export const secureRoom = (room) => ({
   alert: room.alert,
   coordinates: room.coordinates,
   location: room.location,
-  name: room.name
+  name: room.name,
+  fahrenheitTmpVoltage: room.fahrenheitTmpVoltage,
+  celciusTmpVoltage: room.celciusTmpVoltage
 });
 
 /**

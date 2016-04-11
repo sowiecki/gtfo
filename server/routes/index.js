@@ -3,16 +3,22 @@ import express from 'express';
 
 import pingsController from '../controllers/pings';
 
+import { config } from '../environment';
 import { BUNDLE_PATH } from '../config';
-import { MOCK_RESERVATIONS_API } from '../constants';
+import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
 
 const router = express.Router();
 
 if (process.env.MOCKS) {
   const mockServices = require('../controllers/mocks').default;
   const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
+  const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
 
   router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
+
+  if (config.public.enableStalls) {
+    router.get(MOCK_STALLS_API, respondWithMockedStalls);
+  }
 }
 
 /* Room pings */

@@ -1,7 +1,6 @@
 /* eslint array-callback-return:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
-import slug from 'slug';
 
 import validator from '../environment/validation';
 import { FileValidationError } from './errors';
@@ -32,14 +31,5 @@ if (validator.validate(markers, '/MarkersSchema').errors.length) {
 if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
   throw new FileValidationError('coordinates');
 }
-
-devices.map((device) => {
-  // Map additional properties to device objects.
-  device.id = device.name.toLowerCase();
-  device.coordinates = coordinates[device.id];
-
-  // Slugify location.
-  device.location = slug(device.location, { lower: true });
-});
 
 export { config, devices, markers, coordinates };
