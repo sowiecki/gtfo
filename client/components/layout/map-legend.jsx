@@ -44,7 +44,7 @@ const MapLegend = ({ showYouAreHere, enabled }) => {
         style={styles.mapLegendItem}
         disabled={true}
         leftAvatar={getIcon(styles.SQUATTED)}>
-          Squatted with no reservation
+          Occupied, no reservation
       </ListItem>
       <ListItem
         style={styles.mapLegendItem}

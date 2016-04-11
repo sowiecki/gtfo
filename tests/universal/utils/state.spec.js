@@ -2,7 +2,7 @@
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
-import { handleAction } from 'utils';
+import { handleAction } from 'server/utils';
 
 describe('Universal utilities', () => {
   describe('handleAction', () => {
