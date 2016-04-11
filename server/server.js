@@ -38,7 +38,6 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.set('port', SERVER_PORT);
 server.set('views', VIEWS_PATH);
-server.set('view engine', 'jsx');
 server.use('/', express.static(PUBLIC_PATH));
 server.use('/', routes);
 
