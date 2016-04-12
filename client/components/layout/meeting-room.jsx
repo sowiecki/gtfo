@@ -43,14 +43,14 @@ const MeetingRoom = (props) => {
       <VelocityComponent
         animation={{ fill: styles[alert || OFFLINE] }}>
         <rect
-          stroke={styles.svgStroke}
+          style={styles.svgRect}
           {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
-        style={{ stroke: styles.svgStroke }}>
+        style={styles.svgRect}>
           <rect {...parseShape(coordinates)}/>
       </VelocityComponent>
       <text

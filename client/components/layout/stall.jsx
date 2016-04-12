@@ -10,8 +10,7 @@ const Stall = ({ alert, coordinates }) => (
     <VelocityComponent
       animation={{ fill: styles[alert || OFFLINE] }}>
       <rect
-        stroke={styles.svgStroke}
-        strokeWidth={styles.svgStrokeWidth}
+        style={styles.svgRect}
         {...parseShape(coordinates)}/>
     </VelocityComponent>
   </svg>
