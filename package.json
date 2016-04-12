@@ -21,11 +21,11 @@
     "prod-server": "NODE_ENV=production npm run server",
     "server": "node ./application.js",
     "start": "npm run prod",
-    "test": "NODE_ENV=test npm run clean && npm run lint && npm run test-node && npm run test-client",
+    "test": "npm run clean && npm run lint && npm run test-node && npm run test-client",
     "test-client": "karma start karma/karma.conf",
     "test-client-cov": "karma start karma/karma.conf.cov.js",
     "test-cov": "npm run test-client-cov && npm run test-node-cov && npm run upload-cov && rm -rf ./coverage",
-    "test-node": "mocha $npm_package_node_test_paths --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
+    "test-node": "NODE_ENV=test mocha $npm_package_node_test_paths --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
     "test-node-cov": "istanbul cover mocha $npm_package_node_test_paths --report lcovonly -- --compilers js:babel-core/register --require tests/config.node.js --reporter=dot",
     "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls",
     "yolo": "rimraf environment/mock-data.json"

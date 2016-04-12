@@ -15,9 +15,13 @@ const testEnvironment = {
   config: {
     prodReservationsHost: ''
   },
-  devices: {},
-  markers: {},
-  coordinates: {}
+  devices: [
+    {
+      location: 'Laythe'
+    }
+  ],
+  markers: [],
+  coordinates: []
 };
 
 /**
