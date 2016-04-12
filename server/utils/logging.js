@@ -126,7 +126,7 @@ export const logBoardFailure = ({ message }) => console.log(colors.bgRed(message
  * @returns {undefined}
  */
 export const logFetchRoomReservationsError = ({ code, message }) => {
-  console.error('Failed to fetch room reservations.', code, message);
+  console.error('Error fetching room reservations.', code, message);
 };
 
 /**
@@ -135,5 +135,5 @@ export const logFetchRoomReservationsError = ({ code, message }) => {
  * @returns {undefined}
  */
 export const logFetchStallOccupanciesError = ({ code, message }) => {
-  console.error('Failed to fetch stall occupancies.', code, message);
+  console.error('Error fetching or parsing stall occupancies.', code, message);
 };

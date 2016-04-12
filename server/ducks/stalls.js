@@ -7,6 +7,7 @@ import { coordinates } from '../environment';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 import { INITIALIZE_STALLS, STALL_OCCUPANCIES_UPDATE } from '../constants';
 import { handleAction } from '../utils';
+import { MissingCoordinatesError } from '../errors';
 
 export const EMIT_STALL_OCCUPANCIES_UPDATE = 'EMIT_STALL_OCCUPANCIES_UPDATE';
 export const FETCH_STALL_OCCUPANCIES = 'FETCH_STALL_OCCUPANCIES';
@@ -15,7 +16,13 @@ const initialState = immutable.fromJS({
   stalls: []
 });
 
-const applyCoordinates = (stall) => Object.assign(stall, { coordinates: coordinates[stall.id] });
+const applyCoordinates = (stall) => {
+  if (!coordinates[stall.id]) {
+    throw new MissingCoordinatesError(stall.id);
+  }
+
+  return Object.assign(stall, { coordinates: coordinates[stall.id] });
+};
 
 const clientsReducer = (state = initialState, action) => {
   const reducers = {

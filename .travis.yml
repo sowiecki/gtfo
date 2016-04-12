@@ -3,6 +3,8 @@ node_js:
   - "4.2"
 script:
   - travis_wait npm run test-cov
+env:
+  - NODE_ENV=test
 # Google Chrome
 #
 # https://github.com/travis-ci/travis-ci/issues/272#issuecomment-14402117

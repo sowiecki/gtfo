@@ -5,4 +5,5 @@ export * from './logging';
 export * from './notifications';
 export * from './reservations';
 export * from './rooms';
+export * from './stalls';
 export * from './traversals';
