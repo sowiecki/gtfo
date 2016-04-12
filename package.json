@@ -21,7 +21,7 @@
     "prod-server": "NODE_ENV=production npm run server",
     "server": "node ./application.js",
     "start": "npm run prod",
-    "test": "npm run clean && npm run lint && npm run test-node && npm run test-client",
+    "test": "NODE_ENV=test npm run clean && npm run lint && npm run test-node && npm run test-client",
     "test-client": "karma start karma/karma.conf",
     "test-client-cov": "karma start karma/karma.conf.cov.js",
     "test-cov": "npm run test-client-cov && npm run test-node-cov && npm run upload-cov && rm -rf ./coverage",

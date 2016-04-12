@@ -1,7 +1,6 @@
 import { isProd } from '../config';
 
-const ENV_PATH = '../environment';
-const { prodReservationsHost, prodStallsHost } = require(ENV_PATH).config;
+const { prodReservationsHost, prodStallsHost } = require('../environment').config;
 
 /**
  * Used when services are running locally, but as separate services.
