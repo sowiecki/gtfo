@@ -10,6 +10,7 @@ import colors from 'colors/safe';
 import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import devicesController from './controllers/devices';
+import stallsController from './controllers/stalls';
 import { stream } from './utils';
 
 const server = express();
@@ -50,6 +51,7 @@ const app = server.listen(SERVER_PORT, (err) => {
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
   devicesController.initialize();
+  stallsController.initialize();
 });
 
 export default app;

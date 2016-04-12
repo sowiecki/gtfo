@@ -1,10 +1,22 @@
-import { SQUATTED, VACANT } from '../constants';
+import { formatStallsResponse } from '../utils';
 
-const getMockStallOcuppancies = () => (
-  [
-    { id: 'mensStall1', alert: SQUATTED, location: 'two-prudential-51' },
-    { id: 'mensStall2', alert: VACANT, location: 'two-prudential-51' }
-  ]
-);
+const mockStallOccupancies = {
+  statuses: {
+    51: {
+      Men: {
+        spaces: {
+          'stall 1': {
+            occupied: true
+          },
+          'stall 2': {
+            occupied: false
+          }
+        }
+      }
+    }
+  }
+};
+
+const getMockStallOcuppancies = () => formatStallsResponse(mockStallOccupancies);
 
 export default getMockStallOcuppancies;
