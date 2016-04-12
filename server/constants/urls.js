@@ -1,11 +1,19 @@
 import { isProd } from '../config';
 
 const ENV_PATH = '../environment';
+const { prodReservationsHost, prodStallsHost } = require(ENV_PATH).config;
 
-const LOCAL_HOST = 'http://localhost:8080'; // Used when services are running locally, but separately
-const MOCKS_HOST = 'http://localhost:3000'; // Used when services are running from this application
-const RESERVATIONS_HOST = isProd ? require(ENV_PATH).config.prodReservationsHost : LOCAL_HOST;
-const STALLS_HOST = isProd ? require(ENV_PATH).config.prodStallsHost : LOCAL_HOST;
+/**
+ * Used when services are running locally, but as separate services.
+ */
+const LOCAL_HOST = 'http://localhost';
+
+/**
+ * Used when services are mocked from this application.
+ */
+const MOCKS_HOST = 'http://localhost:3000';
+const RESERVATIONS_HOST = isProd ? prodReservationsHost : `${LOCAL_HOST}:4000`;
+const STALLS_HOST = isProd ? prodStallsHost : `${LOCAL_HOST}:5000`;
 
 const PROD_RESERVATIONS_API = '/rest/meetingRoom/lookup/';
 const PROD_STALLS_API = '/stalls';
