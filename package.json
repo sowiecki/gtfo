@@ -69,7 +69,7 @@
     "slug": "^0.9.1",
     "split": "^1.0.0",
     "velocity-animate": "^1.2.3",
-    "velocity-react": "^1.1.4",
+    "velocity-react": "^1.1.5",
     "winston": "^2.2.0",
     "ws": "^1.0.1",
     "yargs": "^4.2.0"
