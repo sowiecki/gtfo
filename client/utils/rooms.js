@@ -15,7 +15,7 @@ const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
  * @returns {string} Path of location backdrop asset.
  */
 export const getLocationBackdrop = (location) => {
-  const backdrops = require.context('../assets/', true, /^\.\/.*\.png$/);
+  const backdrops = require.context('../../environment/assets/', true, /^\.\/.*\.png$/);
 
   try {
     return backdrops(`./${location}.png`);
