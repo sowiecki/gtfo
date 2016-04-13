@@ -5,7 +5,7 @@
  */
 export const getBackdropErrorMessage = (location) => {
   const error = `Failed to render backdrop for ${location}.`;
-  const reminder = `Make sure it's correctly saved in /client/assets/ as ${location}.png`;
+  const reminder = `Make sure it's correctly saved in /environment/assets/ as ${location}.png`;
 
   return `${error} ${reminder}`;
 };
