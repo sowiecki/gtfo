@@ -28,21 +28,26 @@ export const formatStallsResponse = (stalls) => {
 
   const formattedStalls = [];
 
-  const floors = stalls.statuses;
+  const { statuses } = stalls;
 
-  Object.keys(floors).forEach((floor) => {
-    const types = floors[floor];
+  Object.keys(statuses).forEach((status) => {
+    const floor = statuses[status];
+    const { location } = floor;
 
-    Object.keys(types).forEach((type) => {
-      const spaces = types[type].spaces;
+    Object.keys(floor).forEach((prop) => {
+      if (prop === 'location') {
+        return;
+      }
+
+      const { spaces } = floor[prop];
 
       Object.keys(spaces).forEach((space) => {
         const isOccupied = spaces[space].occupied;
 
         formattedStalls.push({
-          id: `${type.toLowerCase()}${formatSpace(space)}`,
+          id: `${prop.toLowerCase()}${formatSpace(space)}`,
           alert: isOccupied ? SQUATTED : VACANT,
-          location: spaces[space].location || DEFAULT_LOCATION
+          location: location || DEFAULT_LOCATION
         });
       });
     });

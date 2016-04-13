@@ -15,18 +15,17 @@ describe('Stalls utilities (server)', () => {
   const mockStallsObject = {
     statuses: {
       51: {
+        location: 'duna-3',
         Men: {
           spaces: {
             'stall 1': {
               active: false,
-              occupied: true,
-              location: 'duna-3'
+              occupied: true
             },
             'stall 2': {
               active: false,
               handicapped: true,
-              occupied: false,
-              location: 'duna-3'
+              occupied: false
             }
           }
         },
@@ -34,13 +33,11 @@ describe('Stalls utilities (server)', () => {
           spaces: {
             'stall 1': {
               active: false,
-              occupied: false,
-              location: 'duna-3'
+              occupied: false
             },
             'stall 2': {
               active: false,
-              occupied: false,
-              location: 'duna-3'
+              occupied: false
             }
           }
         }
