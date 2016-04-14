@@ -1,4 +1,6 @@
-/* eslint no-case-declarations:0, default-case:0, no-fallthrough:0 */
+/* eslint new-cap:0 */
+import immutable from 'immutable';
+
 import socketController from '../controllers/socket';
 import slug from 'slug';
 
@@ -8,7 +10,8 @@ import { flashNotifications,
          filterExpiredReservations,
          getRoomAlert,
          secureRoom,
-         secureRooms } from '../utils';
+         secureRooms,
+         handleAction } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
          ROOM_STATUSES_UPDATE } from '../constants';
@@ -23,73 +26,85 @@ export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
-// TODO Wrap state in Immutable object.
-const initialState = {
+const initialState = immutable.fromJS({
   rooms: devices.map((device) => {
     const id = device.name.toLowerCase();
     const location = slug(device.location, { lower: true });
 
     return Object.assign(device, { id, location, coordinates: coordinates[id] });
   })
-};
+});
 
 const roomsReducer = (state = initialState, action) => {
   let alertChanged = false;
 
-  switch (action.type) {
-    case EMIT_CLIENT_CONNECTED:
-      socketController.handle(INITIALIZE_ROOMS, secureRooms(state.rooms), action.client);
+  const reducers = {
+    [EMIT_CLIENT_CONNECTED]() {
+      socketController.handle(INITIALIZE_ROOMS, secureRooms(state.toJS().rooms), action.client);
 
-      break;
-    case EMIT_ROOM_MOTION_UPDATE:
-      state.rooms.map((room) => {
-        if (room.id === action.room.id && action.motion) {
-          room.motion = action.motion;
+      return state;
+    },
+
+    [EMIT_ROOM_MOTION_UPDATE]() {
+      const rooms = state.get('rooms');
+
+      state = state.set('rooms', rooms.map((room) => {
+        if (room.get('id') === action.room.id && action.motion) {
+          room = room.set('motion', action.motion);
         }
 
         return room;
-      });
-      // No break, because alert needs to be redetermined
-    case EMIT_ROOM_STATUSES_UPDATE:
-      state.rooms = state.rooms.map((room) => {
-        if (room.id === action.room.id) {
-          // Get properties from state if available
-          const accessories = room.accessories || action.accessories;
-          const reservations = room.reservations || action.reservations;
-          const filteredReservations = filterExpiredReservations(reservations);
-          const alert = getRoomAlert(filteredReservations, action.motion || room.motion);
+      }));
 
-          if (room.alert !== alert) {
+      reducers.EMIT_ROOM_STATUSES_UPDATE();
+
+      return state;
+    },
+
+    [EMIT_ROOM_STATUSES_UPDATE]() {
+      const rooms = state.get('rooms');
+
+      state = state.set('rooms', rooms.map((room) => {
+        if (room.get('id') === action.room.id) {
+          const accessories = room.get('accessories') || action.accessories;
+          const reservations = room.get('reservations') || action.reservations;
+          const filteredReservations = filterExpiredReservations(reservations);
+          const alert = getRoomAlert(filteredReservations, action.motion || room.get('motion'));
+
+          if (room.get('alert') !== alert) {
             alertChanged = true;
+            room = room.set('alert', alert);
           }
 
-          room.alert = alert;
-
           if (action.type === EMIT_ROOM_STATUSES_UPDATE) {
-            room.accessories = action.accessories;
-            room.reservations = action.reservations;
+            room = room.set('accessories', action.accessories);
+            room = room.set('reservations', action.reservations);
           }
 
           if (accessories) {
-            flashNotifications(room, accessories);
+            flashNotifications(room.toJS(), accessories);
           }
         }
+
         return room;
-      });
+      }));
 
       if (alertChanged) {
-        logRoomStatuses(state.rooms);
-        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
+        logRoomStatuses(state.toJS().rooms);
+        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.toJS().rooms));
       }
 
-      break;
-    case EMIT_ROOM_TEMPERATURE_UPDATE:
+      return state;
+    },
+
+    [EMIT_ROOM_TEMPERATURE_UPDATE]() {
       socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(action.room));
 
-      break;
-  }
+      return state;
+    }
+  };
 
-  return state;
+  return handleAction(state, action, reducers);
 };
 
 export default roomsReducer;

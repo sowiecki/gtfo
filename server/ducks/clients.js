@@ -1,4 +1,3 @@
-/* eslint default-case:0, no-case-declarations:0 */
 import immutable from 'immutable';
 
 import socketController from '../controllers/socket';
