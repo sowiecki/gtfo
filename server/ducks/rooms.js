@@ -31,16 +31,16 @@ const initialState = immutable.fromJS({
     const id = device.name.toLowerCase();
     const location = slug(device.location, { lower: true });
 
-    return Object.assign(device, { id, location, coordinates: coordinates[id] });
+    return { ...device, id, location, coordinates: coordinates[id] };
   })
 });
 
-const roomsReducer = (state = initialState, action) => {
-  let alertChanged = false;
+const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
 
+const roomsReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_CLIENT_CONNECTED]() {
-      socketController.handle(INITIALIZE_ROOMS, secureRooms(state.toJS().rooms), action.client);
+      socketController.handle(INITIALIZE_ROOMS, getSecureRooms(state), action.client);
 
       return state;
     },
@@ -56,13 +56,16 @@ const roomsReducer = (state = initialState, action) => {
         return room;
       }));
 
-      reducers.EMIT_ROOM_STATUSES_UPDATE();
-
-      return state;
+      /**
+       * This reducer is unique in that returns another invoked reducer,
+       * which is necessary to update room statuses after detecting motion.
+       */
+      return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {
       const rooms = state.get('rooms');
+      let alertChanged = false;
 
       state = state.set('rooms', rooms.map((room) => {
         if (room.get('id') === action.room.id) {
@@ -90,8 +93,8 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       if (alertChanged) {
-        logRoomStatuses(state.toJS().rooms);
-        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.toJS().rooms));
+        logRoomStatuses(getSecureRooms(state));
+        socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
       }
 
       return state;
