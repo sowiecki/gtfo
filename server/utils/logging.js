@@ -5,6 +5,8 @@ import moment from 'moment';
 import winston from 'winston';
 import split from 'split';
 import ora from 'ora';
+import blessed from 'blessed';
+import contrib from 'blessed-contrib';
 
 import { isProd } from '../config';
 
@@ -15,6 +17,8 @@ import { SQUATTED,
          BOOKED,
          OFFLINE,
          SPINNER_DELAY } from '../constants';
+
+const screen = blessed.screen();
 
 const winstonLogger = new winston.Logger({
   transports: [
@@ -34,16 +38,12 @@ const spinner = ora({
   color: 'yellow'
 });
 
+const log = contrib.log({ fg: 'green', selectedFg: 'green', label: 'Server Log'})
+screen.append(log);
+
 export const stream = split().on('data', (message) => {
-  if (isProd) {
-    spinner.stop();
-  }
-
-  winstonLogger.info(message);
-
-  if (isProd) {
-    spinner.start();
-  }
+  log.log(message)
+  // winstonLogger.info(message);
 });
 
 /**
@@ -53,12 +53,12 @@ export const stream = split().on('data', (message) => {
  */
 const getRoomStatusMessage = ({ name, alert }) => {
   const statusMessages = {
-    [SQUATTED]: `${name} has no current reservation but is being occupied`,
-    [VACANT]: `${name} is vacant for at least 30 minutes`,
-    [ONE_MINUTE_WARNING]: `${name} has 1 minute left on current reservation`,
-    [FIVE_MINUTE_WARNING]: `${name} has 5 minutes left on current reservation`,
-    [BOOKED]: `${name} is currently booked`,
-    [OFFLINE]: `${name} is offline`
+    [SQUATTED]: `No current reservation but is being occupied`,
+    [VACANT]: `Vacant for at least 30 minutes`,
+    [ONE_MINUTE_WARNING]: `1 minute left on current reservation`,
+    [FIVE_MINUTE_WARNING]: `5 minutes left on current reservation`,
+    [BOOKED]: `Currently booked`,
+    [OFFLINE]: `Offline`
   };
 
   const logColors = {
@@ -72,9 +72,8 @@ const getRoomStatusMessage = ({ name, alert }) => {
 
   const logColor = logColors[alert] || logColors.OFFLINE;
   const message = statusMessages[alert] || statusMessages.OFFLINE;
-  const leftPadding = ' • ';
 
-  return `${leftPadding}${colors[logColor](message)}`;
+  return [name, message];
 };
 
 /**
@@ -83,20 +82,35 @@ const getRoomStatusMessage = ({ name, alert }) => {
  * @returns {undefined}
  */
 export const logRoomStatuses = (rooms) => {
-  const statusesHeader = `≡≡≡ Room statuses as of ${moment().format('LLLL')} ≡≡≡`;
-  console.log(`\n${statusesHeader}`);
+  const table = contrib.table({
+    keys: true,
+    fg: 'white',
+    selectedFg: 'white',
+    selectedBg: 'blue',
+    interactive: true,
+    label: `Room statuses as of ${moment().format('LLLL')}`,
+    width: '100%',
+    height: '100%',
+    border: { type: 'line', fg: 'cyan' },
+    columnSpacing: 10, //in chars
+    columnWidth: [20, 40] /*in chars*/
+  })
 
-  rooms.forEach((room) => {
-    console.log(getRoomStatusMessage(room));
+   //allow control the table with the keyboard
+  table.focus()
+
+  table.setData({
+    headers: ['Room', 'Status'],
+    data: rooms.map((room) => getRoomStatusMessage(room))
   });
 
-  console.log(`${'≡'.repeat(statusesHeader.length)}\n`);
+  screen.append(table);
 
-  if (isProd) {
-    setTimeout(() => {
-      spinner.start();
-    }, SPINNER_DELAY);
-  }
+  screen.render()
+
+  setTimeout(() => {
+    spinner.start();
+  }, SPINNER_DELAY);
 };
 
 /**
