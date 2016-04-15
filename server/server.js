@@ -7,12 +7,13 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
+import intercept from 'intercept-stdout';
 
 import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
-import { stream } from './utils';
+import consoleController from './controllers/console';
 
 const server = express();
 
@@ -34,7 +35,7 @@ if (process.env.HOT) {
 
 /* Setup */
 server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
-server.use(logger('dev', { stream }));
+server.use(logger('dev', { stream: consoleController.stream() }));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -53,6 +54,7 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
+  consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();
 });

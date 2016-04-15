@@ -1,5 +1,6 @@
 /* eslint no-case-declarations:0, default-case:0, no-fallthrough:0 */
 import socketController from '../controllers/socket';
+import consoleController from '../controllers/console';
 import slug from 'slug';
 
 import { devices, coordinates } from '../environment';
@@ -78,7 +79,7 @@ const roomsReducer = (state = initialState, action) => {
       });
 
       if (alertChanged) {
-        logRoomStatuses(state.rooms);
+        consoleController.logRoomStatuses(state.rooms);
         socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
       }
 
