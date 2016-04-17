@@ -2,15 +2,15 @@
 import { colors, fonts, breakpoints, devices } from '../../common/styles';
 
 const layoutSelectors = [
-  'img.office-layout',
+  'image.office-background',
   'svg.office-layout',
   '.office-layout-container'
 ].join(', ');
 
 export const rules = {
   officeLayout: {
-
-    'img.office-layout, svg.office-layout': {
+    'image.office-background': {
+      zIndex: 0,
       display: 'block',
       position: 'absolute',
       top: '30px',
@@ -21,10 +21,9 @@ export const rules = {
     },
 
     'text.room-text, text.temperature-text': {
-      zIndex: '200',
+      zIndex: 200,
       fontSize: '10px',
       fontFamily: fonts.primary,
-      fontWeight: 'bold',
       textShadow: `${colors.GREY} 0px 0px 0px`
     },
 
@@ -79,7 +78,7 @@ export const rules = {
 
         '.map-legend': {
           left: 'auto',
-          right: '0',
+          right: 0,
           transform: 'scale(.35)'
         }
       },
@@ -102,7 +101,7 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '22px',
+          fontSize: '19px',
         },
 
         'text.room-text, text.temperature-text': {
@@ -126,6 +125,10 @@ export const rules = {
         [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
+        },
+
+        'text.room-text': {
+          fontSize: '28px',
         },
 
         'text.temperature-text': {

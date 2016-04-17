@@ -2,21 +2,24 @@ import { colors, fonts } from '../../common/styles';
 
 export const styles = {
   toolbar: {
+    justifyContent: 'initial',
     backgroundColor: colors.primary,
     height: '48px'
   },
 
   toolbarTitle: {
-    margin: '0',
+    margin: 0,
     color: colors.WHITE,
     fontSize: '35px',
     lineHeight: '48px',
-    fontWeight: '8',
+    fontWeight: 8,
     fontFamily: fonts.primary
   },
 
   toolbarTabs: {
-    margin: '0 0 0 -4px'
+    fontFamily: fonts.tertiary,
+    padding: 0,
+    lineHeight: 1.5
   },
 
   toolbarTab: {
@@ -30,7 +33,7 @@ export const styles = {
   },
 
   navIcons: {
-    marginLeft: '24'
+    marginLeft: '24px'
   },
 
   tempScaleNavIcon: {
