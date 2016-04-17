@@ -1,4 +1,4 @@
-/* eslint no-console:0 */
+/* eslint no-console:0, new-cap:0 */
 /* globals console */
 import colors from 'colors';
 import moment from 'moment';
@@ -35,12 +35,6 @@ const table = grid.set(0, 2, 1, 1, contrib.table, tableOptions);
 const log = grid.set(0, 0, 1, 2, contrib.log, logOptions);
 
 const consoleController = {
-  initialize() {
-    screen.append(log);
-    screen.append(table);
-    screen.render();
-  },
-
   /**
    * Logs batch of room statuses.
    * @param {array} rooms Room objects.
@@ -55,7 +49,7 @@ const consoleController = {
 
   stream() {
     return split().on('data', (message) => {
-      consoleController.log(message)
+      consoleController.log(message);
     });
   },
 
@@ -72,9 +66,27 @@ const consoleController = {
    * @params {object} board Board object.
    * @returns {undefined}
    */
-   boardReady(board) {
-     consoleController.log(`Connected to ${board.id}`);
-   }
+  boardReady(board) {
+    consoleController.log(`Connected to ${board.id}`);
+  },
+
+  /**
+   * Logs board warnings.
+   * @params {object} data Warning object.
+   * @returns {undefined}
+   */
+  boardWarn({ message }) {
+    log.log(colors.bgYellow(message));
+  },
+
+   /**
+    * Logs board failures.
+    * @params {object} data Failure object.
+    * @returns {undefined}
+    */
+  boardFail({ message }) {
+    log.log(colors.bgRed(message));
+  }
 };
 
 export default consoleController;

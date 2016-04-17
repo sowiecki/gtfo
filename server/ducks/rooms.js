@@ -7,7 +7,6 @@ import slug from 'slug';
 
 import { devices, coordinates } from '../environment';
 import { flashNotifications,
-         logRoomStatuses,
          filterExpiredReservations,
          getRoomAlert,
          secureRoom,

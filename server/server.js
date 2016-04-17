@@ -22,7 +22,6 @@ if (process.env.HOT) {
   const compiler = webpack(webpackConfig);
 
   server.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
     publicPath: webpackConfig.output.publicPath
   }));
 
@@ -50,7 +49,6 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
-  consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();
 });

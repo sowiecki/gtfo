@@ -6,6 +6,7 @@
  * Registers accessories for each device
  */
 
+import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
 import { registerBoard,
@@ -52,6 +53,8 @@ const devicesController = {
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
+      board.on('warn', consoleController.boardWarn);
+      board.on('fail', consoleController.boardFail);
     });
   },
 
