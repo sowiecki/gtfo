@@ -9,6 +9,7 @@ secrets
 
 # Environment variables
 environment/*.json
+environment/assets/*.png
 env
 
 # Runtime data

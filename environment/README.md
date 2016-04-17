@@ -14,7 +14,7 @@ General configuration.
 | - enableTemperature | Enables (experimental) temperature readings | No        |
 | - defaultTempScale  | Must be either 'celcius' or 'fahrenheit'    | No        |
 | emailDomain         | @yourCompany.com                            | Yes       |
-| productionHost      | URL of hosted ems_wrapper instance          | Yes       |
+| prodReservationsHost      | URL of hosted ems_wrapper instance          | Yes       |
 
 Example of a `config.json`:
 ```json
@@ -25,7 +25,7 @@ Example of a `config.json`:
       "enableTemperature": true,
       "defaultTempScale": "fahrenheit"
     },
-    "productionHost": "http://heroku-app.com/your-hosted-ems-wrapper"
+    "prodReservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper"
   }
 }
 

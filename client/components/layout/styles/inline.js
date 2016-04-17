@@ -1,5 +1,13 @@
 import { colors } from '../../common/styles';
 import { getLocationBackdrop } from '../../../utils';
+import { OCCUPIED,
+         SQUATTED,
+         VACANT,
+         FIVE_MINUTE_WARNING,
+         ONE_MINUTE_WARNING,
+         BOOKED,
+         OFFLINE,
+         PINGED } from '../../../constants';
 
 export const styles = {
   generateOfficeBackgroundStyle: ({ location }) => ({
@@ -39,19 +47,24 @@ export const styles = {
     fill: colors.primary
   },
 
-  svgStroke: colors.GREY,
+  svgRect: {
+    stroke: colors.DARK_GREY,
+    strokeWidth: 2
+  },
 
-  SQUATTED: colors.TEAL,
+  [OCCUPIED]: colors.RED,
 
-  VACANT: colors.GREEN,
+  [SQUATTED]: colors.TEAL,
 
-  ONE_MINUTE_WARNING: colors.RED,
+  [VACANT]: colors.GREEN,
 
-  FIVE_MINUTE_WARNING: colors.ORANGE,
+  [ONE_MINUTE_WARNING]: colors.RED,
 
-  BOOKED: colors.BLUE,
+  [FIVE_MINUTE_WARNING]: colors.ORANGE,
 
-  OFFLINE: colors.GREY,
+  [BOOKED]: colors.BLUE,
 
-  PINGED: colors.YELLOW
+  [OFFLINE]: colors.GREY,
+
+  [PINGED]: colors.YELLOW
 };

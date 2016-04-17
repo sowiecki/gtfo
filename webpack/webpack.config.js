@@ -2,6 +2,7 @@
 const path = require('path');
 
 const baseContext = path.join(__dirname, '../client');
+const environmentConext = path.join(__dirname, '../environment');
 const universalContext = path.join(__dirname, '../universal');
 
 module.exports = {
@@ -13,6 +14,7 @@ module.exports = {
     publicPath: '/dist/'
   },
   resolve: {
+    root: baseContext,
     alias: {
       universal: path.resolve(universalContext)
     },
@@ -29,7 +31,7 @@ module.exports = {
       {
         test: /\.(svg|png)$/,
         loader: 'file-loader',
-        include: baseContext
+        includes: [baseContext, environmentConext]
       }
     ]
   }

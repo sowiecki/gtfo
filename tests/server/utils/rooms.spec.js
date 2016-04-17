@@ -1,18 +1,19 @@
 /* eslint-env node, mocha */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
+import moment from 'moment';
 import sinon from 'sinon';
 
 import { filterExpiredReservations,
          getRoomAlert,
          secureRoom,
-         secureRooms } from 'utils';
+         secureRooms } from 'server/utils';
 
 import { SQUATTED,
          VACANT,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
-         BOOKED } from 'constants/room-statuses';
+         BOOKED } from 'server/constants';
 
 describe('Room utilities (server)', () => {
   describe('getRoomAlert', () => {
@@ -89,7 +90,7 @@ describe('Room utilities (server)', () => {
     ];
 
     const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
-    const hasActiveMotion = true;
+    const hasActiveMotion = moment();
     const hasNoActiveMotion = false;
 
     beforeEach(() => {
@@ -162,7 +163,9 @@ describe('Room utilities (server)', () => {
     name: 'Hyrule Castle',
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
-    deviceAuthToken: 'hunter2'
+    deviceAuthToken: 'hunter2',
+    fahrenheitTmpVoltage: '65 °F',
+    celciusTmpVoltage: '18 °C'
   };
 
   const mockSecureRoom = {
@@ -170,7 +173,9 @@ describe('Room utilities (server)', () => {
     alert: 'BOOKED',
     coordinates: {},
     location: 'Hyrule',
-    name: 'Hyrule Castle'
+    name: 'Hyrule Castle',
+    fahrenheitTmpVoltage: '65 °F',
+    celciusTmpVoltage: '18 °C'
   };
 
   describe('secureRoom', () => {

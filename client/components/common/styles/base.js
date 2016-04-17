@@ -7,6 +7,7 @@ export const colors = {
   GHOST_WHITE: '#F8F8FF',
   GREY: '#888899',
   DARK_GREY: '#333333',
+  BLACK: '#000000',
   PURPLE: '#BF5FFF',
   BLUE: '#3399FF',
   TEAL: '#3DE2E5',

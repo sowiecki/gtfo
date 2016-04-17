@@ -1,7 +1,6 @@
 /* eslint array-callback-return:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
-import slug from 'slug';
 
 import validator from '../environment/validation';
 import { FileValidationError } from './errors';
@@ -12,34 +11,54 @@ const readFile = (fileName) => {
   return JSON.parse(readFileSync(filePath, 'utf8'));
 };
 
-const { config } = readFile('config.json');
-const { devices } = readFile('devices.json');
-const { markers } = readFile('markers.json');
-const { coordinates } = readFile('coordinates.json');
+const testEnvironment = {
+  config: {
+    prodReservationsHost: ''
+  },
+  devices: [
+    {
+      location: 'Laythe'
+    }
+  ],
+  markers: [],
+  coordinates: []
+};
 
-if (validator.validate(config, '/ConfigSchema').errors.length) {
-  throw new FileValidationError('config');
-}
+/**
+ * Reads and validates user-configured JSON environment files.
+ *
+ * Testing environments may not have these files set up.
+ * Mocked values are returned so that tests do not crash.
+ *
+ * @returns {object} config, devices, markers, coordinates
+ */
+const getEnvironment = () => {
+  if (process.env.NODE_ENV === 'test') {
+    return testEnvironment;
+  }
 
-if (validator.validate(devices, '/DevicesSchema').errors.length) {
-  throw new FileValidationError('devices');
-}
+  const { config } = readFile('config.json');
+  const { devices } = readFile('devices.json');
+  const { markers } = readFile('markers.json');
+  const { coordinates } = readFile('coordinates.json');
 
-if (validator.validate(markers, '/MarkersSchema').errors.length) {
-  throw new FileValidationError('markers');
-}
+  if (validator.validate(config, '/ConfigSchema').errors.length) {
+    throw new FileValidationError('config');
+  }
 
-if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
-  throw new FileValidationError('coordinates');
-}
+  if (validator.validate(devices, '/DevicesSchema').errors.length) {
+    throw new FileValidationError('devices');
+  }
 
-devices.map((device) => {
-  // Map additional properties to device objects.
-  device.id = device.name.toLowerCase();
-  device.coordinates = coordinates[device.id];
+  if (validator.validate(markers, '/MarkersSchema').errors.length) {
+    throw new FileValidationError('markers');
+  }
 
-  // Slugify location.
-  device.location = slug(device.location, { lower: true });
-});
+  if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
+    throw new FileValidationError('coordinates');
+  }
 
-export { config, devices, markers, coordinates };
+  return { config, devices, markers, coordinates };
+};
+
+export const { config, devices, markers, coordinates } = getEnvironment();

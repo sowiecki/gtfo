@@ -13,7 +13,7 @@ import { SQUATTED,
  * @param {object} accessories Board accessories object.
  * @returns {undefined}
  */
-export const flashNotifications = (room, accessories) => {
+export const flashNotifications = (room, accessories = {}) => {
   if (process.env.DISABLE_DEVICES) {
     return;
   }

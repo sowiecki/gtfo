@@ -2,12 +2,11 @@
 /* globals console, setInterval, clearInterval */
 
 /**
- * INITIALIZE_ROOMSs x number of devices
+ * Initializes x number of devices
  * Registers accessories for each device
  */
 
 import store from '../store';
-
 import { config } from '../environment';
 import { registerBoard,
          registerLed,
@@ -94,8 +93,7 @@ const devicesController = {
     });
 
     // Set interval for checking and responding to room state
-    const monitorRoomReservations = setInterval(() => {
-      // Retrieve outlook room reservation statuses
+    const monitorExternalServices = setInterval(() => {
       store.dispatch({
         type: FETCH_ROOM_RESERVATIONS,
         room,
@@ -104,7 +102,7 @@ const devicesController = {
 
       if (process.env.MOCKS) {
         // No need to continually check mock data for updates
-        clearInterval(monitorRoomReservations);
+        clearInterval(monitorExternalServices);
       }
     }, CHECK_INTERVAL);
   }

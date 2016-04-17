@@ -1,5 +1,4 @@
 /* globals __dirname */
-const path = require('path');
 const webpack = require('webpack');
 const merge = require('lodash/merge');
 
@@ -27,7 +26,6 @@ module.exports = {
     ]
   },
   resolve: merge(base.resolve, {
-    root: path.resolve(__dirname, '../client'),
     alias: {
       sinon: 'sinon/pkg/sinon'
     }

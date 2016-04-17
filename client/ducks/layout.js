@@ -21,8 +21,12 @@ export const EMIT_TOGGLE_TEMP_SCALE = 'EMIT_TOGGLE_TEMP_SCALE';
 export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
 export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
+
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
 export const EMIT_ROOM_MOTION_UPDATE = 'EMIT_ROOM_MOTION_UPDATE';
+
+export const EMIT_STALL_OCCUPANCIES_UPDATE = 'EMIT_STALL_OCCUPANCIES_UPDATE';
+
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
@@ -63,6 +67,7 @@ export const emitMarkerDeactivated = (marker) => ({
 const initialState = immutable.fromJS({
   meetingRooms: [],
   markers: [],
+  stalls: [],
   displayLegend: true,
   displayTemp: false,
   tempScale: FAHRENHEIT
@@ -88,6 +93,10 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_FETCH_ROOM_STATUSES_ERROR]() {
       return state.set('error', action.error);
+    },
+
+    [EMIT_STALL_OCCUPANCIES_UPDATE]() {
+      return state.set('stalls', action.stalls);
     },
 
     [EMIT_CLEAR_CONNECTION_ERRORS]() {
