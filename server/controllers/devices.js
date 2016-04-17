@@ -14,7 +14,6 @@ import { registerBoard,
          registerThermo,
          registerMotion,
          logBoardReady,
-         logBoardWarning,
          logBoardFailure } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
@@ -24,7 +23,7 @@ import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
   getRooms() {
-    const { rooms } = store.getState().roomsReducer;
+    const { rooms } = store.getState().roomsReducer.toJS();
 
     return rooms;
   },
@@ -54,7 +53,6 @@ const devicesController = {
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
-      board.on('warn', logBoardWarning);
       board.on('fail', logBoardFailure);
     });
   },
