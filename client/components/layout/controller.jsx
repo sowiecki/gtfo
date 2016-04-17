@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
 import ImmutablePropTypes from 'immutable-props';
 
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import MeetingRoom from './meeting-room';
@@ -13,8 +13,7 @@ import MapLegend from './map-legend';
 
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { getLocationBackdrop,
-         filterByLocation,
+import { filterByLocation,
          pluckLocations,
          updateLocationIndex,
          youAreHere,
@@ -136,8 +135,8 @@ class LayoutController extends Component {
         className='office-layout-container'
         style={styles.officeLayoutContainer}>
           <image
-            className='office-layout'
-            src={getLocationBackdrop(this.props.params.location)}>
+            className='office-background'
+            style={styles.generateOfficeBackgroundStyle(this.props.params)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
                 {filteredStalls.map(this.renderStall)}

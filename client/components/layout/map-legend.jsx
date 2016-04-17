@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import { List, ListItem, Avatar } from 'material-ui/lib';
-import Place from 'material-ui/lib/svg-icons/maps/place';
+import Avatar from 'material-ui/Avatar';
+import List from 'material-ui/List';
+import ListItem from 'material-ui/List/ListItem';
+import Place from 'material-ui/svg-icons/maps/place';
 
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';

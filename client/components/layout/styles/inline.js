@@ -1,4 +1,5 @@
 import { colors } from '../../common/styles';
+import { getLocationBackdrop } from '../../../utils';
 import { OCCUPIED,
          SQUATTED,
          VACANT,
@@ -9,6 +10,11 @@ import { OCCUPIED,
          PINGED } from '../../../constants';
 
 export const styles = {
+  generateOfficeBackgroundStyle: ({ location }) => ({
+    backgroundImage: `url(${getLocationBackdrop(location)})`,
+    backgroundSize: '100%'
+  }),
+
   paperOverride: {
     height: '100%'
   },
@@ -20,8 +26,8 @@ export const styles = {
   },
 
   officeLayoutContainer: {
-    right: '0',
-    left: '0',
+    right: 0,
+    left: 0,
     margin: 'auto auto'
   },
 
@@ -29,7 +35,7 @@ export const styles = {
     height: '24px',
     width: '24px',
     x: '24px',
-    y: '0'
+    y: 0
   },
 
   mapLegendItem: {

@@ -2,7 +2,7 @@
 import React from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
-import { Snackbar } from 'material-ui/lib';
+import Snackbar from 'material-ui/Snackbar';
 
 import { base } from '../../config/composition';
 import { styles } from './styles';

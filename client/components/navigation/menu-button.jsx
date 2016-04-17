@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { IconButton } from 'material-ui/lib';
+import { IconButton } from 'material-ui';
 
 import { base } from '../../config/composition';
 import { styles } from './styles';
