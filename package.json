@@ -54,7 +54,6 @@
     "material-ui": "^0.15.0-beta.1",
     "moment": "^2.11.2",
     "morgan": "^1.7.0",
-    "ora": "^0.2.1",
     "particle-io": "^0.12.0",
     "radium": "^0.17.0",
     "react": "^15.0.1",
@@ -73,7 +72,6 @@
     "split": "^1.0.0",
     "velocity-animate": "^1.2.3",
     "velocity-react": "^1.1.5",
-    "winston": "^2.2.0",
     "ws": "^1.0.1",
     "yargs": "^4.2.0"
   },
