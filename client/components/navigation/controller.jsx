@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
-import { ToolbarTitle,
-         Toolbar,
-         ToolbarGroup,
-         Tabs,
-         Tab,
-         LeftNav } from 'material-ui/lib';
+import Drawer from 'material-ui/Drawer';
+import Tab from 'material-ui/Tabs/Tab';
+import Tabs from 'material-ui/Tabs/Tabs';
+import Toolbar from 'material-ui/Toolbar';
+import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
+import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 
 import MenuButton from './menu-button';
-import LeftNavContent from './left-nav-content';
+import DrawerContent from './drawer-content';
 import LocationModal from './location-modal';
 
 import { formatForDisplay } from '../../utils';
@@ -69,12 +69,12 @@ class NavigationController extends Component {
             </Tabs>
           </ToolbarGroup>
         </Toolbar>
-        <LeftNav
+        <Drawer
           open={siteNavOpen}
           onRequestChange={toggleSiteNav}
           docked={false}
           width={LEFT_HAND_NAV_WIDTH}>
-            <LeftNavContent
+            <DrawerContent
               toggleSiteNav={toggleSiteNav}
               toggleLocationModal={toggleLocationModal}
               toggleDisplayLegend={toggleDisplayLegend}
@@ -84,7 +84,7 @@ class NavigationController extends Component {
               displayTemp={displayTemp}
               tempScale={tempScale}
               location={location}/>
-        </LeftNav>
+        </Drawer>
         <LocationModal
           toggleLocationModal={toggleLocationModal}
           {...this.props}/>

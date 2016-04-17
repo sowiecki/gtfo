@@ -1,7 +1,10 @@
 /* eslint new-cap:0 */
 import express from 'express';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import pingsController from '../controllers/pings';
+import Application from '../views/application';
 
 import { config } from '../environment';
 import { BUNDLE_PATH } from '../config';
@@ -26,7 +29,11 @@ router.post('/api/ping', (req, res) => pingsController.handlePing(req, res));
 
 /* Serve client - must be last route */
 router.get('*', (req, res) => {
-  res.render('application', { bundle: BUNDLE_PATH });
+  const applicationView = ReactDOMServer.renderToStaticMarkup(
+    <Application bundle={BUNDLE_PATH}/>
+  );
+
+  res.send(applicationView);
 });
 
 export default router;
