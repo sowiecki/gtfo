@@ -17,7 +17,7 @@ import {
   generateMockReservation
 } from './utils';
 
-const mockRooms = map(devices, 'id');
+const mockRooms = map(devices, (device) => device.name.toLowerCase());
 
 const generateMockData = () => {
   const mockData = {};
