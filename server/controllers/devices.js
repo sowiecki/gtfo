@@ -22,7 +22,7 @@ import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
   getRooms() {
-    const { rooms } = store.getState().roomsReducer;
+    const { rooms } = store.getState().roomsReducer.toJS();
 
     return rooms;
   },
