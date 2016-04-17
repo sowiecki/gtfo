@@ -20,7 +20,7 @@ const logOptions = {
 const tableOptions = {
   fg: 'white',
   selectedFg: 'white',
-  // selectedBg: 'red',
+  selectedBg: 'red',
   label: `Room statuses as of ${moment().format('LLLL')}`,
   width: '100%',
   height: '50%',
@@ -30,19 +30,16 @@ const tableOptions = {
 };
 
 const screen = blessed.screen();
-const grid = new contrib.grid({ rows: 19, cols: 2, screen });
-const table = grid.set(1, 0, 9, 2, contrib.table, tableOptions);
-const log = grid.set(10, 0, 9, 2, contrib.log, logOptions);
+const grid = new contrib.grid({ rows: 1, cols: 3, screen });
+const table = grid.set(0, 2, 1, 1, contrib.table, tableOptions);
+const log = grid.set(0, 0, 1, 2, contrib.log, logOptions);
 
 const consoleController = {
   initialize() {
     screen.append(log);
     screen.append(table);
-
     screen.render();
   },
-
-  // logBoardReady() {} // TODO
 
   /**
    * Logs batch of room statuses.
@@ -68,7 +65,16 @@ const consoleController = {
 
   setTableData(data) {
     table.setData(data);
-  }
+  },
+
+  /**
+   * Logs board ready state.
+   * @params {object} board Board object.
+   * @returns {undefined}
+   */
+   boardReady(board) {
+     consoleController.log(`Connected to ${board.id}`);
+   }
 };
 
 export default consoleController;

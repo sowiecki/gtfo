@@ -34,11 +34,12 @@ export const getRoomStatusMessage = ({ name, alert }) => {
     [ONE_MINUTE_WARNING]: 'red',
     [FIVE_MINUTE_WARNING]: 'yellow',
     [BOOKED]: 'cyan',
-    [OFFLINE]: 'grey'
+    [OFFLINE]: 'gray'
   };
 
   const logColor = logColors[alert] || logColors.OFFLINE;
   const message = statusMessages[alert] || statusMessages.OFFLINE;
+  // const colorizedMessage = colors[logColor][message];
 
   return [name, message];
 };

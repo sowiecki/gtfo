@@ -13,9 +13,7 @@ import { registerBoard,
          registerPiezo,
          registerThermo,
          registerMotion,
-         logBoardReady,
-         logBoardWarning,
-         logBoardFailure } from '../utils';
+         logBoardReady } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -54,8 +52,6 @@ const devicesController = {
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
-      board.on('warn', logBoardWarning);
-      board.on('fail', logBoardFailure);
     });
   },
 
