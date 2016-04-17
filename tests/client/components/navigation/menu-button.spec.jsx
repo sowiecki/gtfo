@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import expect from 'expect';
 
-import { IconButton } from 'material-ui/lib';
+import IconButton from 'material-ui/IconButton';
 
 import MenuButton from 'components/navigation/menu-button';
 

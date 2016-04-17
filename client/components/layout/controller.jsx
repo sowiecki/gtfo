@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
 import ImmutablePropTypes from 'immutable-props';
 
-import Paper from 'material-ui/lib/paper';
+import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import MeetingRoom from './meeting-room';

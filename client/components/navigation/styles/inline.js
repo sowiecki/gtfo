@@ -2,6 +2,7 @@ import { colors, fonts } from '../../common/styles';
 
 export const styles = {
   toolbar: {
+    justifyContent: 'initial',
     backgroundColor: colors.primary,
     height: '48px'
   },
@@ -16,7 +17,9 @@ export const styles = {
   },
 
   toolbarTabs: {
-    margin: '0 0 0 -4px'
+    fontFamily: fonts.tertiary,
+    padding: 0,
+    lineHeight: 1.5
   },
 
   toolbarTab: {

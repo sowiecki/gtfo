@@ -24,7 +24,6 @@ export const rules = {
       zIndex: 200,
       fontSize: '10px',
       fontFamily: fonts.primary,
-      fontWeight: 'bold',
       textShadow: `${colors.GREY} 0px 0px 0px`
     },
 
@@ -102,7 +101,7 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '22px',
+          fontSize: '19px',
         },
 
         'text.room-text, text.temperature-text': {
@@ -126,6 +125,10 @@ export const rules = {
         [layoutSelectors]: {
           width: '1050px',
           height: '1209px'
+        },
+
+        'text.room-text': {
+          fontSize: '28px',
         },
 
         'text.temperature-text': {

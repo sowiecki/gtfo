@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
-import { Dialog,
-         FlatButton,
-         SelectField,
-         MenuItem } from 'material-ui/lib';
+import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
 import { formatForDisplay } from '../../utils';
 import { base } from '../../config/composition';
