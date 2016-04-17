@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CircularProgress } from 'material-ui/lib';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { base } from '../../config/composition';
 import { styles } from './styles';

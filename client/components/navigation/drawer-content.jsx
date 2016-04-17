@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import history from '../../config/history';
 
-import { FontIcon, Divider } from 'material-ui/lib';
-import { List, ListItem } from 'material-ui/lib/lists';
+import FontIcon from 'material-ui/FontIcon';
+import Divider from 'material-ui/Divider';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
 
 import { base } from '../../config/composition';
 import { styles } from './styles';
