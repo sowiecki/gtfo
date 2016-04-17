@@ -95,8 +95,8 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       if (alertChanged) {
-        consoleController.logRoomStatuses(state.rooms);
-        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.rooms));
+        consoleController.logRoomStatuses(state.toJS().rooms);
+        socketController.handle(ROOM_STATUSES_UPDATE, secureRooms(state.toJS().rooms));
       }
 
       return state;
