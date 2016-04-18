@@ -1,6 +1,7 @@
 /* eslint no-console:0 */
 /* globals console */
 import colors from 'colors/safe';
+import { filter } from 'lodash';
 
 import { SQUATTED,
          VACANT,
@@ -9,7 +10,7 @@ import { SQUATTED,
          BOOKED,
          OFFLINE } from '../constants';
 
-export const guageColors = {
+const guageColors = {
   [SQUATTED]: 'magenta',
   [VACANT]: 'green',
   [ONE_MINUTE_WARNING]: 'red',
@@ -75,3 +76,16 @@ export const logFetchRoomReservationsError = ({ code, message }) => {
 export const logFetchStallOccupanciesError = ({ code, message }) => {
   console.error('Error fetching or parsing stall occupancies.', code, message);
 };
+
+/**
+ * Generates percentage object for contrib guage data array.
+ * @param {array} rooms Array of rooms.
+ * @param {string} alert Alert to determine percentage of matching rooms.
+ * @returns {object}
+ */
+export const genGuagePercentage = (rooms, alert) => ({
+  percent: (filter(rooms, (room) => (
+    room.alert === alert
+  )).length / rooms.length) * 100,
+  stroke: guageColors[alert]
+});

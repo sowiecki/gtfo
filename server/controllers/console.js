@@ -4,39 +4,48 @@ import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
-import { filter, uniq } from 'lodash';
+import { uniq } from 'lodash';
 
 import { logOptions, tableOptions, guageOptions } from '../config';
-import { getRoomStatusMessage, guageColors } from '../utils';
+import { getRoomStatusMessage, genGuagePercentage } from '../utils';
 
-const screen = blessed.screen();
+const screen = blessed.screen({ dockBorders: true });
 const grid = new contrib.grid({ rows: 10, cols: 5, screen });
 const table = grid.set(0, 3, 9, 2, contrib.table, tableOptions);
 const log = grid.set(0, 0, 9, 3, contrib.log, logOptions);
 const guage = grid.set(8.7, 0, 1.3, 5, contrib.gauge, guageOptions);
 
+if (process.env.DONT_HOOK_CONSOLE) {
+  screen.destroy();
+}
+
 const consoleController = {
   /**
-   * Batch log of room statuses to contrib table.
+   * Batch log of room statuses to console or contrib table.
    * @param {array} rooms Room objects.
    * @returns {undefined}
    */
   logRoomStatuses(rooms) {
-    table.setData({
-      headers: ['Room', 'Status'],
-      data: rooms.map((room) => getRoomStatusMessage(room))
-    });
+    if (process.env.DONT_HOOK_CONSOLE) {
+      rooms.forEach((room) => {
+        const roomStatus = getRoomStatusMessage(room);
 
-    const alerts = uniq(rooms.map((room) => room.alert)).sort();
+        console.log(`${roomStatus[0]}, ${roomStatus[1]}`);
+      });
+    } else {
+      table.setData({
+        headers: ['Room', 'Status'],
+        data: rooms.map((room) => getRoomStatusMessage(room))
+      });
 
-    const meetingRoomsUtilization = alerts.map((alert) => ({
-      percent: (filter(rooms, (room) => (
-        room.alert === alert
-      )).length / rooms.length) * 100,
-      stroke: guageColors[alert]
-    }));
+      const alerts = uniq(rooms.map((room) => room.alert)).sort();
 
-    guage.setStack(meetingRoomsUtilization);
+      const meetingRoomsUtilization = alerts.map((alert) => (
+        genGuagePercentage(rooms, alert)
+      ));
+
+      guage.setStack(meetingRoomsUtilization);
+    }
   },
 
   /**
@@ -54,7 +63,11 @@ const consoleController = {
    * @returns {undefined}
    */
   log(text) {
-    log.log(`${text}`);
+    if (process.env.DONT_HOOK_CONSOLE) {
+      console.log(text);
+    } else {
+      log.log(`${text}`);
+    }
   },
 
   /**

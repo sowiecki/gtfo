@@ -13,8 +13,6 @@ import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
 import consoleController from './controllers/console';
 
-console.log = consoleController.log;
-
 const server = express();
 
 /* Client hot reloading (dev only) */
@@ -33,9 +31,16 @@ if (process.env.HOT) {
   console.log(colors.bgRed('Hot reloading enabled'));
 }
 
-/* Setup */
+/* Console setup */
+if (process.env.DONT_HOOK_CONSOLE) {
+  server.use(logger('dev'));
+} else {
+  console.log = consoleController.log;
+  server.use(logger('dev', { stream: consoleController.stream() }));
+}
+
+/* Remaining Express configuration */
 server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
-server.use(logger('dev', { stream: consoleController.stream() }));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
