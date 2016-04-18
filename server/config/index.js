@@ -5,7 +5,20 @@ import moment from 'moment';
 import colors from 'colors/safe';
 import { argv } from 'yargs';
 
-import { normalizePort } from '../utils';
+const normalizePort = (val) => {
+  const port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    return val;
+  }
+
+  if (port >= 0) {
+    return port;
+  }
+
+  return false;
+};
+
 
 if (argv.mocks) {
   process.env.MOCKS = true;
