@@ -20,7 +20,7 @@ const consoleController = {
    * @returns {undefined}
    */
   logRoomStatuses(rooms) {
-    consoleController.setTableData({
+    table.setData({
       headers: ['Room', 'Status'],
       data: rooms.map((room) => getRoomStatusMessage(room))
     });
@@ -31,7 +31,7 @@ const consoleController = {
    */
   stream() {
     return split().on('data', (message) => {
-      consoleController.log(message);
+      console.log(message);
     });
   },
 
@@ -42,15 +42,6 @@ const consoleController = {
    */
   log(text) {
     log.log(text);
-  },
-
-  /**
-   * Passes argument to contrib table.
-   * @param {object} data
-   * @returns {undefined}
-   */
-  setTableData(data) {
-    table.setData(data);
   },
 
   /**

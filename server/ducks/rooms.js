@@ -95,6 +95,8 @@ const roomsReducer = (state = initialState, action) => {
 
       if (alertChanged) {
         consoleController.logRoomStatuses(getSecureRooms(state));
+        // TODO Figure out why above line doesn't work without line below.
+        consoleController.log('Room statuses updated');
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
       }
 
