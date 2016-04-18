@@ -10,7 +10,7 @@ import { OCCUPIED,
          PINGED } from '../../../constants';
 
 export const styles = {
-  generateOfficeBackgroundStyle: ({ location }) => ({
+  generateOfficeBackgroundStyle: (location) => ({
     backgroundImage: `url(${getLocationBackdrop(location)})`,
     backgroundSize: '100%'
   }),

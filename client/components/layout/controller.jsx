@@ -136,7 +136,7 @@ class LayoutController extends Component {
         style={styles.officeLayoutContainer}>
           <image
             className='office-background'
-            style={styles.generateOfficeBackgroundStyle(this.props.params)}>
+            style={styles.generateOfficeBackgroundStyle(location)}>
               <svg className='office-layout'>
                 {filteredMeetingRooms.map(this.renderMeetingRoom)}
                 {filteredStalls.map(this.renderStall)}
