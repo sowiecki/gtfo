@@ -44,8 +44,7 @@ export const VIEWS_PATH = path.join(__dirname, ROOT, 'views');
  * Contrib configurations.
  */
 export const logOptions = {
-  fg: 'green',
-  selectedFg: 'blue',
+  fg: 'white',
   label: 'Server Log',
   width: '100%',
   height: '50%',
@@ -61,4 +60,9 @@ export const tableOptions = {
   border: { type: 'line', fg: 'red' },
   columnSpacing: 10,
   columnWidth: [16, 60]
+};
+
+export const guageOptions = {
+  label: 'Room utilization',
+  height: '120%'
 };

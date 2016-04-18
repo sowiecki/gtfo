@@ -4,14 +4,16 @@ import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
+import { filter, uniq } from 'lodash';
 
-import { logOptions, tableOptions } from '../config';
-import { getRoomStatusMessage } from '../utils';
+import { logOptions, tableOptions, guageOptions } from '../config';
+import { getRoomStatusMessage, guageColors } from '../utils';
 
 const screen = blessed.screen();
-const grid = new contrib.grid({ rows: 1, cols: 5, screen });
-const table = grid.set(0, 3, 1, 2, contrib.table, tableOptions);
-const log = grid.set(0, 0, 1, 3, contrib.log, logOptions);
+const grid = new contrib.grid({ rows: 10, cols: 5, screen });
+const table = grid.set(0, 3, 9, 2, contrib.table, tableOptions);
+const log = grid.set(0, 0, 9, 3, contrib.log, logOptions);
+const guage = grid.set(8.7, 0, 1.3, 5, contrib.gauge, guageOptions);
 
 const consoleController = {
   /**
@@ -24,6 +26,17 @@ const consoleController = {
       headers: ['Room', 'Status'],
       data: rooms.map((room) => getRoomStatusMessage(room))
     });
+
+    const alerts = uniq(rooms.map((room) => room.alert)).sort();
+
+    const meetingRoomsUtilization = alerts.map((alert) => ({
+      percent: (filter(rooms, (room) => (
+        room.alert === alert
+      )).length / rooms.length) * 100,
+      stroke: guageColors[alert]
+    }));
+
+    guage.setStack(meetingRoomsUtilization);
   },
 
   /**
@@ -41,7 +54,7 @@ const consoleController = {
    * @returns {undefined}
    */
   log(text) {
-    log.log(text);
+    log.log(`${text}`);
   },
 
   /**

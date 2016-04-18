@@ -9,6 +9,16 @@ import { SQUATTED,
          BOOKED,
          OFFLINE } from '../constants';
 
+export const guageColors = {
+  [SQUATTED]: 'magenta',
+  [VACANT]: 'green',
+  [ONE_MINUTE_WARNING]: 'red',
+  [FIVE_MINUTE_WARNING]: 'yellow',
+  [BOOKED]: 'cyan',
+  [OFFLINE]: 'black',
+  [undefined]: 'black'
+};
+
 /**
  * Logs individual room status.
  * @param {object} room Room object with name and alert.
@@ -21,7 +31,8 @@ export const getRoomStatusMessage = ({ name, alert }) => {
     [ONE_MINUTE_WARNING]: '1 minute left on current reservation',
     [FIVE_MINUTE_WARNING]: '5 minutes left on current reservation',
     [BOOKED]: 'Currently booked',
-    [OFFLINE]: 'Offline'
+    [OFFLINE]: 'Offline',
+    [undefined]: 'Offline'
   };
 
   const logColors = {
@@ -30,7 +41,8 @@ export const getRoomStatusMessage = ({ name, alert }) => {
     [ONE_MINUTE_WARNING]: 'bgRed',
     [FIVE_MINUTE_WARNING]: 'bgYellow',
     [BOOKED]: 'bgCyan',
-    [OFFLINE]: 'grey'
+    [OFFLINE]: 'grey',
+    [undefined]: 'grey'
   };
 
   const message = statusMessages[alert] || statusMessages.OFFLINE;
