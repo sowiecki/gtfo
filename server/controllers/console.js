@@ -1,33 +1,12 @@
 /* eslint no-console:0, new-cap:0 */
 /* globals console */
 import colors from 'colors';
-import moment from 'moment';
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
 
+import { logOptions, tableOptions } from '../config';
 import { getRoomStatusMessage } from '../utils';
-
-const logOptions = {
-  fg: 'green',
-  selectedFg: 'blue',
-  label: 'Server Log',
-  width: '100%',
-  height: '50%',
-  border: { type: 'line', fg: 'red' }
-};
-
-const tableOptions = {
-  fg: 'white',
-  selectedFg: 'white',
-  selectedBg: 'red',
-  label: `Room statuses as of ${moment().format('LLLL')}`,
-  width: '100%',
-  height: '50%',
-  border: { type: 'line', fg: 'red' },
-  columnSpacing: 10,
-  columnWidth: [20, 40]
-};
 
 const screen = blessed.screen();
 const grid = new contrib.grid({ rows: 1, cols: 3, screen });
@@ -36,7 +15,7 @@ const log = grid.set(0, 0, 1, 2, contrib.log, logOptions);
 
 const consoleController = {
   /**
-   * Logs batch of room statuses.
+   * Batch log of room statuses to contrib table.
    * @param {array} rooms Room objects.
    * @returns {undefined}
    */
@@ -47,16 +26,29 @@ const consoleController = {
     });
   },
 
+  /**
+   * Used by Express to stream logs to contrib rolling log.
+   */
   stream() {
     return split().on('data', (message) => {
       consoleController.log(message);
     });
   },
 
+  /**
+   * Passes argument to contrib rolling log.
+   * @param {string} text
+   * @returns {undefined}
+   */
   log(text) {
     log.log(text);
   },
 
+  /**
+   * Passes argument to contrib table.
+   * @param {object} data
+   * @returns {undefined}
+   */
   setTableData(data) {
     table.setData(data);
   },

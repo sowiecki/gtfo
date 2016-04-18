@@ -1,6 +1,6 @@
 /* eslint no-console:0 */
 /* globals console */
-import colors from 'colors';
+import colors from 'colors/safe';
 
 import { SQUATTED,
          VACANT,
