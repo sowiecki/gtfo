@@ -54,12 +54,11 @@ export const logOptions = {
 
 export const tableOptions = {
   fg: 'white',
-  selectedFg: 'white',
-  selectedBg: 'red',
+  interactive: false,
   label: `Room statuses as of ${moment().format('LLLL')}`,
   width: '100%',
   height: '50%',
   border: { type: 'line', fg: 'red' },
   columnSpacing: 10,
-  columnWidth: [20, 40]
+  columnWidth: [16, 60]
 };

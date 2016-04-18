@@ -24,9 +24,19 @@ export const getRoomStatusMessage = ({ name, alert }) => {
     [OFFLINE]: 'Offline'
   };
 
-  const message = statusMessages[alert] || statusMessages.OFFLINE;
+  const logColors = {
+    [SQUATTED]: 'bgMagenta',
+    [VACANT]: 'bgGreen',
+    [ONE_MINUTE_WARNING]: 'bgRed',
+    [FIVE_MINUTE_WARNING]: 'bgYellow',
+    [BOOKED]: 'bgCyan',
+    [OFFLINE]: 'grey'
+  };
 
-  return [name, message];
+  const message = statusMessages[alert] || statusMessages.OFFLINE;
+  const logColor = logColors[alert || OFFLINE];
+
+  return [name, colors[logColor](message)];
 };
 
 /**
