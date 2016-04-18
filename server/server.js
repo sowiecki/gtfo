@@ -22,6 +22,7 @@ if (process.env.HOT) {
   const compiler = webpack(webpackConfig);
 
   server.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
     publicPath: webpackConfig.output.publicPath
   }));
 
