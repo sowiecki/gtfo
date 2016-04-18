@@ -34,6 +34,7 @@ In production mode, it assumed `ems-wrapper` is deployed on another domain, defi
 ##### Options
 ```bash
 --mocks # Disables Outlook api in favor of using mock reservation data.
+--dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
 --dd # Disables devices, useful for client testing without room module hardware.
 ```
 ##### Production

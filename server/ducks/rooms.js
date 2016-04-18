@@ -2,11 +2,11 @@
 import immutable from 'immutable';
 
 import socketController from '../controllers/socket';
+import consoleController from '../controllers/console';
 import slug from 'slug';
 
 import { devices, coordinates } from '../environment';
 import { flashNotifications,
-         logRoomStatuses,
          filterExpiredReservations,
          getRoomAlert,
          secureRoom,
@@ -94,7 +94,9 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       if (alertChanged) {
-        logRoomStatuses(getSecureRooms(state));
+        consoleController.logRoomStatuses(getSecureRooms(state));
+        // TODO Figure out why above line doesn't work without line below.
+        consoleController.log('Room statuses updated');
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
       }
 

@@ -11,7 +11,7 @@ import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
-import { stream } from './utils';
+import consoleController from './controllers/console';
 
 const server = express();
 
@@ -31,9 +31,16 @@ if (process.env.HOT) {
   console.log(colors.bgRed('Hot reloading enabled'));
 }
 
-/* Setup */
+/* Console setup */
+if (process.env.DONT_HOOK_CONSOLE) {
+  server.use(logger('dev'));
+} else {
+  console.log = consoleController.log;
+  server.use(logger('dev', { stream: consoleController.stream() }));
+}
+
+/* Remaining Express configuration */
 server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
-server.use(logger('dev', { stream }));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));

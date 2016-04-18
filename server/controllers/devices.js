@@ -6,6 +6,7 @@
  * Registers accessories for each device
  */
 
+import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
 import { registerBoard,
@@ -13,8 +14,7 @@ import { registerBoard,
          registerPiezo,
          registerThermo,
          registerMotion,
-         logBoardReady,
-         logBoardFailure } from '../utils';
+         logBoardReady } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -53,7 +53,8 @@ const devicesController = {
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
-      board.on('fail', logBoardFailure);
+      board.on('warn', consoleController.boardWarn);
+      board.on('fail', consoleController.boardFail);
     });
   },
 
