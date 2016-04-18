@@ -8,7 +8,7 @@ import { getHost } from '../utils';
 
 const pingsController = {
   handlePing(req, res) {
-    const { rooms } = store.getState().roomsReducer;
+    const { rooms } = store.getState().roomsReducer.toJS();
     const { id, anchor } = req.headers;
     const room = find(rooms, { id });
 
