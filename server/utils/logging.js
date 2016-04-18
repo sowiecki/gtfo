@@ -16,7 +16,7 @@ import { SQUATTED,
  */
 export const getRoomStatusMessage = ({ name, alert }) => {
   const statusMessages = {
-    [SQUATTED]: 'No current reservation but is being occupied',
+    [SQUATTED]: 'Occupied without reservation',
     [VACANT]: 'Vacant for at least 30 minutes',
     [ONE_MINUTE_WARNING]: '1 minute left on current reservation',
     [FIVE_MINUTE_WARNING]: '5 minutes left on current reservation',

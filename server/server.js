@@ -13,6 +13,8 @@ import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
 import consoleController from './controllers/console';
 
+console.log = consoleController.log;
+
 const server = express();
 
 /* Client hot reloading (dev only) */

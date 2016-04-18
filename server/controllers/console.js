@@ -9,9 +9,9 @@ import { logOptions, tableOptions } from '../config';
 import { getRoomStatusMessage } from '../utils';
 
 const screen = blessed.screen();
-const grid = new contrib.grid({ rows: 1, cols: 3, screen });
-const table = grid.set(0, 2, 1, 1, contrib.table, tableOptions);
-const log = grid.set(0, 0, 1, 2, contrib.log, logOptions);
+const grid = new contrib.grid({ rows: 1, cols: 5, screen });
+const table = grid.set(0, 3, 1, 2, contrib.table, tableOptions);
+const log = grid.set(0, 0, 1, 3, contrib.log, logOptions);
 
 const consoleController = {
   /**

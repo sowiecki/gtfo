@@ -18,7 +18,8 @@ export const registerBoard = (device) => (
     io: new Particle({
       token: device.deviceAuthToken,
       deviceId: device.deviceId
-    })
+    }),
+    repl: false
   })
 );
 
