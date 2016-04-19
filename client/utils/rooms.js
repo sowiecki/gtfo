@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 /* globals console */
-import { filter, map } from 'lodash';
-import { uniq, get } from 'lodash';
+import { filter, map, uniq, get } from 'lodash';
 import slug from 'slug';
 
 import history from '../config/history';
