@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'immutable-props';
 
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
@@ -12,24 +11,24 @@ import { base } from '../../config/composition';
 const LocationModal = (props) => {
   const { actions,
           params,
-          navigation,
           locations,
-          toggleLocationModal } = props;
-  const { anchor } = props.location.query;
-  const { siteNavOpen, locationModalOpen } = navigation.toJS();
+          location,
+          siteNavOpen,
+          locationModalOpen } = props;
+  const { anchor } = location.query;
 
-  const handleLocationSelection = (location, anchorId) => {
+  const handleLocationSelection = (selectedLocation, anchorId) => {
     actions.emitSiteNavToggle(!siteNavOpen);
     actions.emitLocationModalToggle(locationModalOpen);
-    actions.emitLocationIndexUpdate(location, anchorId);
+    actions.emitLocationIndexUpdate(selectedLocation, anchorId);
   };
 
-  const renderLocation = (location, index) => (
+  const renderLocation = (renderedLocation, index) => (
     <MenuItem
       key={index}
       value={index}
-      primaryText={formatForDisplay(location)}
-      onClick={handleLocationSelection.bind(null, location, anchor)}/>
+      primaryText={formatForDisplay(renderedLocation)}
+      onClick={handleLocationSelection.bind(null, renderedLocation, anchor)}/>
   );
 
   const buttons = [
@@ -37,7 +36,7 @@ const LocationModal = (props) => {
       key='cancel-location-modal'
       label='Cancel'
       secondary={true}
-      onClick={toggleLocationModal}/>
+      onClick={actions.emitLocationModalToggle.bind(null, locationModalOpen)}/>
   ];
 
   return locations ? (
@@ -59,16 +58,20 @@ const LocationModal = (props) => {
 };
 
 LocationModal.propTypes = {
-  actions: PropTypes.object.isRequired,
+  siteNavOpen: PropTypes.bool.isRequired,
+  locationModalOpen: PropTypes.bool.isRequired,
+  actions: PropTypes.shape({
+    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitLocationModalToggle: PropTypes.func.isRequired,
+    emitLocationIndexUpdate: PropTypes.func.isRequired
+  }).isRequired,
   params: PropTypes.shape({
     location: PropTypes.string
   }).isRequired,
   location: PropTypes.shape({
     query: PropTypes.object
   }),
-  locations: PropTypes.array,
-  navigation: ImmutablePropTypes.Map.isRequired,
-  toggleLocationModal: PropTypes.func.isRequired
+  locations: PropTypes.array
 };
 
 export default base(LocationModal);

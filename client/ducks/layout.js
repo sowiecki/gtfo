@@ -65,9 +65,9 @@ export const emitMarkerDeactivated = (marker) => ({
 });
 
 const initialState = immutable.fromJS({
-  meetingRooms: [],
-  markers: [],
-  stalls: [],
+  meetingRooms: null,
+  markers: null,
+  stalls: null,
   displayLegend: true,
   displayTemp: false,
   tempScale: FAHRENHEIT

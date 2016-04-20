@@ -13,20 +13,22 @@ const NavigationContainer = (props) => (
 );
 
 NavigationContainer.propTypes = {
+  navigation: ImmutablePropTypes.Map,
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
   routeParams: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  navigation: ImmutablePropTypes.Map.isRequired
+  params: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
   const { navigationReducer, layoutReducer } = state;
 
   return {
-    navigation: navigationReducer,
+    documentTitle: navigationReducer.get('documentTitle'),
+    siteNavOpen: navigationReducer.get('siteNavOpen'),
+    locationModalOpen: navigationReducer.get('locationModalOpen'),
     locations: layoutReducer.get('locations'),
     displayLegend: layoutReducer.get('displayLegend'),
     displayTemp: layoutReducer.get('displayTemp'),
