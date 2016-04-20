@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ImmutablePropTypes from 'immutable-props';
 
 import Tab from 'material-ui/Tabs/Tab';
 import Tabs from 'material-ui/Tabs/Tabs';
@@ -13,9 +12,8 @@ import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 
-const Header = ({ params, location, locations, actions, navigation }) => {
+const Header = ({ params, location, locations, actions, siteNavOpen }) => {
   const { anchor, fullscreen } = location.query;
-  const { siteNavOpen } = navigation.toJS();
   const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
 
   const renderLocationTab = (tabLocation, index) => (
@@ -36,9 +34,8 @@ const Header = ({ params, location, locations, actions, navigation }) => {
         <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
       </ToolbarGroup>
       <ToolbarGroup style={styles.toolbarTabs}>
-        <Tabs
-          value={locations.indexOf(params.location)}>
-            {locations.map(renderLocationTab)}
+        <Tabs value={locations.indexOf(params.location)}>
+          {locations.map(renderLocationTab)}
         </Tabs>
       </ToolbarGroup>
     </Toolbar>
@@ -46,10 +43,10 @@ const Header = ({ params, location, locations, actions, navigation }) => {
 };
 
 Header.propTypes = {
+  siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitSiteNavToggle: PropTypes.func.isRequired
   }).isRequired,
-  navigation: ImmutablePropTypes.Map.isRequired,
   location: PropTypes.shape({
     query: PropTypes.shape({
       fullscreen: PropTypes.string
