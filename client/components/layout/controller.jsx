@@ -1,41 +1,25 @@
 /* globals setInterval, clearInterval */
 import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
-import ImmutablePropTypes from 'immutable-props';
+
+import DisplayError from '../common/display-error';
+import MapLegend from './map-legend';
 
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
-import MeetingRoom from './meeting-room';
-import Stall from './stall';
-import Marker from './marker';
-import MapLegend from './map-legend';
+import Location from './location';
 
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { filterByLocation,
-         pluckLocations,
-         updateLocationIndex,
-         youAreHere,
-         hasAnchor } from '../../utils';
+import { pluckLocations, updateLocationIndex, hasAnchor } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
 
 class LayoutController extends Component {
-  constructor(props) {
-    super(props);
-
-    this.flashPing = this.flashPing.bind(this);
-    this.handleChangeLocation = this.handleChangeLocation.bind(this);
-    this.renderLocation = this.renderLocation.bind(this);
-    this.renderMeetingRoom = this.renderMeetingRoom.bind(this);
-    this.renderStall = this.renderStall.bind(this);
-    this.renderMarker = this.renderMarker.bind(this);
-  }
-
   componentDidMount() {
-    if (this.props.layout.toJS().ping) {
+    if (this.props.ping) {
       this.flashPing();
     }
   }
@@ -44,8 +28,7 @@ class LayoutController extends Component {
    * Forces default location parameter to first location.
    */
   componentDidUpdate() {
-    const { layout, params } = this.props;
-    const { meetingRooms, ping } = layout.toJS();
+    const { meetingRooms, ping, params } = this.props;
     const locations = pluckLocations(meetingRooms);
 
     if (!params.location && locations.length) {
@@ -62,9 +45,8 @@ class LayoutController extends Component {
    * Automatically clears pings after defined amount of time.
    */
   flashPing() {
-    const { actions, layout, params, location } = this.props;
+    const { actions, params, location, ping } = this.props;
     const { anchor } = location.query;
-    const { ping } = layout.toJS();
 
     // Save original location.
     originalLocation = originalLocation || params.location;
@@ -85,105 +67,58 @@ class LayoutController extends Component {
   }
 
   handleChangeLocation(newIndex) {
-    const { layout, location } = this.props;
+    const { meetingRooms, location } = this.props;
     const { anchor } = location.query;
-    const { meetingRooms } = layout.toJS();
     const locations = pluckLocations(meetingRooms);
 
     updateLocationIndex(locations[newIndex], anchor);
   }
 
-  renderMeetingRoom(meetingRoom) {
-    const { ping, displayTemp, tempScale } = this.props.layout.toJS();
-
-    return (
-      <MeetingRoom
-        key={`${meetingRoom.name}`}
-        pinged={ping && ping.id === meetingRoom.id}
-        displayTemp={displayTemp}
-        tempScale={tempScale}
-        {...meetingRoom}/>
-    );
-  }
-
-  renderStall(stall) {
-    return (
-      <Stall key={stall.id} {...stall}/>
-    );
-  }
-
-  renderMarker(marker, index) {
-    const { location } = this.props;
-
-    return (
-      <Marker
-        key={`${marker.name}-${index}`}
-        marker={marker}
-        youAreHere={youAreHere(marker, location)}/>
-    );
-  }
-
-  renderLocation(location) {
-    const { meetingRooms, stalls, markers } = this.props.layout.toJS();
-    const filteredMeetingRooms = filterByLocation(meetingRooms, location);
-    const filteredStalls = filterByLocation(stalls, location);
-    const filteredMarkers = filterByLocation(markers, location);
-
-    return (
-      <div
-        key={location}
-        className='office-layout-container'
-        style={styles.officeLayoutContainer}>
-          <image
-            className='office-background'
-            style={styles.generateOfficeBackgroundStyle(location)}>
-              <svg className='office-layout'>
-                {filteredMeetingRooms.map(this.renderMeetingRoom)}
-                {filteredStalls.map(this.renderStall)}
-                {filteredMarkers.map(this.renderMarker)}
-              </svg>
-          </image>
-      </div>
-    );
-  }
-
   render() {
-    const { params, layout, location } = this.props;
-    const { meetingRooms, displayLegend } = layout.toJS();
-    const locations = pluckLocations(meetingRooms);
+    const { meetingRooms, displayLegend, params, location } = this.props;
+    const locationKeys = pluckLocations(meetingRooms);
+
+    const renderLocation = (locationKey, index) => (
+      <Location key={index} locationKey={locationKey} {...this.props}/>
+    );
 
     return (
-      <Paper style={styles.paperOverride} zDepth={1}>
-        <Style rules={rules.officeLayout}/>
-        <SwipeableViews
-          className='swipeable-viewport'
-          style={styles.swipableOverride}
-          index={locations.indexOf(params.location)}
-          onChangeIndex={this.handleChangeLocation}
-          resistance={true}>
-            {locations.map(this.renderLocation)}
-        </SwipeableViews>
-        <MapLegend
-          enabled={displayLegend}
-          showYouAreHere={hasAnchor(location)}/>
-      </Paper>
+      <span>
+        <Paper style={styles.paperOverride} zDepth={1}>
+          <Style rules={rules.officeLayout}/>
+          <SwipeableViews
+            className='swipeable-viewport'
+            style={styles.swipableOverride}
+            index={locationKeys.indexOf(params.location)}
+            onChangeIndex={this.handleChangeLocation.bind(this)}
+            resistance={true}>
+              {locationKeys.map(renderLocation)}
+          </SwipeableViews>
+          <MapLegend
+            enabled={displayLegend}
+            showYouAreHere={hasAnchor(location)}/>
+        </Paper>
+        <DisplayError {...this.props}/>
+      </span>
     );
   }
 }
 
 LayoutController.propTypes = {
   location: PropTypes.object.isRequired,
-  layout: ImmutablePropTypes.Map.isRequired,
-  meetingRooms: ImmutablePropTypes.Map,
-  stalls: ImmutablePropTypes.Map,
+  meetingRooms: PropTypes.array,
+  stalls: PropTypes.array,
+  markers: PropTypes.array,
+  displayLegend: PropTypes.bool.isRequired,
+  displayTemp: PropTypes.bool.isRequired,
+  tempScale: PropTypes.string.isRequired,
   params: PropTypes.shape({
     location: PropTypes.string
   }).isRequired,
   ping: PropTypes.object,
   actions: PropTypes.shape({
     emitClearPing: PropTypes.func.isRequired
-  }).isRequired,
-  markers: PropTypes.array
+  }).isRequired
 };
 
 export default applyStyles(LayoutController);
