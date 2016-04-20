@@ -13,13 +13,7 @@ import { rules } from './common/styles';
 const muiTheme = getMuiTheme();
 
 const Body = (props) => {
-  const isFullscreen = props.location.query.fullscreen === 'true';
   const isProd = process.env.NODE_ENV === 'production';
-
-  // TODO provide some small button to return from fullscreen
-  const navigation = isFullscreen ? null : (
-    <NavigationContainer {...props}/>
-  );
 
   const devTools = isProd ? null : (
     <DevTools/>
@@ -30,7 +24,7 @@ const Body = (props) => {
       <StyleRoot>
         <Style rules={rules.body}/>
         {devTools}
-        {navigation}
+        <NavigationContainer {...props}/>
         {props.children}
       </StyleRoot>
     </MuiThemeProvider>
@@ -38,12 +32,7 @@ const Body = (props) => {
 };
 
 Body.propTypes = {
-  children: PropTypes.node.isRequired,
-  location: PropTypes.shape({
-    query: PropTypes.shape({
-      fullscreen: PropTypes.bool
-    })
-  })
+  children: PropTypes.node.isRequired
 };
 
 export default base(Body);

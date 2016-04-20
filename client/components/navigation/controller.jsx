@@ -2,19 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'immutable-props';
 
 import Drawer from 'material-ui/Drawer';
-import Tab from 'material-ui/Tabs/Tab';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Toolbar from 'material-ui/Toolbar';
-import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
-import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 
-import MenuButton from './menu-button';
+import Header from './header';
 import DrawerContent from './drawer-content';
 import LocationModal from './location-modal';
 
-import { formatForDisplay } from '../../utils';
-import { applyStyles } from '../../config/composition';
-import { styles, LEFT_HAND_NAV_WIDTH } from './styles';
+import { base } from '../../config/composition';
+import { LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
   componentWillReceiveProps(nextProps) {
@@ -23,28 +17,14 @@ class NavigationController extends Component {
     document.title = documentTitle;
   }
 
-  renderLocationTab(location, index) {
-    const { actions, locations } = this.props;
-    const { anchor } = this.props.location.query;
-
-    return (
-      <Tab
-        key={`${location}-${index}`}
-        label={formatForDisplay(location)}
-        value={locations.indexOf(location)}
-        onClick={actions.emitLocationIndexUpdate.bind(null, location, anchor)}
-        style={styles.toolbarTab}/>
-    );
-  }
-
   render() {
     const { actions,
             navigation,
             locations,
+            location,
             displayLegend,
             displayTemp,
-            tempScale,
-            params } = this.props;
+            tempScale } = this.props;
     const { siteNavOpen, locationModalOpen } = navigation.toJS();
     const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
     const toggleLocationModal = actions.emitLocationModalToggle.bind(null, locationModalOpen);
@@ -52,23 +32,9 @@ class NavigationController extends Component {
     const toggleDisplayTemp = actions.emitToggleDisplayTemp.bind(null, displayTemp);
     const toggleTempScale = actions.emitToggleTempScale.bind(null, tempScale);
 
-    // TODO better null safety rendering
-    return locations ? (
+    return !locations ? null : (
       <div>
-        <Toolbar style={styles.toolbar}>
-          <ToolbarGroup firstChild={true}>
-            <MenuButton toggleSiteNav={toggleSiteNav}/>
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
-          </ToolbarGroup>
-          <ToolbarGroup style={styles.toolbarTabs}>
-            <Tabs
-              value={locations.indexOf(params.location)}>
-                {locations.map(this.renderLocationTab.bind(this))}
-            </Tabs>
-          </ToolbarGroup>
-        </Toolbar>
+        <Header {...this.props}/>
         <Drawer
           open={siteNavOpen}
           onRequestChange={toggleSiteNav}
@@ -89,7 +55,7 @@ class NavigationController extends Component {
           toggleLocationModal={toggleLocationModal}
           {...this.props}/>
       </div>
-    ) : <div/>;
+    );
   }
 }
 
@@ -113,4 +79,4 @@ NavigationController.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-export default applyStyles(NavigationController);
+export default base(NavigationController);
