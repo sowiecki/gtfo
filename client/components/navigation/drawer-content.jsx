@@ -33,11 +33,13 @@ const DrawerContent = (props) => {
 
   const temperatureOptions = [
     <ListItem
+      key='toggle-temp-display'
       onClick={actions.emitToggleDisplayTemp.bind(null, displayTemp)}
       style={displayTemp ? null : styles.fadedIcon}
       leftIcon={generateIcon('ac_unit', styles.navIcons)}
       primaryText='Toggle temperature display'/>,
     <ListItem
+      key='toggle-temp-scale'
       onClick={actions.emitToggleTempScale.bind(null, tempScale)}
       style={displayTemp ? null : styles.fadedIcon}
       leftIcon={generateIcon(tempScale[0].toUpperCase(), styles.tempScaleNavIcon)}
