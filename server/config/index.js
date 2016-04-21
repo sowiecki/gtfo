@@ -54,8 +54,10 @@ export const logOptions = {
   fg: 'white',
   label: 'Server Log',
   width: '100%',
-  height: '50%',
-  border: { type: 'line', fg: 'red' }
+  height: '100%',
+  style: {
+    border: { fg: 'green' }
+  }
 };
 
 export const tableOptions = {
@@ -63,13 +65,17 @@ export const tableOptions = {
   interactive: false,
   label: `Room statuses as of ${moment().format('LLLL')}`,
   width: '100%',
-  height: '50%',
-  border: { type: 'line', fg: 'red' },
+  height: '100%',
   columnSpacing: 10,
-  columnWidth: [16, 60]
+  columnWidth: [16, 60],
+  style: {
+    border: { fg: 'blue' }
+  }
 };
 
 export const guageOptions = {
   label: 'Room utilization',
-  height: '120%'
+  style: {
+    border: { fg: 'yellow' }
+  }
 };

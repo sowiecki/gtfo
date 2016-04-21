@@ -47,7 +47,7 @@ const devicesController = {
          */
         store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
 
-        return;
+        // return;
       }
 
       const board = registerBoard(room);

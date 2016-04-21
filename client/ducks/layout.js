@@ -18,8 +18,6 @@ export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
 export const EMIT_TOGGLE_DISPLAY_TEMPERATURE = 'EMIT_TOGGLE_DISPLAY_TEMPERATURE';
 export const EMIT_TOGGLE_TEMP_SCALE = 'EMIT_TOGGLE_TEMP_SCALE';
 
-export const EMIT_MARKERS_ACTIVATED = 'EMIT_MARKERS_ACTIVATED';
-export const EMIT_MARKERS_DEACTIVED = 'EMIT_MARKERS_DEACTIVED';
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 
 export const EMIT_ROOM_TEMPERATURE_UPDATE = 'EMIT_ROOM_TEMPERATURE_UPDATE';
@@ -54,22 +52,13 @@ export const emitToggleTempScale = (tempScale) => ({
   tempScale
 });
 
-export const emitMarkersActivated = (markers) => ({
-  type: EMIT_MARKERS_ACTIVATED,
-  markers
-});
-
-export const emitMarkerDeactivated = (marker) => ({
-  type: EMIT_MARKERS_DEACTIVED,
-  marker
-});
-
 const initialState = immutable.fromJS({
   meetingRooms: null,
   markers: null,
   stalls: null,
   displayLegend: true,
-  displayTemp: false,
+  displayTemp: true, // User UI option for toggling temperature display on map
+  enableTemp: false, // Server variable that governs display of temperature UI elements
   tempScale: FAHRENHEIT
 });
 
@@ -79,7 +68,7 @@ const layoutReducer = (state = initialState, action) => {
       const { enableTemperature, defaultTempScale } = action.config;
 
       return state
-        .set('displayTemp', enableTemperature || false)
+        .set('enableTemp', enableTemperature || false)
         .set('tempScale', defaultTempScale || FAHRENHEIT);
     },
 
