@@ -15,6 +15,7 @@ const DrawerContent = (props) => {
           actions,
           displayLegend,
           displayTemp,
+          enableTemp,
           locationModalOpen,
           tempScale } = props;
 
@@ -29,6 +30,21 @@ const DrawerContent = (props) => {
   const generateIcon = (icon, style) => (
     <FontIcon className='material-icons' style={style}>{icon}</FontIcon>
   );
+
+  const temperatureOptions = [
+    <ListItem
+      key='toggle-temp-display'
+      onClick={actions.emitToggleDisplayTemp.bind(null, displayTemp)}
+      style={displayTemp ? null : styles.fadedIcon}
+      leftIcon={generateIcon('ac_unit', styles.navIcons)}
+      primaryText='Toggle temperature display'/>,
+    <ListItem
+      key='toggle-temp-scale'
+      onClick={actions.emitToggleTempScale.bind(null, tempScale)}
+      style={displayTemp ? null : styles.fadedIcon}
+      leftIcon={generateIcon(tempScale[0].toUpperCase(), styles.tempScaleNavIcon)}
+      primaryText='Toggle fahrenheit/celcius'/>
+  ];
 
   return (
     <List>
@@ -46,16 +62,7 @@ const DrawerContent = (props) => {
         style={displayLegend ? null : styles.fadedIcon}
         leftIcon={generateIcon('map', styles.navIcons)}
         primaryText='Toggle map legend'/>
-      <ListItem
-        onClick={actions.emitToggleDisplayTemp.bind(null, displayTemp)}
-        style={displayTemp ? null : styles.fadedIcon}
-        leftIcon={generateIcon('ac_unit', styles.navIcons)}
-        primaryText='Toggle temperature display'/>
-      <ListItem
-        onClick={actions.emitToggleTempScale.bind(null, tempScale)}
-        style={displayTemp ? null : styles.fadedIcon}
-        leftIcon={generateIcon(tempScale[0].toUpperCase(), styles.tempScaleNavIcon)}
-        primaryText='Toggle fahrenheit/celcius'/>
+      {enableTemp ? temperatureOptions : null}
       <Divider/>
       <ListItem
         onClick={actions.emitSiteNavToggle.bind(null, !siteNavOpen)}
@@ -78,6 +85,7 @@ DrawerContent.propTypes = {
   location: PropTypes.object,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
+  enableTemp: PropTypes.bool.isRequired,
   tempScale: PropTypes.string.isRequired
 };
 

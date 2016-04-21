@@ -29,7 +29,14 @@ const Marker = ({ marker, youAreHere }) => {
 };
 
 Marker.propTypes = {
-  marker: PropTypes.object.isRequired,
+  marker: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    coordinates: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired
+    }).isRequired,
+  }).isRequired,
   youAreHere: PropTypes.bool
 };
 

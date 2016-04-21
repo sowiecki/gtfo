@@ -11,9 +11,9 @@ import { getRoomStatusMessage, genGuagePercentage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 const grid = new contrib.grid({ rows: 10, cols: 5, screen });
-const table = grid.set(0, 3, 9, 2, contrib.table, tableOptions);
-const log = grid.set(0, 0, 9, 3, contrib.log, logOptions);
-const guage = grid.set(8.7, 0, 1.3, 5, contrib.gauge, guageOptions);
+const table = grid.set(0, 3, 8.5, 2, contrib.table, tableOptions);
+const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
+const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
 
 if (process.env.DONT_HOOK_CONSOLE) {
   screen.destroy();
