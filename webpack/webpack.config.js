@@ -31,7 +31,8 @@ module.exports = {
       {
         test: /\.(svg|png)$/,
         loader: 'file-loader',
-        includes: [baseContext, environmentConext]
+        includes: [baseContext, environmentConext],
+        exclude: /node_modules/
       }
     ]
   }

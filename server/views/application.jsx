@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import ReactDOMServer from 'react-dom/server';
 
+import { BUNDLE_PATH } from '../config';
 import fonts from '../assets/fonts';
 
 const Application = ({ bundle }) => {
@@ -24,4 +26,8 @@ Application.propTypes = {
   bundle: PropTypes.string.isRequired
 };
 
-export default Application;
+const applicationView = ReactDOMServer.renderToStaticMarkup(
+  <Application bundle={BUNDLE_PATH}/>
+);
+
+export default applicationView;
