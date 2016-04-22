@@ -15,6 +15,10 @@ import consoleController from './controllers/console';
 
 const server = express();
 
+if (process.env.NODE_ENV !== 'production') {
+  console.log = consoleController.log;
+}
+
 /* Client hot reloading (dev only) */
 if (process.env.HOT) {
   const webpack = require('webpack');

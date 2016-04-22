@@ -10,9 +10,9 @@ const LOCAL_HOST = 'http://localhost';
 /**
  * Used when services are mocked from this application.
  */
-const MOCKS_HOST = 'http://localhost:3000';
-const RESERVATIONS_HOST = isProd ? prodReservationsHost : `${LOCAL_HOST}:4000`;
-const STALLS_HOST = isProd ? prodStallsHost : `${LOCAL_HOST}:5000`;
+const MOCKS_HOST = `${LOCAL_HOST}:3000`;
+const RESERVATIONS_HOST = isProd ? prodReservationsHost : `${LOCAL_HOST}:8080`;
+const STALLS_HOST = isProd ? prodStallsHost : MOCKS_HOST;
 
 const PROD_RESERVATIONS_API = '/rest/meetingRoom/lookup/';
 const PROD_STALLS_API = '/stalls';

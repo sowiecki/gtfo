@@ -15,11 +15,12 @@ const router = express.Router();
 if (process.env.MOCKS) {
   const mockServices = require('../controllers/mocks').default;
   const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
-  const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
 
   router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
 
   if (config.public.enableStalls) {
+    const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
+
     router.get(MOCK_STALLS_API, respondWithMockedStalls);
   }
 }
