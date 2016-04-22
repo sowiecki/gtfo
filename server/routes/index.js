@@ -1,27 +1,25 @@
 /* eslint new-cap:0 */
 import express from 'express';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
 import pingsController from '../controllers/pings';
-import Application from '../views/application';
+import applicationView from '../views/application';
 
 import { config } from '../environment';
-import { BUNDLE_PATH } from '../config';
+import { isProd } from '../config';
 import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
 
 const router = express.Router();
 
-if (process.env.MOCKS) {
+if (config.public.enableStalls && !isProd) {
   const mockServices = require('../controllers/mocks').default;
-  const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
+  const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
 
-  router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
+  router.get(MOCK_STALLS_API, respondWithMockedStalls);
 
-  if (config.public.enableStalls) {
-    const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
+  if (process.env.MOCKS) {
+    const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
 
-    router.get(MOCK_STALLS_API, respondWithMockedStalls);
+    router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
   }
 }
 
@@ -29,12 +27,6 @@ if (process.env.MOCKS) {
 router.post('/api/ping', (req, res) => pingsController.handlePing(req, res));
 
 /* Serve client - must be last route */
-router.get('*', (req, res) => {
-  const applicationView = ReactDOMServer.renderToStaticMarkup(
-    <Application bundle={BUNDLE_PATH}/>
-  );
-
-  res.send(applicationView);
-});
+router.get('*', (req, res) => res.send(applicationView));
 
 export default router;
