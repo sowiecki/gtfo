@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 
 module.exports = {
-  devtool: 'source-map',
   context: base.context,
   entry: base.entry,
   output: base.output,
