@@ -2,22 +2,18 @@ import React, { PropTypes } from 'react';
 import { StyleRoot, Style } from 'radium';
 
 import NavigationContainer from './navigation/container';
-import DevTools from './dev-tools';
 
 import { provideMuiTheme, base } from '../config/composition';
 import { rules } from './common/styles';
 
 const Body = (props) => {
   const isProd = process.env.NODE_ENV === 'production';
-
-  const devTools = isProd ? null : (
-    <DevTools/>
-  );
+  const DevTools = isProd ? null : require('./dev-tools');
 
   return provideMuiTheme(
     <StyleRoot>
       <Style rules={rules.body}/>
-      {devTools}
+      {isProd ? null : <DevTools/>}
       <NavigationContainer {...props}/>
       {props.children}
     </StyleRoot>
