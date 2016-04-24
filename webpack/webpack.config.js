@@ -6,16 +6,18 @@ const baseContext = path.join(__dirname, '../client');
 const environmentConext = path.join(__dirname, '../environment');
 const universalContext = path.join(__dirname, '../universal');
 
-const generateAlias = (result, developmentModule) => {
+const aliasSafety = (result, developmentModule) => {
   const isProd = process.env.NODE_ENV === 'production';
 
-  result[developmentModule] = isProd ? null : developmentModule;
+  nullModulePath = path.join(__dirname, '../client/components/common/loading');
+
+  result[developmentModule] = isProd ? nullModulePath : developmentModule;
 
   return result;
 };
 
 /**
- * Development-only modules listed here will be aliased to null,
+ * Development-only modules listed here will be aliased to an arbitrary replacement,
  * to prevent them from being used in production.
  */
 const developmentModules = [
@@ -27,7 +29,7 @@ const developmentModules = [
   'redux-devtools-diff-monitor',
   'redux-devtools-inspector',
   'redux-devtools-dispatch'
-].reduce(generateAlias, {});
+].reduce(aliasSafety, {});
 
 module.exports = {
   context: baseContext,
