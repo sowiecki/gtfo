@@ -1,8 +1,8 @@
 # Configurable application data
 
-It is essential that specific environment files be created and configured correctly to run this application for a particular office.
+Out of the box, this application knows nothing about your office layout, hosted external services, or hardware authentication values. Therefore, specific environment files must be created and configured correctly to run this application for a particular office.
 
-These files should remain gitignored to prevent private information from being made available on a public repository. Detailed information about the inside of your office can be used in social engineering attacks!
+These files should remain gitignored to prevent private information from being made available in a public repository. Detailed information about the inside of your office can be used in social engineering attacks!
 
 ### config.json
 General configuration.
@@ -15,6 +15,7 @@ General configuration.
 | - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |
 | emailDomain          | @yourCompany.com                            | Yes       |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |
+| prodStallsHost       | URL of hosted stalls service instance       | Yes       |
 
 Example of a `config.json`:
 ```json
@@ -25,7 +26,8 @@ Example of a `config.json`:
       "enableTemperature": true,
       "defaultTempScale": "fahrenheit"
     },
-    "prodReservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper"
+    "prodReservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper",
+    "prodStallsHost": "http://digitalocean.com/your-hosted-stalls-service"
   }
 }
 
