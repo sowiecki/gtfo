@@ -13,6 +13,9 @@
   },
   "rules": {
     "strict": 0,
+    "global-require": 0,
+    "import/no-unresolved": 0,
+    "react/jsx-indent": 0,
     "quotes": [2, "single"],
     "arrow-body-style": ["error", "as-needed"],
     "react/jsx-space-before-closing": [2, "never"],
