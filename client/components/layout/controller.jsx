@@ -10,9 +10,10 @@ import SwipeableViews from 'react-swipeable-views';
 
 import Location from './location';
 
+import history from '../../config/history';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { pluckLocations, updateLocationIndex, hasAnchor } from '../../utils';
+import { pluckLocations, hasAnchor } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
@@ -32,7 +33,7 @@ class LayoutController extends Component {
     const locations = pluckLocations(meetingRooms);
 
     if (!params.location && locations.length) {
-      updateLocationIndex(locations[0]);
+      history.push({ pathname: locations[0] });
     }
 
     if (ping) {
@@ -46,20 +47,26 @@ class LayoutController extends Component {
    */
   flashPing() {
     const { actions, params, location, ping } = this.props;
-    const { anchor } = location.query;
 
     // Save original location.
     originalLocation = originalLocation || params.location;
 
     if (params.location !== ping.location) {
-      updateLocationIndex(ping.location, anchor);
+      history.push({
+        pathname: ping.location,
+        query: { ...location.query }
+      });
     }
 
     const setPingTimeout = setInterval(() => {
       actions.emitClearPing();
 
       // Revert to original location and re-save.
-      updateLocationIndex(originalLocation, anchor);
+      history.push({
+        pathname: originalLocation,
+        query: { ...location.query }
+      });
+
       originalLocation = params.location;
 
       clearInterval(setPingTimeout);
@@ -68,10 +75,12 @@ class LayoutController extends Component {
 
   handleChangeLocation(newIndex) {
     const { meetingRooms, location } = this.props;
-    const { anchor } = location.query;
     const locations = pluckLocations(meetingRooms);
 
-    updateLocationIndex(locations[newIndex], anchor);
+    history.push({
+      pathname: locations[newIndex],
+      query: { ...location.query }
+    });
   }
 
   render() {
