@@ -3,7 +3,6 @@
 import { filter, map, uniq, get } from 'lodash';
 import slug from 'slug';
 
-import history from '../config/history';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
