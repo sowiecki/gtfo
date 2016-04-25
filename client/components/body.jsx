@@ -8,7 +8,7 @@ import { rules } from './common/styles';
 
 const Body = (props) => {
   const isProd = process.env.NODE_ENV === 'production';
-  const DevTools = isProd ? null : require('./dev-tools');
+  const DevTools = isProd ? null : require('./dev-tools').default;
 
   return provideMuiTheme(
     <StyleRoot>

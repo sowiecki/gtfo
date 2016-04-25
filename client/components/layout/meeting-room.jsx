@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+
 import { VelocityComponent } from 'velocity-react';
 
 import Temperature from './temperature';

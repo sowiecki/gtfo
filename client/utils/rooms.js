@@ -3,7 +3,6 @@
 import { filter, map, uniq, get } from 'lodash';
 import slug from 'slug';
 
-import history from '../config/history';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
@@ -21,20 +20,6 @@ export const getLocationBackdrop = (location) => {
   } catch (e) {
     console.log(getBackdropErrorMessage(location));
   }
-};
-
-/**
- * TODO replace all uses of this with LocationDescriptor
- * https://github.com/mjackson/history/blob/master/docs/Glossary.md#locationdescriptor
- * Constructs and pushes new route to history API.
- * @param {string} newLocation New location to push to routes.
- * @param {string} Parameter identifying anchors.
- * @returns {undefined}
- */
-export const updateLocationIndex = (newLocation, anchorId) => {
-  const anchor = anchorId ? `?anchor=${anchorId}` : '';
-
-  history.push(`/${newLocation}${anchor}`);
 };
 
 /**

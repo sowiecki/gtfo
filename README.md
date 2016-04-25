@@ -18,16 +18,20 @@ Push reservation status notifications to meeting rooms! And do other things...
 ```bash
 git clone https://github.com/Nase00/gtfo-nexus.git
 cd gtfo-nexus
+```
+[Read how to configure the application to a specific office.](./environment/README.md) The application will not run without these files.
+```
+# After environment files have been configured
 npm run hot -- --mocks
 ```
-This will start the application in development mode with [mock data](./server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate) and [Redux DevTools](https://github.com/gaearon/redux-devtools).
+This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools).
 
 ##### DevTools keybindings
  `shift+q` Open/close DevTools dock.
 <br/> `shift+w` Change DevTools dock position.
 <br/> `shift+e` Change active DevTools monitor.
 
-To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
+To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine. *Note that any service could be used in place of ems-wrapper, so long as the API is identical.*
 
 In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `/server/constants/urls.js`.
 
@@ -37,19 +41,19 @@ In production mode, it assumed `ems-wrapper` is deployed on another domain, defi
 --dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
 --dd # Disables devices, useful for client testing without room module hardware.
 ```
-##### Production
+##### Production build and deploy
 ```bash
-npm run prod # Production mode with live data. ems-wrapper must be deployed!
+npm install --production # Several dev dependencies do not work on Raspberry Pi distros.
+npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
 ```
-
-##### Disabling hot reloading
+##### Development mode without hot reloading
 ```bash
 npm run dev # But why would you want to?
 ```
 
 ##### Tests
 ```bash
-npm run test # Runs linting, tests client and server code.
+npm run test # Lints and tests client, server, and universal code.
 ```
 
 ## Configuration
@@ -60,7 +64,7 @@ npm run test # Runs linting, tests client and server code.
 ## Setup
 
 #### Photon Boards
-First, wire a common cathode RGB LED to each Photon board.
+Wire a common cathode RGB LED to each Photon board.
 
 ###### RGB pin configuration
 Hardware: Common cathode RGB LED
@@ -74,7 +78,7 @@ Hardware: Common cathode RGB LED
 
 After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
 
-Finally, retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
+Retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
 
 ###### Temperature sensor pin configuration (optional)
 Hardware: [TMP36](http://www.instructables.com/id/How-to-use-the-TMP36-temp-sensor-Arduino-Tutorial/)
@@ -94,12 +98,10 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 | Power  | 3v3   |
 | Ground | Ground|
 
-###### Raspberry Pi
-1. Load Debian JESSIE variant onto Raspiberry Pi.
-2. Configure SSH and other desired settings.
-3. Clone this program onto the Raspberry Pi.
-4. Create and configure [environment files](./environment/README.md) in the `/environment` directory.
-5. `npm run prod`.
+###### Host
+1. `git clone https://github.com/Nase00/gtfo.git && cd gtfo`
+2. Create and configure [environment files](./environment/README.md) in the `/environment` directory.
+3. `npm install --production && npm run prod`.
 
 ### Ping API
 *Alexa, where is Kerbin?*

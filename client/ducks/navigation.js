@@ -1,6 +1,7 @@
 import immutable from 'immutable';
 
-import { updateLocationIndex, handleAction } from '../utils';
+import history from '../config/history';
+import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
@@ -10,7 +11,10 @@ export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
-  updateLocationIndex(newLocation, anchorId);
+  history.push({
+    pathname: newLocation,
+    query: { anchor: anchorId }
+  });
 
   return {
     type: EMIT_LOCATION_INDEX_UPDATE,

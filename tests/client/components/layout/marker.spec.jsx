@@ -27,7 +27,6 @@ describe('<Marker/>', () => {
     }
   };
 
-
   it('contains a Place icon if set as anchor and youAreHere prop is true', () => {
     const component = mount(provideMuiTheme(<Marker marker={receptionMarker} youAreHere={true}/>));
 
