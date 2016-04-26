@@ -4,7 +4,7 @@ import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
 
-import { layoutOptions, logOptions, tableOptions } from '../config';
+import { isProd, layoutOptions, logOptions, tableOptions } from '../config';
 import { getRoomStatusMessage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
@@ -18,10 +18,6 @@ const screen = blessed.screen({ dockBorders: true });
 const layout = blessed.layout({ parent: screen, ...layoutOptions });
 const table = blessed.table({ parent: layout, ...tableOptions });
 const log = blessed.log({ parent: layout, ...logOptions });
-
-if (process.env.DONT_HOOK_CONSOLE) {
-  screen.destroy();
-}
 
 const consoleController = {
   /**
@@ -101,6 +97,10 @@ const consoleController = {
   }
 };
 
-console.log = consoleController.log;
+if (process.env.DONT_HOOK_CONSOLE) {
+  screen.destroy();
+} else if (!isProd) {
+  console.log = consoleController.log;
+}
 
 export default consoleController;
