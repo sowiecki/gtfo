@@ -3,21 +3,21 @@
 import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
-import contrib from 'blessed-contrib';
-import { uniq } from 'lodash';
 
-import { logOptions, tableOptions, guageOptions } from '../config';
-import { getRoomStatusMessage, genGuagePercentage } from '../utils';
+import { isProd, layoutOptions, logOptions, tableOptions } from '../config';
+import { getRoomStatusMessage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
-const grid = new contrib.grid({ rows: 10, cols: 5, screen });
-const table = grid.set(0, 3, 8.5, 2, contrib.table, tableOptions);
-const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
-const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
 
-if (process.env.DONT_HOOK_CONSOLE) {
-  screen.destroy();
-}
+// TODO SOI-41 re-enable when/if blessed-contrib is updated and secure.
+// const grid = new contrib.grid({ rows: 10, cols: 5, screen });
+// const table = grid.set(0, 3, 8.5, 2, blessed.table, tableOptions);
+// const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
+// const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
+
+const layout = blessed.layout({ parent: screen, ...layoutOptions });
+const table = blessed.table({ parent: layout, ...tableOptions });
+const log = blessed.log({ parent: layout, ...logOptions });
 
 const consoleController = {
   /**
@@ -33,11 +33,9 @@ const consoleController = {
         console.log(`${roomStatus[0]}, ${roomStatus[1]}`);
       });
     } else {
-      table.setData({
-        headers: ['Room', 'Status'],
-        data: rooms.map((room) => getRoomStatusMessage(room))
-      });
+      table.setData(rooms.map((room) => getRoomStatusMessage(room)));
 
+      /* TODO SOI-41 re-enable when/if blessed-contrib is updated and secure.
       const alerts = uniq(rooms.map((room) => room.alert)).sort();
 
       const meetingRoomsUtilization = alerts.map((alert) => (
@@ -45,6 +43,7 @@ const consoleController = {
       ));
 
       guage.setStack(meetingRoomsUtilization);
+      */
     }
   },
 
@@ -97,5 +96,11 @@ const consoleController = {
     log.log(colors.bgRed(message));
   }
 };
+
+if (process.env.DONT_HOOK_CONSOLE) {
+  screen.destroy();
+} else if (!isProd) {
+  console.log = consoleController.log;
+}
 
 export default consoleController;

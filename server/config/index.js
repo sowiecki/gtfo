@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 /* globals console */
 import path from 'path';
-import moment from 'moment';
 import colors from 'colors/safe';
 import { argv } from 'yargs';
 
@@ -48,27 +47,36 @@ export const BUNDLE_PATH = '/dist/bundle.js';
 export const VIEWS_PATH = path.join(__dirname, ROOT, 'views');
 
 /**
- * Contrib configurations.
+ * Blessed configurations.
  */
-export const logOptions = {
-  fg: 'white',
-  label: 'Server Log',
+export const layoutOptions = {
+  top: 'center',
+  left: 'center',
   width: '100%',
   height: '100%',
   style: {
+    fg: 'white',
+    border: { fg: 'green' }
+  }
+};
+
+export const logOptions = {
+  label: 'Server Log',
+  width: '65%',
+  height: '100%',
+  border: 'line',
+  style: {
+    fg: 'white',
     border: { fg: 'green' }
   }
 };
 
 export const tableOptions = {
-  fg: 'white',
-  interactive: false,
-  label: `Room statuses as of ${moment().format('LLLL')}`,
-  width: '100%',
+  width: '35%',
   height: '100%',
-  columnSpacing: 10,
-  columnWidth: [16, 60],
+  border: 'line',
   style: {
+    fg: 'white',
     border: { fg: 'blue' }
   }
 };
