@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 /* globals console */
 import path from 'path';
-import moment from 'moment';
 import colors from 'colors/safe';
 import { argv } from 'yargs';
 
