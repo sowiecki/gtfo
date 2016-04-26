@@ -62,12 +62,6 @@ export const logOptions = {
 
 export const tableOptions = {
   fg: 'white',
-  interactive: false,
-  label: `Room statuses as of ${moment().format('LLLL')}`,
-  width: '100%',
-  height: '100%',
-  columnSpacing: 10,
-  columnWidth: [16, 60],
   style: {
     border: { fg: 'blue' }
   }
