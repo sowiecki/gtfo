@@ -23,9 +23,9 @@ const pingsController = {
         }
       });
 
-      res.json({ status: 200 });
+      res.json({ status: 200, message: `Pinged ${id} at ${anchor}` });
     } else {
-      res.json({ status: 500, message: PING_ERROR });
+      res.json({ status: 500, message: PING_ERROR, originalRequest: { id, anchor } });
     }
   }
 };
