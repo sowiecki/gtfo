@@ -16,8 +16,8 @@ Push reservation status notifications to meeting rooms! And do other things...
 
 ## Getting Started
 ```bash
-git clone https://github.com/Nase00/gtfo-nexus.git
-cd gtfo-nexus
+git clone https://github.com/Nase00/gtfo.git
+cd gtfo
 ```
 [Read how to configure the application to a specific office.](./environment/README.md) The application will not run without these files.
 ```
