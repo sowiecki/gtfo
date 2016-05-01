@@ -24,12 +24,12 @@ const DevTools = createDevTools(
     toggleVisibilityKey='shift-q'
     changePositionKey='shift-w'
     changeMonitorKey='shift-e'>
+      <Dispatcher keyboardEnabled actionCreators={actions}/>
       <LogMonitor theme='tomorrow'/>
+      <Inspector supportImmutable/>
       <SliderMonitor keyboardEnabled/>
       <ChartMonitor keyboardEnabled/>
       <DiffMonitor keyboardEnabled/>
-      <Inspector keyboardEnabled/>
-      <Dispatcher keyboardEnabled actionCreators={actions}/>
   </DockMonitor>
 );
 
