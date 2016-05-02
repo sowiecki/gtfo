@@ -28,7 +28,7 @@ describe('fetchRoomReservation', () => {
     fetchRoomReservation(mockNext, mockAction);
 
     const urlCalled = spy.getCall(0).args[0];
-    const expectedUrl = 'http://localhost:8080/rest/meetingRoom/lookup/Castle%20Black';
+    const expectedUrl = `${RESERVATIONS_URL}${encodeURIComponent(mockAction.room.id)}`;
 
     expect(spy.called).toBe(true);
     expect(urlCalled).toBe(expectedUrl);
