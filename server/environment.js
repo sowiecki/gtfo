@@ -2,26 +2,15 @@
 import path from 'path';
 import { readFileSync } from 'fs';
 
+import { isTest } from './config';
 import validator from '../environment/validation';
 import { FileValidationError } from './errors';
+import mockEnvironment from '../environment/mock';
 
 const readFile = (fileName) => {
   const filePath = path.join('./environment', fileName);
 
   return JSON.parse(readFileSync(filePath, 'utf8'));
-};
-
-const testEnvironment = {
-  config: {
-    prodReservationsHost: ''
-  },
-  devices: [
-    {
-      location: 'Laythe'
-    }
-  ],
-  markers: [],
-  coordinates: []
 };
 
 /**
@@ -33,8 +22,8 @@ const testEnvironment = {
  * @returns {object} config, devices, markers, coordinates
  */
 const getEnvironment = () => {
-  if (process.env.NODE_ENV === 'test') {
-    return testEnvironment;
+  if (isTest) {
+    return mockEnvironment;
   }
 
   const { config } = readFile('config.json');

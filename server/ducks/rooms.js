@@ -1,9 +1,9 @@
 /* eslint new-cap:0 */
 import immutable from 'immutable';
+import slug from 'slug';
 
 import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
-import slug from 'slug';
 
 import { devices, coordinates } from '../environment';
 import { flashNotifications,

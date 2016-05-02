@@ -64,7 +64,7 @@ export const logBoardReady = (board) => console.log(colors.grey.bgBlue(`Connecte
  * @params {object} data Failure object.
  * @returns {undefined}
  */
-export const logFetchRoomReservationsError = ({ code, message }) => {
+export const logfetchRoomReservationError = ({ code, message }) => {
   console.error('Error fetching room reservations.', code, message);
 };
 

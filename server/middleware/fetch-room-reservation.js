@@ -2,9 +2,9 @@ import http from 'http';
 
 import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
-import { logFetchRoomReservationsError } from '../utils';
+import { logfetchRoomReservationError } from '../utils';
 
-const fetchRoomReservations = (next, action) => {
+const fetchRoomReservation = (next, action) => {
   const { room, accessories } = action;
   const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
 
@@ -20,7 +20,7 @@ const fetchRoomReservations = (next, action) => {
         accessories
       });
     });
-  }).on('error', logFetchRoomReservationsError);
+  }).on('error', logfetchRoomReservationError);
 };
 
-export default fetchRoomReservations;
+export default fetchRoomReservation;
