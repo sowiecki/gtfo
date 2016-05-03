@@ -1,11 +1,10 @@
 import http from 'http';
 
-import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
+import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
 import { logfetchRoomReservationError } from '../utils';
 
 const fetchRoomReservation = (next, action) => {
-  const { room, accessories } = action;
   const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
 
   // Retrieve room reservation statuses from external service
@@ -14,10 +13,8 @@ const fetchRoomReservation = (next, action) => {
       const reservations = JSON.parse(data.toString('utf8'));
 
       next({
-        type: EMIT_ROOM_STATUSES_UPDATE,
-        room,
-        reservations,
-        accessories
+        type: EMIT_RESERVATIONS_UPDATE,
+        reservations
       });
     });
   }).on('error', logfetchRoomReservationError);

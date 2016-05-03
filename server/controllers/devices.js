@@ -45,7 +45,7 @@ const devicesController = {
          * If devices are disabled, fetch reservations earlier
          * and exit scope before creating board objects.
          */
-        store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
+        store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
 
         return;
       }
