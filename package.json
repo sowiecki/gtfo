@@ -75,7 +75,6 @@
     "redux": "^3.3.1",
     "rimraf": "^2.4.3",
     "serve-favicon": "^2.3.0",
-    "svg-react-loader": "^0.3.2",
     "slug": "^0.9.1",
     "split": "^1.0.0",
     "velocity-animate": "^1.2.3",
