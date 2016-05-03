@@ -54,7 +54,8 @@
     "unused-ignores": [
       "react-motion",
       "jsonschema",
-      "foreman"
+      "foreman",
+      "split"
     ]
   }
 }
