@@ -16,15 +16,17 @@ describe('fetchRoomReservation', () => {
     }
   };
 
-  beforeEach(() => {
+  beforeEach((done) => {
     spy = sinon.spy(http, 'get');
+
+    done();
   });
 
   afterEach(() => {
     spy.restore();
   });
 
-  it(`should make an HTTP request to ${RESERVATIONS_URL}.`, () => {
+  it(`should make an HTTP request to ${RESERVATIONS_URL}.`, (done) => {
     fetchRoomReservation(mockNext, mockAction);
 
     const urlCalled = spy.getCall(0).args[0];
@@ -32,5 +34,7 @@ describe('fetchRoomReservation', () => {
 
     expect(spy.called).toBe(true);
     expect(urlCalled).toBe(expectedUrl);
+
+    done();
   });
 });

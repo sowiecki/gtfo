@@ -11,20 +11,24 @@ describe('fetchStallOccupancies', () => {
 
   const mockNext = () => {};
 
-  beforeEach(() => {
+  beforeEach((done) => {
     spy = sinon.spy(http, 'get');
+
+    done();
   });
 
   afterEach(() => {
     spy.restore();
   });
 
-  it(`should make an HTTP request to ${STALLS_URL}.`, () => {
+  it(`should make an HTTP request to ${STALLS_URL}.`, (done) => {
     fetchStallOccupancies(mockNext);
 
     const urlCalled = spy.getCall(0).args[0];
 
     expect(spy.called).toBe(true);
     expect(urlCalled).toBe(STALLS_URL);
+
+    done();
   });
 });
