@@ -91,13 +91,17 @@ const devicesController = {
       accessories
     });
 
+    const checkReservations = () => store.dispatch({
+      type: FETCH_ROOM_RESERVATIONS,
+      room,
+      accessories
+    });
+
+    checkReservations();
+
     // Set interval for checking and responding to room state
     const monitorExternalServices = setInterval(() => {
-      store.dispatch({
-        type: FETCH_ROOM_RESERVATIONS,
-        room,
-        accessories
-      });
+      checkReservations();
 
       if (process.env.MOCKS) {
         // No need to continually check mock data for updates
