@@ -1,3 +1,7 @@
+/**
+ * For status colors,
+ * please refer to universal/constants/status-colors
+ */
 export const colors = {
   primary: '#0072C8',
   secondary: '#2591E2',
@@ -6,16 +10,7 @@ export const colors = {
   WHITE: '#FFFFFF',
   GHOST_WHITE: '#F8F8FF',
   GREY: '#888899',
-  DARK_GREY: '#333333',
-  BLACK: '#000000',
-  PURPLE: '#BF5FFF',
-  BLUE: '#3399FF',
-  TEAL: '#3DE2E5',
-  DARK_PINK: '#FF0066',
-  RED: '#FF0000',
-  GREEN: '#72E837',
-  ORANGE: '#FFBB00',
-  YELLOW: '#FFFF00'
+  DARK_GREY: '#333333'
 };
 
 export const fonts = {

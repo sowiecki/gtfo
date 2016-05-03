@@ -7,7 +7,7 @@ export const RGB_PINS = {
 export const PIEZO_PIN = 'D6';
 
 export const MCP9808 = 'MCP9808';
-export const THERMO_FREQ = 1000; // milliseconds
+export const THERMO_FREQ = 10000; // milliseconds
 
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';

@@ -6,6 +6,7 @@ import ListItem from 'material-ui/List/ListItem';
 import Place from 'material-ui/svg-icons/maps/place';
 
 import { applyStyles } from '../../config/composition';
+import { STATUS_COLORS } from '../../constants';
 import { styles } from './styles';
 
 const MapLegend = ({ showYouAreHere, enabled }) => {
@@ -29,41 +30,41 @@ const MapLegend = ({ showYouAreHere, enabled }) => {
 
   return (
     <List className='map-legend'>
-      {youAreHereListItem}
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.OFFLINE)}>
-          Offline
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.BOOKED)}>
-          Booked
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.SQUATTED)}>
-          Occupied, no reservation
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.VACANT)}>
-          Vacant
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.FIVE_MINUTE_WARNING)}>
-          Five minute warning
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(styles.ONE_MINUTE_WARNING)}>
+    {youAreHereListItem}
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.OFFLINE)}>
+    Offline
+    </ListItem>
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
+    Booked
+    </ListItem>
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
+    Occupied, no reservation
+    </ListItem>
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.VACANT)}>
+    Vacant
+    </ListItem>
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)}>
+    Five minute warning
+    </ListItem>
+    <ListItem
+      style={styles.mapLegendItem}
+      disabled={true}
+      leftAvatar={getIcon(STATUS_COLORS.ONE_MINUTE_WARNING)}>
           One minute warning
       </ListItem>
     </List>
