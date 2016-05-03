@@ -73,7 +73,7 @@ Hardware: Common cathode RGB LED
 |:------:|:-----:|
 | R      | A4    |
 | G      | A5    |
-| B      | A6    |
+| B      | A7    |
 | Ground | Ground|
 
 After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
