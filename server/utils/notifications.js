@@ -27,7 +27,7 @@ export const flashNotifications = (room, accessories = {}) => {
 
     [FIVE_MINUTE_WARNING]: () => flash.fiveMinuteWarning(accessories.led),
 
-    [BOOKED]: () => flash.occupied(accessories.led)
+    [BOOKED]: () => flash.booked(accessories.led)
   };
 
   handleFlash[room.alert || VACANT]();

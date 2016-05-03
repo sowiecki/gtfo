@@ -17,7 +17,7 @@ export const vacant = (led) => {
   led.color(STATUS_COLORS.VACANT);
 };
 
-export const occupied = (led) => {
+export const booked = (led) => {
   led.stop(); // Prevent rogue strobing
   led.intensity(FAINT_LIGHT_LEVEL);
   led.color(STATUS_COLORS.OCCUPIED);
