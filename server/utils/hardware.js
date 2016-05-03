@@ -6,8 +6,7 @@ import { Board,
          Motion } from 'johnny-five';
 import { RGB_PINS,
          PIEZO_PIN,
-         TMP36,
-         THERMO_PIN,
+         MCP9808,
          THERMO_FREQ,
          HCSR501,
          MOTION_PIN,
@@ -41,8 +40,7 @@ export const registerPiezo = (board) => (
 
 export const registerThermo = (board) => (
   new Thermometer({
-    controller: TMP36,
-    pin: THERMO_PIN,
+    controller: MCP9808,
     freq: THERMO_FREQ,
     id: board.id,
     board
