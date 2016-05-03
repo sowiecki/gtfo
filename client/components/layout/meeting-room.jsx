@@ -7,8 +7,7 @@ import Temperature from './temperature';
 import { applyStyles } from '../../config/composition';
 import { styles } from './styles';
 import { parsePosition, parseShape } from '../../utils';
-import { OFFLINE,
-         PINGED,
+import { STATUS_COLORS,
          PING_ANIMATION_LOOPS,
          PING_ANIMATION_TIMEOUT,
          ROOM_NAME_TEXT_DX,
@@ -25,7 +24,7 @@ const MeetingRoom = (props) => {
           pinged } = props;
 
   const pingAnimation = {
-    fill: styles[PINGED],
+    fill: STATUS_COLORS.PINGED,
     opacity: pinged ? 1 : 0
   };
 
@@ -42,10 +41,10 @@ const MeetingRoom = (props) => {
   return (
     <svg {...parsePosition(coordinates)}>
       <VelocityComponent
-        animation={{ fill: styles[alert || OFFLINE] }}>
-        <rect
-          style={styles.svgRect}
-          {...parseShape(coordinates)}/>
+        animation={{ fill: STATUS_COLORS[alert] }}>
+          <rect
+            style={styles.svgRect}
+            {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}

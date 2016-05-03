@@ -1,9 +1,5 @@
 /* eslint no-use-before-define:0 */
-import { RED,
-         TEAL,
-         LIGHT_GREEN,
-         GREEN,
-         ORANGE,
+import { STATUS_COLORS,
          ONE_MINUTE_STROBE,
          FIVE_MINUTE_STROBE,
          FAINT_LIGHT_LEVEL,
@@ -12,29 +8,29 @@ import { RED,
 export const squatted = (led) => {
   led.stop(); // Prevent rogue strobing
   led.intensity(FAINT_LIGHT_LEVEL);
-  led.color(LIGHT_GREEN);
+  led.color(STATUS_COLORS.SQUATTED);
 };
 
 export const vacant = (led) => {
   led.stop(); // Prevent rogue strobing
   led.intensity(FAINT_LIGHT_LEVEL);
-  led.color(GREEN);
+  led.color(STATUS_COLORS.VACANT);
 };
 
 export const occupied = (led) => {
   led.stop(); // Prevent rogue strobing
   led.intensity(FAINT_LIGHT_LEVEL);
-  led.color(TEAL);
+  led.color(STATUS_COLORS.OCCUPIED);
 };
 
 export const oneMinuteWarning = (led) => {
   led.intensity(FULL_LIGHT_LEVEL);
-  led.color(RED);
+  led.color(STATUS_COLORS.ONE_MINUTE_STROBE);
   led.strobe(ONE_MINUTE_STROBE);
 };
 
 export const fiveMinuteWarning = (led) => {
   led.intensity(FULL_LIGHT_LEVEL);
-  led.color(ORANGE);
+  led.color(STATUS_COLORS.FIVE_MINUTE_WARNING);
   led.strobe(FIVE_MINUTE_STROBE);
 };
