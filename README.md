@@ -71,9 +71,9 @@ Hardware: Common cathode RGB LED
 
 | Wire   | Pin   |
 |:------:|:-----:|
-| R      | D0    |
-| G      | D1    |
-| B      | D2    |
+| R      | A4    |
+| G      | A5    |
+| B      | A6    |
 | Ground | Ground|
 
 After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
@@ -81,11 +81,12 @@ After setting up each device to [Particle's cloud service](https://docs.particle
 Retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
 
 ###### Temperature sensor pin configuration (optional)
-Hardware: [TMP36](http://www.instructables.com/id/How-to-use-the-TMP36-temp-sensor-Arduino-Tutorial/)
+Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview)
 
 | Wire   | Pin   |
 |:------:|:-----:|
-| Data   | A1    |
+| SDA    | D0    |
+| SCL    | D1    |
 | Power  | 3v3   |
 | Ground | Ground|
 

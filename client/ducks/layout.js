@@ -122,6 +122,7 @@ const layoutReducer = (state = initialState, action) => {
       const meetingRooms = state.get('meetingRooms').map((room) => {
         if (action.room.id === room.id) {
           room.fahrenheitTmpVoltage = action.room.fahrenheitTmpVoltage;
+          room.celciusTmpVoltage = action.room.celciusTmpVoltage;
         }
         return room;
       });

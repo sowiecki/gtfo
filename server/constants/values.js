@@ -1,14 +1,13 @@
 export const RGB_PINS = {
-  red: 'D0',
-  green: 'D1',
-  blue: 'D2'
+  red: 'A4',
+  green: 'A5',
+  blue: 'A7'
 };
 
 export const PIEZO_PIN = 'D6';
 
-export const TMP36 = 'TMP36';
-export const THERMO_PIN = 'A1';
-export const THERMO_FREQ = 10000; // milliseconds
+export const MCP9808 = 'MCP9808';
+export const THERMO_FREQ = 1000; // milliseconds
 
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';

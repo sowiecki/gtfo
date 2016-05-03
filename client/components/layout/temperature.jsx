@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { applyStyles } from '../../config/composition';
-import { parseShape,
-         calcFahrenheitTemp,
-         calcCelciusTemp } from '../../utils';
+import { parseShape } from '../../utils';
 import { FAHRENHEIT,
          ROOM_TEMPERATURE_TEXT_DX,
          ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
@@ -18,8 +16,8 @@ const Temperature = (props) => {
     return <text/>;
   }
 
-  const temperature = tempScale === FAHRENHEIT ?
-    calcFahrenheitTemp(fahrenheitTmpVoltage) : calcCelciusTemp(celciusTmpVoltage);
+  const isFarenheit = tempScale === FAHRENHEIT;
+  const temperature = isFarenheit ? fahrenheitTmpVoltage : celciusTmpVoltage;
 
   return (
       <text
@@ -27,7 +25,7 @@ const Temperature = (props) => {
         dx={ROOM_TEMPERATURE_TEXT_DX}
         dy={ROOM_TEMPERATURE_TEXT_DY}
         {...parseShape(coordinates)}>
-          {`${temperature} °${tempScale === FAHRENHEIT ? 'F' : 'C'}`}
+      {`${Math.floor(temperature)} °${tempScale === FAHRENHEIT ? 'F' : 'C'}`}
       </text>
   );
 };
