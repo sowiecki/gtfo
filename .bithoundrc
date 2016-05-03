@@ -52,6 +52,11 @@
   ],
   "dependencies": {
     "unused-ignores": [
+      "file-loader",
+      "json-loader",
+      "babel-loader",
+      "blessed",
+      "rimraf",
       "react-motion",
       "jsonschema",
       "foreman",
