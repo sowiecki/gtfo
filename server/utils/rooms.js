@@ -45,8 +45,10 @@ export const getRoomAlert = (reservations = [], recentMotion) => {
     return moment(nextMeeting.startDate).isSameOrBefore(minutesFromNow(minutes));
   };
 
-  if (currentlyVacant) {
-    return hasRecentMotion ? SQUATTED : VACANT;
+  if (currentlyVacant && hasRecentMotion) {
+    return SQUATTED;
+  } else if (currentlyVacant) {
+    return VACANT;
   } else if (nextMeetingStartingIn(1)) {
     return ONE_MINUTE_WARNING;
   } else if (nextMeetingStartingIn(5)) {
