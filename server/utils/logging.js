@@ -3,6 +3,7 @@
 import colors from 'colors/safe';
 import { filter } from 'lodash';
 
+import { isTest } from '../config';
 import { SQUATTED,
          VACANT,
          ONE_MINUTE_WARNING,
@@ -64,7 +65,8 @@ export const logBoardReady = (board) => console.log(colors.grey.bgBlue(`Connecte
  * @params {object} data Failure object.
  * @returns {undefined}
  */
-export const logFetchRoomReservationsError = ({ code, message }) => {
+export const logfetchRoomReservationError = ({ code, message }) => {
+  if (isTest) return;
   console.error('Error fetching room reservations.', code, message);
 };
 
@@ -74,6 +76,7 @@ export const logFetchRoomReservationsError = ({ code, message }) => {
  * @returns {undefined}
  */
 export const logFetchStallOccupanciesError = ({ code, message }) => {
+  if (isTest) return;
   console.error('Error fetching or parsing stall occupancies.', code, message);
 };
 

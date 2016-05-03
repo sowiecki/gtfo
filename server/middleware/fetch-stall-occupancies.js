@@ -7,7 +7,7 @@ import * as urls from '../constants';
 import { formatStallsResponse,
          logFetchStallOccupanciesError } from '../utils';
 
-const fetchRoomReservations = (next) => {
+const fetchStallOccupancies = (next) => {
   // Retrieve stall occupancies from external service
   http.get(urls.STALLS_URL, (response) => {
     response.on('data', (data) => {
@@ -26,4 +26,4 @@ const fetchRoomReservations = (next) => {
   }).on('error', logFetchStallOccupanciesError);
 };
 
-export default fetchRoomReservations;
+export default fetchStallOccupancies;
