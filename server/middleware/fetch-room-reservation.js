@@ -4,8 +4,8 @@ import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
 import { logfetchRoomReservationError } from '../utils';
 
-const fetchRoomReservation = (next, action) => {
-  const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
+const fetchRoomReservation = (next) => {
+  const source = `${urls.RESERVATIONS_URL}`;
 
   // Retrieve room reservation statuses from external service
   http.get(source, (response) => {
