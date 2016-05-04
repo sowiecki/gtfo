@@ -10,9 +10,12 @@ const stallsController = {
       return;
     }
 
+    const fetchStallOccupancies = () => store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
+    fetchStallOccupancies();
+
     // Set interval for checking and responding to stall states
     const monitorExternalServices = setInterval(() => {
-      store.dispatch({ type: FETCH_STALL_OCCUPANCIES });
+      fetchStallOccupancies();
 
       if (process.env.MOCKS) {
         // No need to continually check mock data for updates
