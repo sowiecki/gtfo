@@ -121,9 +121,9 @@ const layoutReducer = (state = initialState, action) => {
     [EMIT_ROOM_TEMPERATURE_UPDATE]() {
       const meetingRooms = state.get('meetingRooms').map((room) => {
         if (action.room.id === room.id) {
-          room.fahrenheitTmpVoltage = action.room.fahrenheitTmpVoltage;
-          room.celciusTmpVoltage = action.room.celciusTmpVoltage;
+          room.thermo = action.room.thermo;
         }
+
         return room;
       });
 

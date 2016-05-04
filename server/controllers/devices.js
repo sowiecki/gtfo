@@ -71,7 +71,7 @@ const devicesController = {
    * @returns {undefined}
    */
   connectToRoom(board, room) {
-    logBoardReady(board);
+    logBoardReady(board, room);
 
     // Register all possible accessories
     const accessories = {
@@ -80,6 +80,12 @@ const devicesController = {
       thermo: registerThermo(board),
       motion: registerMotion(board)
     };
+
+    store.dispatch({
+      type: EMIT_SET_ROOM_ACCESSORIES,
+      room,
+      accessories
+    });
 
     if (config.public.enableTemperature) {
       store.dispatch({
@@ -91,12 +97,6 @@ const devicesController = {
 
     store.dispatch({
       type: FETCH_ROOM_MOTION,
-      room,
-      accessories
-    });
-
-    store.dispatch({
-      type: EMIT_SET_ROOM_ACCESSORIES,
       room,
       accessories
     });

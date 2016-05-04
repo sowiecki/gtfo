@@ -51,16 +51,22 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_SET_ROOM_ACCESSORIES]() {
       const rooms = state.get('rooms');
 
-      return state.set('rooms', rooms.map(
-        (room) => room.set('accessories', action.accessories)
-      ));
+      state = state.set('rooms', rooms.map((room) => {
+        if (room.get('id') === action.room.id) {
+          room = room.set('accessories', action.accessories);
+        }
+
+        return room;
+      }));
+
+      return state;
     },
 
     [EMIT_RESERVATIONS_UPDATE]() {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map(
-        (room) => (room.set('reservations', action.reservations[room.get('id')]))
+        (room) => room.set('reservations', action.reservations[room.get('id')])
       ));
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -70,29 +76,28 @@ const roomsReducer = (state = initialState, action) => {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map((room) => {
-        if (room.get('id') === action.room.id && action.motion) {
+        const motionDetectedInRoom = room.get('id') === action.room.id && action.motion;
+
+        if (motionDetectedInRoom) {
           room = room.set('motion', action.motion);
         }
 
         return room;
       }));
 
-      /**
-       * This reducer is unique in that returns another invoked reducer,
-       * which is necessary to update room statuses after detecting motion.
-       */
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {
-      const rooms = state.get('rooms');
       let alertChanged = false;
+      const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map((room) => {
         const accessories = room.get('accessories');
         const reservations = room.get('reservations');
+        const motion = action.motion || room.get('motion');
         const filteredReservations = filterExpiredReservations(reservations);
-        const alert = getRoomAlert(filteredReservations, action.motion || room.get('motion'));
+        const alert = getRoomAlert(filteredReservations, motion);
 
         if (room.get('alert') !== alert) {
           alertChanged = true;
@@ -117,7 +122,17 @@ const roomsReducer = (state = initialState, action) => {
     },
 
     [EMIT_ROOM_TEMPERATURE_UPDATE]() {
-      socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(action.room));
+      const rooms = state.get('rooms');
+
+      state = state.set('rooms', rooms.map((room) => {
+        if (room.get('id') === action.room.id) {
+          room = room.set('thermo', action.thermo);
+
+          socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(room.toJS()));
+        }
+
+        return room;
+      }));
 
       return state;
     }

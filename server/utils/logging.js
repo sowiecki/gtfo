@@ -58,7 +58,8 @@ export const getRoomStatusMessage = ({ name, alert }) => {
  * @params {object} board Board object.
  * @returns {undefined}
  */
-export const logBoardReady = (board) => console.log(colors.grey.bgBlue(`Connected to ${board.id}`));
+export const logBoardReady = (board, room) =>
+  console.log(colors.grey.bgBlue(`Connected to ${board.id} for ${room.name}`));
 
 /**
  * Logs room reservation fetch failures.

@@ -63,15 +63,22 @@ export const getRoomAlert = (reservations = [], recentMotion) => {
  * @param {object} Room object.
  * @returns {object} Room object safe for public consumption.
  */
-export const secureRoom = (room) => ({
-  id: room.id,
-  alert: room.alert,
-  coordinates: room.coordinates,
-  location: room.location,
-  name: room.name,
-  fahrenheitTmpVoltage: room.fahrenheitTmpVoltage,
-  celciusTmpVoltage: room.celciusTmpVoltage
-});
+export const secureRoom = (room) => {
+  // This crap is necessary or else Node throws a TypeError: Circular JSON error
+  const thermo = room.thermo ? {
+    C: room.thermo.C,
+    F: room.thermo.F
+  } : null;
+
+  return {
+    id: room.id,
+    alert: room.alert,
+    coordinates: room.coordinates,
+    location: room.location,
+    name: room.name,
+    thermo
+  };
+};
 
 /**
  * Clones rooms without sensative properties before sending to clients.
