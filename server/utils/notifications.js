@@ -1,4 +1,3 @@
-/* eslint no-console:0 */
 import * as flash from './flash';
 import { SQUATTED,
          VACANT,

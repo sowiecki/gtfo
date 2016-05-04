@@ -2,7 +2,7 @@ import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
-import { logfetchRoomReservationError } from '../utils';
+import { formatReservations, logfetchRoomReservationError } from '../utils';
 
 const fetchRoomReservation = (next) => {
   const source = `${urls.RESERVATIONS_URL}`;
@@ -10,7 +10,7 @@ const fetchRoomReservation = (next) => {
   // Retrieve room reservation statuses from external service
   http.get(source, (response) => {
     response.on('data', (data) => {
-      const reservations = JSON.parse(data.toString('utf8'));
+      const reservations = formatReservations(JSON.parse(data.toString('utf8')));
 
       next({
         type: EMIT_RESERVATIONS_UPDATE,
