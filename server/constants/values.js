@@ -11,7 +11,7 @@ export const THERMO_FREQ = 10000; // milliseconds
 
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';
-export const MOTION_FREQ = 1000; // milliseconds
+export const MOTION_FREQ = 2500; // milliseconds
 
 export const CHECK_INTERVAL = 60000;
 export const SPINNER_DELAY = 3000;
