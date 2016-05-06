@@ -7,8 +7,9 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
 
-import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
+import { enableAcheron, SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
+import acheronController from './controllers/acheron';
 import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
 import consoleController from './controllers/console';
@@ -57,6 +58,9 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
+  if (enableAcheron) {
+    acheronController.initialize();
+  }
   devicesController.initialize();
   stallsController.initialize();
 });

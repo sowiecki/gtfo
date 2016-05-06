@@ -16,6 +16,9 @@ import { HANDSHAKE,
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
+/**
+ * Host setup for web application WebSocket server.
+ */
 const socketController = {
   getClients() {
     const { clients } = store.getState().clientsReducer.toJS();

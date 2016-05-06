@@ -1,12 +1,13 @@
 /* globals WebSocket, setInterval, clearInterval */
 import parseEvent from './parse-event';
 
-import { getSocketPort,
-         WEBSOCKET_PROTOCOL,
-         WEBSOCKET_RECONNECT_INTERVAL } from '../config/web-socket';
+import { getSocketPort } from '../config/web-socket';
 import { EMIT_FETCH_ROOM_STATUSES_ERROR,
          EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
-import { HANDSHAKE, RECONNECTED, lostConnectionToHost } from '../constants';
+import { HANDSHAKE, RECONNECTED,
+         WEBSOCKET_PROTOCOL,
+         WEBSOCKET_RECONNECT_INTERVAL,
+         lostConnectionToHost } from '../constants';
 
 let interval;
 

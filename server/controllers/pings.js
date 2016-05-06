@@ -4,19 +4,19 @@ import store from '../store';
 import { EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 
 import { PING_ERROR } from '../constants';
-import { getHost } from '../utils';
 
 const pingsController = {
-  handlePing(req, res) {
-    const { rooms } = store.getState().roomsReducer.toJS();
+  /**
+   * Handles pings received via HTTP POST requests.
+   */
+  handlePingOverHTTP(req, res) {
     const { id, anchor } = req.headers;
-    const room = find(rooms, { id });
+    const room = this.getRoom(id);
 
-    if (room) {
+    if (this.getRoom(id)) {
       store.dispatch({
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
-          origin: getHost(req),
           location: room.location,
           id,
           anchor
@@ -27,6 +27,31 @@ const pingsController = {
     } else {
       res.json({ status: 500, message: PING_ERROR, originalRequest: { id, anchor } });
     }
+  },
+
+  /**
+   * Handles pings received via WebSocket connection to Acheron.
+   */
+  handlePingOverWS(payload) {
+    const { id } = payload;
+    const room = this.getRoom(id);
+
+    if (room) {
+      store.dispatch({
+        type: EMIT_ROOM_PING_RECEIVED,
+        ping: {
+          location: room.location,
+          ...payload
+        }
+      });
+    }
+  },
+
+  getRoom(id) {
+    const { rooms } = store.getState().roomsReducer.toJS();
+    const room = find(rooms, { id });
+
+    return room;
   }
 };
 

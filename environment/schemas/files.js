@@ -15,7 +15,8 @@ export default {
         }
       },
       prodReservationsHost: { type: 'string' },
-      prodStallsHost: { type: 'string' }
+      prodStallsHost: { type: 'string' },
+      acheronHost: { type: 'string' }
     },
     required: ['public', 'prodReservationsHost']
   },
