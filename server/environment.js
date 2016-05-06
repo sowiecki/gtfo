@@ -2,7 +2,6 @@
 import path from 'path';
 import { readFileSync } from 'fs';
 
-import { isTest } from './config';
 import validator from '../environment/validation';
 import { FileValidationError } from './errors';
 import mockEnvironment from '../environment/mock';
@@ -22,7 +21,7 @@ const readFile = (fileName) => {
  * @returns {object} config, devices, markers, coordinates
  */
 const getEnvironment = () => {
-  if (isTest) {
+  if (process.env.NODE_ENV === 'test') {
     return mockEnvironment;
   }
 
