@@ -38,6 +38,10 @@
     }
   ],
   "license": "none",
+  "engines": {
+    "node" : "^6.0.0",
+    "npm" : "^3.8.6"
+  },
   "dependencies": {
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.0",
@@ -68,7 +72,7 @@
     "react-redux": "^4.4.2",
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
-    "react-swipeable-views": "^0.5.0",
+    "react-swipeable-views": "^0.6.0",
     "react-tap-event-plugin": "^1.0.0",
     "recompose": "^0.17.0",
     "redux": "^3.3.1",
@@ -101,7 +105,7 @@
     "istanbul-instrumenter-loader": "^0.2.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-coverage": "^0.5.5",
+    "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
