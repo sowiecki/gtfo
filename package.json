@@ -39,8 +39,8 @@
   ],
   "license": "none",
   "engines": {
-    "node" : "^6.0.0",
-    "npm" : "^3.8.6"
+    "node": "^6.0.0",
+    "npm": "^3.8.6"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
@@ -93,12 +93,12 @@
     "babel-preset-react-hmre": "^1.1.0",
     "coveralls": "^2.11.9",
     "enzyme": "^2.2.0",
-    "eslint": "^2.8.0",
-    "eslint-config-airbnb": "^8.0.0",
-    "eslint-formatter-pretty": "^0.2.0",
+    "eslint": "^2.9.0",
+    "eslint-config-airbnb": "^9.0.0",
+    "eslint-formatter-pretty": "^0.2.2",
     "eslint-plugin-filenames": "^0.2.0",
-    "eslint-plugin-import": "^1.5.0",
-    "eslint-plugin-jsx-a11y": "^1.0.2",
+    "eslint-plugin-import": "^1.7.0",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.0.1",
     "expect": "^1.14.0",
     "istanbul": "^1.0.0-alpha.2",
