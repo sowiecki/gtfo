@@ -33,7 +33,8 @@
     "comma-dangle": 0,
     "no-param-reassign": 0,
     "consistent-return": 0,
-    "default-case": 0
+    "default-case": 0,
+    "no-extra-parens": 0
   },
   "globals": {
     "require": true
