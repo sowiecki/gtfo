@@ -2,7 +2,7 @@ import { isProd } from '../config';
 
 const { prodReservationsHost,
         prodStallsHost,
-        acheronHost } = require('../environment').config;
+        proxyHost } = require('../environment').config;
 
 /**
  * Used when services are running locally, but as separate services.
@@ -29,4 +29,4 @@ const MOCK_STALLS = `${MOCKS_HOST}${MOCK_STALLS_API}`;
 const PROD_STALLS = `${STALLS_HOST}${PROD_STALLS_API}`;
 export const STALLS_URL = isProd ? PROD_STALLS : MOCK_STALLS;
 
-export const ACHERON_HOST = acheronHost;
+export const proxy_HOST = proxyHost;

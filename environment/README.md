@@ -16,7 +16,7 @@ General configuration.
 | emailDomain          | @yourCompany.com                            | Yes       |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |
 | prodStallsHost       | URL of hosted stalls service instance       | Yes       |
-| acheronHost          | URL of hosted Acheron instance              | Yes       |
+| proxyHost          | URL of hosted proxy instance              | Yes       |
 
 Example of a `config.json`:
 ```json
@@ -29,7 +29,7 @@ Example of a `config.json`:
     },
     "prodReservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper",
     "prodStallsHost": "http://digitalocean.com/your-hosted-stalls-service",
-    "acheronHost": "ws://digitalocean.com/your-hosted-acheron-instance"
+    "proxyHost": "ws://digitalocean.com/your-hosted-proxy-instance"
   }
 }
 

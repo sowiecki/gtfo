@@ -40,7 +40,7 @@ if (argv.dd) {
 
 export const isProd = process.env.NODE_ENV === 'production';
 export const isTest = process.env.NODE_ENV === 'test';
-export const enableAcheron = !!config.acheronHost;
+export const enableproxy = !!config.proxyHost;
 
 export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
 export const WEB_SOCKET_PORT = 4001;

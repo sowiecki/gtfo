@@ -16,7 +16,7 @@ export default {
       },
       prodReservationsHost: { type: 'string' },
       prodStallsHost: { type: 'string' },
-      acheronHost: { type: 'string' }
+      proxyHost: { type: 'string' }
     },
     required: ['public', 'prodReservationsHost']
   },
