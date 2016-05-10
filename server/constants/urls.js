@@ -29,4 +29,4 @@ const MOCK_STALLS = `${MOCKS_HOST}${MOCK_STALLS_API}`;
 const PROD_STALLS = `${STALLS_HOST}${PROD_STALLS_API}`;
 export const STALLS_URL = isProd ? PROD_STALLS : MOCK_STALLS;
 
-export const proxy_HOST = proxyHost;
+export const PROXY_HOST = proxyHost;

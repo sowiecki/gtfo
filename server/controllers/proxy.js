@@ -3,14 +3,15 @@
 import WebSocket from 'ws';
 
 import pingsController from './pings';
-import { proxy_HOST,
+import { PROXY_HOST,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL,
          HANDSHAKE,
          RECONNECTED,
          NEW_ROOM_PING } from '../constants';
 
-let interval, webSocket;
+let interval;
+let webSocket;
 
 /**
  * Handles maintaining a connection as a client to proxy's WebSocket server.
@@ -18,7 +19,7 @@ let interval, webSocket;
 const proxyController = {
   initialize() {
     clearInterval(interval);
-    webSocket = new WebSocket(proxy_HOST, WEBSOCKET_PROTOCOL);
+    webSocket = new WebSocket(PROXY_HOST, WEBSOCKET_PROTOCOL);
 
     webSocket.onopen = this.handleConnection;
     webSocket.onmessage = this.parseEvent;
