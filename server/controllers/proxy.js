@@ -10,21 +10,22 @@ import { proxy_HOST,
          RECONNECTED,
          NEW_ROOM_PING } from '../constants';
 
-let interval;
+let interval, webSocket;
 
 /**
  * Handles maintaining a connection as a client to proxy's WebSocket server.
  */
 const proxyController = {
   initialize() {
-    const webSocket = new WebSocket(proxy_HOST, WEBSOCKET_PROTOCOL);
+    clearInterval(interval);
+    webSocket = new WebSocket(proxy_HOST, WEBSOCKET_PROTOCOL);
 
-    webSocket.onopen = this.handleConnection.bind(null, webSocket);
+    webSocket.onopen = this.handleConnection;
     webSocket.onmessage = this.parseEvent;
     webSocket.onclose = this.reconnect;
   },
 
-  handleConnection(webSocket) {
+  handleConnection() {
     webSocket.send(JSON.stringify({ event: HANDSHAKE }));
   },
 
@@ -33,12 +34,10 @@ const proxyController = {
 
     const handlers = {
       [HANDSHAKE]() {
-        clearInterval(interval);
         console.log(payload.message);
       },
 
       [RECONNECTED]() {
-        clearInterval(interval);
         console.log(payload.message);
       },
 
