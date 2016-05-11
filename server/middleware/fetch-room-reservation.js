@@ -10,7 +10,8 @@ const fetchRoomReservation = (next) => {
   // Retrieve room reservation statuses from external service
   http.get(source, (response) => {
     response.on('data', (data) => {
-      const reservations = formatReservations(JSON.parse(data.toString('utf8')));
+      const parsedData = JSON.parse(data.toString('utf8'));
+      const reservations = formatReservations(parsedData);
 
       next({
         type: EMIT_RESERVATIONS_UPDATE,

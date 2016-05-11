@@ -66,7 +66,7 @@ const roomsReducer = (state = initialState, action) => {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map(
-        (room) => room.set('reservations', action.reservations[room.get('id')])
+        (room) => room.set('reservations', action.reservations[room.get('name')])
       ));
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
