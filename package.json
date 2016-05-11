@@ -74,7 +74,7 @@
     "react-router-redux": "^4.0.2",
     "react-swipeable-views": "^0.6.0",
     "react-tap-event-plugin": "^1.0.0",
-    "recompose": "^0.17.0",
+    "recompose": "^0.18.0",
     "redux": "^3.3.1",
     "rimraf": "^2.4.3",
     "serve-favicon": "^2.3.0",
