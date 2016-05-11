@@ -3,7 +3,7 @@
 import WebSocket from 'ws';
 
 import pingsController from './pings';
-import { ACHERON_HOST,
+import { PROXY_HOST,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL,
          HANDSHAKE,
@@ -11,21 +11,22 @@ import { ACHERON_HOST,
          NEW_ROOM_PING } from '../constants';
 
 let interval;
+let webSocket;
 
 /**
- * Handles maintaining a connection as a client to Acheron's WebSocket server.
+ * Handles maintaining a connection as a client to proxy's WebSocket server.
  */
-const acheronController = {
+const proxyController = {
   initialize() {
-    const webSocket = new WebSocket(ACHERON_HOST, WEBSOCKET_PROTOCOL);
+    clearInterval(interval);
+    webSocket = new WebSocket(PROXY_HOST, WEBSOCKET_PROTOCOL);
 
-    webSocket.onopen = this.handleConnection.bind(null, webSocket);
+    webSocket.onopen = this.handleConnection;
     webSocket.onmessage = this.parseEvent;
     webSocket.onclose = this.reconnect;
   },
 
-  handleConnection(webSocket) {
-    clearInterval(interval);
+  handleConnection() {
     webSocket.send(JSON.stringify({ event: HANDSHAKE }));
   },
 
@@ -55,9 +56,9 @@ const acheronController = {
 
   reconnect() {
     interval = setInterval(() => {
-      acheronController.initialize();
+      proxyController.initialize();
     }, WEBSOCKET_RECONNECT_INTERVAL);
   }
 };
 
-export default acheronController;
+export default proxyController;

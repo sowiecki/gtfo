@@ -30,7 +30,7 @@ const pingsController = {
   },
 
   /**
-   * Handles pings received via WebSocket connection to Acheron.
+   * Handles pings received via WebSocket connection to proxy.
    */
   handlePingOverWS(payload) {
     const { id } = payload;
