@@ -6,35 +6,33 @@ import moment from 'moment';
 import { every, map, flatten } from 'lodash';
 
 import { devices } from '../environment';
-import {
-  MOCK_DATA_FILE,
-  RESERVATIONS_PER_DAY,
-  START_OF_DAY
-} from './constants';
-import {
-  randomMeetingDuration,
-  randomReservationGap,
-  generateMockReservation
-} from './utils';
+import { MOCK_DATA_FILE,
+         RESERVATIONS_PER_DAY,
+         START_OF_DAY } from './constants';
+import { randomMeetingDuration,
+         randomReservationGap,
+         generateMockReservation } from './utils';
 
-const mockRooms = map(devices, (device) => device.name.toLowerCase());
+const roomNames = map(devices, (device) => device.name.toLowerCase());
 
 const generateMockData = () => {
-  const mockData = {};
+  const mockData = { reservations: [] };
 
   // Generate reservations for each room
-  mockRooms.forEach((room) => {
+  roomNames.forEach((roomName) => {
     let beginTimeOffset = moment(START_OF_DAY).minutes();
     let endTimeOffset = beginTimeOffset + randomMeetingDuration();
-    mockData[room] = [];
+    const mockRoom = { id: roomName, schedule: [] };
 
     // Increment reservation times
     for (let i = 0; i < RESERVATIONS_PER_DAY; i++) {
-      mockData[room].push(generateMockReservation(room, beginTimeOffset, endTimeOffset));
+      mockRoom.schedule.push(generateMockReservation(beginTimeOffset, endTimeOffset));
 
       beginTimeOffset = endTimeOffset + randomReservationGap();
       endTimeOffset = beginTimeOffset + randomMeetingDuration();
     }
+
+    mockData.reservations.push(mockRoom);
   });
 
   writeFileSync(MOCK_DATA_FILE, JSON.stringify(mockData, null, 2));
@@ -45,7 +43,6 @@ const generateMockData = () => {
  * 2. If mock-data.json exists, and is out-of-date, overwrite with new data
  * 3. If mock-data.json does not exist, create it with new data
  */
- // TODO check that reservations exist for each device
 const getMockReservations = () => {
   let mockData;
 

@@ -16,7 +16,7 @@ const STALLS_HOST = isProd ? prodStallsHost : MOCKS_HOST;
 
 const PROD_RESERVATIONS_API = '/rest/meetingRoom/lookup/';
 const PROD_STALLS_API = '/stalls';
-export const MOCK_RESERVATIONS_API = '/mocks/meetingRoom/lookup/';
+export const MOCK_RESERVATIONS_API = '/mocks/meetingRoom/all';
 export const MOCK_STALLS_API = '/mocks/stalls';
 
 const MOCK_RESERVATIONS = `${MOCKS_HOST}${MOCK_RESERVATIONS_API}`;

@@ -1,23 +1,20 @@
 import http from 'http';
 
-import { EMIT_ROOM_STATUSES_UPDATE } from '../ducks/rooms';
+import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import * as urls from '../constants';
-import { logfetchRoomReservationError } from '../utils';
+import { formatReservations, logfetchRoomReservationError } from '../utils';
 
-const fetchRoomReservation = (next, action) => {
-  const { room, accessories } = action;
-  const source = `${urls.RESERVATIONS_URL}${encodeURIComponent(room.id)}`;
+const fetchRoomReservation = (next) => {
+  const source = `${urls.RESERVATIONS_URL}`;
 
   // Retrieve room reservation statuses from external service
   http.get(source, (response) => {
     response.on('data', (data) => {
-      const reservations = JSON.parse(data.toString('utf8'));
+      const reservations = formatReservations(JSON.parse(data.toString('utf8')));
 
       next({
-        type: EMIT_ROOM_STATUSES_UPDATE,
-        room,
-        reservations,
-        accessories
+        type: EMIT_RESERVATIONS_UPDATE,
+        reservations
       });
     });
   }).on('error', logfetchRoomReservationError);

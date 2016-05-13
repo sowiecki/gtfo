@@ -9,11 +9,10 @@ import getMockReservations from '../mocks/reservations';
 import getMockStallOcuppancies from '../mocks/stall-occupancies';
 
 const mocksController = {
-  reservationsByRoom(res, req) {
-    const { roomId } = req.params;
+  reservationsByRoom(res) {
     const mockReservations = getMockReservations();
 
-    res.json(mockReservations[roomId]);
+    res.json(mockReservations);
   },
 
   stalls(res) {

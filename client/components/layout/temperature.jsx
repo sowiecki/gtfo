@@ -7,17 +7,16 @@ import { FAHRENHEIT,
          ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
 
 const Temperature = (props) => {
-  const { tempScale,
-          fahrenheitTmpVoltage,
-          celciusTmpVoltage,
+  const { thermo,
+          tempScale,
           coordinates } = props;
 
-  if (!fahrenheitTmpVoltage || !celciusTmpVoltage) {
+  if (!thermo) {
     return <text/>;
   }
 
   const isFarenheit = tempScale === FAHRENHEIT;
-  const temperature = isFarenheit ? fahrenheitTmpVoltage : celciusTmpVoltage;
+  const temperature = isFarenheit ? thermo.F : thermo.C;
 
   return (
       <text
@@ -32,8 +31,7 @@ const Temperature = (props) => {
 
 Temperature.propTypes = {
   coordinates: PropTypes.object.isRequired,
-  fahrenheitTmpVoltage: PropTypes.number,
-  celciusTmpVoltage: PropTypes.number,
+  thermo: PropTypes.object,
   tempScale: PropTypes.string.isRequired
 };
 

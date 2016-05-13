@@ -19,7 +19,7 @@ if (config.public.enableStalls && !isProd) {
   if (process.env.MOCKS) {
     const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
 
-    router.get(`${MOCK_RESERVATIONS_API}:roomId`, respondWithMockedRoom);
+    router.get(`${MOCK_RESERVATIONS_API}`, respondWithMockedRoom);
   }
 }
 

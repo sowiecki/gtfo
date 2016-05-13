@@ -25,7 +25,7 @@ export const booked = (led) => {
 
 export const oneMinuteWarning = (led) => {
   led.intensity(FULL_LIGHT_LEVEL);
-  led.color(STATUS_COLORS.ONE_MINUTE_STROBE);
+  led.color(STATUS_COLORS.ONE_MINUTE_WARNING);
   led.strobe(ONE_MINUTE_STROBE);
 };
 

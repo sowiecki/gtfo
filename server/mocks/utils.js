@@ -32,7 +32,7 @@ const generateMockEmail = () => {
   return `${mockNames[randomIndex()]}@example.domain`;
 };
 
-export const generateMockReservation = (room, beginTimeOffset, endTimeOffset) => ({
+export const generateMockReservation = (beginTimeOffset, endTimeOffset) => ({
   email: generateMockEmail(),
   startDate: moment(START_OF_DAY).add(beginTimeOffset, 'minutes').toISOString(),
   endDate: moment(START_OF_DAY).add(endTimeOffset, 'minutes').toISOString()

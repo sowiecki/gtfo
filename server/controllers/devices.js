@@ -18,7 +18,8 @@ import { registerBoard,
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
-         FETCH_ROOM_MOTION } from '../ducks/rooms';
+         FETCH_ROOM_MOTION,
+         EMIT_SET_ROOM_ACCESSORIES } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
@@ -39,23 +40,26 @@ const devicesController = {
       publicConfig: config.public
     });
 
+    const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
+    fetchRoomReservations();
+
     devicesController.getRooms().map((room) => {
-      if (process.env.DISABLE_DEVICES) {
-        /**
-         * If devices are disabled, fetch reservations earlier
-         * and exit scope before creating board objects.
-         */
-        store.dispatch({ type: FETCH_ROOM_RESERVATIONS, room });
-
-        return;
-      }
-
       const board = registerBoard(room);
 
       board.on('ready', devicesController.connectToRoom.bind(null, board, room));
       board.on('warn', consoleController.boardWarn);
       board.on('fail', consoleController.boardFail);
     });
+
+    // Set interval for checking and responding to room state
+    const monitorExternalServices = setInterval(() => {
+      fetchRoomReservations();
+
+      if (process.env.MOCKS) {
+        // No need to continually check mock data for updates
+        clearInterval(monitorExternalServices);
+      }
+    }, CHECK_INTERVAL);
   },
 
   /**
@@ -67,7 +71,7 @@ const devicesController = {
    * @returns {undefined}
    */
   connectToRoom(board, room) {
-    logBoardReady(board);
+    logBoardReady(board, room);
 
     // Register all possible accessories
     const accessories = {
@@ -76,6 +80,12 @@ const devicesController = {
       thermo: registerThermo(board),
       motion: registerMotion(board)
     };
+
+    store.dispatch({
+      type: EMIT_SET_ROOM_ACCESSORIES,
+      room,
+      accessories
+    });
 
     if (config.public.enableTemperature) {
       store.dispatch({
@@ -90,20 +100,6 @@ const devicesController = {
       room,
       accessories
     });
-
-    // Set interval for checking and responding to room state
-    const monitorExternalServices = setInterval(() => {
-      store.dispatch({
-        type: FETCH_ROOM_RESERVATIONS,
-        room,
-        accessories
-      });
-
-      if (process.env.MOCKS) {
-        // No need to continually check mock data for updates
-        clearInterval(monitorExternalServices);
-      }
-    }, CHECK_INTERVAL);
   }
 };
 
