@@ -36,8 +36,8 @@ if (process.env.HOT) {
 if (process.env.DONT_HOOK_CONSOLE) {
   server.use(logger('dev'));
 } else {
-  console.log = consoleController.log;
   server.use(logger('dev', { stream: consoleController.stream() }));
+  console.log = consoleController.log;
 }
 
 /* Remaining Express configuration */
