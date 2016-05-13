@@ -7,8 +7,9 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
 
-import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
+import { enableproxy, SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
+import proxyController from './controllers/proxy';
 import devicesController from './controllers/devices';
 import stallsController from './controllers/stalls';
 import consoleController from './controllers/console';
@@ -35,8 +36,8 @@ if (process.env.HOT) {
 if (process.env.DONT_HOOK_CONSOLE) {
   server.use(logger('dev'));
 } else {
-  console.log = consoleController.log;
   server.use(logger('dev', { stream: consoleController.stream() }));
+  console.log = consoleController.log;
 }
 
 /* Remaining Express configuration */
@@ -57,6 +58,9 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
+  if (enableproxy) {
+    proxyController.initialize();
+  }
   devicesController.initialize();
   stallsController.initialize();
 });

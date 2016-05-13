@@ -16,13 +16,13 @@ import { randomMeetingDuration,
 const roomNames = map(devices, (device) => device.name.toLowerCase());
 
 const generateMockData = () => {
-  const mockData = { reservations: [] };
+  const mockReservations = [];
 
   // Generate reservations for each room
   roomNames.forEach((roomName) => {
     let beginTimeOffset = moment(START_OF_DAY).minutes();
     let endTimeOffset = beginTimeOffset + randomMeetingDuration();
-    const mockRoom = { id: roomName, schedule: [] };
+    const mockRoom = { name: roomName, schedule: [] };
 
     // Increment reservation times
     for (let i = 0; i < RESERVATIONS_PER_DAY; i++) {
@@ -32,10 +32,10 @@ const generateMockData = () => {
       endTimeOffset = beginTimeOffset + randomMeetingDuration();
     }
 
-    mockData.reservations.push(mockRoom);
+    mockReservations.push(mockRoom);
   });
 
-  writeFileSync(MOCK_DATA_FILE, JSON.stringify(mockData, null, 2));
+  writeFileSync(MOCK_DATA_FILE, JSON.stringify(mockReservations, null, 2));
 };
 
 /**
@@ -44,14 +44,14 @@ const generateMockData = () => {
  * 3. If mock-data.json does not exist, create it with new data
  */
 const getMockReservations = () => {
-  let mockData;
+  let mockReservations;
 
   try {
-    mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
+    mockReservations = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
 
     if (lstatSync(MOCK_DATA_FILE).isFile()) {
       // Validate that each reservation is for today
-      const allReservations = flatten(map(mockData, (room) => map(room, 'startDate')));
+      const allReservations = flatten(map(mockReservations, (room) => map(room, 'startDate')));
       const current = every(allReservations, (startDate) => {
         const isCurrent = moment().calendar(startDate, { sameDay: '[Today]' }) === 'Today';
 
@@ -64,7 +64,7 @@ const getMockReservations = () => {
         generateMockData();
 
         // Re-read and re-assign
-        mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
+        mockReservations = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
       }
     }
   } catch (e) {
@@ -73,10 +73,10 @@ const getMockReservations = () => {
     generateMockData();
 
     // Re-read and re-assign
-    mockData = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
+    mockReservations = JSON.parse(readFileSync(MOCK_DATA_FILE, 'utf8'));
   }
 
-  return mockData;
+  return mockReservations;
 };
 
 export default getMockReservations;

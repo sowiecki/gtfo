@@ -4,6 +4,8 @@ import path from 'path';
 import colors from 'colors/safe';
 import { argv } from 'yargs';
 
+import { config } from '../environment';
+
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -38,6 +40,7 @@ if (argv.dd) {
 
 export const isProd = process.env.NODE_ENV === 'production';
 export const isTest = process.env.NODE_ENV === 'test';
+export const enableproxy = !!config.proxyHost;
 
 export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
 export const WEB_SOCKET_PORT = 4001;

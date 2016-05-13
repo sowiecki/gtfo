@@ -123,3 +123,8 @@ To ping this client from an external service, direct a POST request to `http://h
 ```
 
 The result of this ping is that Kerbin lights up on the client anchored to the east lobby. An example use of this is anchoring a client on a display in the east lobby, and assigning a nearby Amazon Echo to highlight queried rooms on the TV.
+
+#### Ping troubleshooting
+Some internal office networks restrict exposing ports for making HTTP requests. This would make it impossible, for instance, for an Echo lamdba service hosted on AWS to send a ping request to a GTFO server hosted on the office intranet. For these restricted networks, *[Acheron](https://github.com/Nase00/acheron)* was created to be hosted externally (e.g., on a cloud service) to accept and forward pings to GTFO via a WebSocket connection.
+
+To avoid confusion, note that there are two distinct WebSocket services within GTFO. The [socket controller]('./server/controllers/socket') exists to *host* a WebSocket server to which browser applications connect to as *clients*. The [proxy controller]('./server/controllers/proxy') controller exists to connected to the proxy *host* where GTFO itself is considered the sole *client*.

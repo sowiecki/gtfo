@@ -24,7 +24,7 @@ if (config.public.enableStalls && !isProd) {
 }
 
 /* Room pings */
-router.post('/api/ping', (req, res) => pingsController.handlePing(req, res));
+router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));
 
 /* Serve client - must be last route */
 router.get('*', (req, res) => res.send(applicationView));

@@ -18,6 +18,5 @@ if (cluster.isMaster) {
     console.log(`worker ${worker.process.pid} born`);
   });
 } else {
-  require('./server/server');
-  require('./server/config');
+  require('./server');
 }

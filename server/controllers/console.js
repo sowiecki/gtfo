@@ -4,7 +4,7 @@ import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
 
-import { isProd, isTest, layoutOptions, logOptions, tableOptions } from '../config';
+import { isTest, layoutOptions, logOptions, tableOptions } from '../config';
 import { getRoomStatusMessage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
@@ -97,10 +97,9 @@ const consoleController = {
   }
 };
 
+
 if (process.env.DONT_HOOK_CONSOLE || isTest) {
   screen.destroy();
-} else if (!isProd) {
-  console.log = consoleController.log;
 }
 
 export default consoleController;
