@@ -23,6 +23,7 @@ export const styles = {
   },
 
   toolbarTab: {
+    fontSize: '16px',
     minWidth: '200px',
     backgroundColor: colors.primary
   },

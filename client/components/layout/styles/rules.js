@@ -7,53 +7,89 @@ const layoutSelectors = [
   '.office-layout-container'
 ].join(', ');
 
+const svgLabelBaseTransform = 'rotate(45deg)';
+
 export const rules = {
   officeLayout: {
-    'image.office-background': {
+    [layoutSelectors]: {
       zIndex: 0,
+      top: '4px',
       display: 'block',
-      position: 'absolute',
-      top: '30px',
       width: '300px',
       height: '345px',
-      overflow: 'hidden',
+      overflow: 'hidden'
+    },
+
+    'image.office-background': {
+      position: 'absolute',
       backgroundSize: 'fill'
     },
 
     'text.room-text, text.temperature-text': {
       zIndex: 200,
-      fontSize: '10px',
-      fontFamily: fonts.primary,
-      textShadow: `${colors.GREY} 0px 0px 0px`
+      fontSize: '6px',
+      fontFamily: fonts.quaternary,
+      fontWeight: 400,
+      textShadow: `${colors.GREY} 0px 0px 0px`,
+      textTransform: 'uppercase',
+      transform: `${svgLabelBaseTransform} translate(3px, -21px)`
     },
 
     'text.temperature-text': {
-      fontSize: '10px',
+      fontSize: '4px',
       fontFamily: fonts.secondary,
-      opacity: 0.5
+      opacity: 0.85,
+      transform: `${svgLabelBaseTransform} translate(10px, -34px)`
     },
 
     'text.marker-text': {
-      fontSize: '14px',
+      fontSize: '12px',
       fontWeight: 'bold',
+      transform: 'translateY(-20px)'
+    },
+
+    'svg.you-are-here > svg > path': {
+      transform: 'scale(.5)'
+    },
+
+    'text.anchor-marker': {
       opacity: 0.5
     },
 
     'text.restroom-marker': {
       position: 'absolute',
-      fontSize: '20px',
+      fontSize: '10px',
       fill: colors.DARK_GREY
     },
 
     mediaQueries: {
       [breakpoints.afterExtraSmall]: {
         [layoutSelectors]: {
+          top: '30px',
           width: '500px',
           height: '576px'
         },
 
-        'text.room-text': {
-          fontSize: '15px'
+        'text.room-text, text.temperature-text': {
+          fontSize: '10px',
+          transform: `${svgLabelBaseTransform} translate(6px, -20px)`
+        },
+
+        'text.temperature-text': {
+          fontSize: '8px',
+          transform: `${svgLabelBaseTransform} translate(16px, -28px)`
+        },
+
+        'text.marker-text': {
+          transform: 'translateY(-4px)'
+        },
+
+        'text.restroom-marker': {
+          fontSize: '20px'
+        },
+
+        'svg.you-are-here > svg > path': {
+          transform: 'translateX(-4px) scale(1)'
         },
 
         '.map-legend': {
@@ -72,8 +108,17 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '16px',
-          transform: 'translateY(2px)'
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(8px, -18px)`
+        },
+
+        'text.marker-text': {
+          fontSize: '18px',
+          transform: 'translateY(0)'
+        },
+
+        'svg.you-are-here > svg > path': {
+          transform: 'translateX(0)'
         },
 
         '.map-legend': {
@@ -87,10 +132,6 @@ export const rules = {
         [layoutSelectors]: {
           width: '608px',
           height: '700px'
-        },
-
-        'text.room-text, text.temperature-text': {
-          transform: 'translateY(4px)'
         }
       },
 
@@ -101,11 +142,12 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '19px',
+          fontSize: '14px',
         },
 
-        'text.room-text, text.temperature-text': {
-          transform: 'translateY(8px)'
+        'text.temperature-text': {
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(22px, -22px)`
         },
 
         '.map-legend': {
@@ -131,30 +173,31 @@ export const rules = {
           fontSize: '28px',
         },
 
-        'text.temperature-text': {
-          transform: 'translateY(34px)'
-        },
-
         'text.restroom-marker': {
           fontSize: '40px',
           transform: 'translateY(28px)'
         }
       },
 
-      [devices.iphone]: {
+      [`${devices.iphone}, ${breakpoints.portrait}`]: {
         [layoutSelectors]: {
+          top: '100px',
           width: '908px',
           height: '1046px'
         },
 
+        'text.room-text': {
+          fontSize: '18px',
+          transform: `${svgLabelBaseTransform} translate(12px, -16px)`
+        },
+
+        'text.temperature-text': {
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(28px, -20px)`
+        },
+
         '.map-legend': {
           transform: 'scale(.5)'
-        }
-      },
-
-      [breakpoints.portrait]: {
-        [layoutSelectors]: {
-          top: '100px'
         }
       }
     }
