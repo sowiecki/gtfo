@@ -6,8 +6,7 @@ import Temperature from './temperature';
 
 import { styles,
          ROOM_NAME_TEXT_DX,
-         ROOM_NAME_TEXT_DY,
-         ROOM_NAME_TSPAN_DY } from './styles';
+         ROOM_NAME_TEXT_DY } from './styles';
 import { applyStyles } from '../../config/composition';
 import { parsePosition, parseShape } from '../../utils';
 import { STATUS_COLORS,

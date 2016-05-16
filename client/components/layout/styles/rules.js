@@ -1,13 +1,6 @@
 /* eslint no-magic-numbers:0 */
 import { colors, fonts, breakpoints, devices } from '../../common/styles';
 
-export const ROOM_NAME_TEXT_DX = 2;
-export const ROOM_NAME_TEXT_DY = 24;
-export const ROOM_NAME_TSPAN_DY = '1.2em';
-export const ROOM_TEMPERATURE_TEXT_DX = 2;
-export const ROOM_TEMPERATURE_TEXT_DY = 42;
-export const MARKER_ROOM_NAME_TEXT_DY = ROOM_NAME_TEXT_DY + 16;
-
 const layoutSelectors = [
   'image.office-background',
   'svg.office-layout',
