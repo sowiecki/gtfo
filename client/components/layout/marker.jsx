@@ -9,7 +9,7 @@ import { parsePosition } from '../../utils';
 const Marker = ({ marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
   const locationHighlight = youAreHere && isAnchor ? (
-    <svg {...styles.locationHighlight}>
+    <svg className='you-are-here' {...styles.locationHighlight}>
       <Place style={styles.placeMarker}/>
     </svg>
   ) : null;
@@ -17,7 +17,7 @@ const Marker = ({ marker, youAreHere }) => {
   return (
     <svg {...parsePosition(marker.coordinates)}>
       <text
-        className={`marker-text, ${marker.type}-marker`}
+        className={`marker-text ${marker.type}-marker`}
         dx={ROOM_NAME_TEXT_DX}
         dy={MARKER_ROOM_NAME_TEXT_DY}>
         {marker.name}

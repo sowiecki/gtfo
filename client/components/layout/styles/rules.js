@@ -18,51 +18,85 @@ const svgLabelBaseTransform = 'rotate(45deg)';
 
 export const rules = {
   officeLayout: {
-    'image.office-background': {
+    [layoutSelectors]: {
       zIndex: 0,
+      top: '4px',
       display: 'block',
-      position: 'absolute',
-      top: '30px',
       width: '300px',
       height: '345px',
-      overflow: 'hidden',
+      overflow: 'hidden'
+    },
+
+    'image.office-background': {
+      position: 'absolute',
       backgroundSize: 'fill'
     },
 
     'text.room-text, text.temperature-text': {
       zIndex: 200,
-      fontSize: '10px',
+      fontSize: '6px',
       fontFamily: fonts.quaternary,
       fontWeight: 400,
       textShadow: `${colors.GREY} 0px 0px 0px`,
       textTransform: 'uppercase',
-      transform: `${svgLabelBaseTransform} translate(6px, -20px)`
+      transform: `${svgLabelBaseTransform} translate(3px, -21px)`
     },
 
     'text.temperature-text': {
-      fontSize: '8px',
+      fontSize: '4px',
       fontFamily: fonts.secondary,
       opacity: 0.85,
-      transform: `${svgLabelBaseTransform} translate(16px, -28px)`
+      transform: `${svgLabelBaseTransform} translate(10px, -34px)`
     },
 
     'text.marker-text': {
-      fontSize: '10px',
+      fontSize: '12px',
       fontWeight: 'bold',
+      transform: 'translateY(-20px)'
+    },
+
+    'svg.you-are-here > svg > path': {
+      transform: 'scale(.5)'
+    },
+
+    'text.anchor-marker': {
       opacity: 0.5
     },
 
     'text.restroom-marker': {
       position: 'absolute',
-      fontSize: '20px',
+      fontSize: '10px',
       fill: colors.DARK_GREY
     },
 
     mediaQueries: {
       [breakpoints.afterExtraSmall]: {
         [layoutSelectors]: {
+          top: '30px',
           width: '500px',
           height: '576px'
+        },
+
+        'text.room-text, text.temperature-text': {
+          fontSize: '10px',
+          transform: `${svgLabelBaseTransform} translate(6px, -20px)`
+        },
+
+        'text.temperature-text': {
+          fontSize: '8px',
+          transform: `${svgLabelBaseTransform} translate(16px, -28px)`
+        },
+
+        'text.marker-text': {
+          transform: 'translateY(-4px)'
+        },
+
+        'text.restroom-marker': {
+          fontSize: '20px'
+        },
+
+        'svg.you-are-here > svg > path': {
+          transform: 'translateX(-4px) scale(1)'
         },
 
         '.map-legend': {
@@ -83,6 +117,15 @@ export const rules = {
         'text.room-text': {
           fontSize: '12px',
           transform: `${svgLabelBaseTransform} translate(8px, -18px)`
+        },
+
+        'text.marker-text': {
+          fontSize: '18px',
+          transform: 'translateY(0)'
+        },
+
+        'svg.you-are-here > svg > path': {
+          transform: 'translateX(0)'
         },
 
         '.map-legend': {
