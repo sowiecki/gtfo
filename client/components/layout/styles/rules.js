@@ -1,11 +1,20 @@
 /* eslint no-magic-numbers:0 */
 import { colors, fonts, breakpoints, devices } from '../../common/styles';
 
+export const ROOM_NAME_TEXT_DX = 2;
+export const ROOM_NAME_TEXT_DY = 24;
+export const ROOM_NAME_TSPAN_DY = '1.2em';
+export const ROOM_TEMPERATURE_TEXT_DX = 2;
+export const ROOM_TEMPERATURE_TEXT_DY = 42;
+export const MARKER_ROOM_NAME_TEXT_DY = ROOM_NAME_TEXT_DY + 16;
+
 const layoutSelectors = [
   'image.office-background',
   'svg.office-layout',
   '.office-layout-container'
 ].join(', ');
+
+const svgLabelBaseTransform = 'rotate(45deg)';
 
 export const rules = {
   officeLayout: {
@@ -23,18 +32,22 @@ export const rules = {
     'text.room-text, text.temperature-text': {
       zIndex: 200,
       fontSize: '10px',
-      fontFamily: fonts.primary,
-      textShadow: `${colors.GREY} 0px 0px 0px`
+      fontFamily: fonts.quaternary,
+      fontWeight: 400,
+      textShadow: `${colors.GREY} 0px 0px 0px`,
+      textTransform: 'uppercase',
+      transform: `${svgLabelBaseTransform} translate(6px, -20px)`
     },
 
     'text.temperature-text': {
-      fontSize: '10px',
+      fontSize: '8px',
       fontFamily: fonts.secondary,
-      opacity: 0.5
+      opacity: 0.85,
+      transform: `${svgLabelBaseTransform} translate(16px, -28px)`
     },
 
     'text.marker-text': {
-      fontSize: '14px',
+      fontSize: '10px',
       fontWeight: 'bold',
       opacity: 0.5
     },
@@ -50,10 +63,6 @@ export const rules = {
         [layoutSelectors]: {
           width: '500px',
           height: '576px'
-        },
-
-        'text.room-text': {
-          fontSize: '15px'
         },
 
         '.map-legend': {
@@ -72,8 +81,8 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '16px',
-          transform: 'translateY(2px)'
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(8px, -18px)`
         },
 
         '.map-legend': {
@@ -87,10 +96,6 @@ export const rules = {
         [layoutSelectors]: {
           width: '608px',
           height: '700px'
-        },
-
-        'text.room-text, text.temperature-text': {
-          transform: 'translateY(4px)'
         }
       },
 
@@ -101,11 +106,12 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '19px',
+          fontSize: '14px',
         },
 
-        'text.room-text, text.temperature-text': {
-          transform: 'translateY(8px)'
+        'text.temperature-text': {
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(22px, -22px)`
         },
 
         '.map-legend': {
@@ -131,30 +137,31 @@ export const rules = {
           fontSize: '28px',
         },
 
-        'text.temperature-text': {
-          transform: 'translateY(34px)'
-        },
-
         'text.restroom-marker': {
           fontSize: '40px',
           transform: 'translateY(28px)'
         }
       },
 
-      [devices.iphone]: {
+      [`${devices.iphone}, ${breakpoints.portrait}`]: {
         [layoutSelectors]: {
+          top: '100px',
           width: '908px',
           height: '1046px'
         },
 
+        'text.room-text': {
+          fontSize: '18px',
+          transform: `${svgLabelBaseTransform} translate(12px, -16px)`
+        },
+
+        'text.temperature-text': {
+          fontSize: '12px',
+          transform: `${svgLabelBaseTransform} translate(28px, -20px)`
+        },
+
         '.map-legend': {
           transform: 'scale(.5)'
-        }
-      },
-
-      [breakpoints.portrait]: {
-        [layoutSelectors]: {
-          top: '100px'
         }
       }
     }

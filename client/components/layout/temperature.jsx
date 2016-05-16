@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 
+import { ROOM_TEMPERATURE_TEXT_DX, ROOM_TEMPERATURE_TEXT_DY } from './styles';
 import { applyStyles } from '../../config/composition';
 import { parseShape } from '../../utils';
-import { FAHRENHEIT,
-         ROOM_TEMPERATURE_TEXT_DX,
-         ROOM_TEMPERATURE_TEXT_DY } from '../../constants';
+import { FAHRENHEIT } from '../../constants';
 
 const Temperature = (props) => {
   const { thermo,

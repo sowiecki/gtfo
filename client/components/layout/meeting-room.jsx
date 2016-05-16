@@ -4,14 +4,15 @@ import { VelocityComponent } from 'velocity-react';
 
 import Temperature from './temperature';
 
+import { styles,
+         ROOM_NAME_TEXT_DX,
+         ROOM_NAME_TEXT_DY,
+         ROOM_NAME_TSPAN_DY } from './styles';
 import { applyStyles } from '../../config/composition';
-import { styles } from './styles';
 import { parsePosition, parseShape } from '../../utils';
 import { STATUS_COLORS,
          PING_ANIMATION_LOOPS,
-         PING_ANIMATION_TIMEOUT,
-         ROOM_NAME_TEXT_DX,
-         ROOM_NAME_TEXT_DY } from '../../constants';
+         PING_ANIMATION_TIMEOUT } from '../../constants';
 
 const MeetingRoom = (props) => {
   const { name,
