@@ -46,6 +46,7 @@ const LocationModal = (props) => {
       open={locationModalOpen}>
       <SelectField
         value={locations.indexOf(params.location)}
+        onChange={() => {}}
         floatingLabelText='Select a Location'>
           {locations.map(renderLocation)}
       </SelectField>
