@@ -49,8 +49,7 @@ const TimeTravel = ({ actions, timeTravelledTo, timeTravelControlsOpen, timeTrav
           hintText='Set time'
           okLabel='Time travel'
           cancelLabel='Reset to present'
-          value={timeTravelledTo || moment()}
-          autoOk/>
+          value={timeTravelledTo || moment()}/>
       </Card>
     </VelocityComponent>
   </div>
