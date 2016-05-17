@@ -10,6 +10,7 @@
   "node_test_paths": "./tests/server/**/*.spec.* ./tests/universal/**/*.spec.*",
   "scripts": {
     "clean": "rimraf server/public/dist",
+    "demo": "node environment/demo",
     "deploy-server": "NODE_ENV=production forever start ./application.js",
     "dev": "npm run clean && nf start dev-server,dev-client --",
     "dev-client": "webpack-dev-server --config webpack/webpack.config.dev.js --color --progress --inline --content-base webpack",
