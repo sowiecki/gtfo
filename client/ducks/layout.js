@@ -28,6 +28,8 @@ export const EMIT_STALL_OCCUPANCIES_UPDATE = 'EMIT_STALL_OCCUPANCIES_UPDATE';
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
+export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
+
 export const connectSocket = (payload) => ({
   type: CONNECT_SOCKET,
   payload
@@ -52,6 +54,11 @@ export const emitToggleTempScale = (tempScale) => ({
   tempScale
 });
 
+export const emitTimeTravelUpdate = (n, time) => ({
+  type: EMIT_TIME_TRAVEL_UPDATE,
+  time
+});
+
 const initialState = immutable.fromJS({
   meetingRooms: null,
   markers: null,
@@ -59,7 +66,8 @@ const initialState = immutable.fromJS({
   displayLegend: true,
   displayTemp: true, // User UI option for toggling temperature display on map
   enableTemp: false, // Server variable that governs display of temperature UI elements
-  tempScale: FAHRENHEIT
+  tempScale: FAHRENHEIT,
+  timeTravelledTo: null
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -132,6 +140,10 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_ROOM_MOTION_UPDATE]() {
       return state;
+    },
+
+    [EMIT_TIME_TRAVEL_UPDATE]() {
+      return state.set('timeTravelledTo', action.time);
     }
   };
 

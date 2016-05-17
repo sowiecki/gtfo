@@ -5,7 +5,9 @@ import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
+
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
+
 export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
@@ -41,8 +43,7 @@ export const emitLocationUpdate = (location) => ({
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   siteNavOpen: false,
-  locationModalOpen: false,
-  timeTravelledTo: null
+  locationModalOpen: false
 });
 
 const navigationReducer = (state = initialState, action) => {

@@ -35,6 +35,7 @@ class NavigationController extends Component {
 
 NavigationController.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
+  timeTravelledTo: PropTypes.any,
   actions: PropTypes.shape({
     emitSiteNavToggle: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,

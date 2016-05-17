@@ -4,6 +4,7 @@ import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
+import TimePicker from 'material-ui/TimePicker';
 
 import history from '../../config/history';
 import { base } from '../../config/composition';
@@ -48,6 +49,9 @@ const DrawerContent = (props) => {
 
   return (
     <List>
+      <ListItem>
+        <TimePicker onChange={actions.emitTimeTravelUpdate} hintText='Check future reservations'/>
+      </ListItem>
       <ListItem
         onClick={actions.emitLocationModalToggle.bind(null, locationModalOpen)}
         leftIcon={generateIcon('place', styles.navIcons)}

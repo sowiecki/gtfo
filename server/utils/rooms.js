@@ -2,6 +2,7 @@
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 
+import { filterExpiredReservations } from '../../universal/utils';
 import {
   SQUATTED,
   VACANT,
@@ -16,12 +17,13 @@ import {
  * @param {array} reservations Array of reservation objects.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], recentMotion) => {
+export const getRoomAlert = (reservations = [], recentMotion, time = Date.now()) => {
+  const now = moment(time);
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
   const hasRecentMotion = recentMotion ?
-    recentMotion.isAfter(moment().subtract(5, 'seconds')) : false;
+    recentMotion.isAfter(now.subtract(5, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -33,7 +35,7 @@ export const getRoomAlert = (reservations = [], recentMotion) => {
   const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved = moment().isBetween(firstMeeting.startDate, firstMeeting.endDate);
+  const currentlyReserved = now.isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
   const nextMeetingStartingIn = (minutes) => {
     if (!secondMeeting) {
@@ -86,3 +88,18 @@ export const secureRoom = (room) => {
  * @returns {array} Rooms array safe for public consumption.
  */
 export const secureRooms = (rooms) => [].concat(rooms).map(secureRoom);
+
+/**
+ * Determines future reservations based on provided time.
+ * @param {array} rooms
+ * @param {object} time - Date object.
+ * @returns {array} Meeting rooms as they would be in future time.
+ */
+export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
+  room.reservations = filterExpiredReservations(room.reservations, time);
+
+  return {
+    ...secureRoom(room),
+    alert: getRoomAlert(room.reservations, false, time)
+  };
+});

@@ -9,6 +9,7 @@ import { HANDSHAKE, RECONNECTED,
          WEBSOCKET_RECONNECT_INTERVAL,
          lostConnectionToHost } from '../constants';
 
+let webSocket;
 let interval;
 
 const handleSocketOpen = (webSocket, next, payload) => {
@@ -25,7 +26,7 @@ const handleSocketReconnected = (webSocket, next, payload) => {
 };
 
 const reconnectSocket = (next, payload) => {
-  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
+  webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
   webSocket.onopen = handleSocketReconnected.bind(null, webSocket, next, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
@@ -43,11 +44,13 @@ const handleSocketClose = (next, payload) => {
 };
 
 const connectSocket = (next, payload) => {
-  const webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
+  webSocket = new WebSocket(getSocketPort(), WEBSOCKET_PROTOCOL);
 
   webSocket.onopen = handleSocketOpen.bind(null, webSocket, next, payload);
   webSocket.onmessage = parseEvent.bind(null, next);
   webSocket.onclose = handleSocketClose.bind(null, next, payload);
 };
+
+export const send = (event, payload) => webSocket.send(JSON.stringify({ event, payload }));
 
 export default connectSocket;
