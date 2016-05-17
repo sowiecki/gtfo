@@ -18,8 +18,8 @@ const LocationModal = (props) => {
   const { anchor } = location.query;
 
   const handleLocationSelection = (selectedLocation, anchorId) => {
-    actions.emitSiteNavToggle(!siteNavOpen);
-    actions.emitLocationModalToggle(locationModalOpen);
+    actions.emitToggleSiteNav(!siteNavOpen);
+    actions.emitLocationModalToggle(!locationModalOpen);
     actions.emitLocationIndexUpdate(selectedLocation, anchorId);
   };
 
@@ -36,7 +36,7 @@ const LocationModal = (props) => {
       key='cancel-location-modal'
       label='Cancel'
       secondary={true}
-      onClick={actions.emitLocationModalToggle.bind(null, locationModalOpen)}/>
+      onClick={actions.emitLocationModalToggle.bind(null, !locationModalOpen)}/>
   ];
 
   return locations ? (
@@ -62,7 +62,7 @@ LocationModal.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   locationModalOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
-    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitToggleSiteNav: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationIndexUpdate: PropTypes.func.isRequired
   }).isRequired,

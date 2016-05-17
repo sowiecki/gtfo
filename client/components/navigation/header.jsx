@@ -14,7 +14,7 @@ import { styles } from './styles';
 
 const Header = ({ params, location, locations, actions, siteNavOpen }) => {
   const { anchor, fullscreen } = location.query;
-  const toggleSiteNav = actions.emitSiteNavToggle.bind(null, !siteNavOpen);
+  const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
   const renderLocationTab = (tabLocation, index) => (
     <Tab
@@ -45,7 +45,7 @@ const Header = ({ params, location, locations, actions, siteNavOpen }) => {
 Header.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
-    emitSiteNavToggle: PropTypes.func.isRequired
+    emitToggleSiteNav: PropTypes.func.isRequired
   }).isRequired,
   location: PropTypes.shape({
     query: PropTypes.shape({
