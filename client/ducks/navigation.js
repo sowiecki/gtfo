@@ -41,7 +41,8 @@ export const emitLocationUpdate = (location) => ({
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   siteNavOpen: false,
-  locationModalOpen: false
+  locationModalOpen: false,
+  timeTravelledTo: null
 });
 
 const navigationReducer = (state = initialState, action) => {

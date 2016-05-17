@@ -25,7 +25,7 @@ describe('Room utilities (server)', () => {
      * These reservations must wrapped in a function and only invoked once sinon
      * has mocked the system time appropriately for testing.
      */
-    const mockReservations = () => (filterExpiredReservations([
+    const mockReservations = () => filterExpiredReservations([
       {
         startDate: '2016-03-08T15:00:00.000Z',
         endDate: '2016-03-08T15:30:00.000Z'
@@ -42,7 +42,7 @@ describe('Room utilities (server)', () => {
         startDate: '2016-03-08T19:30:00.000Z',
         endDate: '2016-03-08T20:00:00.000Z'
       }
-    ]));
+    ]);
 
     const vacantTimes = [
       'Tuesday, March 8, 2016 8:30 AM CST',
