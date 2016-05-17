@@ -16,6 +16,8 @@ export const EMIT_TIME_TRAVEL_MODAL_TOGGLE = 'EMIT_TIME_TRAVEL_MODAL_TOGGLE';
 export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
 export const CLEAR_TIME_TRAVEL_ERROR = 'CLEAR_TIME_TRAVEL_ERROR';
 
+export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
+
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   history.push({
     pathname: newLocation,
@@ -50,6 +52,11 @@ export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
   timeTravelControlsOpen
 });
 
+export const emitTimeTravelUpdate = (timeTravelledTo) => ({
+  type: EMIT_TIME_TRAVEL_UPDATE,
+  timeTravelledTo
+});
+
 export const emitTimeTravelError = (timeTravelError) => ({
   type: EMIT_TIME_TRAVEL_ERROR,
   timeTravelError
@@ -64,6 +71,7 @@ const initialState = immutable.fromJS({
   siteNavOpen: false,
   locationModalOpen: false,
   timeTravelControlsOpen: false,
+  timeTravelledTo: null,
   timeTravelError: null
 });
 
@@ -92,6 +100,10 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {
       return state.set('timeTravelControlsOpen', action.timeTravelControlsOpen);
+    },
+
+    [EMIT_TIME_TRAVEL_UPDATE]() {
+      return state.set('timeTravelledTo', action.timeTravelledTo);
     },
 
     [EMIT_TIME_TRAVEL_ERROR]() {

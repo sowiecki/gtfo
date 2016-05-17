@@ -29,14 +29,14 @@ const mapStateToProps = (state) => {
     documentTitle: navigationReducer.get('documentTitle'),
     siteNavOpen: navigationReducer.get('siteNavOpen'),
     locationModalOpen: navigationReducer.get('locationModalOpen'),
+    timeTravelControlsOpen: navigationReducer.get('timeTravelControlsOpen'),
+    timeTravelError: navigationReducer.get('timeTravelError'),
+    timeTravelledTo: navigationReducer.get('timeTravelledTo'),
     locations: layoutReducer.get('locations'),
     displayLegend: layoutReducer.get('displayLegend'),
     displayTemp: layoutReducer.get('displayTemp'),
     enableTemp: layoutReducer.get('enableTemp'),
-    tempScale: layoutReducer.get('tempScale'),
-    timeTravelControlsOpen: navigationReducer.get('timeTravelControlsOpen'),
-    timeTravelError: navigationReducer.get('timeTravelError'),
-    timeTravelledTo: layoutReducer.get('timeTravelledTo')
+    tempScale: layoutReducer.get('tempScale')
   };
 };
 
