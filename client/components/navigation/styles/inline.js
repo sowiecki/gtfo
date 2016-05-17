@@ -44,6 +44,34 @@ export const styles = {
 
   fadedIcon: {
     opacity: 0.5
+  },
+
+  timeTravelControls: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    textAlign: 'center'
+  },
+
+  timePicker: {
+    position: 'absolute',
+    margin: '0 16px',
+    padding: 0,
+    display: 'inline-block'
+  },
+
+  timePickerTextField: {
+    margin: 0,
+    padding: 0
+  },
+
+  timeTravelText: {
+    display: 'inline-block'
+  },
+
+  timeTravelDismiss: {
+    position: 'absolute',
+    left: 0
   }
 };
 

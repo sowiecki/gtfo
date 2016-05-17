@@ -12,6 +12,10 @@ export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
+export const EMIT_TIME_TRAVEL_MODAL_TOGGLE = 'EMIT_TIME_TRAVEL_MODAL_TOGGLE';
+export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
+export const CLEAR_TIME_TRAVEL_ERROR = 'CLEAR_TIME_TRAVEL_ERROR';
+
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   history.push({
     pathname: newLocation,
@@ -25,7 +29,7 @@ export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   };
 };
 
-export const emitSiteNavToggle = (siteNavOpen) => ({
+export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
 });
@@ -40,10 +44,27 @@ export const emitLocationUpdate = (location) => ({
   location
 });
 
+export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
+  type: EMIT_TIME_TRAVEL_MODAL_TOGGLE,
+  timeTravelError: null,
+  timeTravelControlsOpen
+});
+
+export const emitTimeTravelError = (timeTravelError) => ({
+  type: EMIT_TIME_TRAVEL_ERROR,
+  timeTravelError
+});
+
+export const clearTimeTravelError = () => ({
+  type: CLEAR_TIME_TRAVEL_ERROR
+});
+
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   siteNavOpen: false,
-  locationModalOpen: false
+  locationModalOpen: false,
+  timeTravelControlsOpen: false,
+  timeTravelError: null
 });
 
 const navigationReducer = (state = initialState, action) => {
@@ -58,7 +79,7 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', !action.locationModalOpen);
+      return state.set('locationModalOpen', action.locationModalOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {
@@ -67,6 +88,18 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_LOCATION_INDEX_UPDATE]() {
       return state;
+    },
+
+    [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {
+      return state.set('timeTravelControlsOpen', action.timeTravelControlsOpen);
+    },
+
+    [EMIT_TIME_TRAVEL_ERROR]() {
+      return state.set('timeTravelError', action.timeTravelError);
+    },
+
+    [CLEAR_TIME_TRAVEL_ERROR]() {
+      return state.set('timeTravelError', null);
     }
   };
 

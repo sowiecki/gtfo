@@ -34,6 +34,8 @@ const mapStateToProps = (state) => {
     displayTemp: layoutReducer.get('displayTemp'),
     enableTemp: layoutReducer.get('enableTemp'),
     tempScale: layoutReducer.get('tempScale'),
+    timeTravelControlsOpen: navigationReducer.get('timeTravelControlsOpen'),
+    timeTravelError: navigationReducer.get('timeTravelError'),
     timeTravelledTo: layoutReducer.get('timeTravelledTo')
   };
 };

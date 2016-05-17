@@ -1,3 +1,4 @@
+/* eslint no-shadow:0 */
 /* globals WebSocket, setInterval, clearInterval */
 import parseEvent from './parse-event';
 
@@ -9,6 +10,7 @@ import { HANDSHAKE, RECONNECTED,
          WEBSOCKET_RECONNECT_INTERVAL,
          lostConnectionToHost } from '../constants';
 
+// TODO maybe store this in Redux state
 let webSocket;
 let interval;
 

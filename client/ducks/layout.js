@@ -54,9 +54,9 @@ export const emitToggleTempScale = (tempScale) => ({
   tempScale
 });
 
-export const emitTimeTravelUpdate = (n, time) => ({
+export const emitTimeTravelUpdate = (timeTravelledTo) => ({
   type: EMIT_TIME_TRAVEL_UPDATE,
-  time
+  timeTravelledTo
 });
 
 const initialState = immutable.fromJS({
@@ -143,7 +143,7 @@ const layoutReducer = (state = initialState, action) => {
     },
 
     [EMIT_TIME_TRAVEL_UPDATE]() {
-      return state.set('timeTravelledTo', action.time);
+      return state.set('timeTravelledTo', action.timeTravelledTo);
     }
   };
 
