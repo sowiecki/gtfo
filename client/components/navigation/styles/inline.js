@@ -4,7 +4,8 @@ export const styles = {
   toolbar: {
     justifyContent: 'initial',
     backgroundColor: colors.primary,
-    height: '48px'
+    height: '48px',
+    overflowX: 'overlay'
   },
 
   toolbarTitle: {
@@ -19,7 +20,8 @@ export const styles = {
   toolbarTabs: {
     fontFamily: fonts.tertiary,
     padding: 0,
-    lineHeight: 1.5
+    lineHeight: 1.5,
+    overflowY: 'visible'
   },
 
   toolbarTab: {
