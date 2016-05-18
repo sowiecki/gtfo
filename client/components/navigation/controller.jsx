@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Style } from 'radium';
 
 import Drawer from 'material-ui/Drawer';
 
@@ -8,7 +9,7 @@ import LocationModal from './location-modal';
 import TimeTravel from './time-travel';
 
 import { base } from '../../config/composition';
-import { LEFT_HAND_NAV_WIDTH } from './styles';
+import { rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
   componentWillReceiveProps(nextProps) {
@@ -20,6 +21,7 @@ class NavigationController extends Component {
 
     return !locations ? null : (
       <div>
+        <Style rules={rules.navigation}/>
         <Header {...this.props}/>
         <Drawer
           open={siteNavOpen}

@@ -55,7 +55,7 @@ const DrawerContent = (props) => {
           actions.emitToggleSiteNav(false);
         }}
         leftIcon={generateIcon('schedule', styles.navIcons)}
-        primaryText='Check future availabilities'/>
+        primaryText='Time travel'/>
       <ListItem
         onClick={actions.emitLocationModalToggle.bind(null, !locationModalOpen)}
         leftIcon={generateIcon('place', styles.navIcons)}

@@ -3,7 +3,6 @@ import moment from 'moment';
 
 import { VelocityComponent } from 'velocity-react';
 import Card from 'material-ui/Card/Card';
-import CardText from 'material-ui/Card/CardText';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import TimePicker from 'material-ui/TimePicker';
@@ -27,14 +26,14 @@ const TimeTravel = ({ actions, timeTravelledTo, timeTravelControlsOpen, timeTrav
             actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
             actions.emitTimeTravelUpdate(null);
           }}>
-            <FontIcon className='material-icons'>clear</FontIcon>
+            <FontIcon
+              color={styles.timeTravelDismissColor}
+              className='material-icons'>
+                clear
+            </FontIcon>
         </IconButton>
-        <CardText style={styles.timeTravelText}>
-          Check future room availabilities by setting the time to later in the day.
-        </CardText>
-
         <TimePicker
-          style={styles.timePicker}
+          className='time-picker'
           textFieldStyle={styles.timePickerTextField}
           onChange={(n, time) => {
             const isFutureTime = moment(time).isAfter(moment().subtract(1, 's'));
@@ -46,7 +45,7 @@ const TimeTravel = ({ actions, timeTravelledTo, timeTravelControlsOpen, timeTrav
             }
           }}
           onDismiss={actions.emitTimeTravelUpdate.bind(null)}
-          hintText='Set time'
+          hintText='Check future room availabilities'
           okLabel='Time travel'
           cancelLabel='Reset to present'
           value={timeTravelledTo || moment()}/>

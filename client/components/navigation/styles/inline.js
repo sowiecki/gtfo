@@ -50,31 +50,25 @@ export const styles = {
 
   timeTravelControls: {
     position: 'absolute',
+    height: '50px',
     bottom: 0,
     width: '100%',
-    textAlign: 'center'
-  },
-
-  timePicker: {
-    position: 'absolute',
-    margin: '0 16px',
-    padding: 0,
-    display: 'inline-block'
+    textAlign: 'center',
+    backgroundColor: colors.DARK_GREY
   },
 
   timePickerTextField: {
     margin: 0,
-    padding: 0
-  },
-
-  timeTravelText: {
-    display: 'inline-block'
+    padding: 0,
+    fontSize: '18px'
   },
 
   timeTravelDismiss: {
     position: 'absolute',
     left: 0
-  }
+  },
+
+  timeTravelDismissColor: colors.GHOST_WHITE
 };
 
 export const LEFT_HAND_NAV_WIDTH = 300;
