@@ -17,6 +17,7 @@ export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
 export const CLEAR_TIME_TRAVEL_ERROR = 'CLEAR_TIME_TRAVEL_ERROR';
 
 export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
+export const EMIT_TIME_SLIDER_VALUE_UPDATE = 'EMIT_TIME_SLIDER_VALUE_UPDATE';
 
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   history.push({
@@ -52,18 +53,14 @@ export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
   timeTravelControlsOpen
 });
 
-export const emitTimeTravelUpdate = (timeTravelledTo) => ({
+export const emitTimeTravelUpdate = (timeTravelTime) => ({
   type: EMIT_TIME_TRAVEL_UPDATE,
-  timeTravelledTo
+  timeTravelTime
 });
 
-export const emitTimeTravelError = (timeTravelError) => ({
-  type: EMIT_TIME_TRAVEL_ERROR,
-  timeTravelError
-});
-
-export const clearTimeTravelError = () => ({
-  type: CLEAR_TIME_TRAVEL_ERROR
+export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
+  type: EMIT_TIME_SLIDER_VALUE_UPDATE,
+  timeSliderValue
 });
 
 const initialState = immutable.fromJS({
@@ -71,8 +68,8 @@ const initialState = immutable.fromJS({
   siteNavOpen: false,
   locationModalOpen: false,
   timeTravelControlsOpen: false,
-  timeTravelledTo: null,
-  timeTravelError: null
+  timeTravelTime: null,
+  timeSliderValue: 0
 });
 
 const navigationReducer = (state = initialState, action) => {
@@ -103,15 +100,11 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_TIME_TRAVEL_UPDATE]() {
-      return state.set('timeTravelledTo', action.timeTravelledTo);
+      return state.set('timeTravelTime', action.timeTravelTime);
     },
 
-    [EMIT_TIME_TRAVEL_ERROR]() {
-      return state.set('timeTravelError', action.timeTravelError);
-    },
-
-    [CLEAR_TIME_TRAVEL_ERROR]() {
-      return state.set('timeTravelError', null);
+    [EMIT_TIME_SLIDER_VALUE_UPDATE]() {
+      return state.set('timeSliderValue', action.timeSliderValue);
     }
   };
 
