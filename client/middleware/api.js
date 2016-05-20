@@ -13,7 +13,7 @@ export default () => (next) => (action) => {
       break;
 
     case EMIT_TIME_TRAVEL_UPDATE:
-      send(TIME_TRAVEL_UPDATE, action.timeTravelledTo);
+      send(TIME_TRAVEL_UPDATE, action.timeTravelTime);
   }
 
   next(action);

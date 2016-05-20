@@ -22,7 +22,6 @@ const genWidthAndHeight = (width) => ({
 export const rules = {
   officeLayout: {
     [layoutSelectors]: {
-      zIndex: 0,
       top: '4px',
       display: 'block',
       overflow: 'hidden',
@@ -81,7 +80,8 @@ export const rules = {
       position: 'absolute',
       top: '-25px',
       left: '-50px',
-      transform: 'scale(.25)'
+      transform: 'scale(.25)',
+      backgroundColor: colors.WHITE
     },
 
     mediaQueries: {
@@ -190,9 +190,9 @@ export const rules = {
 
         '.map-legend': {
           position: 'absolute',
-          bottom: '-680px',
-          left: '-200px',
-          width: '600px',
+          bottom: '-600px',
+          left: '-210px',
+          width: '566px',
           transform: 'scale(.25)'
         }
       },
@@ -224,6 +224,7 @@ export const rules = {
         },
 
         '.map-legend': {
+          zIndex: 0,
           bottom: '-2250px',
           left: '-80px',
           transform: 'scale(.5)'
