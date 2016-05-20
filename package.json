@@ -114,7 +114,6 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.26",
     "karma-webpack": "^1.7.0",
-    "mobile-detect": "^1.3.2",
     "mocha": "^2.4.5",
     "nodemon": "^1.8.0",
     "phantomjs-prebuilt": "^2.1.7",
