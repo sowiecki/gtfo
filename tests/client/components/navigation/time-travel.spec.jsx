@@ -15,7 +15,7 @@ describe('<TimeTravel/>', () => {
     actions: {
       emitTimeTravelUpdate: () => {},
       emitTimeTravelControlsToggle: () => {},
-      clearTimeTravelError: () => {}
+      emitTimeSliderValueUpdate: () => {}
     },
     timeTravelledTo: null,
     timeTravelControlsOpen: false
