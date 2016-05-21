@@ -10,7 +10,6 @@ export const EMIT_DEVICE_WIDTH_UPDATE = 'EMIT_DEVICE_WIDTH_UPDATE';
 
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 
-export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
@@ -43,11 +42,6 @@ export const emitToggleSiteNav = (siteNavOpen) => ({
   siteNavOpen
 });
 
-export const emitLocationModalToggle = (locationModalOpen) => ({
-  type: EMIT_LOCATION_MODAL_TOGGLE,
-  locationModalOpen
-});
-
 export const emitLocationUpdate = (location) => ({
   type: EMIT_LOCATION_UPDATE,
   location
@@ -73,7 +67,6 @@ const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   deviceWidth: document.body.clientWidth,
   siteNavOpen: false,
-  locationModalOpen: false,
   timeTravelControlsOpen: false,
   timeTravelTime: null,
   timeSliderValue: 0
@@ -93,10 +86,6 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_SITE_NAV_TOGGLE]() {
       return state.set('siteNavOpen', action.siteNavOpen);
-    },
-
-    [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', action.locationModalOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {

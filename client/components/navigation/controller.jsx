@@ -5,7 +5,6 @@ import Drawer from 'material-ui/Drawer';
 
 import Header from './header';
 import DrawerContent from './drawer-content';
-import LocationModal from './location-modal';
 import TimeTravel from './time-travel';
 
 import { base } from '../../config/composition';
@@ -39,7 +38,6 @@ class NavigationController extends Component {
             <DrawerContent {...this.props}/>
         </Drawer>
         <TimeTravel {...this.props}/>
-        <LocationModal {...this.props}/>
       </div>
     );
   }
@@ -53,7 +51,6 @@ NavigationController.propTypes = {
   actions: PropTypes.shape({
     emitDeviceWidthUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
-    emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitToggleDisplayTemp: PropTypes.func.isRequired,

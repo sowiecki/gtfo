@@ -1,5 +1,6 @@
 import { PropTypes } from 'react';
-import { onlyUpdateForKeys } from 'recompose';
+
+import { base } from '../../config/composition';
 
 /**
  * Convenience container to control rendering of
@@ -20,4 +21,4 @@ Responsive.propTypes = {
   mobileAlt: PropTypes.element.isRequired
 };
 
-export default onlyUpdateForKeys(['deviceWidth'])(Responsive);
+export default base(Responsive);

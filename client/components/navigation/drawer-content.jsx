@@ -54,11 +54,7 @@ const DrawerContent = (props) => {
           actions.emitToggleSiteNav(false);
         }}
         leftIcon={generateIcon('schedule', styles.navIcons)}
-        primaryText='Time travel'/>
-      <ListItem
-        onClick={() => history.push(fullScreenParams)}
-        leftIcon={generateIcon('fullscreen', styles.navIcons)}
-        primaryText='Open fullscreen'/>
+        primaryText='View future availabilities'/>
       <Divider/>
       <ListItem
         onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}
@@ -66,6 +62,10 @@ const DrawerContent = (props) => {
         leftIcon={generateIcon('map', styles.navIcons)}
         primaryText='Toggle map legend'/>
       {enableTemp ? temperatureOptions : null}
+      <ListItem
+        onClick={() => history.push(fullScreenParams)}
+        leftIcon={generateIcon('fullscreen', styles.navIcons)}
+        primaryText='Open fullscreen'/>
       <Divider/>
       <ListItem
         onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}

@@ -5,7 +5,7 @@ export const styles = {
     justifyContent: 'initial',
     backgroundColor: colors.primary,
     height: '48px',
-    overflowX: 'overlay'
+    overflow: 'hidden'
   },
 
   toolbarTitle: {
@@ -33,6 +33,25 @@ export const styles = {
   menuButton: {
     color: colors.WHITE,
     pointerEvents: 'all'
+  },
+
+  mobileLocationSelectionLabel: {
+    padding: '0 20px',
+    width: '200px',
+    fontSize: '12px',
+    textAlign: 'right',
+    textTransform: 'uppercase',
+    color: colors.WHITE,
+    overflow: 'hidden'
+  },
+
+  mobileLocationSelectionMenuItem: {
+    fontSize: '12px',
+    textTransform: 'uppercase'
+  },
+
+  mobileLocationSelectionUnderline: {
+    display: 'none'
   },
 
   navIcons: {
