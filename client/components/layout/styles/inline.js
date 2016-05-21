@@ -23,17 +23,17 @@ export const styles = {
     width: '100%'
   },
 
-  officeLayoutContainer: {
-    right: 0,
-    left: 0,
-    margin: 'auto auto'
-  },
-
   locationHighlight: {
     height: '24px',
     width: '24px',
     x: '24px',
     y: 0
+  },
+
+  mapLegend: {
+    position: 'absolute',
+    top: 0,
+    // transform: 'scale(1)'
   },
 
   mapLegendItem: {

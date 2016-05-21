@@ -13,6 +13,7 @@ const Application = ({ bundle }) => {
     <html lang='en'>
       <head>
         {fonts.map(includeFont)}
+        <meta name='viewport' content='width=device-width, initial-scale=1'/>
       </head>
       <body>
         <div id='root'/>

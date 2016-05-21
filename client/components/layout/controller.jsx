@@ -93,8 +93,8 @@ class LayoutController extends Component {
 
     return (
       <span>
+        <Style rules={rules.officeLayout}/>
         <Paper style={styles.paperOverride} zDepth={1}>
-          <Style rules={rules.officeLayout}/>
           <SwipeableViews
             className='swipeable-viewport'
             style={styles.swipableOverride}

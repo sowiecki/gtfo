@@ -5,10 +5,19 @@ import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
+
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
+
 export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
+
+export const EMIT_TIME_TRAVEL_MODAL_TOGGLE = 'EMIT_TIME_TRAVEL_MODAL_TOGGLE';
+export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
+export const CLEAR_TIME_TRAVEL_ERROR = 'CLEAR_TIME_TRAVEL_ERROR';
+
+export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
+export const EMIT_TIME_SLIDER_VALUE_UPDATE = 'EMIT_TIME_SLIDER_VALUE_UPDATE';
 
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   history.push({
@@ -23,7 +32,7 @@ export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   };
 };
 
-export const emitSiteNavToggle = (siteNavOpen) => ({
+export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
 });
@@ -38,10 +47,29 @@ export const emitLocationUpdate = (location) => ({
   location
 });
 
+export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
+  type: EMIT_TIME_TRAVEL_MODAL_TOGGLE,
+  timeTravelError: null,
+  timeTravelControlsOpen
+});
+
+export const emitTimeTravelUpdate = (timeTravelTime) => ({
+  type: EMIT_TIME_TRAVEL_UPDATE,
+  timeTravelTime
+});
+
+export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
+  type: EMIT_TIME_SLIDER_VALUE_UPDATE,
+  timeSliderValue
+});
+
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   siteNavOpen: false,
-  locationModalOpen: false
+  locationModalOpen: false,
+  timeTravelControlsOpen: false,
+  timeTravelTime: null,
+  timeSliderValue: 0
 });
 
 const navigationReducer = (state = initialState, action) => {
@@ -56,7 +84,7 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', !action.locationModalOpen);
+      return state.set('locationModalOpen', action.locationModalOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {
@@ -65,6 +93,18 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_LOCATION_INDEX_UPDATE]() {
       return state;
+    },
+
+    [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {
+      return state.set('timeTravelControlsOpen', action.timeTravelControlsOpen);
+    },
+
+    [EMIT_TIME_TRAVEL_UPDATE]() {
+      return state.set('timeTravelTime', action.timeTravelTime);
+    },
+
+    [EMIT_TIME_SLIDER_VALUE_UPDATE]() {
+      return state.set('timeSliderValue', action.timeSliderValue);
     }
   };
 

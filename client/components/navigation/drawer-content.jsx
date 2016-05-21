@@ -17,7 +17,8 @@ const DrawerContent = (props) => {
           displayTemp,
           enableTemp,
           locationModalOpen,
-          tempScale } = props;
+          tempScale,
+          timeTravelControlsOpen } = props;
 
   const fullScreenParams = {
     pathname: location.pathname,
@@ -49,9 +50,16 @@ const DrawerContent = (props) => {
   return (
     <List>
       <ListItem
-        onClick={actions.emitLocationModalToggle.bind(null, locationModalOpen)}
+        onClick={() => {
+          actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
+          actions.emitToggleSiteNav(false);
+        }}
+        leftIcon={generateIcon('schedule', styles.navIcons)}
+        primaryText='Time travel'/>
+      <ListItem
+        onClick={actions.emitLocationModalToggle.bind(null, !locationModalOpen)}
         leftIcon={generateIcon('place', styles.navIcons)}
-        primaryText='Edit Location'/>
+        primaryText='Edit location'/>
       <ListItem
         onClick={() => history.push(fullScreenParams)}
         leftIcon={generateIcon('fullscreen', styles.navIcons)}
@@ -65,7 +73,7 @@ const DrawerContent = (props) => {
       {enableTemp ? temperatureOptions : null}
       <Divider/>
       <ListItem
-        onClick={actions.emitSiteNavToggle.bind(null, !siteNavOpen)}
+        onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
         leftIcon={generateIcon('clear', styles.navIcons)}
         primaryText='Close'/>
     </List>
@@ -75,9 +83,11 @@ const DrawerContent = (props) => {
 DrawerContent.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   locationModalOpen: PropTypes.bool.isRequired,
+  timeTravelControlsOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
-    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitToggleSiteNav: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
+    emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitToggleTempScale: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationIndexUpdate: PropTypes.func.isRequired

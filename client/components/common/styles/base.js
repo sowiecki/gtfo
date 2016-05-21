@@ -35,5 +35,8 @@ export const breakpoints = {
 export const devices = {
   iphone: `screen and (min-device-width: 320px)
            and (max-device-width: 568px)
-           and (-webkit-min-device-pixel-ratio: 2)`
+           and (-webkit-min-device-pixel-ratio: 2)`,
+  ipad: `screen and (min-device-width: 768px)
+         and (max-device-width: 1024px)
+         and (-webkit-min-device-pixel-ratio: 2)`
 };

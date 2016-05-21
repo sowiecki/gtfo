@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import { Style } from 'radium';
 
 import Drawer from 'material-ui/Drawer';
 
 import Header from './header';
 import DrawerContent from './drawer-content';
 import LocationModal from './location-modal';
+import TimeTravel from './time-travel';
 
 import { base } from '../../config/composition';
-import { LEFT_HAND_NAV_WIDTH } from './styles';
+import { rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
   componentWillReceiveProps(nextProps) {
@@ -19,14 +21,16 @@ class NavigationController extends Component {
 
     return !locations ? null : (
       <div>
+        <Style rules={rules.navigation}/>
         <Header {...this.props}/>
         <Drawer
           open={siteNavOpen}
-          onRequestChange={actions.emitSiteNavToggle.bind(null, !siteNavOpen)}
+          onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
           docked={false}
           width={LEFT_HAND_NAV_WIDTH}>
             <DrawerContent {...this.props}/>
         </Drawer>
+        <TimeTravel {...this.props}/>
         <LocationModal {...this.props}/>
       </div>
     );
@@ -35,8 +39,10 @@ class NavigationController extends Component {
 
 NavigationController.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
+  timeTravelTime: PropTypes.string,
+  timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
-    emitSiteNavToggle: PropTypes.func.isRequired,
+    emitToggleSiteNav: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,

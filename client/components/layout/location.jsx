@@ -42,19 +42,16 @@ const Location = (props) => {
   );
 
   return (
-    <div
-      key={locationKey}
-      className='office-layout-container'
-      style={styles.officeLayoutContainer}>
-        <image
-          className='office-background'
-          style={styles.generateOfficeBackgroundStyle(locationKey)}>
-            <svg className='office-layout'>
-              {filteredMeetingRooms.map(renderMeetingRoom)}
-              {filteredStalls.map(renderStall)}
-              {filteredMarkers.map(renderMarker)}
-            </svg>
-        </image>
+    <div key={locationKey} className='office-layout-container'>
+      <image
+        className='office-background'
+        style={styles.generateOfficeBackgroundStyle(locationKey)}>
+          <svg className='office-layout'>
+            {filteredMeetingRooms.map(renderMeetingRoom)}
+            {filteredStalls.map(renderStall)}
+            {filteredMarkers.map(renderMarker)}
+          </svg>
+      </image>
     </div>
   );
 };

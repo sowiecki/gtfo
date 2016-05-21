@@ -15,7 +15,8 @@ import { HANDSHAKE,
          NEW_ROOM_PING,
          ROOM_TEMPERATURE_UPDATE,
          ROOM_MOTION_UPDATE,
-         STALL_OCCUPANCIES_UPDATE } from '../constants';
+         STALL_OCCUPANCIES_UPDATE,
+         TIME_TRAVEL_UPDATE } from '../constants';
 
 const parseEvent = (next, response) => {
   const { event, payload } = JSON.parse(response.data);
@@ -85,6 +86,13 @@ const parseEvent = (next, response) => {
       next({
         type: EMIT_SET_ROOM_PING,
         ping: payload
+      });
+    },
+
+    [TIME_TRAVEL_UPDATE]() {
+      next({
+        type: EMIT_ROOM_STATUSES_UPDATE,
+        meetingRooms: payload
       });
     }
   };

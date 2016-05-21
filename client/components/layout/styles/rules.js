@@ -9,15 +9,29 @@ const layoutSelectors = [
 
 const svgLabelBaseTransform = 'rotate(45deg)';
 
+/**
+ * Generates relative width and height CSS parameters.
+ * @param {integer} width - Width value
+ * @returns {object} Object with width and relative height properties.
+ */
+const genWidthAndHeight = (width) => ({
+  height: `${width * 1.152}px`,
+  width
+});
+
 export const rules = {
   officeLayout: {
     [layoutSelectors]: {
-      zIndex: 0,
       top: '4px',
       display: 'block',
-      width: '300px',
-      height: '345px',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      ...genWidthAndHeight(345)
+    },
+
+    '.office-layout-container': {
+      right: 0,
+      left: 0,
+      margin: 'auto auto'
     },
 
     'image.office-background': {
@@ -62,12 +76,19 @@ export const rules = {
       fill: colors.DARK_GREY
     },
 
+    '.map-legend': {
+      position: 'absolute',
+      top: '-25px',
+      left: '-50px',
+      transform: 'scale(.25)',
+      backgroundColor: colors.WHITE
+    },
+
     mediaQueries: {
       [breakpoints.afterExtraSmall]: {
         [layoutSelectors]: {
           top: '30px',
-          width: '500px',
-          height: '576px'
+          ...genWidthAndHeight(576)
         },
 
         'text.room-text, text.temperature-text': {
@@ -90,21 +111,12 @@ export const rules = {
 
         'svg.you-are-here > svg > path': {
           transform: 'translateX(-4px) scale(1)'
-        },
-
-        '.map-legend': {
-          position: 'absolute',
-          top: '-25px',
-          left: '-50px',
-          transform: 'scale(.25)',
-          backgroundColor: 'rgba(255, 255, 255, .25)'
         }
       },
 
       [breakpoints.afterSmall]: {
         [layoutSelectors]: {
-          width: '608px',
-          height: '700px'
+          ...genWidthAndHeight(608)
         },
 
         'text.room-text': {
@@ -128,17 +140,9 @@ export const rules = {
         }
       },
 
-      [breakpoints.afterMedium]: {
-        [layoutSelectors]: {
-          width: '608px',
-          height: '700px'
-        }
-      },
-
       [breakpoints.afterLarge]: {
         [layoutSelectors]: {
-          width: '695px',
-          height: '800px'
+          ...genWidthAndHeight(695)
         },
 
         'text.room-text': {
@@ -165,38 +169,64 @@ export const rules = {
 
       [breakpoints.afterExtraLarge]: {
         [layoutSelectors]: {
-          width: '1050px',
-          height: '1209px'
+          ...genWidthAndHeight(1000)
         },
 
         'text.room-text': {
-          fontSize: '28px',
+          fontSize: '22px',
+          transform: `${svgLabelBaseTransform} translate(12px, -16px)`
         },
 
         'text.restroom-marker': {
-          fontSize: '40px',
+          fontSize: '38px',
           transform: 'translateY(28px)'
         }
       },
 
       [`${devices.iphone}, ${breakpoints.portrait}`]: {
         [layoutSelectors]: {
-          top: '100px',
-          width: '908px',
-          height: '1046px'
-        },
-
-        'text.room-text': {
-          fontSize: '18px',
-          transform: `${svgLabelBaseTransform} translate(12px, -16px)`
-        },
-
-        'text.temperature-text': {
-          fontSize: '12px',
-          transform: `${svgLabelBaseTransform} translate(28px, -20px)`
+          ...genWidthAndHeight(350)
         },
 
         '.map-legend': {
+          position: 'absolute',
+          bottom: '-600px',
+          left: '-210px',
+          width: '566px',
+          transform: 'scale(.25)'
+        }
+      },
+
+      [devices.ipad]: {
+        [layoutSelectors]: {
+          top: '20px',
+          ...genWidthAndHeight(690),
+        },
+
+        '.office-layout-container': {
+          margin: 'auto 38px'
+        },
+
+        'text.room-text': {
+          fontSize: '14px',
+          transform: `${svgLabelBaseTransform} translate(6px, -18px)`
+        },
+
+        'text.marker-text': {
+          fontSize: '12px',
+          fontWeight: 'bold',
+          transform: 'translateY(-8px)'
+        },
+
+        'text.restroom-marker': {
+          fontSize: '22px',
+          transform: 'translateY(-8px)'
+        },
+
+        '.map-legend': {
+          zIndex: 0,
+          bottom: '-2250px',
+          left: '-80px',
           transform: 'scale(.5)'
         }
       }

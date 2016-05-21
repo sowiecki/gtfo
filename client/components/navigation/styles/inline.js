@@ -4,7 +4,8 @@ export const styles = {
   toolbar: {
     justifyContent: 'initial',
     backgroundColor: colors.primary,
-    height: '48px'
+    height: '48px',
+    overflowX: 'overlay'
   },
 
   toolbarTitle: {
@@ -19,7 +20,8 @@ export const styles = {
   toolbarTabs: {
     fontFamily: fonts.tertiary,
     padding: 0,
-    lineHeight: 1.5
+    lineHeight: 1.5,
+    overflowY: 'visible'
   },
 
   toolbarTab: {
@@ -44,6 +46,46 @@ export const styles = {
 
   fadedIcon: {
     opacity: 0.5
+  },
+
+  timeTravelControls: {
+    position: 'absolute',
+    height: '80px',
+    bottom: 0,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.DARK_GREY
+  },
+
+  timeTravelDismiss: {
+    position: 'absolute',
+    left: 0
+  },
+
+  timeTravelDismissColor: colors.GHOST_WHITE,
+
+  timeDisplay: {
+    padding: '2px',
+    font: `24px ${fonts.secondary}, sans-serif`,
+    color: colors.WHITE
+  },
+
+  timeSlider: {
+    margin: '0 auto',
+    position: 'relative',
+    top: '-24px',
+    right: 0,
+    left: 0,
+    maxWidth: '70%'
+  },
+
+  timeHintText: {
+    position: 'absolute',
+    margin: 'auto',
+    fontSize: '12px',
+    left: 0,
+    right: 0,
+    bottom: 0
   }
 };
 

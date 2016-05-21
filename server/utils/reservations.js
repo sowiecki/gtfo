@@ -1,6 +1,3 @@
-import moment from 'moment';
-import { filter } from 'lodash';
-
 /**
  * Formats reservations response
  *
@@ -16,18 +13,3 @@ export const formatReservations = (reservations) => {
 
   return formattedReservationes;
 };
-
-/**
- * Filters out expired reservations.
- *
- * A reservation is considered "expired" if
- * both its start and end date are in the past.
- *
- * @param {array} reservations Meeting room reservations.
- * @return {array} Unexpired meeting room reservations.
- */
-export const filterExpiredReservations = (reservations) => filter(reservations, (reservation) => {
-  const reservationNotExpired = !moment(reservation.endDate).isBefore(Date.now());
-
-  return reservationNotExpired;
-});

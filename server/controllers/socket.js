@@ -1,10 +1,12 @@
 /* eslint new-cap:0, no-console:0 */
 /* globals console */
 import WebSocket from 'ws';
+import moment from 'moment';
 import { filter, forEach } from 'lodash';
 
 import store from '../store';
 
+import { getFutureAlerts } from '../utils';
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
@@ -12,7 +14,9 @@ import { HANDSHAKE,
          INITIALIZE_MARKERS,
          INITIALIZE_STALLS,
          RECONNECTED,
-         NEW_ROOM_PING } from '../constants';
+         NEW_ROOM_PING,
+         TIME_TRAVEL_UPDATE,
+         TIME_FORMAT } from '../constants';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
@@ -104,6 +108,14 @@ const socketController = {
         forEach(clientsWithAnchor, (clientWithAnchor) => {
           socketController.send(event, payload, clientWithAnchor);
         });
+      },
+
+      [TIME_TRAVEL_UPDATE]() {
+        const { rooms } = store.getState().roomsReducer.toJS();
+
+        const newPayload = payload ? getFutureAlerts(rooms, moment(payload, TIME_FORMAT)) : rooms;
+
+        socketController.send(event, newPayload, client);
       },
 
       sendToAll() {

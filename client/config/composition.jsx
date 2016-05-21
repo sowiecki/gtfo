@@ -5,7 +5,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const muiTheme = getMuiTheme();
+import { colors } from '../components/common/styles';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    pickerHeaderColor: colors.primary,
+    primary1Color: colors.secondary,
+  }
+});
 
 /**
  * Provides Material-UI theme to <Body/>,
