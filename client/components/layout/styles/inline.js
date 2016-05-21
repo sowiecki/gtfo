@@ -18,7 +18,7 @@ export const styles = {
   },
 
   swipableOverride: {
-    overflowY: 'scroll',
+    overflow: 'hidden',
     height: '100%',
     width: '100%'
   },
@@ -32,8 +32,7 @@ export const styles = {
 
   mapLegend: {
     position: 'absolute',
-    top: 0,
-    // transform: 'scale(1)'
+    top: 0
   },
 
   mapLegendItem: {

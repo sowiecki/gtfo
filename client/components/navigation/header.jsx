@@ -6,13 +6,17 @@ import Toolbar from 'material-ui/Toolbar';
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 
+import Responsive from '../common/responsive';
 import MenuButton from './menu-button';
+import LocationDropDown from './location-dropdown';
 
+import { styles } from './styles';
+import { MOBILE_WIDTH_BREAKPOINT } from '../common/styles';
 import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
-import { styles } from './styles';
 
-const Header = ({ params, location, locations, actions, siteNavOpen }) => {
+const Header = (props) => {
+  const { params, location, locations, actions, siteNavOpen } = props;
   const { anchor, fullscreen } = location.query;
   const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
@@ -34,9 +38,14 @@ const Header = ({ params, location, locations, actions, siteNavOpen }) => {
         <ToolbarTitle text='Office Insight' style={styles.toolbarTitle}/>
       </ToolbarGroup>
       <ToolbarGroup style={styles.toolbarTabs}>
-        <Tabs value={locations.indexOf(params.location)}>
-          {locations.map(renderLocationTab)}
-        </Tabs>
+        <Responsive
+          mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
+          mobileAlt={<LocationDropDown {...props}/>}
+          {...props}>
+            <Tabs value={locations.indexOf(params.location)}>
+              {locations.map(renderLocationTab)}
+            </Tabs>
+        </Responsive>
       </ToolbarGroup>
     </Toolbar>
   );

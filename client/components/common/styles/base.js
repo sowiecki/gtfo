@@ -20,6 +20,8 @@ export const fonts = {
   quaternary: '\'Yanone Kaffeesatz\', sans-serif'
 };
 
+export const MOBILE_WIDTH_BREAKPOINT = 400;
+
 export const breakpoints = {
   beforeSmall: 'screen and (max-width: 719px)',
   beforeMedium: 'screen and (max-width: 1023px)',

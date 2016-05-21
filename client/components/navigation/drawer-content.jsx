@@ -16,7 +16,6 @@ const DrawerContent = (props) => {
           displayLegend,
           displayTemp,
           enableTemp,
-          locationModalOpen,
           tempScale,
           timeTravelControlsOpen } = props;
 
@@ -55,15 +54,7 @@ const DrawerContent = (props) => {
           actions.emitToggleSiteNav(false);
         }}
         leftIcon={generateIcon('schedule', styles.navIcons)}
-        primaryText='Time travel'/>
-      <ListItem
-        onClick={actions.emitLocationModalToggle.bind(null, !locationModalOpen)}
-        leftIcon={generateIcon('place', styles.navIcons)}
-        primaryText='Edit location'/>
-      <ListItem
-        onClick={() => history.push(fullScreenParams)}
-        leftIcon={generateIcon('fullscreen', styles.navIcons)}
-        primaryText='Open fullscreen'/>
+        primaryText='View future availabilities'/>
       <Divider/>
       <ListItem
         onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}
@@ -71,6 +62,10 @@ const DrawerContent = (props) => {
         leftIcon={generateIcon('map', styles.navIcons)}
         primaryText='Toggle map legend'/>
       {enableTemp ? temperatureOptions : null}
+      <ListItem
+        onClick={() => history.push(fullScreenParams)}
+        leftIcon={generateIcon('fullscreen', styles.navIcons)}
+        primaryText='Open fullscreen'/>
       <Divider/>
       <ListItem
         onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
@@ -82,15 +77,12 @@ const DrawerContent = (props) => {
 
 DrawerContent.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
-  locationModalOpen: PropTypes.bool.isRequired,
   timeTravelControlsOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
-    emitToggleTempScale: PropTypes.func.isRequired,
-    emitLocationModalToggle: PropTypes.func.isRequired,
-    emitLocationIndexUpdate: PropTypes.func.isRequired
+    emitToggleTempScale: PropTypes.func.isRequired
   }).isRequired,
   location: PropTypes.object,
   displayLegend: PropTypes.bool.isRequired,

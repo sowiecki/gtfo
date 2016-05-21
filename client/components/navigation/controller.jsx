@@ -5,15 +5,22 @@ import Drawer from 'material-ui/Drawer';
 
 import Header from './header';
 import DrawerContent from './drawer-content';
-import LocationModal from './location-modal';
 import TimeTravel from './time-travel';
 
 import { base } from '../../config/composition';
 import { rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
-  componentWillReceiveProps(nextProps) {
-    document.title = nextProps.documentTitle;
+  componentWillMount() {
+    window.addEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
+  }
+
+  componentWillReceiveProps({ documentTitle }) {
+    document.title = documentTitle;
+  }
+
+  componentWillUnmount() {
+    window.remoteEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
   }
 
   render() {
@@ -31,19 +38,19 @@ class NavigationController extends Component {
             <DrawerContent {...this.props}/>
         </Drawer>
         <TimeTravel {...this.props}/>
-        <LocationModal {...this.props}/>
       </div>
     );
   }
 }
 
 NavigationController.propTypes = {
+  deviceWidth: PropTypes.number.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
   timeTravelTime: PropTypes.string,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
+    emitDeviceWidthUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
-    emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitToggleDisplayTemp: PropTypes.func.isRequired,
