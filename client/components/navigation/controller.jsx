@@ -12,8 +12,16 @@ import { base } from '../../config/composition';
 import { rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
-  componentWillReceiveProps(nextProps) {
-    document.title = nextProps.documentTitle;
+  componentWillMount() {
+    window.addEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
+  }
+
+  componentWillReceiveProps({ documentTitle }) {
+    document.title = documentTitle;
+  }
+
+  componentWillUnmount() {
+    window.remoteEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
   }
 
   render() {
@@ -38,10 +46,12 @@ class NavigationController extends Component {
 }
 
 NavigationController.propTypes = {
+  deviceWidth: PropTypes.number.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
   timeTravelTime: PropTypes.string,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
+    emitDeviceWidthUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitLocationModalToggle: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
