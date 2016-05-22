@@ -16,6 +16,7 @@ const Responsive = ({ deviceWidth, mobileBreakpoint, children, mobileAlt }) => (
 );
 
 Responsive.propTypes = {
+  deviceWidth: PropTypes.number.isRequired,
   mobileBreakpoint: PropTypes.number.isRequired,
   children: PropTypes.element.isRequired,
   mobileAlt: PropTypes.element.isRequired
