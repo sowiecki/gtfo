@@ -6,9 +6,10 @@ import { DEFAULT_DOCUMENT_TITLE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
 
+export const EMIT_DEVICE_WIDTH_UPDATE = 'EMIT_DEVICE_WIDTH_UPDATE';
+
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 
-export const EMIT_LOCATION_MODAL_TOGGLE = 'EMIT_LOCATION_MODAL_TOGGLE';
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
 export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
@@ -18,6 +19,10 @@ export const CLEAR_TIME_TRAVEL_ERROR = 'CLEAR_TIME_TRAVEL_ERROR';
 
 export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
 export const EMIT_TIME_SLIDER_VALUE_UPDATE = 'EMIT_TIME_SLIDER_VALUE_UPDATE';
+
+export const emitDeviceWidthUpdate = () => ({
+  type: EMIT_DEVICE_WIDTH_UPDATE
+});
 
 export const emitLocationIndexUpdate = (newLocation, anchorId) => {
   history.push({
@@ -35,11 +40,6 @@ export const emitLocationIndexUpdate = (newLocation, anchorId) => {
 export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
-});
-
-export const emitLocationModalToggle = (locationModalOpen) => ({
-  type: EMIT_LOCATION_MODAL_TOGGLE,
-  locationModalOpen
 });
 
 export const emitLocationUpdate = (location) => ({
@@ -65,8 +65,8 @@ export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
 
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
+  deviceWidth: document.body.clientWidth,
   siteNavOpen: false,
-  locationModalOpen: false,
   timeTravelControlsOpen: false,
   timeTravelTime: null,
   timeSliderValue: 0
@@ -79,12 +79,13 @@ const navigationReducer = (state = initialState, action) => {
 
       return state.set('documentTitle', title || DEFAULT_DOCUMENT_TITLE);
     },
-    [EMIT_SITE_NAV_TOGGLE]() {
-      return state.set('siteNavOpen', action.siteNavOpen);
+
+    [EMIT_DEVICE_WIDTH_UPDATE]() {
+      return state.set('deviceWidth', document.body.clientWidth);
     },
 
-    [EMIT_LOCATION_MODAL_TOGGLE]() {
-      return state.set('locationModalOpen', action.locationModalOpen);
+    [EMIT_SITE_NAV_TOGGLE]() {
+      return state.set('siteNavOpen', action.siteNavOpen);
     },
 
     [EMIT_LOCATION_UPDATE]() {
