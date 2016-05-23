@@ -17,7 +17,7 @@ const fileNames = Object.keys(files);
 const writeFile = (fileName) => {
   console.log(colors.yellow(`Writing ${fileName}`));
 
-  writeFileSync(`./demo/${fileName}`, JSON.stringify(files[fileName], null, 2));
+  writeFileSync(`./environment/${fileName}`, JSON.stringify(files[fileName], null, 2));
 };
 
 let index = 0;

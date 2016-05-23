@@ -6,7 +6,7 @@ module.exports = {
         enableTemperature: false,
         enableStalls: false
       },
-      prodReservationsHost: null
+      prodReservationsHost: "http://localhost:8080"
     }
   },
   'devices.json': {
@@ -34,20 +34,20 @@ module.exports = {
   'coordinates.json': {
     coordinates: {
       'some room': {
-        height: 3,
-        width: 2.5,
-        x: 45.5,
+        height: 13,
+        width: 12.5,
+        x: 35.5,
         y: 26.6
       },
       'another room': {
-        height: 3,
-        width: 3,
+        height: 13,
+        width: 13,
         x: 48.3,
         y: 26.6
       },
       'broom closet': {
-        height: 3,
-        width: 2.5,
+        height: 9,
+        width: 7.8,
         x: 45.5,
         y: 69
       }
