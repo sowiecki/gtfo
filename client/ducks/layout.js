@@ -47,9 +47,9 @@ export const emitToggleDisplayTemp = (displayTemp) => ({
   displayTemp
 });
 
-export const emitToggleTempScale = (tempScale) => ({
+export const emitToggleTempScale = (unitOfTemp) => ({
   type: EMIT_TOGGLE_TEMP_SCALE,
-  tempScale
+  unitOfTemp
 });
 
 const initialState = immutable.fromJS({
@@ -59,7 +59,7 @@ const initialState = immutable.fromJS({
   displayLegend: true,
   displayTemp: true, // User UI option for toggling temperature display on map
   enableTemp: false, // Server variable that governs display of temperature UI elements
-  tempScale: FAHRENHEIT
+  unitOfTemp: FAHRENHEIT
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -69,7 +69,7 @@ const layoutReducer = (state = initialState, action) => {
 
       return state
         .set('enableTemp', enableTemperature || false)
-        .set('tempScale', defaultTempScale || FAHRENHEIT);
+        .set('unitOfTemp', defaultTempScale || FAHRENHEIT);
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {
@@ -109,9 +109,9 @@ const layoutReducer = (state = initialState, action) => {
     },
 
     [EMIT_TOGGLE_TEMP_SCALE]() {
-      const tempScale = action.tempScale === FAHRENHEIT ? CELCIUS : FAHRENHEIT;
+      const unitOfTemp = action.unitOfTemp === FAHRENHEIT ? CELCIUS : FAHRENHEIT;
 
-      return state.set('tempScale', tempScale);
+      return state.set('unitOfTemp', unitOfTemp);
     },
 
     [EMIT_MARKERS_UPDATE]() {

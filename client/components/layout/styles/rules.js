@@ -59,7 +59,7 @@ export const rules = {
     'text.marker-text': {
       fontSize: '12px',
       fontWeight: 'bold',
-      transform: 'translateY(-20px)'
+      transform: 'translateY(-16px)'
     },
 
     'svg.you-are-here > svg > path': {
@@ -70,50 +70,17 @@ export const rules = {
       opacity: 0.5
     },
 
-    'text.restroom-marker': {
-      position: 'absolute',
-      fontSize: '10px',
-      fill: colors.DARK_GREY
-    },
-
     '.map-legend': {
       position: 'absolute',
-      top: '-25px',
-      left: '-50px',
-      transform: 'scale(.25)',
+      top: 0,
+      bottom: '-220px',
+      left: 0,
+      width: '560px',
+      transform: 'scale(.2)',
       backgroundColor: colors.WHITE
     },
 
     mediaQueries: {
-      [breakpoints.afterExtraSmall]: {
-        [layoutSelectors]: {
-          top: '30px',
-          ...genWidthAndHeight(576)
-        },
-
-        'text.room-text, text.temperature-text': {
-          fontSize: '10px',
-          transform: `${svgLabelBaseTransform} translate(6px, -20px)`
-        },
-
-        'text.temperature-text': {
-          fontSize: '8px',
-          transform: `${svgLabelBaseTransform} translate(16px, -28px)`
-        },
-
-        'text.marker-text': {
-          transform: 'translateY(-4px)'
-        },
-
-        'text.restroom-marker': {
-          fontSize: '20px'
-        },
-
-        'svg.you-are-here > svg > path': {
-          transform: 'translateX(-4px) scale(1)'
-        }
-      },
-
       [breakpoints.afterSmall]: {
         [layoutSelectors]: {
           ...genWidthAndHeight(608)
@@ -124,19 +91,21 @@ export const rules = {
           transform: `${svgLabelBaseTransform} translate(8px, -18px)`
         },
 
-        'text.marker-text': {
-          fontSize: '18px',
-          transform: 'translateY(0)'
-        },
-
         'svg.you-are-here > svg > path': {
           transform: 'translateX(0)'
         },
 
+        'text.marker-text': {
+          fontSize: '24px',
+          transform: 'translateY(0)'
+        },
+
         '.map-legend': {
-          left: 'auto',
-          right: 0,
-          transform: 'scale(.35)'
+          position: 'absolute',
+          top: '560px',
+          bottom: '100px',
+          height: '360px',
+          transform: 'scale(.3)',
         }
       },
 
@@ -149,21 +118,22 @@ export const rules = {
           fontSize: '14px',
         },
 
+        'text.marker-text, text.restroom-marker': {
+          fontSize: '22px',
+          transform: 'translateY(6px)'
+        },
+
         'text.temperature-text': {
           fontSize: '12px',
           transform: `${svgLabelBaseTransform} translate(22px, -22px)`
         },
 
         '.map-legend': {
-          top: '25px',
-          left: '25px',
-          right: 'auto',
-          transform: 'scale(.5)'
-        },
-
-        'text.restroom-marker': {
-          fontSize: '30px',
-          transform: 'translateY(8px)'
+          position: 'absolute',
+          top: '50px',
+          bottom: '100px',
+          height: '360px',
+          transform: 'scale(.5)',
         }
       },
 
@@ -188,12 +158,22 @@ export const rules = {
           ...genWidthAndHeight(350)
         },
 
+        'text.room-text, text.temperature-text': {
+          fontSize: '7px',
+          transform: `${svgLabelBaseTransform} translate(4px, -22px)`
+        },
+
+        'text.temperature-text': {
+          fontSize: '6px',
+          transform: `${svgLabelBaseTransform} translate(8px, -34px)`
+        },
+
         '.map-legend': {
           position: 'absolute',
-          bottom: '-600px',
-          left: '-210px',
-          width: '566px',
-          transform: 'scale(.25)'
+          bottom: '-760px',
+          left: '-170px',
+          width: '560px',
+          transform: 'scale(.35)'
         }
       },
 
@@ -212,6 +192,12 @@ export const rules = {
           transform: `${svgLabelBaseTransform} translate(6px, -18px)`
         },
 
+        'text.temperature-text': {
+          fontSize: '12px',
+          opacity: 0.5,
+          transform: `${svgLabelBaseTransform} translate(16px, -26px)`
+        },
+
         'text.marker-text': {
           fontSize: '12px',
           fontWeight: 'bold',
@@ -225,9 +211,10 @@ export const rules = {
 
         '.map-legend': {
           zIndex: 0,
-          bottom: '-2250px',
-          left: '-80px',
-          transform: 'scale(.5)'
+          top: '720px',
+          bottom: 0,
+          left: '-120px',
+          transform: 'scale(.45)'
         }
       }
     }

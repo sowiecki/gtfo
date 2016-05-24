@@ -120,7 +120,7 @@ LayoutController.propTypes = {
   markers: PropTypes.array,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
-  tempScale: PropTypes.string.isRequired,
+  unitOfTemp: PropTypes.string.isRequired,
   params: PropTypes.shape({
     location: PropTypes.string
   }).isRequired,

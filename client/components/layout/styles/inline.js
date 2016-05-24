@@ -30,11 +30,6 @@ export const styles = {
     y: 0
   },
 
-  mapLegend: {
-    position: 'absolute',
-    top: 0
-  },
-
   mapLegendItem: {
     textAlign: 'left',
     fontSize: '40px'

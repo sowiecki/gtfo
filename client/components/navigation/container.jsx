@@ -37,7 +37,7 @@ const mapStateToProps = (state) => {
     displayLegend: layoutReducer.get('displayLegend'),
     displayTemp: layoutReducer.get('displayTemp'),
     enableTemp: layoutReducer.get('enableTemp'),
-    tempScale: layoutReducer.get('tempScale')
+    unitOfTemp: layoutReducer.get('unitOfTemp')
   };
 };
 

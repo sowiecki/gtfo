@@ -16,7 +16,7 @@ const DrawerContent = (props) => {
           displayLegend,
           displayTemp,
           enableTemp,
-          tempScale,
+          unitOfTemp,
           timeTravelControlsOpen } = props;
 
   const fullScreenParams = {
@@ -40,9 +40,9 @@ const DrawerContent = (props) => {
       primaryText='Toggle temperature display'/>,
     <ListItem
       key='toggle-temp-scale'
-      onClick={actions.emitToggleTempScale.bind(null, tempScale)}
+      onClick={actions.emitToggleTempScale.bind(null, unitOfTemp)}
       style={displayTemp ? null : styles.fadedIcon}
-      leftIcon={generateIcon(tempScale[0].toUpperCase(), styles.tempScaleNavIcon)}
+      leftIcon={generateIcon(unitOfTemp[0].toUpperCase(), styles.tempScaleNavIcon)}
       primaryText='Toggle fahrenheit/celcius'/>
   ];
 
@@ -88,7 +88,7 @@ DrawerContent.propTypes = {
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
   enableTemp: PropTypes.bool.isRequired,
-  tempScale: PropTypes.string.isRequired
+  unitOfTemp: PropTypes.string.isRequired
 };
 
 export default base(DrawerContent);

@@ -20,7 +20,7 @@ describe('<MeetingRoom/>', () => {
       width: 1
     },
     alert: VACANT,
-    tempScale: 'F',
+    unitOfTemp: 'F',
     displayTemp: false,
     pinged: null
   };

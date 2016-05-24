@@ -13,7 +13,7 @@ const Location = (props) => {
           markers,
           ping,
           displayTemp,
-          tempScale,
+          unitOfTemp,
           location,
           locationKey } = props;
 
@@ -26,7 +26,7 @@ const Location = (props) => {
       key={`${meetingRoom.name}-${index}`}
       pinged={ping && ping.id === meetingRoom.id}
       displayTemp={displayTemp}
-      tempScale={tempScale}
+      unitOfTemp={unitOfTemp}
       {...meetingRoom}/>
   );
 
@@ -64,7 +64,7 @@ Location.propTypes = {
   location: PropTypes.object.isRequired,
   locationKey: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool.isRequired,
-  tempScale: PropTypes.string.isRequired
+  unitOfTemp: PropTypes.string.isRequired
 };
 
 export default Location;

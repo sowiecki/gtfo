@@ -18,7 +18,7 @@ const MeetingRoom = (props) => {
           coordinates,
           alert,
           thermo,
-          tempScale,
+          unitOfTemp,
           displayTemp,
           pinged } = props;
 
@@ -32,7 +32,7 @@ const MeetingRoom = (props) => {
   const temperature = displayTemp ? (
     <Temperature
       thermo={thermo}
-      tempScale={tempScale}
+      unitOfTemp={unitOfTemp}
       coordinates={coordinates}/>
   ) : null;
 
@@ -73,7 +73,7 @@ MeetingRoom.propTypes = {
   }).isRequired,
   alert: PropTypes.string,
   thermo: PropTypes.object,
-  tempScale: PropTypes.string.isRequired,
+  unitOfTemp: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool,
   pinged: PropTypes.bool
 };

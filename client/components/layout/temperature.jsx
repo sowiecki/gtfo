@@ -7,15 +7,16 @@ import { FAHRENHEIT } from '../../constants';
 
 const Temperature = (props) => {
   const { thermo,
-          tempScale,
+          unitOfTemp,
           coordinates } = props;
 
   if (!thermo) {
-    return <text/>;
+    return null;
   }
 
-  const isFarenheit = tempScale === FAHRENHEIT;
+  const isFarenheit = unitOfTemp === FAHRENHEIT;
   const temperature = isFarenheit ? thermo.F : thermo.C;
+  const unitOfTempSuffix = isFarenheit ? '°F' : '°C';
 
   return (
       <text
@@ -23,7 +24,7 @@ const Temperature = (props) => {
         dx={ROOM_TEMPERATURE_TEXT_DX}
         dy={ROOM_TEMPERATURE_TEXT_DY}
         {...parseShape(coordinates)}>
-      {`${Math.floor(temperature)} °${tempScale === FAHRENHEIT ? 'F' : 'C'}`}
+          {Math.floor(temperature)} {unitOfTempSuffix}
       </text>
   );
 };
@@ -31,7 +32,7 @@ const Temperature = (props) => {
 Temperature.propTypes = {
   coordinates: PropTypes.object.isRequired,
   thermo: PropTypes.object,
-  tempScale: PropTypes.string.isRequired
+  unitOfTemp: PropTypes.string.isRequired
 };
 
 export default applyStyles(Temperature);
