@@ -1,5 +1,6 @@
 /* eslint no-magic-numbers:0 */
 import { colors, fonts, breakpoints, devices } from '../../common/styles';
+import { genWidthAndHeight } from '../../../utils';
 
 const layoutSelectors = [
   'image.office-background',
@@ -8,16 +9,6 @@ const layoutSelectors = [
 ].join(', ');
 
 const svgLabelBaseTransform = 'rotate(45deg)';
-
-/**
- * Generates relative width and height CSS parameters.
- * @param {integer} width - Width value
- * @returns {object} Object with width and relative height properties.
- */
-const genWidthAndHeight = (width) => ({
-  height: `${width * 1.152}px`,
-  width
-});
 
 export const rules = {
   officeLayout: {
@@ -59,7 +50,11 @@ export const rules = {
     'text.marker-text': {
       fontSize: '12px',
       fontWeight: 'bold',
-      transform: 'translateY(-16px)'
+      transform: 'translateY(-24px)'
+    },
+
+    'text.restroom-marker': {
+      transform: 'translateY(-20px)'
     },
 
     'svg.you-are-here > svg > path': {
@@ -72,10 +67,9 @@ export const rules = {
 
     '.map-legend': {
       position: 'absolute',
-      top: 0,
-      bottom: '-220px',
-      left: 0,
+      bottom: '-120px',
       width: '560px',
+      margin: 'auto',
       transform: 'scale(.2)'
     },
 
@@ -85,7 +79,12 @@ export const rules = {
 
     mediaQueries: {
       [breakpoints.afterSmall]: {
+        /**
+         * NOTE some of these settings tend to be overriden
+         * by the portrait and iphone breakpoints below.
+         */
         [layoutSelectors]: {
+          top: '50px',
           ...genWidthAndHeight(608)
         },
 
@@ -104,11 +103,11 @@ export const rules = {
         },
 
         '.map-legend': {
-          position: 'absolute',
-          top: '560px',
-          bottom: '100px',
-          height: '360px',
-          transform: 'scale(.3)',
+          top: '-65px',
+          bottom: 'auto',
+          left: 0,
+          right: '400px',
+          transform: 'scale(.35)'
         }
       },
 
@@ -132,11 +131,7 @@ export const rules = {
         },
 
         '.map-legend': {
-          position: 'absolute',
-          top: '50px',
-          bottom: '100px',
-          height: '360px',
-          transform: 'scale(.5)',
+          top: '-60px'
         }
       },
 
@@ -156,13 +151,13 @@ export const rules = {
         }
       },
 
-      [`${devices.iphone}, ${breakpoints.portrait}`]: {
+      [devices.iphone5]: {
         [layoutSelectors]: {
-          ...genWidthAndHeight(350)
+          ...genWidthAndHeight(300)
         },
 
         'text.room-text, text.temperature-text': {
-          fontSize: '7px',
+          fontSize: '6px',
           transform: `${svgLabelBaseTransform} translate(4px, -22px)`
         },
 
@@ -172,11 +167,7 @@ export const rules = {
         },
 
         '.map-legend': {
-          position: 'absolute',
-          bottom: '-600px',
-          left: '-210px',
-          width: '560px',
-          transform: 'scale(.23)'
+          left: '-200px'
         }
       },
 
@@ -213,7 +204,6 @@ export const rules = {
         },
 
         '.map-legend': {
-          zIndex: 0,
           top: '720px',
           bottom: 0,
           left: '-120px',

@@ -25,6 +25,7 @@ const LocationModal = (props) => {
 
   return locations ? (
     <SelectField
+      className='mobile-location-selection-label'
       labelStyle={styles.mobileLocationSelectionLabel}
       underlineStyle={styles.mobileLocationSelectionUnderline}
       value={locations.indexOf(params.location)}
