@@ -76,8 +76,11 @@ export const rules = {
       bottom: '-220px',
       left: 0,
       width: '560px',
-      transform: 'scale(.2)',
-      backgroundColor: colors.WHITE
+      transform: 'scale(.2)'
+    },
+
+    '.map-legend > div > div': {
+      textShadow: `1px 1px 0 ${colors.WHITE}`
     },
 
     mediaQueries: {
@@ -170,10 +173,10 @@ export const rules = {
 
         '.map-legend': {
           position: 'absolute',
-          bottom: '-760px',
-          left: '-170px',
+          bottom: '-600px',
+          left: '-210px',
           width: '560px',
-          transform: 'scale(.35)'
+          transform: 'scale(.23)'
         }
       },
 
