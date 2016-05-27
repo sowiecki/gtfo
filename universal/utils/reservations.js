@@ -11,7 +11,7 @@ import { filter } from 'lodash';
  * @param {moment} [explicitTime] - Time to filter before.
  * @return {array} Unexpired meeting room reservations.
  */
-export const filterExpiredReservations = (reservations, explicitTime = Date.now()) => (
+export const filterExpiredReservations = (reservations, explicitTime = moment()) => (
   filter(reservations, (reservation) => {
     const reservationNotExpired = !moment(reservation.endDate).isBefore(explicitTime);
 

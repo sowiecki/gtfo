@@ -14,16 +14,18 @@ import {
 /**
  * Gets alert based on reservation times.
  * Assumes no reservation if start and end times are in the past!
- * @param {array} reservations Array of reservation objects.
+ * @param {array} reservations - Array of reservation objects.
+ * @param {moment} recentMotion - Most recent time motion was detected.
+ * @param {moment} now - Time to calculate alert on.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], recentMotion, time = Date.now()) => {
-  const now = moment(time);
+export const getRoomAlert = (reservations = [], recentMotion, time) => {
+  const now = () => time || moment();
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
   const hasRecentMotion = recentMotion ?
-    recentMotion.isAfter(now.subtract(5, 'seconds')) : false;
+    recentMotion.isAfter(now().subtract(5, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -32,10 +34,10 @@ export const getRoomAlert = (reservations = [], recentMotion, time = Date.now())
   }
 
   // Advanced reservation conditions
-  const minutesFromNow = (minutes) => moment().add(minutes, 'minutes').toISOString();
+  const minutesFromNow = (minutes) => now().add(minutes, 'minutes').toISOString();
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved = now.isBetween(firstMeeting.startDate, firstMeeting.endDate);
+  const currentlyReserved = now().isBetween(firstMeeting.startDate, firstMeeting.endDate);
 
   const nextMeetingStartingIn = (minutes) => {
     if (!secondMeeting) {
@@ -58,6 +60,8 @@ export const getRoomAlert = (reservations = [], recentMotion, time = Date.now())
   } else if (currentlyReserved) {
     return BOOKED;
   }
+
+  return VACANT;
 };
 
 /**
