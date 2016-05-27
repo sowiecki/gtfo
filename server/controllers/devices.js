@@ -43,6 +43,10 @@ const devicesController = {
     const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
     fetchRoomReservations();
 
+    if (process.env.DISABLE_DEVICES) {
+      return;
+    }
+
     devicesController.getRooms().map((room) => {
       const board = registerBoard(room);
 

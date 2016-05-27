@@ -112,7 +112,6 @@ const socketController = {
 
       [TIME_TRAVEL_UPDATE]() {
         const { rooms } = store.getState().roomsReducer.toJS();
-
         const newPayload = payload ? getFutureAlerts(rooms, moment(payload, TIME_FORMAT)) : rooms;
 
         socketController.send(event, newPayload, client);
