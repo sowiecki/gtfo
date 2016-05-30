@@ -91,6 +91,8 @@
     "app-module-path": "^1.0.5",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.0.2",
+    "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.2.7",
     "babel-preset-react-hmre": "^1.1.0",
     "coveralls": "^2.11.9",
     "enzyme": "^2.2.0",

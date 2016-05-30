@@ -4,6 +4,12 @@
     "transform-object-rest-spread"
   ],
   "env": {
+    "production": {
+      "plugins": [
+        "transform-react-remove-prop-types",
+        "transform-react-constant-elements"
+      ]
+    },
     "development": {
       "presets": ["react-hmre"],
       "plugins": [
