@@ -16,9 +16,14 @@ module.exports = {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      },
       compressor: {
         warnings: false
       }
-    })
-  ]
+    }),
+    new webpack.optimize.DedupePlugin()
+  ],
+  devtool: 'cheap-module-source-map'
 };
