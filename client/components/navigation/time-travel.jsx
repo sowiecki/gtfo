@@ -9,11 +9,10 @@ import FontIcon from 'material-ui/FontIcon';
 
 import TimeSlider from './time-slider';
 import { styles } from './styles';
-import { MAX_TIME, TIME_FORMAT } from '../../constants';
+import { TIME_FORMAT } from '../../constants';
 
 const TimeTravel = (props) => {
   const { timeTravelTime,
-          actions,
           timeTravelControlsOpen,
           onTimeTravelDismissClick } = props;
 

@@ -12,7 +12,6 @@ const DrawerContent = (props) => {
   const { onViewFutureAvailabilitiesClick,
           onOpenFullscreenClick,
           siteNavOpen,
-          location,
           actions,
           displayLegend,
           displayTemp,
@@ -73,7 +72,6 @@ DrawerContent.propTypes = {
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitToggleTempScale: PropTypes.func.isRequired
   }).isRequired,
-  location: PropTypes.object,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
   enableTemp: PropTypes.bool.isRequired,

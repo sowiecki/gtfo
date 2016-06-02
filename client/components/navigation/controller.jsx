@@ -36,6 +36,8 @@ class NavigationController extends Component {
         ...location.query
       }
     };
+
+    // Grouped action props.
     const onViewFutureAvailabilitiesClick = () => {
       actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
       actions.emitToggleSiteNav(false);
@@ -46,11 +48,14 @@ class NavigationController extends Component {
       actions.emitTimeTravelUpdate(null);
       actions.emitTimeSliderValueUpdate(0);
     };
+    const onSelectFieldChange = () => {};
 
     return !locations ? null : (
       <div>
         <Style rules={rules.navigation}/>
-        <Header {...this.props}/>
+        <Header
+          onSelectFieldChange={onSelectFieldChange}
+          {...this.props}/>
         <Drawer
           open={siteNavOpen}
           onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
@@ -76,10 +81,10 @@ NavigationController.propTypes = {
   timeTravelTime: PropTypes.string,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
+    emitDeviceWidthUpdate: PropTypes.func.isRequired,
     emitTimeTravelUpdate: PropTypes.func.isRequired,
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitTimeSliderValueUpdate: PropTypes.func.isRequired,
-    emitToggleSiteNav: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,

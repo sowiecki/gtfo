@@ -30,9 +30,11 @@ const TimeSlider = ({ actions, timeSliderValue }) => {
       </span>
     </div>
   ) : (
-    <span style={styles.timeUnavailable}>
-      Sorry, there are no future availabilities to check. Please try again tomorrow.
-    </span>
+    <div style={styles.timeUnavailable}>
+      This feature is not available after {MAX_TIME}.
+      <br/>
+      Please try again tomorrow.
+    </div>
   );
 };
 

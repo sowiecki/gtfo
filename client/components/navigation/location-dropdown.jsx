@@ -8,7 +8,8 @@ import { formatForDisplay } from '../../utils';
 import { base } from '../../config/composition';
 
 const LocationModal = (props) => {
-  const { actions,
+  const { onSelectFieldChange,
+          actions,
           params,
           locations,
           location } = props;
@@ -29,7 +30,7 @@ const LocationModal = (props) => {
       labelStyle={styles.mobileLocationSelectionLabel}
       underlineStyle={styles.mobileLocationSelectionUnderline}
       value={locations.indexOf(params.location)}
-      onChange={() => {}}>
+      onChange={onSelectFieldChange}>
         {locations.map(renderLocationSelection)}
     </SelectField>
   ) : (
@@ -40,6 +41,7 @@ const LocationModal = (props) => {
 };
 
 LocationModal.propTypes = {
+  onSelectFieldChange: PropTypes.func.isRequired,
   actions: PropTypes.shape({
     emitLocationIndexUpdate: PropTypes.func.isRequired
   }).isRequired,

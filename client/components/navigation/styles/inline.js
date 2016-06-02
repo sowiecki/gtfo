@@ -91,6 +91,8 @@ export const styles = {
   },
 
   timeUnavailable: {
+    font: `12px ${fonts.secondary}, sans-serif`,
+    lineHeight: 1.25,
     color: colors.WHITE
   },
 
