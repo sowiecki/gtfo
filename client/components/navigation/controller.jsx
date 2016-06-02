@@ -41,6 +41,11 @@ class NavigationController extends Component {
       actions.emitToggleSiteNav(false);
     };
     const onOpenFullscreenClick = () => history.push(fullScreenParams);
+    const onTimeTravelDismissClick = () => {
+      actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
+      actions.emitTimeTravelUpdate(null);
+      actions.emitTimeSliderValueUpdate(0);
+    };
 
     return !locations ? null : (
       <div>
@@ -56,7 +61,9 @@ class NavigationController extends Component {
               onOpenFullscreenClick={onOpenFullscreenClick}
               {...this.props}/>
         </Drawer>
-        <TimeTravel {...this.props}/>
+        <TimeTravel
+          onTimeTravelDismissClick={onTimeTravelDismissClick}
+          {...this.props}/>
       </div>
     );
   }
@@ -69,7 +76,9 @@ NavigationController.propTypes = {
   timeTravelTime: PropTypes.string,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
+    emitTimeTravelUpdate: PropTypes.func.isRequired,
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
+    emitTimeSliderValueUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitLocationUpdate: PropTypes.func.isRequired,
