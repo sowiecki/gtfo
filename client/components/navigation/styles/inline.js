@@ -90,6 +90,12 @@ export const styles = {
     color: colors.WHITE
   },
 
+  timeUnavailable: {
+    font: `12px ${fonts.secondary}, sans-serif`,
+    lineHeight: 1.25,
+    color: colors.WHITE
+  },
+
   timeSlider: {
     margin: '0 auto',
     position: 'relative',
@@ -105,7 +111,8 @@ export const styles = {
     fontSize: '12px',
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
+    color: colors.WHITE
   }
 };
 

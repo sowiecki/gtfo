@@ -5,27 +5,18 @@ import Divider from 'material-ui/Divider';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 
-import history from '../../config/history';
 import { base } from '../../config/composition';
 import { styles } from './styles';
 
 const DrawerContent = (props) => {
-  const { siteNavOpen,
-          location,
+  const { onViewFutureAvailabilitiesClick,
+          onOpenFullscreenClick,
+          siteNavOpen,
           actions,
           displayLegend,
           displayTemp,
           enableTemp,
-          unitOfTemp,
-          timeTravelControlsOpen } = props;
-
-  const fullScreenParams = {
-    pathname: location.pathname,
-    query: {
-      fullscreen: true,
-      ...location.query
-    }
-  };
+          unitOfTemp } = props;
 
   const generateIcon = (icon, style) => (
     <FontIcon className='material-icons' style={style}>{icon}</FontIcon>
@@ -49,10 +40,7 @@ const DrawerContent = (props) => {
   return (
     <List>
       <ListItem
-        onClick={() => {
-          actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
-          actions.emitToggleSiteNav(false);
-        }}
+        onClick={onViewFutureAvailabilitiesClick}
         leftIcon={generateIcon('schedule', styles.navIcons)}
         primaryText='View future availabilities'/>
       <Divider/>
@@ -63,7 +51,7 @@ const DrawerContent = (props) => {
         primaryText='Toggle map legend'/>
       {enableTemp ? temperatureOptions : null}
       <ListItem
-        onClick={() => history.push(fullScreenParams)}
+        onClick={onOpenFullscreenClick}
         leftIcon={generateIcon('fullscreen', styles.navIcons)}
         primaryText='Open fullscreen'/>
       <Divider/>
@@ -76,15 +64,14 @@ const DrawerContent = (props) => {
 };
 
 DrawerContent.propTypes = {
+  onViewFutureAvailabilitiesClick: PropTypes.func.isRequired,
+  onOpenFullscreenClick: PropTypes.func.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
-  timeTravelControlsOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
-    emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitToggleTempScale: PropTypes.func.isRequired
   }).isRequired,
-  location: PropTypes.object,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
   enableTemp: PropTypes.bool.isRequired,
