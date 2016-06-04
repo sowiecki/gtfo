@@ -1,6 +1,5 @@
 /* globals __dirname */
 const webpack = require('webpack');
-const merge = require('lodash/merge');
 
 const base = require('./webpack.config');
 
@@ -25,11 +24,7 @@ module.exports = {
       }
     ]
   },
-  resolve: merge(base.resolve, {
-    alias: {
-      sinon: 'sinon/pkg/sinon'
-    }
-  }),
+  resolve: base.resolve,
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('test'),

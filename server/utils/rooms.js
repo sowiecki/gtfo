@@ -19,13 +19,13 @@ import {
  * @param {moment} now - Time to calculate alert on.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], recentMotion, time) => {
-  const now = () => time || moment();
+export const getRoomAlert = (reservations = [], recentMotion, time = moment()) => {
+  const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
   const hasRecentMotion = recentMotion ?
-    recentMotion.isAfter(now().subtract(5, 'seconds')) : false;
+    recentMotion.isAfter(getTime().subtract(5, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -34,10 +34,11 @@ export const getRoomAlert = (reservations = [], recentMotion, time) => {
   }
 
   // Advanced reservation conditions
-  const minutesFromNow = (minutes) => now().add(minutes, 'minutes').toISOString();
+  const minutesFromNow = (minutes) => getTime().add(minutes, 'minutes');
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved = now().isBetween(firstMeeting.startDate, firstMeeting.endDate);
+  const currentlyReserved =
+    time.isBetween(firstMeeting.startDate, firstMeeting.endDate, null, '[]');
 
   const nextMeetingStartingIn = (minutes) => {
     if (!secondMeeting) {
@@ -46,7 +47,7 @@ export const getRoomAlert = (reservations = [], recentMotion, time) => {
 
     const nextMeeting = !currentlyReserved ? firstMeeting : secondMeeting;
 
-    return moment(nextMeeting.startDate).isSameOrBefore(minutesFromNow(minutes));
+    return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '(]');
   };
 
   if (currentlyVacant && hasRecentMotion) {
@@ -96,7 +97,7 @@ export const secureRooms = (rooms) => [].concat(rooms).map(secureRoom);
 /**
  * Determines future reservations based on provided time.
  * @param {array} rooms
- * @param {object} time - Date object.
+ * @param {object} time - Moment object.
  * @returns {array} Meeting rooms as they would be in future time.
  */
 export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
