@@ -20,11 +20,12 @@ import {
  * @returns {string} Room reservation alert.
  */
 export const getRoomAlert = (reservations = [], recentMotion, time = moment()) => {
+  const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
   const hasRecentMotion = recentMotion ?
-    recentMotion.isAfter(moment(time).subtract(5, 'seconds')) : false;
+    recentMotion.isAfter(getTime().subtract(5, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -33,7 +34,7 @@ export const getRoomAlert = (reservations = [], recentMotion, time = moment()) =
   }
 
   // Advanced reservation conditions
-  const minutesFromNow = (minutes) => moment(time).add(minutes, 'minutes');
+  const minutesFromNow = (minutes) => getTime().add(minutes, 'minutes');
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
   const currentlyReserved =
@@ -46,7 +47,7 @@ export const getRoomAlert = (reservations = [], recentMotion, time = moment()) =
 
     const nextMeeting = !currentlyReserved ? firstMeeting : secondMeeting;
 
-    return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '[]');
+    return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '(]');
   };
 
   if (currentlyVacant && hasRecentMotion) {

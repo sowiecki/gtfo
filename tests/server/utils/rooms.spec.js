@@ -49,6 +49,14 @@ describe('Room utilities (server)', () => {
    */
   const mockReservations = () => filterExpiredReservations(baseMockReservations);
 
+  beforeEach(() => {
+    sinon.useFakeTimers().restore();
+  });
+
+  afterEach(() => {
+    sinon.useFakeTimers().restore();
+  });
+
   describe('getRoomAlert', () => {
     const vacantTimes = [
       'Tuesday, March 8, 2016 8:30 AM CST',
@@ -97,14 +105,6 @@ describe('Room utilities (server)', () => {
 
     const hasActiveMotion = moment();
     const hasNoActiveMotion = false;
-
-    beforeEach(() => {
-      sinon.useFakeTimers().restore();
-    });
-
-    afterEach(() => {
-      sinon.useFakeTimers().restore();
-    });
 
     it('should correctly determine squatting', () => {
       vacantTimes.forEach((vacantTime) => {
@@ -201,7 +201,7 @@ describe('Room utilities (server)', () => {
 
   describe('getFutureAlerts', () => {
     it('should return meeting rooms as they would be for the given future time parameter', () => {
-      clock('Tuesday, March 8, 2016 8:59 AM CST');
+      clock('Tuesday, March 8, 2016 8:00 AM CST');
 
       const mockRooms = [
         {
@@ -210,25 +210,27 @@ describe('Room utilities (server)', () => {
         },
         {
           name: 'Twin Pines Mall',
-          reservations: mockReservations()
+          reservations: baseMockReservations
         }
       ];
 
       const futureTimes = [
-        { '9:10AM': BOOKED },
-        { '10:00AM': BOOKED },
-        { '10:25AM': FIVE_MINUTE_WARNING },
-        { '10:26AM': FIVE_MINUTE_WARNING },
-        { '10:27AM': FIVE_MINUTE_WARNING },
-        { '10:28AM': FIVE_MINUTE_WARNING },
-        { '10:29AM': ONE_MINUTE_WARNING }
+        { [moment('2016-03-08T15:10:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:10:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:25:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:26:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:27:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:28:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:29:00.000Z')]: ONE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:30:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:31:00.000Z')]: BOOKED }
       ];
 
       expect(getFutureAlerts(mockRooms)[0].alert, moment('8:00PM', TIME_FORMAT)).toEqual(VACANT);
 
       futureTimes.forEach((futureTimePairs) => {
         const key = Object.keys(futureTimePairs)[0];
-        const time = moment(key, TIME_FORMAT);
+        const time = moment(key, 'LLLL');
         const expected = futureTimePairs[key];
 
         expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
