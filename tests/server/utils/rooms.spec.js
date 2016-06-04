@@ -15,6 +15,7 @@ import { SQUATTED,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
          BOOKED } from 'server/constants';
+import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
   const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
@@ -38,17 +39,17 @@ describe('Room utilities (server)', () => {
     }
   ];
 
-  describe('getRoomAlert', () => {
-    /**
-     * NOTE `getRoomAlert` assumes that none of the provided reservations contain
-     * both a startDate and an endDate in the past. Mock reservations must be
-     * manipulated to remove expired reservations.
-     *
-     * These reservations must wrapped in a function and only invoked once sinon
-     * has mocked the system time appropriately for testing.
-     */
-    const mockReservations = () => filterExpiredReservations(baseMockReservations);
+  /**
+   * NOTE `getRoomAlert` assumes that none of the provided reservations contain
+   * both a startDate and an endDate in the past. Mock reservations must be
+   * manipulated to remove expired reservations.
+   *
+   * These reservations must wrapped in a function and only invoked once sinon
+   * has mocked the system time appropriately for testing.
+   */
+  const mockReservations = () => filterExpiredReservations(baseMockReservations);
 
+  describe('getRoomAlert', () => {
     const vacantTimes = [
       'Tuesday, March 8, 2016 8:30 AM CST',
       'Tuesday, March 8, 2016 8:31 AM CST',
@@ -199,22 +200,40 @@ describe('Room utilities (server)', () => {
   });
 
   describe('getFutureAlerts', () => {
-    const mockRooms = [
-      {
-        name: 'Hill Valley',
-        reservations: []
-      },
-      {
-        name: 'Twin Pines Mall',
-        reservations: baseMockReservations
-      }
-    ];
-
     it('should return meeting rooms as they would be for the given future time parameter', () => {
       clock('Tuesday, March 8, 2016 8:59 AM CST');
 
-      expect(getFutureAlerts(mockRooms)[0].alert).toEqual(VACANT);
-      expect(getFutureAlerts(mockRooms)[1].alert).toEqual(ONE_MINUTE_WARNING);
+      const mockRooms = [
+        {
+          name: 'Hill Valley',
+          reservations: []
+        },
+        {
+          name: 'Twin Pines Mall',
+          reservations: mockReservations()
+        }
+      ];
+
+      const futureTimes = [
+        { '9:10AM': BOOKED },
+        { '10:00AM': BOOKED },
+        { '10:25AM': FIVE_MINUTE_WARNING },
+        { '10:26AM': FIVE_MINUTE_WARNING },
+        { '10:27AM': FIVE_MINUTE_WARNING },
+        { '10:28AM': FIVE_MINUTE_WARNING },
+        { '10:29AM': ONE_MINUTE_WARNING }
+      ];
+
+      expect(getFutureAlerts(mockRooms)[0].alert, moment('8:00PM', TIME_FORMAT)).toEqual(VACANT);
+
+      futureTimes.forEach((futureTimePairs) => {
+        const key = Object.keys(futureTimePairs)[0];
+        const time = moment(key, TIME_FORMAT);
+        const expected = futureTimePairs[key];
+
+        expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
+        expect(getFutureAlerts(mockRooms, time)[1].alert).toEqual(expected);
+      });
     });
   });
 });
