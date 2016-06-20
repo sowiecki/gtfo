@@ -15,6 +15,7 @@ import { SQUATTED,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
          BOOKED } from 'server/constants';
+import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
   const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
@@ -38,17 +39,25 @@ describe('Room utilities (server)', () => {
     }
   ];
 
-  describe('getRoomAlert', () => {
-    /**
-     * NOTE `getRoomAlert` assumes that none of the provided reservations contain
-     * both a startDate and an endDate in the past. Mock reservations must be
-     * manipulated to remove expired reservations.
-     *
-     * These reservations must wrapped in a function and only invoked once sinon
-     * has mocked the system time appropriately for testing.
-     */
-    const mockReservations = () => filterExpiredReservations(baseMockReservations);
+  /**
+   * NOTE `getRoomAlert` assumes that none of the provided reservations contain
+   * both a startDate and an endDate in the past. Mock reservations must be
+   * manipulated to remove expired reservations.
+   *
+   * These reservations must wrapped in a function and only invoked once sinon
+   * has mocked the system time appropriately for testing.
+   */
+  const mockReservations = () => filterExpiredReservations(baseMockReservations);
 
+  beforeEach(() => {
+    sinon.useFakeTimers().restore();
+  });
+
+  afterEach(() => {
+    sinon.useFakeTimers().restore();
+  });
+
+  describe('getRoomAlert', () => {
     const vacantTimes = [
       'Tuesday, March 8, 2016 8:30 AM CST',
       'Tuesday, March 8, 2016 8:31 AM CST',
@@ -96,14 +105,6 @@ describe('Room utilities (server)', () => {
 
     const hasActiveMotion = moment();
     const hasNoActiveMotion = false;
-
-    beforeEach(() => {
-      sinon.useFakeTimers().restore();
-    });
-
-    afterEach(() => {
-      sinon.useFakeTimers().restore();
-    });
 
     it('should correctly determine squatting', () => {
       vacantTimes.forEach((vacantTime) => {
@@ -199,22 +200,42 @@ describe('Room utilities (server)', () => {
   });
 
   describe('getFutureAlerts', () => {
-    const mockRooms = [
-      {
-        name: 'Hill Valley',
-        reservations: []
-      },
-      {
-        name: 'Twin Pines Mall',
-        reservations: baseMockReservations
-      }
-    ];
-
     it('should return meeting rooms as they would be for the given future time parameter', () => {
-      clock('Tuesday, March 8, 2016 8:59 AM CST');
+      clock('Tuesday, March 8, 2016 8:00 AM CST');
 
-      expect(getFutureAlerts(mockRooms)[0].alert).toEqual(VACANT);
-      expect(getFutureAlerts(mockRooms)[1].alert).toEqual(ONE_MINUTE_WARNING);
+      const mockRooms = [
+        {
+          name: 'Hill Valley',
+          reservations: []
+        },
+        {
+          name: 'Twin Pines Mall',
+          reservations: baseMockReservations
+        }
+      ];
+
+      const futureTimes = [
+        { [moment('2016-03-08T15:10:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:10:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:25:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:26:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:27:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:28:00.000Z')]: FIVE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:29:00.000Z')]: ONE_MINUTE_WARNING },
+        { [moment('2016-03-08T16:30:00.000Z')]: BOOKED },
+        { [moment('2016-03-08T16:31:00.000Z')]: BOOKED }
+      ];
+
+      expect(getFutureAlerts(mockRooms)[0].alert, moment('8:00PM', TIME_FORMAT)).toEqual(VACANT);
+
+      futureTimes.forEach((futureTimePairs) => {
+        const key = Object.keys(futureTimePairs)[0];
+        const time = moment(key, 'LLLL');
+        const expected = futureTimePairs[key];
+
+        expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
+        expect(getFutureAlerts(mockRooms, time)[1].alert).toEqual(expected);
+      });
     });
   });
 });
