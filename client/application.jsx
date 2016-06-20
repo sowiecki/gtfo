@@ -11,8 +11,8 @@ import store from './store';
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';
 
-require('velocity-animate');
-require('velocity-animate/velocity.ui');
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 
 injectTapEventPlugin();
 
