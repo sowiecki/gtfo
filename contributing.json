@@ -11,7 +11,7 @@
     "subject_must_not_end_with_dot": true,
     "subject_must_include_prefix": {
       "prefixes": ["feature", "fix", "docs", "refactor", "other"],
-      "require_after_prefix": "(*): "
+      "require_after_prefix": "(*)/"
     },
     "body_lines_must_be_shorter_than": 73
   },
