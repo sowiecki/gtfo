@@ -1,6 +1,6 @@
 {
   "name": "gtfo",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Gently Tell Folks Out of meeting rooms - remote unit control",
   "repository": {
     "type": "git",
