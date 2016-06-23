@@ -9,8 +9,6 @@
 [![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo)
 [![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies)
 
-*This project is still in early development!*
-
 ## Gently Tell Folks Out (of meeting rooms)
 Push reservation status notifications to meeting rooms! And do other things...
 
