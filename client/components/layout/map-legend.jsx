@@ -15,7 +15,11 @@ const MapLegend = ({ showYouAreHere, enabled }) => {
   }
 
   const placeIcon = (
-    <Avatar color={styles.placeMarker.fill} icon={<Place/>}/>
+    <Avatar
+      className='map-legend-icon'
+      style={styles.mapLegendIcon}
+      color={styles.placeMarker.fill}
+      icon={<Place/>}/>
   );
 
   const youAreHereListItem = showYouAreHere ? (
@@ -25,49 +29,54 @@ const MapLegend = ({ showYouAreHere, enabled }) => {
   ) : null;
 
   const getIcon = (style) => (
-    <Avatar backgroundColor={style}/>
+    <Avatar
+      className='map-legend-icon'
+      style={styles.mapLegendIcon}
+      backgroundColor={style}/>
   );
 
   return (
-    <List className='map-legend' style={styles.mapLegend}>
-      {youAreHereListItem}
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.OFFLINE)}>
-          Offline
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
-          Booked
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
-          Occupied, no reservation
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.VACANT)}>
-          Vacant
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)}>
-          Five minute warning
-      </ListItem>
-      <ListItem
-        style={styles.mapLegendItem}
-        disabled={true}
-        leftAvatar={getIcon(STATUS_COLORS.ONE_MINUTE_WARNING)}>
-          One minute warning
-      </ListItem>
-    </List>
+    <div className='map-legend-container' style={styles.mapLegendContainer}>
+      <List className='map-legend' style={styles.mapLegend}>
+        {youAreHereListItem}
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.OFFLINE)}>
+            Offline
+        </ListItem>
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
+            Booked
+        </ListItem>
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
+            Occupied, no reservation
+        </ListItem>
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.VACANT)}>
+            Vacant
+        </ListItem>
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)}>
+            Five minute warning
+        </ListItem>
+        <ListItem
+          style={styles.mapLegendItem}
+          disabled={true}
+          leftAvatar={getIcon(STATUS_COLORS.ONE_MINUTE_WARNING)}>
+            One minute warning
+        </ListItem>
+      </List>
+    </div>
   );
 };
 

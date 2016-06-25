@@ -65,12 +65,21 @@ export const rules = {
       opacity: 0.5
     },
 
+    '.map-legend-container': {
+      bottom: '10px'
+    },
+
     '.map-legend': {
-      position: 'absolute',
-      bottom: '-120px',
-      width: '560px',
-      margin: 'auto',
-      transform: 'scale(.2)'
+      margin: '0 auto 0 30%',
+      zoom: 0.5,
+      width: '280px',
+      backgroundColor: colors.WHITE,
+      border: `1px solid ${colors.GREY}`,
+      boxShadow: `${colors.GREY} 0px 3px 10px, ${colors.GREY} 0px 3px 10px`
+    },
+
+    '.map-legend-icon': {
+      transform: 'scale(.35)'
     },
 
     '.map-legend > div > div': {
@@ -102,12 +111,14 @@ export const rules = {
           transform: 'translateY(0)'
         },
 
+        '.map-legend-container': {
+          top: '52px',
+          left: '30%',
+          bottom: 'auto'
+        },
+
         '.map-legend': {
-          top: '-65px',
-          bottom: 'auto',
-          left: 0,
-          right: '400px',
-          transform: 'scale(.35)'
+          margin: '0 auto 0 30%'
         }
       },
 
@@ -128,10 +139,6 @@ export const rules = {
         'text.temperature-text': {
           fontSize: '12px',
           transform: `${svgLabelBaseTransform} translate(22px, -22px)`
-        },
-
-        '.map-legend': {
-          top: '-60px'
         }
       },
 
@@ -164,10 +171,6 @@ export const rules = {
         'text.temperature-text': {
           fontSize: '6px',
           transform: `${svgLabelBaseTransform} translate(8px, -34px)`
-        },
-
-        '.map-legend': {
-          left: '-200px'
         }
       },
 
@@ -201,13 +204,6 @@ export const rules = {
         'text.restroom-marker': {
           fontSize: '22px',
           transform: 'translateY(-8px)'
-        },
-
-        '.map-legend': {
-          top: '720px',
-          bottom: 0,
-          left: '-120px',
-          transform: 'scale(.45)'
         }
       }
     }

@@ -30,9 +30,20 @@ export const styles = {
     y: 0
   },
 
+  mapLegendContainer: {
+    position: 'absolute',
+    width: '100%',
+    textAlign: 'center'
+  },
+
   mapLegendItem: {
     textAlign: 'left',
-    fontSize: '40px'
+    padding: '4px 10px 10px 40px'
+  },
+
+  mapLegendIcon: {
+    top: '-8px',
+    left: '2px'
   },
 
   placeMarker: {
