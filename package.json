@@ -85,7 +85,7 @@
     "velocity-animate": "^1.2.3",
     "velocity-react": "^1.1.5",
     "webpack": "^1.13.0",
-    "ws": "^1.0.1",
+    "ws": "^1.1.1",
     "yargs": "^4.2.0"
   },
   "devDependencies": {
@@ -108,7 +108,7 @@
     "imports-loader": "^0.6.5",
     "istanbul": "^1.0.0-alpha.2",
     "istanbul-instrumenter-loader": "^0.2.0",
-    "karma": "^0.13.22",
+    "karma": "^1.0.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
