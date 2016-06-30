@@ -6,6 +6,7 @@ secrets
 .coveralls.yml
 /server/public/dist
 .DS_Store
+.snyk
 
 # Environment variables
 environment/*.json
