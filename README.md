@@ -9,62 +9,30 @@
 [![Dependencies Status](https://david-dm.org/nase00/gtfo.svg?style=flat-square)](https://david-dm.org/nase00/gtfo)
 [![DevDependencies Status](https://david-dm.org/nase00/gtfo/dev-status.svg?style=flat-square)](https://david-dm.org/nase00/gtfo#info=devDependencies)
 
-## Gently Tell Folks Out (of meeting rooms)
-Push reservation status notifications to meeting rooms! And do other things...
+# **G**ently **T**ell **F**olks **O**ut (of meeting rooms)
+Push reservation notifications to meeting rooms!
 
-## Getting Started
-```bash
-git clone https://github.com/Nase00/gtfo.git
-cd gtfo
-```
-[Read how to configure the application to a specific office.](./environment/README.md) The application will not run without these files.
-```
-# After environment files have been configured
-npm run hot -- --mocks
-```
-This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools).
+Using remote modules equipped with RGB LEDs, GTFO lets meeting room occupants know the status of their current reservation. For example, 5 minutes before a meeting ends and another is set to begin, the room's LED will pulse orange to let occupants know it's time to begin wrapping up.
 
-##### DevTools keybindings
- `shift+q` Open/close DevTools dock.
-<br/> `shift+w` Change DevTools dock position.
-<br/> `shift+e` Change active DevTools monitor.
+## Materials
+Minimum required hardware:
+* [Particle Photon](https://store.particle.io/) (1 per room)
+* RGB LED (1 per room)
+* A Unix-based server (Raspberry Pi, spare computer running OSX or Linux, etc.)
+* A network that includes 802.11b/g/n WiFi hotspots
 
-To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine. *Note that any service could be used in place of ems-wrapper, so long as the API is identical.*
+For the client, you'll need to find or make a map overview of your office layout.
 
-In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `/server/constants/urls.js`.
-
-##### Options
-```bash
---mocks # Disables Outlook api in favor of using mock reservation data.
---dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
---dd # Disables devices, useful for client testing without room module hardware.
-```
-##### Production build and deploy
-```bash
-npm install --production # Several dev dependencies do not work on Raspberry Pi distros.
-npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
-```
-##### Development mode without hot reloading
-```bash
-npm run dev # But why would you want to?
-```
-
-##### Tests
-```bash
-npm run test # Lints and tests client, server, and universal code.
-```
-
-## Configuration
-
-- Raspberry Pi 2 Model B v1.1 running JESSIE (any *nix system likely works)
-- *n* number of [Particle Photons](https://store.particle.io)
-
-## Setup
+## Hardware Setup
 
 #### Photon Boards
-Wire a common cathode RGB LED to each Photon board.
+[Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network, then flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
 
-###### RGB pin configuration
+Retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
+
+Wire a common cathode RGB LED to each Photon board. Optionally, wire a motion and temperature sensor.
+
+###### RGB pin configuration (required)
 Hardware: Common cathode RGB LED
 
 | Wire   | Pin   |
@@ -73,10 +41,6 @@ Hardware: Common cathode RGB LED
 | G      | A5    |
 | B      | A7    |
 | Ground | Ground|
-
-After setting up each device to [Particle's cloud service](https://docs.particle.io/guide/getting-started/start/photon/), load the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark) onto each board.
-
-Retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
 
 ###### Temperature sensor pin configuration (optional)
 Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview)
@@ -97,13 +61,30 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 | Power  | 3v3   |
 | Ground | Ground|
 
-###### Host
-1. `git clone https://github.com/Nase00/gtfo.git && cd gtfo`
-2. Create and configure [environment files](./environment/README.md) in the `/environment` directory.
-3. `npm install --production && npm run prod`.
+## Software Setup
+```bash
+git clone https://github.com/Nase00/gtfo.git && cd gtfo
+```
+Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
+```
+# After environment files have been configured
+npm run hot -- --mocks
+```
+This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
+
+To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine. *Note that any service could be used in place of ems-wrapper, so long as the API is identical.*
+
+In production mode, it assumed `ems-wrapper` is deployed on another domain, by [environment configuration](./environment/README.md).
+
+##### Production build and deploy
+```bash
+npm install --production # Several dev dependencies are not Raspberry Pi compatible.
+npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
+```
+
 
 ### Ping API
-*Alexa, where is Kerbin?*
+*[Alexa](https://developer.amazon.com/public/solutions/alexa), where is Kerbin?*
 
 *Kerbin is on the east side of the office. I've highlighted it on map for you.*
 
@@ -126,3 +107,26 @@ The result of this ping is that Kerbin lights up on the client anchored to the e
 Some internal office networks restrict exposing ports for making HTTP requests. This would make it impossible, for instance, for an Echo lamdba service hosted on AWS to send a ping request to a GTFO server hosted on the office intranet. For these restricted networks, *[Acheron](https://github.com/Nase00/acheron)* was created to be hosted externally (e.g., on a cloud service) to accept and forward pings to GTFO via a WebSocket connection.
 
 To avoid confusion, note that there are two distinct WebSocket services within GTFO. The [socket controller]('./server/controllers/socket') exists to *host* a WebSocket server to which browser applications connect to as *clients*. The [proxy controller]('./server/controllers/proxy') controller exists to connect to the proxy *host* where GTFO itself is considered the sole *client*.
+
+## Development
+##### DevTools keybindings
+ `shift+q` Open/close DevTools dock.
+<br/> `shift+w` Change DevTools dock position.
+<br/> `shift+e` Change active DevTools monitor.
+
+##### Development mode without hot reloading
+```bash
+npm run dev # But why would you want to?
+```
+
+##### Tests
+```bash
+npm run test # Lints and tests client, server, and universal code.
+```
+
+##### CLI Options
+```bash
+--mocks # Disables Outlook api in favor of using mock reservation data.
+--dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
+--dd # Disables devices, useful for client testing without room module hardware.
+```
