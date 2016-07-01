@@ -28,7 +28,7 @@ For the client, you'll need to find or make a map overview of your office layout
 #### Photon Boards
 [Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network, then flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
 
-Retrieve the access tokens and device id for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
+Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
 
 Wire a common cathode RGB LED to each Photon board. Optionally, wire a motion and temperature sensor.
 
