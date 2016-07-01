@@ -3,8 +3,11 @@ logs
 *.log
 npm-debug.log*
 secrets
-.coveralls.yml
+
+# Build
 /server/public/dist
+
+# Misc
 .DS_Store
 .snyk
 
@@ -23,6 +26,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+.coveralls.yml
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
