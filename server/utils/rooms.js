@@ -1,4 +1,4 @@
-/* eslint max-statements:0 no-magic-numbers:0 */
+/* eslint max-statements:0, no-magic-numbers:0 */
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 
