@@ -75,12 +75,11 @@ export const rules = {
     },
 
     '.map-legend': {
-      margin: '0 auto 0 30%',
-      zoom: 0.5,
-      width: '280px',
+      margin: '0 auto 0 28%',
+      zoom: 0.6,
+      width: '260px',
       backgroundColor: colors.WHITE,
-      border: `1px solid ${colors.GREY}`,
-      boxShadow: `${colors.GREY} 0px 3px 10px, ${colors.GREY} 0px 3px 10px`
+      border: `1px solid ${colors.GREY}`
     },
 
     '.map-legend-icon': {

@@ -55,6 +55,7 @@ const MeetingRoom = (props) => {
         className='room-text'
         dx={ROOM_NAME_TEXT_DX}
         dy={ROOM_NAME_TEXT_DY}
+        transform='translate(18, -6) rotate(45)' // Only applies to Microsoft Edge
         {...parseShape(coordinates)}>
           {name}
       </text>
