@@ -4,8 +4,7 @@ import MeetingRoom from './meeting-room';
 import Stall from './stall';
 import Marker from './marker';
 
-import { styles } from './styles';
-import { filterByLocation, youAreHere } from '../../utils';
+import { filterByLocation, youAreHere, getLocationBackdrop } from 'utils';
 
 const Location = (props) => {
   const { meetingRooms,
@@ -43,15 +42,15 @@ const Location = (props) => {
 
   return (
     <div key={locationKey} className='office-layout-container'>
-      <image
+      <img
         className='office-background'
-        style={styles.generateOfficeBackgroundStyle(locationKey)}>
-          <svg className='office-layout'>
-            {filteredMeetingRooms.map(renderMeetingRoom)}
-            {filteredStalls.map(renderStall)}
-            {filteredMarkers.map(renderMarker)}
-          </svg>
-      </image>
+        src={getLocationBackdrop(locationKey)}
+        alt={`Backdrop for ${locationKey}`}/>
+      <svg className='office-layout'>
+        {filteredMeetingRooms.map(renderMeetingRoom)}
+        {filteredStalls.map(renderStall)}
+        {filteredMarkers.map(renderMarker)}
+      </svg>
     </div>
   );
 };
