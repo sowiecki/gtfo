@@ -3,7 +3,7 @@ import { colors, fonts, breakpoints, devices } from '../../common/styles';
 import { genWidthAndHeight } from '../../../utils';
 
 const layoutSelectors = [
-  'image.office-background',
+  '.office-background',
   'svg.office-layout',
   '.office-layout-container'
 ].join(', ');
@@ -25,9 +25,14 @@ export const rules = {
       margin: 'auto auto'
     },
 
-    'image.office-background': {
+    '.office-layout': {
       position: 'absolute',
-      backgroundSize: 'fill'
+      top: 0
+    },
+
+    '.office-background': {
+      position: 'absolute',
+      height: '100%'
     },
 
     'text.room-text, text.temperature-text': {
