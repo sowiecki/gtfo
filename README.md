@@ -114,11 +114,6 @@ To avoid confusion, note that there are two distinct WebSocket services within G
 <br/> `shift+w` Change DevTools dock position.
 <br/> `shift+e` Change active DevTools monitor.
 
-##### Development mode without hot reloading
-```bash
-npm run dev # But why would you want to?
-```
-
 ##### Tests
 ```bash
 npm run test # Lints and tests client, server, and universal code.
