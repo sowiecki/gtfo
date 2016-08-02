@@ -1,10 +1,11 @@
-import { routeReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 import navigationReducer from './navigation';
 import layoutReducer from './layout';
 
-export default {
-  routeReducer,
+export default combineReducers({
   navigationReducer,
-  layoutReducer
-};
+  layoutReducer,
+  routerReducer
+});
