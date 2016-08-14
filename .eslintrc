@@ -1,6 +1,6 @@
 {
   "plugins": ["react", "filenames"],
-  "extends": ["airbnb"],
+  "extends": "airbnb",
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -23,8 +23,8 @@
     "arrow-body-style": [2, "as-needed"],
     "func-style": [2, "expression"],
     "prefer-arrow-callback": [2, {
-      allowNamedFunctions: false,
-      allowUnboundThis: false,
+      "allowNamedFunctions": false,
+      "allowUnboundThis": false,
     }],
     "func-names": 2,
     "react/jsx-space-before-closing": [2, "never"],
@@ -43,7 +43,10 @@
     "no-param-reassign": 0,
     "consistent-return": 0,
     "default-case": 0,
-    "no-extra-parens": 0
+    "no-extra-parens": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+    "no-undef": 0
   },
   "globals": {
     "require": true

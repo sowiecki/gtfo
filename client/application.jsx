@@ -1,4 +1,7 @@
 /* globals document */
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRoute, Route } from 'react-router';
@@ -10,9 +13,6 @@ import store from './store';
 
 import Body from './components/body';
 import LayoutContainer from './components/layout/container';
-
-import 'velocity-animate';
-import 'velocity-animate/velocity.ui';
 
 injectTapEventPlugin();
 

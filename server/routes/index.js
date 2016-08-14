@@ -12,6 +12,7 @@ const router = express.Router();
 
 if (config.public.enableStalls && !isProd) {
   const mockServices = require('../controllers/mocks').default;
+
   const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
 
   router.get(MOCK_STALLS_API, respondWithMockedStalls);

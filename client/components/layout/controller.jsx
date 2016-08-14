@@ -2,11 +2,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
 
-import DisplayError from '../common/display-error';
-import MapLegend from './map-legend';
-
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
+
+import DisplayError from '../common/display-error';
+import MapLegend from './map-legend';
 
 import Location from './location';
 

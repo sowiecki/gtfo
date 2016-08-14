@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 
+import { filterByLocation, youAreHere, getLocationBackdrop } from 'utils';
+
 import MeetingRoom from './meeting-room';
 import Stall from './stall';
 import Marker from './marker';
-
-import { filterByLocation, youAreHere, getLocationBackdrop } from 'utils';
 
 const Location = (props) => {
   const { meetingRooms,
