@@ -20,6 +20,7 @@ const server = express();
 if (process.env.HOT) {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/webpack.config.hot');
+
   const compiler = webpack(webpackConfig);
 
   server.use(require('webpack-dev-middleware')(compiler, {

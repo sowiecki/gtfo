@@ -17,7 +17,7 @@ const Application = ({ bundle }) => {
       </head>
       <body>
         <div id='root'/>
-        <script src={bundle}></script>
+        <script src={bundle}/>
       </body>
     </html>
   );
