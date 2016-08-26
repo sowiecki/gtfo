@@ -65,7 +65,7 @@
     "material-ui": "^0.15.2",
     "moment": "^2.11.2",
     "morgan": "^1.7.0",
-    "particle-io": "^0.12.0",
+    "particle-io": "^0.14.0",
     "radium": "^0.18.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
@@ -73,7 +73,7 @@
     "react-redux": "^4.4.2",
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
-    "react-swipeable-views": "^0.6.3",
+    "react-swipeable-views": "^0.7.1",
     "react-tap-event-plugin": "^1.0.0",
     "recompose": "^0.20.2",
     "redux": "^3.5.2",
@@ -85,7 +85,7 @@
     "velocity-react": "^1.1.5",
     "webpack": "^1.13.1",
     "ws": "^1.1.1",
-    "yargs": "^4.7.1"
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "app-module-path": "^1.1.0",
@@ -106,7 +106,7 @@
     "istanbul": "^1.0.0-alpha.2",
     "istanbul-instrumenter-loader": "^0.2.0",
     "karma": "^1.0.0",
-    "karma-chrome-launcher": "^1.0.1",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-mocha-reporter": "^2.0.0",
