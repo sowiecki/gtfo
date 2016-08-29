@@ -1,4 +1,4 @@
-import { isProd } from '../config';
+import { isProd, SERVER_PORT } from '../config';
 
 const { prodReservationsHost,
         prodStallsHost,
@@ -12,7 +12,7 @@ const LOCAL_HOST = 'http://localhost';
 /**
  * Used when services are mocked from this application.
  */
-const MOCKS_HOST = `${LOCAL_HOST}:3000`;
+const MOCKS_HOST = `${LOCAL_HOST}:${SERVER_PORT}`;
 const RESERVATIONS_HOST = isProd ? prodReservationsHost : `${LOCAL_HOST}:8080`;
 const STALLS_HOST = isProd ? prodStallsHost : MOCKS_HOST;
 

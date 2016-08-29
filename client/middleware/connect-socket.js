@@ -1,4 +1,4 @@
-/* eslint no-shadow:0 */
+/* eslint no-shadow:0, no-use-before-define:0 */
 /* globals WebSocket, setInterval, clearInterval */
 import parseEvent from './parse-event';
 
@@ -25,6 +25,8 @@ const handleSocketReconnected = (webSocket, next, payload) => {
 
   next({ type: EMIT_CLEAR_CONNECTION_ERRORS });
   clearInterval(interval);
+
+  webSocket.onclose = handleSocketClose.bind(null, next, payload);
 };
 
 const reconnectSocket = (next, payload) => {

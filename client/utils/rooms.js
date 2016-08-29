@@ -116,3 +116,17 @@ export const genWidthAndHeight = (width) => ({
   height: `${Math.max(Math.ceil(width * 11.52) / 10, 2.8)}px`,
   width: `${width}px`
 });
+
+/**
+ * Safety against initial location index being -1,
+ * which causes ReactSwipeableViews to give an annoying console error.
+ *
+ * @param {array} locationKeys
+ * @param {string} locationParam
+ * @returns {integer}
+ */
+export const getLocationIndex = (locationKeys, locationParam) => {
+  const locationIndex = locationKeys.indexOf(locationParam);
+
+  return locationIndex >= 0 ? locationIndex : 0;
+};
