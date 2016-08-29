@@ -10,7 +10,8 @@ import { getPathname,
          getAnchorFromStore,
          youAreHere,
          hasAnchor,
-         genWidthAndHeight } from 'utils';
+         genWidthAndHeight,
+         getLocationIndex } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -143,6 +144,19 @@ describe('Room utilities (client)', () => {
       expect(genWidthAndHeight(300)).toEqual({ width: '300px', height: '345.6px' });
       expect(genWidthAndHeight(350)).toEqual({ width: '350px', height: '403.2px' });
       expect(genWidthAndHeight(800)).toEqual({ width: '800px', height: '921.6px' });
+    });
+  });
+
+  describe('getLocationIndex', () => {
+    const mockLocationParams = ['Winterfell', 'Storm\'s End'];
+
+    it('should find the index of a provided location parameter.', () => {
+      expect(getLocationIndex(mockLocationParams, 'Winterfell')).toEqual(0);
+      expect(getLocationIndex(mockLocationParams, 'Storm\'s End')).toEqual(1);
+    });
+
+    it('should fail gracefully, returning 0 when the parameter is not found.', () => {
+      expect(getLocationIndex(mockLocationParams, 'Casterly Rock')).toEqual(0);
     });
   });
 });

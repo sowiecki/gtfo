@@ -61,11 +61,11 @@ const consoleController = {
    * @param {string} text
    * @returns {undefined}
    */
-  log(text) {
+  log(text, error = '', color = 'white') {
     if (process.env.DONT_HOOK_CONSOLE) {
-      console.log(text);
+      console.log(colors[color](text), error);
     } else {
-      log.log(`${text}`);
+      log.log(colors[color](text), error);
     }
   },
 

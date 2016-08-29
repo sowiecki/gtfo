@@ -13,7 +13,7 @@ import Location from './location';
 import history from '../../config/history';
 import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { pluckLocations, hasAnchor } from '../../utils';
+import { pluckLocations, hasAnchor, getLocationIndex } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
 let originalLocation;
@@ -98,7 +98,7 @@ class LayoutController extends Component {
           <SwipeableViews
             className='swipeable-viewport'
             style={styles.swipableOverride}
-            index={locationKeys.indexOf(params.location)}
+            index={getLocationIndex(locationKeys, params.location)}
             onChangeIndex={this.handleChangeLocation.bind(this)}
             resistance={true}>
               {locationKeys.map(renderLocation)}

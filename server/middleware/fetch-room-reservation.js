@@ -1,27 +1,31 @@
 import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
-import * as urls from '../constants';
+import { FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE, RESERVATIONS_URL } from '../constants';
+import consoleController from '../controllers/console';
 import { formatReservations, logfetchRoomReservationError } from '../utils';
 
 const fetchRoomReservation = (next) => {
-  const source = `${urls.RESERVATIONS_URL}`;
   let body = '';
 
   // Retrieve room reservation statuses from external service
-  http.get(source, (response) => {
+  http.get(RESERVATIONS_URL, (response) => {
     response.on('data', (data) => {
       body += data;
     });
 
     response.on('end', () => {
-      const parsedData = JSON.parse(body.toString('utf8'));
-      const reservations = formatReservations(parsedData);
+      try {
+        const parsedData = JSON.parse(body.toString('utf8'));
+        const reservations = formatReservations(parsedData);
 
-      next({
-        type: EMIT_RESERVATIONS_UPDATE,
-        reservations
-      });
+        next({
+          type: EMIT_RESERVATIONS_UPDATE,
+          reservations
+        });
+      } catch (error) {
+        consoleController.log(FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE, error, 'bgRed');
+      }
     });
   }).on('error', logfetchRoomReservationError);
 };

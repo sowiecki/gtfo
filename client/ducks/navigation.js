@@ -1,3 +1,4 @@
+/* globals location */
 import immutable from 'immutable';
 
 import history from '../config/history';
