@@ -1,8 +1,8 @@
-/* eslint new-cap:0, no-console:0 */
-/* globals console */
+/* eslint new-cap:0 */
 import WebSocket from 'ws';
 
 import pingsController from './pings';
+import consoleController from './console';
 import { PROXY_HOST,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL,
@@ -35,11 +35,11 @@ const proxyController = {
 
     const handlers = {
       [HANDSHAKE]() {
-        console.log(payload.message);
+        consoleController.log(payload.message);
       },
 
       [RECONNECTED]() {
-        console.log(payload.message);
+        consoleController.log(payload.message);
       },
 
       [NEW_ROOM_PING]() {
@@ -47,7 +47,7 @@ const proxyController = {
       },
 
       [undefined]() {
-        console.log(JSON.parse(data));
+        consoleController.log(JSON.parse(data));
       }
     };
 
