@@ -10,7 +10,7 @@ import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
 
 const router = express.Router();
 
-if (config.public.enableStalls && !isProd) {
+if (config.public.enableStalls || !isProd) {
   const mockServices = require('../controllers/mocks').default;
 
   const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
