@@ -99,11 +99,13 @@ const devicesController = {
       });
     }
 
-    store.dispatch({
-      type: FETCH_ROOM_MOTION,
-      room,
-      accessories
-    });
+    if (config.public.enableMotion) {
+      store.dispatch({
+        type: FETCH_ROOM_MOTION,
+        room,
+        accessories
+      });
+    }
   }
 };
 
