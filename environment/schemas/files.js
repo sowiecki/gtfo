@@ -9,6 +9,7 @@ export default {
           title: { type: 'string' },
           enableTemperature: { type: 'bool' },
           enableStalls: { type: 'bool' },
+          enableConfig: { type: 'bool' },
           defaultTempScale: {
             type: 'string', enum: ['fahrenheit', 'celcius']
           }
