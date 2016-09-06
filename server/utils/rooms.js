@@ -84,6 +84,7 @@ export const secureRoom = (room) => {
     coordinates: room.coordinates,
     location: room.location,
     name: room.name,
+    moduleOnline: room.moduleOnline,
     thermo
   };
 };

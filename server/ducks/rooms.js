@@ -53,12 +53,15 @@ const roomsReducer = (state = initialState, action) => {
 
       state = state.set('rooms', rooms.map((room) => {
         if (room.get('id') === action.room.id) {
-          room = room.set('accessories', action.accessories);
+          room = room
+            .set('accessories', action.accessories)
+            .set('moduleOnline', true);
         }
 
         return room;
       }));
 
+      consoleController.logRoomStatuses(getSecureRooms(state));
       return state;
     },
 
