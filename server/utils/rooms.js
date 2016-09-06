@@ -51,7 +51,7 @@ export const getRoomAlert = (reservations = [], recentMotion, time = moment()) =
     return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '(]');
   };
 
-  if (currentlyVacant && hasRecentMotion) {
+  if (currentlyVacant && hasMotionWithinTimeout) {
     return SQUATTED;
   } else if (currentlyVacant) {
     return VACANT;
