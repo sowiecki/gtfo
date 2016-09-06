@@ -4,26 +4,12 @@ import colors from 'colors/safe';
 import { filter } from 'lodash';
 
 import { isTest } from '../config';
-import { SQUATTED,
-         VACANT,
-         ONE_MINUTE_WARNING,
-         FIVE_MINUTE_WARNING,
-         BOOKED,
-         OFFLINE,
+import { OFFLINE,
          STATUS_MESSAGES,
+         GUAGE_COLORS,
          LOG_COLORS,
          ONLINE,
          DISCONNECTED } from '../constants';
-
-const guageColors = {
-  [SQUATTED]: 'magenta',
-  [VACANT]: 'green',
-  [ONE_MINUTE_WARNING]: 'red',
-  [FIVE_MINUTE_WARNING]: 'yellow',
-  [BOOKED]: 'cyan',
-  [OFFLINE]: 'black',
-  [undefined]: 'black'
-};
 
 /**
  * Logs individual room status.
@@ -73,9 +59,13 @@ export const logFetchStallOccupanciesError = ({ code, message }) => {
  * @param {string} alert Alert to determine percentage of matching rooms.
  * @returns {object}
  */
-export const genGuagePercentage = (rooms, alert) => ({
-  percent: (filter(rooms, (room) => (
+export const genGuagePercentage = (rooms, alert) => {
+  const rawPercentage = filter(rooms, (room) => (
     room.alert === alert
-  )).length / rooms.length) * 100,
-  stroke: guageColors[alert]
-});
+  )).length / rooms.length;
+
+  return {
+    percent: Math.floor(rawPercentage * 100),
+    stroke: GUAGE_COLORS[alert]
+  };
+};
