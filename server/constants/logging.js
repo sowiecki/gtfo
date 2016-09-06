@@ -25,6 +25,16 @@ export const LOG_COLORS = {
   [undefined]: 'grey'
 };
 
+export const GUAGE_COLORS = {
+  [SQUATTED]: 'magenta',
+  [VACANT]: 'green',
+  [ONE_MINUTE_WARNING]: 'red',
+  [FIVE_MINUTE_WARNING]: 'yellow',
+  [BOOKED]: 'cyan',
+  [OFFLINE]: 'black',
+  [undefined]: 'black'
+};
+
 export const ONLINE = 'CONNECTED';
 export const DISCONNECTED = 'DISCONNECTED';
 
