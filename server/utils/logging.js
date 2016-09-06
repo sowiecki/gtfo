@@ -9,7 +9,8 @@ import { SQUATTED,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
          BOOKED,
-         OFFLINE } from '../constants';
+         OFFLINE,
+         MODULE_STATUS_ICON } from '../constants';
 
 const guageColors = {
   [SQUATTED]: 'magenta',
@@ -26,7 +27,10 @@ const guageColors = {
  * @param {object} room Room object with name and alert.
  * @returns {string} Room status message
  */
-export const getRoomStatusMessage = ({ name, alert }) => {
+export const getRoomStatusMessage = (room) => {
+  const { name, alert } = room;
+  const moduleStatus = room.moduleOnline ?
+    colors.green(MODULE_STATUS_ICON) : colors.red(MODULE_STATUS_ICON);
   const statusMessages = {
     [SQUATTED]: 'Occupied without reservation',
     [VACANT]: 'Vacant for at least 30 minutes',
@@ -50,7 +54,7 @@ export const getRoomStatusMessage = ({ name, alert }) => {
   const message = statusMessages[alert] || statusMessages.OFFLINE;
   const logColor = logColors[alert || OFFLINE];
 
-  return ['◉', name, colors[logColor](message)];
+  return [moduleStatus, name, colors[logColor](message)];
 };
 
 /**

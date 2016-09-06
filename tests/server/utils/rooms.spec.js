@@ -169,6 +169,7 @@ describe('Room utilities (server)', () => {
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
     deviceAuthToken: 'hunter2',
+    moduleOnline: false,
     thermo: {
       F: '65',
       C: '18'
@@ -181,6 +182,7 @@ describe('Room utilities (server)', () => {
     coordinates: {},
     location: 'Hyrule',
     name: 'Hyrule Castle',
+    moduleOnline: false,
     thermo: {
       F: '65',
       C: '18'

@@ -77,7 +77,7 @@ export const secureRoom = (room) => {
     C: room.thermo.C,
     F: room.thermo.F
   } : null;
-console.log(room)
+
   return {
     id: room.id,
     alert: room.alert,
