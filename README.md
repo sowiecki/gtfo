@@ -37,9 +37,9 @@ Hardware: Common cathode RGB LED
 
 | Wire   | Pin   |
 |:------:|:-----:|
-| R      | A4    |
+| R      | A7    |
 | G      | A5    |
-| B      | A7    |
+| B      | A4    |
 | Ground | Ground|
 
 ###### Temperature sensor pin configuration (optional)
