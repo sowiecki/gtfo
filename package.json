@@ -88,8 +88,7 @@
     "velocity-react": "^1.1.5",
     "webpack": "^1.13.1",
     "ws": "^1.1.1",
-    "yargs": "^5.0.0",
-    "snyk": "^1.19.1"
+    "yargs": "^5.0.0"
   },
   "devDependencies": {
     "app-module-path": "^1.1.0",
@@ -137,6 +136,7 @@
     "redux-slider-monitor": "^1.0.2",
     "reporter": "^0.1.0",
     "sinon": "^2.0.0-pre",
+    "snyk": "^1.19.1",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-dev-server": "^1.12.0",
     "webpack-hot-middleware": "^2.6.0"
