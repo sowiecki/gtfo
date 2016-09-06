@@ -50,7 +50,7 @@ export const getRoomStatusMessage = ({ name, alert }) => {
   const message = statusMessages[alert] || statusMessages.OFFLINE;
   const logColor = logColors[alert || OFFLINE];
 
-  return [name, colors[logColor](message)];
+  return ['◉', name, colors[logColor](message)];
 };
 
 /**

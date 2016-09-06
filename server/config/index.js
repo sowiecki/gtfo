@@ -53,16 +53,6 @@ export const VIEWS_PATH = path.join(__dirname, ROOT, 'views');
 /**
  * Blessed configurations.
  */
-export const layoutOptions = {
-  top: 'center',
-  left: 'center',
-  width: '100%',
-  height: '100%',
-  style: {
-    fg: 'white',
-    border: { fg: 'green' }
-  }
-};
 
 export const logOptions = {
   label: 'Server Log',

@@ -3,21 +3,18 @@
 import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
+import contrib from 'blessed-contrib';
+import { uniq } from 'lodash';
 
-import { isTest, layoutOptions, logOptions, tableOptions } from '../config';
-import { getRoomStatusMessage } from '../utils';
+import { isTest, guageOptions, logOptions, tableOptions } from '../config';
+import { getRoomStatusMessage, genGuagePercentage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
-// TODO SOI-41 re-enable when/if blessed-contrib is updated and secure.
-// const grid = new contrib.grid({ rows: 10, cols: 5, screen });
-// const table = grid.set(0, 3, 8.5, 2, blessed.table, tableOptions);
-// const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
-// const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
-
-const layout = blessed.layout({ parent: screen, ...layoutOptions });
-const table = blessed.table({ parent: layout, ...tableOptions });
-const log = blessed.log({ parent: layout, ...logOptions });
+const grid = new contrib.grid({ rows: 10, cols: 5, screen });
+const table = grid.set(0, 3, 8.5, 2, blessed.table, tableOptions);
+const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
+const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
 
 const consoleController = {
   /**
@@ -35,7 +32,6 @@ const consoleController = {
     } else {
       table.setData(rooms.map((room) => getRoomStatusMessage(room)));
 
-      /* TODO SOI-41 re-enable when/if blessed-contrib is updated and secure.
       const alerts = uniq(rooms.map((room) => room.alert)).sort();
 
       const meetingRoomsUtilization = alerts.map((alert) => (
@@ -43,7 +39,6 @@ const consoleController = {
       ));
 
       guage.setStack(meetingRoomsUtilization);
-      */
     }
   },
 

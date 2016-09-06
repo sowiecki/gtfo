@@ -77,13 +77,14 @@ export const secureRoom = (room) => {
     C: room.thermo.C,
     F: room.thermo.F
   } : null;
-
+console.log(room)
   return {
     id: room.id,
     alert: room.alert,
     coordinates: room.coordinates,
     location: room.location,
     name: room.name,
+    moduleOnline: room.moduleOnline,
     thermo
   };
 };
