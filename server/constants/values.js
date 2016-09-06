@@ -1,7 +1,7 @@
 export const RGB_PINS = {
-  red: 'A4',
+  red: 'A7',
   green: 'A5',
-  blue: 'A7'
+  blue: 'A4'
 };
 
 export const PIEZO_PIN = 'D6';
@@ -11,7 +11,8 @@ export const THERMO_FREQ = 10000; // milliseconds
 
 export const HCSR501 = 'HCSR501';
 export const MOTION_PIN = 'A0';
-export const MOTION_FREQ = 2500; // milliseconds
+export const MOTION_FREQ = 500; // milliseconds
+export const MOTION_TIMEOUT = 20; // seconds
 
 export const CHECK_INTERVAL = 60000;
 export const SPINNER_DELAY = 3000;
