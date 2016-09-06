@@ -8,7 +8,8 @@ import {
   VACANT,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
-  BOOKED
+  BOOKED,
+  MOTION_TIMEOUT
 } from '../constants';
 
 /**
@@ -24,12 +25,12 @@ export const getRoomAlert = (reservations = [], recentMotion, time = moment()) =
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
-  const hasRecentMotion = recentMotion ?
-    recentMotion.isAfter(getTime().subtract(5, 'seconds')) : false;
+  const hasMotionWithinTimeout = recentMotion ?
+    recentMotion.isAfter(getTime().subtract(MOTION_TIMEOUT, 'seconds')) : false;
 
-  if (noReservations && !hasRecentMotion) {
+  if (noReservations && !hasMotionWithinTimeout) {
     return VACANT;
-  } else if (noReservations && hasRecentMotion) {
+  } else if (noReservations && hasMotionWithinTimeout) {
     return SQUATTED;
   }
 

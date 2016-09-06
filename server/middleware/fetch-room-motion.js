@@ -14,11 +14,13 @@ const fetchRoomMotion = (next, action) => {
     });
   });
 
-  motion.on('data', () => {
-    next({
-      type: EMIT_ROOM_MOTION_UPDATE,
-      room
-    });
+  motion.on('data', ({ isCalibrated }) => {
+    if (isCalibrated) {
+      next({
+        type: EMIT_ROOM_MOTION_UPDATE,
+        room
+      });
+    }
   });
 };
 
