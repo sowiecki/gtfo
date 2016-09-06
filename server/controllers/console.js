@@ -6,13 +6,14 @@ import blessed from 'blessed';
 import contrib from 'blessed-contrib';
 import { uniq } from 'lodash';
 
+import { CONTRIB_TABLE_HEADERS } from '../constants';
 import { isTest, guageOptions, logOptions, tableOptions } from '../config';
 import { getRoomStatusMessage, genGuagePercentage } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
 const grid = new contrib.grid({ rows: 10, cols: 5, screen });
-const table = grid.set(0, 3, 8.5, 2, blessed.table, tableOptions);
+const table = grid.set(0, 3, 8.5, 2, contrib.table, tableOptions);
 const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
 const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
 
@@ -30,7 +31,10 @@ const consoleController = {
         console.log(`${roomStatus[0]}, ${roomStatus[1]}`);
       });
     } else {
-      table.setData(rooms.map((room) => getRoomStatusMessage(room)));
+      table.setData({
+        headers: CONTRIB_TABLE_HEADERS,
+        data: rooms.map((room) => getRoomStatusMessage(room))
+      });
 
       const alerts = uniq(rooms.map((room) => room.alert)).sort();
 
