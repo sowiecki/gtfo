@@ -9,7 +9,6 @@ secrets
 
 # Misc
 .DS_Store
-.snyk
 
 # Environment variables
 environment/*.json
