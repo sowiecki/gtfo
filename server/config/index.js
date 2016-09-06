@@ -68,10 +68,12 @@ export const logOptions = {
 export const tableOptions = {
   width: '35%',
   height: '100%',
-  border: 'line',
-  style: {
-    fg: 'white',
-    border: { fg: 'blue' }
+  interactive: false,
+  columnWidth: [13, 20, 16],
+  columnSpacing: 4,
+  fg: 'white',
+  border: {
+    type: 'line', fg: 'cyan'
   }
 };
 
