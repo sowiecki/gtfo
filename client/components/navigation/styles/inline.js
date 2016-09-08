@@ -1,6 +1,10 @@
 import { colors, fonts } from '../../common/styles';
 
 export const styles = {
+  drawerContainer: {
+    top: 'auto'
+  },
+
   toolbar: {
     justifyContent: 'initial',
     backgroundColor: colors.primary,

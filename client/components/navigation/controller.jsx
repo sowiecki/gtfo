@@ -10,7 +10,7 @@ import TimeTravel from './time-travel';
 
 import history from '../../config/history';
 import { base } from '../../config/composition';
-import { rules, LEFT_HAND_NAV_WIDTH } from './styles';
+import { styles, rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
   componentWillMount() {
@@ -60,8 +60,8 @@ class NavigationController extends Component {
         <Drawer
           open={siteNavOpen}
           onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
-          docked={false}
-          width={LEFT_HAND_NAV_WIDTH}>
+          width={LEFT_HAND_NAV_WIDTH}
+          containerStyle={styles.drawerContainer}>
             <DrawerContent
               onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
               onOpenFullscreenClick={onOpenFullscreenClick}
