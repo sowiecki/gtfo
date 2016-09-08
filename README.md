@@ -25,6 +25,8 @@ For the client, you'll need to find or make a map overview of your office layout
 
 ## Hardware Setup
 
+[![Photograph of hardware wiring](./wiring_photo_small.png)](./wiring_photo.png)
+
 #### Photon Boards
 [Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network, then flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
 
@@ -33,14 +35,14 @@ Retrieve the access tokens and device ids for each Photon, and place them into `
 Wire a common cathode RGB LED to each Photon board. Optionally, wire a motion and temperature sensor.
 
 ###### RGB pin configuration (required)
-Hardware: Common cathode RGB LED
+Hardware: Common anode RGB LED
 
 | Wire   | Pin   |
 |:------:|:-----:|
 | R      | A7    |
 | G      | A5    |
 | B      | A4    |
-| Ground | Ground|
+| 3v     | 3v    |
 
 ###### Temperature sensor pin configuration (optional)
 Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview)
@@ -49,7 +51,7 @@ Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-te
 |:------:|:-----:|
 | SDA    | D0    |
 | SCL    | D1    |
-| Power  | 3v3   |
+| Power  | 3v    |
 | Ground | Ground|
 
 ###### Motion sensor pin configuration (optional)
@@ -58,7 +60,7 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 | Wire   | Pin   |
 |:------:|:-----:|
 | Data   | A0    |
-| Power  | 3v3   |
+| Power  | 3v    |
 | Ground | Ground|
 
 ## Software Setup
