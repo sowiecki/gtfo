@@ -12,16 +12,38 @@
 # **G**ently **T**ell **F**olks **O**ut (of meeting rooms)
 Push reservation notifications to meeting rooms!
 
-Using remote modules equipped with RGB LEDs, GTFO lets meeting room occupants know the status of their current reservation. For example, 5 minutes before a meeting ends and another is set to begin, the room's LED will pulse orange to let occupants know it's time to begin wrapping up.
+Using remote modules equipped with RGB LEDs,
+GTFO lets meeting room occupants know the status of their current reservation.
+For example, 5 minutes before a meeting ends and another is set to begin,
+the room's LED will light up orange to let occupants know it's time to begin wrapping up.
 
-## Materials
-Minimum required hardware:
-* [Particle Photon](https://store.particle.io/) (1 per room)
-* RGB LED (1 per room)
-* A Unix-based server (Raspberry Pi, spare computer running OSX or Linux, etc.)
-* A network that includes 802.11b/g/n WiFi hotspots
+# Getting started
 
-For the client, you'll need to find or make a map overview of your office layout.
+## Minimum requirements
+#### Room notification lights
+The hardware setup consists of a **host server** and *n* number of **remote modules**.
+
+A Unix-based system is required to run the host server which will control each remote module.
+A Raspberry Pi is recommended for its small footprint and power consumption,
+but a spare computer running OSX or Linux can be used just as well.
+
+A network with 802.11b/g/n WiFi hotspots is required for the remote modules to connect to. Particle Photons are headless devices,
+so note that the hotspot security must *not* require a browser-based login portal for authenticating.
+(Router passwords, however, can be entered through Particle's terminal setup application.)
+MAC address white-listing can also be used for additional security.
+
+The host server must be on the same LAN as the remote modules.
+
+### Office map
+The host server will serve a map of the office on `http://[host-ip-or-name]:3000`,
+with programmatically-generate tiles for each remote module declared in `environment/devices.json`.
+
+For this map to be usable, you must provide your own background image(s) and the size and position of each room tile.
+See [environment configuration documentation](./environment/README.md).
+
+Minimum required hardware **per each remote module**:
+* [Particle Photon](https://store.particle.io/)
+* Common anode RGB LED
 
 ## Hardware Setup
 
@@ -30,9 +52,10 @@ For the client, you'll need to find or make a map overview of your office layout
 #### Photon Boards
 [Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network, then flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
 
-Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`. Read more in [environment configuration](./environment/README.md).
+Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
+See [environment configuration documentation](./environment/README.md).
 
-Wire a common cathode RGB LED to each Photon board. Optionally, wire a motion and temperature sensor.
+Wire a common anode RGB LED to each Photon board. Optionally, wire a motion and temperature sensor.
 
 ###### RGB pin configuration (required)
 Hardware: Common anode RGB LED
@@ -44,7 +67,7 @@ Hardware: Common anode RGB LED
 | B      | A4    |
 | 3v     | 3v    |
 
-###### Temperature sensor pin configuration (optional)
+###### Temperature sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
 Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide/overview)
 
 | Wire   | Pin   |
@@ -54,7 +77,9 @@ Hardware: [MCP9808](https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-te
 | Power  | 3v    |
 | Ground | Ground|
 
-###### Motion sensor pin configuration (optional)
+###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
+Motion sensors enable detecting presence of room occupants in unreserved rooms,
+and setting the room status to "squatted" on the office map.
 Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/)
 
 | Wire   | Pin   |
@@ -74,9 +99,11 @@ npm run hot -- --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
-To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine. *Note that any service could be used in place of ems-wrapper, so long as the API is identical.*
+To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
+*Note that any service could be used in place of ems-wrapper, so long as the API is identical. Documentation on API contract coming soon.*
 
-In production mode, it assumed `ems-wrapper` is deployed on another domain, by [environment configuration](./environment/README.md).
+In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `environment/config.json`.
+See [environment configuration documentation](./environment/README.md).
 
 ##### Production build and deploy
 ```bash
@@ -84,15 +111,15 @@ npm install --production # Several dev dependencies are not Raspberry Pi compati
 npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
 ```
 
-
 ### Ping API
 *[Alexa](https://developer.amazon.com/public/solutions/alexa), where is Kerbin?*
 
 *Kerbin is on the east side of the office. I've highlighted it on map for you.*
 
-The Ping API allows external services to "ping" specific rooms on targetted clients. Clients can be targetted using "anchors." The anchor id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
+The Ping API allows external services to "ping" specific rooms on targetted clients. Clients can be targetted using "anchors."
+The anchor id used is completely arbitrary, but must be matched between the service making the ping and the client attempting to be pinged.
 
-To "anchor" a client, simply add an `anchor` query paramter to its route. E.g., `http://hostname:3000/sears-tower-251?anchor=east-lobby` defines the client's anchor as `east-lobby`.
+To anchor a client, simply add an `anchor` query paramter to its route. E.g., `http://hostname:3000/sears-tower-251?anchor=east-lobby` defines the client's anchor as `east-lobby`.
 
 To ping this client from an external service, direct a POST request to `http://hostname:3000/api/ping` with the headers:
 

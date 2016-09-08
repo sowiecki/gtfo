@@ -1,8 +1,13 @@
 # Configurable application data
 
-Out of the box, this application knows nothing about your office layout, hosted external services, or hardware authentication values. Therefore, specific environment files must be created and configured correctly to run this application for a particular office.
+Out of the box, this application knows nothing about your office layout, hosted external services, or hardware authentication values.
+Therefore, specific environment files must be created and configured correctly to run this application for a particular office.
 
-These files should remain gitignored to prevent private information from being made available in a public repository. Detailed information about the inside of your office can be used in social engineering attacks!
+All user-configurated files are (and should remain) gitignored to prevent private information from being made available in a public repository. Detailed information about the inside of your office can be used in social engineering attacks!
+
+## Demo
+
+`npm run demo` will generate a very basic demonstration of generic configuration files, sans backdrop files.
 
 ### config.json
 General configuration.
@@ -12,6 +17,7 @@ General configuration.
 | public               | Configurations passed to client (insecure!) | Yes       |
 | - title              | Title to display on client                  | No        |
 | - enableTemperature  | Enables (experimental) temperature readings | No        |
+| - enableMotion       | Enables (experimental) motion readings      | No        |
 | - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |
 | emailDomain          | @yourCompany.com                            | Yes       |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |
@@ -69,9 +75,10 @@ Example of a `devices.json` with a single device configured to The Loop:
 ```
 
 ### coordinates.json
-To integrate a meeting room into the client map, the room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured and placed into `coordinates.json`.
+Each room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured
+with a size and position in `coordinates.json`.
 
-Example of an `environment/coordinates.json` file configured to display Duna:
+Example of an `environment/coordinates.json` file configured to display a meeting room nicknamed "Duna":
 ```json
 {
   "duna": {
@@ -87,7 +94,12 @@ Example of an `environment/coordinates.json` file configured to display Duna:
 Markers to overlay on maps.
 
 ### mock-data.json
-Mock room reservation data, indentical in format to a response from Exchange services. **Automatically generated**.
+Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated with the `--mocks` flag.
 
-### Assets
-In addition to these files, remember to save map backdrops to `client/assets` with correct, slugified location names.
+### Office map backgrounds
+Each floor/section of an office map should have its own backgrund image.
+These background images are layouts for the room tiles to be displayed onto.
+Ideally, they may be scanned and copied or traced from actual building blueprints.
+
+Each background must be saved as a `.png` to `client/assets` with slugified (lower-cased and spaces replaced with hyphens) location names matching the location assigned to corresponding devices.
+E.g., if devices are assigned to "Sears Tower 108", the background asset should be saved as `environment/assets/sears-tower-108.png`.
