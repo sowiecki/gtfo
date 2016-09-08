@@ -25,15 +25,14 @@ export const registerBoard = (device) => (
 export const registerLed = (board) => (
   new Led.RGB({
     pins: RGB_PINS,
-    id: board.id,
-    board
+    board,
+    isAnode: true
   })
 );
 
 export const registerPiezo = (board) => (
   new Piezo({
     pin: PIEZO_PIN,
-    id: board.id,
     board
   })
 );
@@ -42,7 +41,6 @@ export const registerThermo = (board) => (
   new Thermometer({
     controller: MCP9808,
     freq: THERMO_FREQ,
-    id: board.id,
     board
   })
 );
@@ -51,7 +49,6 @@ export const registerMotion = (board) => (
   new Motion({
     controller: HCSR501,
     pin: MOTION_PIN,
-    id: board.id,
     freq: MOTION_FREQ,
     board
   })

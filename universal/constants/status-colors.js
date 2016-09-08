@@ -11,7 +11,7 @@ const PURPLE = '#9800FF';
 const BLUE = '#3399FF';
 const RED = '#FF0000';
 const GREEN = '#00CC00';
-const ORANGE = '#FFAE00';
+const ORANGE = '#FF5400';
 const YELLOW = '#FFFF00';
 const GREY = '#D3D3D3';
 

@@ -62,7 +62,7 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       consoleController.logRoomStatuses(getSecureRooms(state));
-      return state;
+      return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
 
     [EMIT_RESERVATIONS_UPDATE]() {
