@@ -1,3 +1,4 @@
+/* eslint class-methods-use-this:0 */
 import React, { Component, PropTypes } from 'react';
 import { Style } from 'radium';
 
