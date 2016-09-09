@@ -3,12 +3,14 @@
 import expect from 'expect';
 import moment from 'moment';
 import sinon from 'sinon';
+import immutable from 'immutable';
 
 import { filterExpiredReservations,
          getRoomAlert,
          secureRoom,
          secureRooms,
-         getFutureAlerts } from 'server/utils';
+         getFutureAlerts,
+         initializeRoomModuleState } from 'server/utils';
 
 import { SQUATTED,
          VACANT,
@@ -169,7 +171,7 @@ describe('Room utilities (server)', () => {
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
     deviceAuthToken: 'hunter2',
-    moduleOnline: false,
+    connectionStatus: false,
     thermo: {
       F: '65',
       C: '18'
@@ -182,7 +184,7 @@ describe('Room utilities (server)', () => {
     coordinates: {},
     location: 'Hyrule',
     name: 'Hyrule Castle',
-    moduleOnline: false,
+    connectionStatus: false,
     thermo: {
       F: '65',
       C: '18'
@@ -237,6 +239,46 @@ describe('Room utilities (server)', () => {
 
         expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
         expect(getFutureAlerts(mockRooms, time)[1].alert).toEqual(expected);
+      });
+    });
+  });
+
+  describe('initializeRoomModuleState', () => {
+    it('should initialize room module into a return state object', () => {
+      const mockInitialState = immutable.fromJS({
+        rooms: [
+          {
+            id: 'foo',
+            accessories: undefined,
+            connectionStatus: undefined
+          }
+        ]
+      });
+
+      const mockAction = {
+        room: {
+          id: 'foo'
+        },
+        accessories: 'bizzbazz'
+      };
+
+      const mockNewState = mockInitialState
+        .get('rooms')
+        .map(initializeRoomModuleState.bind(null, mockAction, true));
+
+      const initialState = mockInitialState.get('rooms').toJS();
+      const result = mockNewState.toJS();
+
+      expect(initialState[0]).toEqual({
+        id: 'foo',
+        accessories: undefined,
+        connectionStatus: undefined
+      });
+
+      expect(result[0]).toEqual({
+        id: 'foo',
+        accessories: 'bizzbazz',
+        connectionStatus: true
       });
     });
   });

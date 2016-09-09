@@ -84,7 +84,7 @@ export const secureRoom = (room) => {
     coordinates: room.coordinates,
     location: room.location,
     name: room.name,
-    moduleOnline: room.moduleOnline,
+    connectionStatus: room.connectionStatus,
     thermo
   };
 };
@@ -95,6 +95,8 @@ export const secureRoom = (room) => {
  * @returns {array} Rooms array safe for public consumption.
  */
 export const secureRooms = (rooms) => [].concat(rooms).map(secureRoom);
+
+export const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
 
 /**
  * Determines future reservations based on provided time.
@@ -110,3 +112,19 @@ export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
     alert: getRoomAlert(room.reservations, false, time)
   };
 });
+
+/**
+ * Sets up
+ * @param {bool} connectionStatus
+ * @param {object} room
+ * @returns {object} room
+ */
+export const initializeRoomModuleState = (action, connectionStatus, room) => {
+  if (room.get('id') === action.room.id) {
+    room = room
+      .set('accessories', action.accessories)
+      .set('connectionStatus', connectionStatus);
+  }
+
+  return room;
+};
