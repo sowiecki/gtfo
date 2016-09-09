@@ -22,6 +22,7 @@ export const FETCH_ROOM_RESERVATIONS = 'FETCH_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
 export const EMIT_SET_ROOM_ACCESSORIES = 'EMIT_SET_ROOM_ACCESSORIES';
+export const EMIT_ROOM_MODULE_FAILURE = 'EMIT_ROOM_MODULE_FAILURE';
 export const EMIT_RESERVATIONS_UPDATE = 'EMIT_RESERVATIONS_UPDATE';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
 export const EMIT_ROOM_PING_RECEIVED = 'EMIT_ROOM_PING_RECEIVED';
@@ -65,6 +66,23 @@ const roomsReducer = (state = initialState, action) => {
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
 
+    [EMIT_ROOM_MODULE_FAILURE]() {
+      const rooms = state.get('rooms');
+
+      state = state.set('rooms', rooms.map((room) => {
+        if (room.get('id') === action.room.id) {
+          room = room
+            .set('accessories', null)
+            .set('moduleOnline', false);
+        }
+
+        return room;
+      }));
+
+      consoleController.logRoomStatuses(getSecureRooms(state));
+      return reducers.EMIT_ROOM_STATUSES_UPDATE();
+    },
+
     [EMIT_RESERVATIONS_UPDATE]() {
       const rooms = state.get('rooms');
 
@@ -92,8 +110,8 @@ const roomsReducer = (state = initialState, action) => {
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {
-      let alertChanged = false;
       const rooms = state.get('rooms');
+      let alertChanged = false;
 
       state = state.set('rooms', rooms.map((room) => {
         const accessories = room.get('accessories');
