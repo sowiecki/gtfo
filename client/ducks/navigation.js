@@ -4,6 +4,7 @@ import immutable from 'immutable';
 import history from '../config/history';
 import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE } from '../constants';
+import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
 
@@ -60,7 +61,7 @@ export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   deviceWidth: document.body.clientWidth,
-  siteNavOpen: true,
+  siteNavOpen: document.body.clientWidth > MOBILE_WIDTH_BREAKPOINT,
   timeTravelControlsOpen: false,
   timeTravelTime: null,
   timeSliderValue: 0
