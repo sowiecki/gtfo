@@ -16,8 +16,8 @@ import { OFFLINE,
  * @param {object} room Room object with name and alert.
  * @returns {string} Room status message
  */
-export const getRoomStatusMessage = ({ name, alert, moduleOnline }) => {
-  const moduleStatus = moduleOnline ? colors.green(ONLINE) : colors.red(DISCONNECTED);
+export const getRoomStatusMessage = ({ name, alert, connectionStatus }) => {
+  const moduleStatus = connectionStatus ? colors.green(ONLINE) : colors.red(DISCONNECTED);
 
   const message = STATUS_MESSAGES[alert] || STATUS_MESSAGES.OFFLINE;
   const logColor = LOG_COLORS[alert || OFFLINE];

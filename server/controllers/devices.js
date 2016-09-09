@@ -13,13 +13,13 @@ import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion,
-         logBoardReady } from '../utils';
+         registerMotion } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION,
-         EMIT_SET_ROOM_ACCESSORIES } from '../ducks/rooms';
+         EMIT_SET_ROOM_ACCESSORIES,
+         EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
 const devicesController = {
@@ -50,9 +50,12 @@ const devicesController = {
     devicesController.getRooms().map((room) => {
       const board = registerBoard(room);
 
-      board.on('ready', devicesController.connectToRoom.bind(null, board, room));
-      board.on('warn', consoleController.boardWarn);
-      board.on('fail', consoleController.boardFail);
+      board.on('ready', () => devicesController.boardReady(board, room));
+      board.on('warn', consoleController.logBoardWarn);
+      board.on('fail', (event) => {
+        consoleController.logBoardFail(event);
+        devicesController.boardFail(room);
+      });
     });
 
     // Set interval for checking and responding to room state
@@ -74,8 +77,8 @@ const devicesController = {
    * @param {object} room Corresponding room object.
    * @returns {undefined}
    */
-  connectToRoom(board, room) {
-    logBoardReady(board, room);
+  boardReady(board, room) {
+    consoleController.logBoardReady(board, room);
 
     // Register all possible accessories
     const accessories = {
@@ -106,6 +109,13 @@ const devicesController = {
         accessories
       });
     }
+  },
+
+  boardFail(room) {
+    store.dispatch({
+      type: EMIT_ROOM_MODULE_FAILURE,
+      room
+    });
   }
 };
 

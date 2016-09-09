@@ -8,7 +8,7 @@ import { uniq } from 'lodash';
 
 import { CONTRIB_TABLE_HEADERS } from '../constants';
 import { isTest, guageOptions, logOptions, tableOptions } from '../config';
-import { getRoomStatusMessage, genGuagePercentage } from '../utils';
+import { getRoomStatusMessage, genGuagePercentage, logBoardReady } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
@@ -28,7 +28,7 @@ const consoleController = {
       rooms.forEach((room) => {
         const roomStatus = getRoomStatusMessage(room);
 
-        console.log(`${roomStatus[0]}, ${roomStatus[1]}`);
+        console.log(`${roomStatus[0]} - ${roomStatus[1]} - ${roomStatus[2]}`);
       });
     } else {
       table.setData({
@@ -70,11 +70,12 @@ const consoleController = {
 
   /**
    * Logs board ready state.
-   * @params {object} board Board object.
+   * @param {object} board Board object.
+   * @param {object} room Room object.
    * @returns {undefined}
    */
-  boardReady(board) {
-    consoleController.log(`Connected to ${board.id}`);
+  logBoardReady(board, room) {
+    logBoardReady(board, room);
   },
 
   /**
@@ -82,7 +83,7 @@ const consoleController = {
    * @params {object} data Warning object.
    * @returns {undefined}
    */
-  boardWarn({ message }) {
+  logBoardWarn({ message }) {
     log.log(colors.bgYellow(message));
   },
 
@@ -91,7 +92,7 @@ const consoleController = {
     * @params {object} data Failure object.
     * @returns {undefined}
     */
-  boardFail({ message }) {
+  logBoardFail({ message }) {
     log.log(colors.bgRed(message));
   }
 };
