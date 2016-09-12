@@ -62,6 +62,7 @@ const app = server.listen(SERVER_PORT, (err) => {
   if (enableproxy) {
     proxyController.initialize();
   }
+  consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();
 });
