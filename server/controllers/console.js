@@ -5,19 +5,38 @@ import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
 import { uniq } from 'lodash';
+import moment from 'moment';
 
 import { CONTRIB_TABLE_HEADERS } from '../constants';
-import { isTest, guageOptions, logOptions, tableOptions } from '../config';
+import { isTest,
+         titleOptions,
+         guageOptions,
+         logOptions,
+         tableOptions,
+         markdownOptions } from '../config';
 import { getRoomStatusMessage, genGuagePercentage, logBoardReady } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
-const grid = new contrib.grid({ rows: 10, cols: 5, screen });
-const table = grid.set(0, 3, 8.5, 2, contrib.table, tableOptions);
-const log = grid.set(0, 0, 8.5, 3, blessed.log, logOptions);
-const guage = grid.set(8.5, 0, 1.5, 5, contrib.gauge, guageOptions);
+const grid = new contrib.grid({ rows: 11, cols: 5, screen });
+
+grid.set(8.5, 0, 1.5, 2.5, contrib.lcd, titleOptions);
+const log = grid.set(0, 0, 8.5, 3.5, blessed.log, logOptions);
+const uptimeCounter = grid.set(7.9, 3.5, 0.65, 1.5, blessed.log, markdownOptions);
+const table = grid.set(0, 3.5, 7.9, 1.5, contrib.table, tableOptions);
+const guage = grid.set(8.5, 2.5, 1.5, 2.5, contrib.gauge, guageOptions);
 
 const consoleController = {
+  initialize() {
+    const timeOfBoot = moment();
+
+    setInterval(() => {
+      const now = moment();
+      const uptimeDiff = moment.utc(now.diff(timeOfBoot)).format('HH:ss');
+      uptimeCounter.setContent(uptimeDiff);
+    }, 1000);
+  },
+
   /**
    * Batch log of room statuses to console or contrib table.
    * @param {array} rooms Room objects.

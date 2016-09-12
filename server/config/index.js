@@ -54,6 +54,19 @@ export const VIEWS_PATH = path.join(__dirname, ROOT, 'views');
  * Blessed configurations.
  */
 
+const title = 'Office Insights'.toUpperCase();
+export const titleOptions = {
+  display: title,
+  segmentWidth: 0.04,
+  segmentInterval: 0.02,
+  elementSpacing: 0.2,
+  elements: title.length,
+  color: 'green',
+  style: {
+    border: { fg: 'green' }
+  }
+};
+
 export const logOptions = {
   label: 'Server Log',
   width: '65%',
@@ -61,11 +74,12 @@ export const logOptions = {
   border: 'line',
   style: {
     fg: 'white',
-    border: { fg: 'green' }
+    border: { fg: 'cyan' }
   }
 };
 
 export const tableOptions = {
+  label: 'Room statuses',
   width: '35%',
   height: '100%',
   interactive: false,
@@ -82,4 +96,10 @@ export const guageOptions = {
   style: {
     border: { fg: 'yellow' }
   }
+};
+
+export const markdownOptions = {
+  label: 'Uptime',
+  columnWidth: [13],
+  columnSpacing: 4
 };
