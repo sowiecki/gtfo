@@ -65,6 +65,17 @@ const app = server.listen(SERVER_PORT, (err) => {
   consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();
+
+  /**
+   * Individual modules may timeout (possibly due to network issues)
+   * Consider this a band-aid attempt to keep the system online
+   * in case of ECONNRESET and other exceptions.
+   */
+  process.on('uncaughtException', () => {
+    console.log('Exception caught, reconnecting modules');
+
+    devicesController.initialize();
+  });
 });
 
 export default app;
