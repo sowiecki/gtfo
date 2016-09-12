@@ -8,6 +8,7 @@ const cluster = require('cluster');
 // Enable ES6 import/export syntax on all server files but this one
 require('babel-core/register');
 
+// Restarts system in case of catastrophic failure
 if (cluster.isMaster) {
   cluster.fork();
 
@@ -20,3 +21,8 @@ if (cluster.isMaster) {
 } else {
   require('./server');
 }
+
+// Catches exceptions caused by individual modules, keeping system online
+process.on('uncaughtException', (err) => {
+  console.log('Exception caught', err);
+});
