@@ -26,11 +26,18 @@ export const emitDeviceWidthUpdate = () => ({
   type: EMIT_DEVICE_WIDTH_UPDATE
 });
 
-export const emitLocationIndexUpdate = (newLocation, anchorId) => ({
-  type: EMIT_LOCATION_INDEX_UPDATE,
-  newLocation,
-  anchorId
-});
+export const emitLocationIndexUpdate = (newLocation, anchorId) => {
+  history.push({
+    pathname: newLocation,
+    query: { anchor: anchorId }
+  });
+
+  return {
+    type: EMIT_LOCATION_INDEX_UPDATE,
+    newLocation,
+    anchorId
+  };
+};
 
 export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
@@ -88,11 +95,6 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_LOCATION_INDEX_UPDATE]() {
-      history.push({
-        pathname: action.newLocation,
-        query: { anchor: action.anchorId }
-      });
-
       return state;
     },
 
