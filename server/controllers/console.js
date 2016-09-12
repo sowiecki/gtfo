@@ -21,7 +21,7 @@ const screen = blessed.screen({ dockBorders: true });
 const grid = new contrib.grid({ rows: 11, cols: 5, screen });
 
 grid.set(8.5, 0, 1.5, 2.5, contrib.lcd, titleOptions);
-const log = grid.set(0, 0, 8.5, 3.5, blessed.log, logOptions);
+const log = grid.set(0, 0, 8.5, 3.5, contrib.log, logOptions);
 const uptimeCounter = grid.set(7.9, 3.5, 0.65, 1.5, blessed.log, markdownOptions);
 const table = grid.set(0, 3.5, 7.9, 1.5, contrib.table, tableOptions);
 const guage = grid.set(8.5, 2.5, 1.5, 2.5, contrib.gauge, guageOptions);
