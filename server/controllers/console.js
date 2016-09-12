@@ -32,7 +32,7 @@ const consoleController = {
 
     setInterval(() => {
       const now = moment();
-      const uptimeDiff = moment.utc(now.diff(timeOfBoot)).format('mm:ss');
+      const uptimeDiff = moment.utc(now.diff(timeOfBoot)).format('HH:mm:ss');
       uptimeCounter.setContent(uptimeDiff);
     }, 1000);
   },
