@@ -47,7 +47,7 @@ const devicesController = {
       return;
     }
 
-    const connectToRooms = () => devicesController.getRooms().map((room) => {
+    devicesController.getRooms().map((room) => {
       const board = registerBoard(room);
 
       board.on('ready', () => devicesController.boardReady(board, room));
@@ -56,15 +56,6 @@ const devicesController = {
         consoleController.logBoardFail(event);
         devicesController.boardFail(room);
       });
-    });
-    connectToRooms();
-
-    // Catches exceptions caused by individual modules, keeping system online
-    process.on('uncaughtException', (error) => {
-      console.log('Exception caught');
-      console.log(error.stack);
-
-      connectToRooms();
     });
 
     // Set interval for checking and responding to room state
