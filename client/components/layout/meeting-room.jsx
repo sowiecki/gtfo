@@ -20,7 +20,8 @@ const MeetingRoom = (props) => {
           thermo,
           unitOfTemp,
           displayTemp,
-          pinged } = props;
+          pinged,
+          connectionStatus } = props;
 
   const pingAnimation = {
     fill: STATUS_COLORS.PINGED,
@@ -53,6 +54,7 @@ const MeetingRoom = (props) => {
       </VelocityComponent>
       <text
         className='room-text'
+        fill={connectionStatus ? styles.svgRoomTextConnected : styles.svgRoomTextDisconnected}
         dx={ROOM_NAME_TEXT_DX}
         dy={ROOM_NAME_TEXT_DY}
         transform='translate(18, -6) rotate(45)' // Only applies to Microsoft Edge
@@ -76,7 +78,8 @@ MeetingRoom.propTypes = {
   thermo: PropTypes.object,
   unitOfTemp: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool,
-  pinged: PropTypes.bool
+  pinged: PropTypes.bool,
+  connectionStatus: PropTypes.bool.isRequired
 };
 
 export default applyStyles(MeetingRoom);

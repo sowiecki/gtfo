@@ -36,7 +36,7 @@ const initialState = immutable.fromJS({
     const id = device.name.toLowerCase();
     const location = slug(device.location, { lower: true });
 
-    return { ...device, id, location, coordinates: coordinates[id] };
+    return { ...device, id, location, coordinates: coordinates[id], connectionStatus: false };
   })
 });
 

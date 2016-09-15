@@ -58,6 +58,12 @@ const devicesController = {
       });
     });
 
+    // Catches exceptions caused by individual modules, keeping system online
+    process.on('uncaughtException', (error) => {
+      console.log('Exception caught');
+      console.info(error.stack);
+    });
+
     // Set interval for checking and responding to room state
     const monitorExternalServices = setInterval(() => {
       fetchRoomReservations();
