@@ -42,7 +42,7 @@ export const rules = {
       fontWeight: 400,
       textShadow: `${colors.GREY} 0px 0px 0px`,
       textTransform: 'uppercase',
-      transform: `${svgLabelBaseTransform} translate(3px, -21px)`
+      transform: `${svgLabelBaseTransform} translate(3px, -17px)`
     },
 
     'text.temperature-text': {
@@ -97,7 +97,7 @@ export const rules = {
          * by the portrait and iphone breakpoints below.
          */
         [layoutSelectors]: {
-          top: '50px',
+          top: '40px',
           ...genWidthAndHeight(608)
         },
 

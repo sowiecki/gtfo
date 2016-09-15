@@ -1,7 +1,7 @@
 import { colors } from '../../common/styles';
 
 export const ROOM_NAME_TEXT_DX = 2;
-export const ROOM_NAME_TEXT_DY = 24;
+export const ROOM_NAME_TEXT_DY = 22;
 export const ROOM_TEMPERATURE_TEXT_DX = 2;
 export const ROOM_TEMPERATURE_TEXT_DY = 42;
 export const MARKER_ROOM_NAME_TEXT_DY = ROOM_NAME_TEXT_DY + 16;
@@ -45,7 +45,11 @@ export const styles = {
   },
 
   svgRect: {
-    stroke: colors.DARK_GREY,
-    strokeWidth: 2
-  }
+    stroke: colors.GHOST_WHITE,
+    strokeWidth: 1
+  },
+
+  svgRoomTextConnected: colors.BLACK,
+
+  svgRoomTextDisconnected: colors.GREY
 };

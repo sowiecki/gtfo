@@ -18,7 +18,8 @@ export const registerBoard = (device) => (
       token: device.deviceAuthToken,
       deviceId: device.deviceId
     }),
-    repl: false
+    repl: false,
+    debug: false
   })
 );
 

@@ -10,7 +10,8 @@ export const colors = {
   WHITE: '#FFFFFF',
   GHOST_WHITE: '#F8F8FF',
   GREY: '#888899',
-  DARK_GREY: '#333333'
+  DARK_GREY: '#333333',
+  YELLOW: '#EFE04E'
 };
 
 export const fonts = {

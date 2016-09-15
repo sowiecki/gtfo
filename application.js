@@ -21,8 +21,3 @@ if (cluster.isMaster) {
 } else {
   require('./server');
 }
-
-// Catches exceptions caused by individual modules, keeping system online
-process.on('uncaughtException', (err) => {
-  console.log('Exception caught', err);
-});
