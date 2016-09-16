@@ -58,18 +58,20 @@ const initialState = immutable.fromJS({
   stalls: null,
   displayLegend: true,
   displayTemp: true, // User UI option for toggling temperature display on map
-  enableTemp: false, // Server variable that governs display of temperature UI elements
+  enableTemp: false, // Server variable that governs display of temperature features
+  enableMotion: false, // Server variable that governs display of motion features
   unitOfTemp: FAHRENHEIT
 });
 
 const layoutReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]() {
-      const { enableTemperature, defaultTempScale } = action.config;
+      const { enableTemperature, enableMotion, defaultTempScale } = action.config;
 
       return state
         .set('enableTemp', enableTemperature || false)
-        .set('unitOfTemp', defaultTempScale || FAHRENHEIT);
+        .set('unitOfTemp', defaultTempScale || FAHRENHEIT)
+        .set('enableMotion', enableMotion || false);
     },
 
     [EMIT_ROOM_STATUSES_UPDATE]() {

@@ -84,7 +84,7 @@ class LayoutController extends Component {
   }
 
   render() {
-    const { meetingRooms, displayLegend, params, location } = this.props;
+    const { meetingRooms, displayLegend, params, location, enableMotion } = this.props;
     const locationKeys = pluckLocations(meetingRooms);
 
     const renderLocation = (locationKey, index) => (
@@ -105,6 +105,7 @@ class LayoutController extends Component {
           </SwipeableViews>
           <MapLegend
             enabled={displayLegend}
+            enableMotion={enableMotion}
             showYouAreHere={hasAnchor(location)}/>
         </Paper>
         <DisplayError {...this.props}/>
@@ -120,6 +121,7 @@ LayoutController.propTypes = {
   markers: PropTypes.array,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
+  enableMotion: PropTypes.bool.isRequired,
   unitOfTemp: PropTypes.string.isRequired,
   params: PropTypes.shape({
     location: PropTypes.string
