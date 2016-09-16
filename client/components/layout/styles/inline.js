@@ -49,7 +49,7 @@ export const styles = {
     strokeWidth: 1
   },
 
-  svgRoomTextConnected: colors.BLACK,
+  svgRoomTextConnected: colors.DARK_BLUE,
 
-  svgRoomTextDisconnected: colors.GREY
+  svgRoomTextDisconnected: colors.DARK_RED
 };

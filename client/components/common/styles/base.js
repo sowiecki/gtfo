@@ -9,9 +9,10 @@ export const colors = {
   secondaryOpposing: '',
   WHITE: '#FFFFFF',
   GHOST_WHITE: '#F8F8FF',
-  GREY: '#888899',
+  GREY: '#5A5A66',
   DARK_GREY: '#333333',
-  YELLOW: '#EFE04E'
+  DARK_RED: '#770000',
+  DARK_BLUE: '#002277'
 };
 
 export const fonts = {
