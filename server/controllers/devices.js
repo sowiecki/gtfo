@@ -52,7 +52,7 @@ const devicesController = {
 
       board.on('ready', () => devicesController.boardReady(board, room));
       board.on('warn', consoleController.logBoardWarn);
-      board.on('exit', (event) => {
+      board.on('fail', (event) => {
         consoleController.logBoardFail(event);
         devicesController.boardFail(room);
       });
