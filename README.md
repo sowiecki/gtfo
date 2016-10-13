@@ -90,7 +90,7 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 
 ## Software Setup
 ```bash
-git clone https://github.com/Nase00/gtfo.git && cd gtfo
+git clone https://github.com/Nase00/gtfo.git && cd gtfo && yarn
 ```
 Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
 ```
