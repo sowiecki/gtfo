@@ -65,6 +65,7 @@
     "file-loader": "^0.9.0",
     "immutable": "^3.7.6",
     "immutable-props": "^1.0.0",
+    "istanbul": "^0.4.5",
     "johnny-five": "^0.10.0",
     "json-loader": "^0.5.4",
     "jsonschema": "^1.1.0",
