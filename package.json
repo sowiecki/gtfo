@@ -40,11 +40,13 @@
   ],
   "license": "none",
   "engines": {
-    "node": "^6.0.0",
+    "node": "^6.7.0",
     "npm": "^3.8.6"
   },
   "private": true,
   "dependencies": {
+    "app-module-path": "^2.1.0",
+    "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
@@ -57,6 +59,8 @@
     "body-parser": "^1.15.0",
     "colors": "^1.1.2",
     "cookie-parser": "^1.4.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^2.0.1",
     "express": "^4.13.3",
     "file-loader": "^0.9.0",
     "immutable": "^3.7.6",
@@ -65,8 +69,8 @@
     "json-loader": "^0.5.4",
     "jsonschema": "^1.1.0",
     "lodash": "^4.5.1",
-    "material-ui": "^0.15.4",
-    "moment": "^2.11.2",
+    "material-ui": "^0.16.0",
+    "moment": "^2.15.1",
     "morgan": "^1.7.0",
     "particle-io": "^0.14.0",
     "radium": "^0.18.0",
@@ -89,7 +93,7 @@
     "velocity-react": "^1.1.5",
     "webpack": "^1.13.1",
     "ws": "^1.1.1",
-    "yargs": "^5.0.0"
+    "yargs": "^6.0.0"
   },
   "devDependencies": {
     "app-module-path": "^1.1.0",

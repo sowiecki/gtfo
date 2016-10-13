@@ -26,6 +26,7 @@
       "allowNamedFunctions": false,
       "allowUnboundThis": false,
     }],
+    "import/extensions": 0,
     "func-names": 2,
     "react/jsx-space-before-closing": [2, "never"],
     "react/prefer-es6-class": 2,

@@ -45,4 +45,4 @@ patch:
         patched: '2016-09-06T18:32:10.679Z'
   'npm:request:20160119':
     - blessed-contrib > picture-tube > request:
-        patched: '2016-09-06T18:32:10.679Z'
+        patched: '2016-10-13T04:48:16.345Z'
