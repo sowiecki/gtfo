@@ -96,9 +96,9 @@
     "yargs": "^6.0.0"
   },
   "devDependencies": {
-    "app-module-path": "^1.1.0",
+    "app-module-path": "^2.1.0",
     "babel-core": "^6.7.4",
-    "babel-eslint": "^6.0.2",
+    "babel-eslint": "^7.0.0",
     "babel-preset-react-hmre": "^1.1.0",
     "coveralls": "^2.11.12",
     "enzyme": "^2.2.0",
