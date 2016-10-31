@@ -12,17 +12,18 @@ All user-configurated files are (and should remain) gitignored to prevent privat
 ### config.json
 General configuration.
 
-| Parameter            | Description                                 | Required? |
-|----------------------|---------------------------------------------|-----------|
-| public               | Configurations passed to client (insecure!) | Yes       |
-| - title              | Title to display on client                  | No        |
-| - enableTemperature  | Enables (experimental) temperature readings | No        |
-| - enableMotion       | Enables (experimental) motion readings      | No        |
-| - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |
-| emailDomain          | @yourCompany.com                            | Yes       |
-| prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |
-| prodStallsHost       | URL of hosted stalls service instance       | Yes       |
-| proxyHost          | URL of hosted proxy instance              | Yes       |
+| Parameter            | Description                                 | Required? | Default |
+|----------------------|---------------------------------------------|-----------|---------|
+| public               | Configurations passed to client (insecure!)  | Yes       |         |
+| - title              | Page title to display on client             | No        |         |
+| - enableTemperature  | Enables (experimental) temperature readings | No        |         |
+| - enableMotion       | Enables (experimental) motion readings      | No        |         |
+| - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |         |
+| emailDomain          | @yourCompany.com                            | Yes       |         |
+| prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
+| prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
+| proxyHost            | URL of hosted proxy instance                | Yes       |         |
+| indirect             | Run modules in indirect mode                | No        | `false` |
 
 Example of a `config.json`:
 ```json

@@ -6,6 +6,8 @@
  * Registers accessories for each device
  */
 
+import Particle from 'particle-api-js';
+
 import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
@@ -13,7 +15,8 @@ import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion } from '../utils';
+         registerMotion,
+         secureRooms } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -22,11 +25,17 @@ import { FETCH_ROOM_RESERVATIONS,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
 import { CHECK_INTERVAL } from '../constants';
 
+const particle = new Particle();
+
 const devicesController = {
   getRooms() {
     const { rooms } = store.getState().roomsReducer.toJS();
 
     return rooms;
+  },
+
+  getReservations(req, res) {
+    res.json(secureRooms(devicesController.getRooms()));
   },
 
   /**
@@ -43,10 +52,26 @@ const devicesController = {
     const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
     fetchRoomReservations();
 
+    // Set interval for checking and responding to room state
+    const monitorExternalServices = setInterval(() => {
+      fetchRoomReservations();
+
+      if (process.env.MOCKS) {
+        // No need to continually check mock data for updates
+        clearInterval(monitorExternalServices);
+      }
+    }, CHECK_INTERVAL);
+
     if (process.env.DISABLE_DEVICES) {
       return;
+    } else if (process.env.INDIRECT_MODE) {
+      devicesController.runIndirect();
+    } else {
+      devicesController.runDirect();
     }
+  },
 
+  runDirect() {
     devicesController.getRooms().map((room) => {
       const board = registerBoard(room);
 
@@ -60,24 +85,28 @@ const devicesController = {
 
     // Catches exceptions caused by individual modules, keeping system online
     process.on('uncaughtException', (error) => {
-      console.log('Exception caught');
-      console.info(error.stack);
+      consoleController.log('Exception caught');
+      consoleController.log(error.stack);
     });
+  },
 
-    // Set interval for checking and responding to room state
-    const monitorExternalServices = setInterval(() => {
-      fetchRoomReservations();
-
-      if (process.env.MOCKS) {
-        // No need to continually check mock data for updates
-        clearInterval(monitorExternalServices);
-      }
-    }, CHECK_INTERVAL);
+  runIndirect() {
+    devicesController.getRooms().map((device) => {
+      particle.callFunction({
+        deviceId: device.deviceId,
+        auth: device.deviceAuthToken,
+        name: device.name,
+        argument: 'D0:HIGH'
+      }).then((data) => {
+        consoleController.log('Function called succesfully:', data);
+      }, (err) => {
+        consoleController.log('An error occurred:', err);
+      });
+    });
   },
 
   /**
-   * Top-level scope for handling an individual room's
-   *  board accessories and reservations.
+   * Handle an individual room's board accessories and reservations.
    * Kicks off actions to monitor accessory states, updating server state as necessary.
    * @param {object} board JohnnyFive board object.
    * @param {object} room Corresponding room object.

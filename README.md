@@ -50,7 +50,17 @@ Minimum required hardware **per each remote module**:
 [![Photograph of hardware wiring](./wiring_photo_small.png)](./wiring_photo.png)
 
 #### Photon Boards
-[Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network, then flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
+There are two ways to configure boards.
+
+**Direct (LAN-only):** Modules are controlled over a LAN through the Johnny-Five library.
+
+**Indirect:** The application hosts an API for individual modules to query.
+Motion and temperature features are currently unavailable through this method.
+
+[Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network.
+
+If running in **direct** mode, flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
+If running in **indirect** mode, flash each module with TODO
 
 Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
 See [environment configuration documentation](./environment/README.md).
@@ -153,4 +163,5 @@ npm run test # Lints and tests client, server, and universal code.
 --mocks # Disables Outlook api in favor of using mock reservation data.
 --dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
 --dd # Disables devices, useful for client testing without room module hardware.
+--indirect # Enables direct mode. Overrides setting in config.json.
 ```

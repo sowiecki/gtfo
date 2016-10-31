@@ -2,6 +2,7 @@
 import express from 'express';
 
 import pingsController from '../controllers/pings';
+import devicesController from '../controllers/devices';
 import applicationView from '../views/application';
 
 import { config } from '../environment';
@@ -23,6 +24,8 @@ if (config.public.enableStalls || !isProd) {
     router.get(MOCK_RESERVATIONS_API, respondWithMockedRoom);
   }
 }
+
+router.get('/api/reservations', (req, res) => devicesController.getReservations(req, res));
 
 /* Room pings */
 router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));

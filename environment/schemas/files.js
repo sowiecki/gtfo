@@ -17,7 +17,8 @@ export default {
       },
       prodReservationsHost: { type: 'string' },
       prodStallsHost: { type: 'string' },
-      proxyHost: { type: 'string' }
+      proxyHost: { type: 'string' },
+      indirect: { type: 'bool' }
     },
     required: ['public', 'prodReservationsHost']
   },

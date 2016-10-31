@@ -27,7 +27,11 @@ const proxyController = {
   },
 
   handleConnection() {
-    webSocket.send(JSON.stringify({ event: HANDSHAKE }));
+    if (webSocket.readyState === 1) {
+      webSocket.send(JSON.stringify({ event: HANDSHAKE }));
+    } else {
+      consoleController.log('WebSocket is not currently open');
+    }
   },
 
   parseEvent({ data }) {

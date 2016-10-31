@@ -16,7 +16,8 @@ import { HANDSHAKE,
          RECONNECTED,
          NEW_ROOM_PING,
          TIME_TRAVEL_UPDATE,
-         TIME_FORMAT } from '../constants';
+         TIME_FORMAT,
+         UNEXPECTED_SOCKET_ERROR } from '../constants';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
@@ -60,10 +61,10 @@ const socketController = {
    * @returns {undefined}
    */
   send(event, payload, client) {
-    try {
+    if (client.readyState === 1) {
       client.send(JSON.stringify({ event, payload }));
-    } catch (e) {
-      console.log(e);
+    } else {
+      console.log(UNEXPECTED_SOCKET_ERROR);
     }
   },
 

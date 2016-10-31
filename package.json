@@ -73,6 +73,7 @@
     "material-ui": "^0.16.0",
     "moment": "^2.15.1",
     "morgan": "^1.7.0",
+    "particle-api-js": "^6.2.0",
     "particle-io": "^0.14.0",
     "radium": "^0.18.0",
     "react": "^15.3.0",
