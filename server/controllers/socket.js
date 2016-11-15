@@ -1,12 +1,10 @@
-/* eslint new-cap:0, no-console:0 */
-/* globals console */
 import WebSocket from 'ws';
 import moment from 'moment';
 import { filter, forEach } from 'lodash';
 
 import store from '../store';
 
-import { getFutureAlerts } from '../utils';
+import { send, getFutureAlerts } from '../utils';
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
@@ -16,8 +14,7 @@ import { HANDSHAKE,
          RECONNECTED,
          NEW_ROOM_PING,
          TIME_TRAVEL_UPDATE,
-         TIME_FORMAT,
-         UNEXPECTED_SOCKET_ERROR } from '../constants';
+         TIME_FORMAT } from '../constants';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
@@ -50,22 +47,6 @@ const socketController = {
         store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
       });
     });
-  },
-
-  /**
-   * Middleware function for all open socket communication.
-   * Fails gracefully if communication with client fails unexpectedly.
-   * @param {string} event Event constant that determines handling client-side.
-   * @param {object} payload Payload to send to client.
-   * @param {ws} client WebSocket object associated with specific targetted client.
-   * @returns {undefined}
-   */
-  send(event, payload, client) {
-    if (client.readyState === 1) {
-      client.send(JSON.stringify({ event, payload }));
-    } else {
-      console.log(UNEXPECTED_SOCKET_ERROR);
-    }
   },
 
   /**
@@ -128,7 +109,9 @@ const socketController = {
     };
 
     return handlers[event] ? handlers[event]() : handlers.sendToAll();
-  }
+  },
+
+  send
 };
 
 export default socketController;

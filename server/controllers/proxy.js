@@ -3,6 +3,7 @@ import WebSocket from 'ws';
 
 import pingsController from './pings';
 import consoleController from './console';
+import { send } from '../utils';
 import { PROXY_HOST,
          WEBSOCKET_PROTOCOL,
          WEBSOCKET_RECONNECT_INTERVAL,
@@ -21,17 +22,14 @@ const proxyController = {
     clearInterval(interval);
     webSocket = new WebSocket(PROXY_HOST, WEBSOCKET_PROTOCOL);
 
-    webSocket.onopen = this.handleConnection;
+    webSocket.onopen = this.handleSocketOpen;
     webSocket.onmessage = this.parseEvent;
     webSocket.onclose = this.reconnect;
   },
 
-  handleConnection() {
-    if (webSocket.readyState === 1) {
-      webSocket.send(JSON.stringify({ event: HANDSHAKE }));
-    } else {
-      consoleController.log('WebSocket is not currently open');
-    }
+  handleSocketOpen() {
+    webSocket.send(JSON.stringify({ event: HANDSHAKE }));
+    // proxyController.send(HANDSHAKE, null, webSocket);
   },
 
   parseEvent({ data }) {
@@ -62,7 +60,9 @@ const proxyController = {
     interval = setInterval(() => {
       proxyController.initialize();
     }, WEBSOCKET_RECONNECT_INTERVAL);
-  }
+  },
+
+  send
 };
 
 export default proxyController;

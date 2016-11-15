@@ -23,7 +23,7 @@ import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
-import { CHECK_INTERVAL, RUN_DIRECT, RUN_INDIRECT } from '../constants';
+import { CHECK_INTERVAL } from '../constants';
 
 const particle = new Particle();
 
@@ -39,7 +39,6 @@ const devicesController = {
    */
   initialize() {
     const devicesEnabled = !process.env.DISABLE_DEVICES;
-    const RUN_MODE = process.env.INDIRECT_MODE ? RUN_INDIRECT : RUN_DIRECT;
 
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
@@ -60,7 +59,7 @@ const devicesController = {
     }, CHECK_INTERVAL);
 
     if (devicesEnabled) {
-      devicesController[RUN_MODE]();
+      devicesController[process.env.RUN_MODE]();
     }
   },
 
