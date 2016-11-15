@@ -23,20 +23,14 @@ import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants';
+import { CHECK_INTERVAL, RUN_DIRECT, RUN_INDIRECT } from '../constants';
 
 const particle = new Particle();
 
 const devicesController = {
-  getRooms() {
-    const { rooms } = store.getState().roomsReducer.toJS();
+  getRooms: () => store.getState().roomsReducer.toJS().rooms,
 
-    return rooms;
-  },
-
-  getReservations(req, res) {
-    res.json(secureRooms(devicesController.getRooms()));
-  },
+  getReservations: (req, res) => res.json(secureRooms(devicesController.getRooms())),
 
   /**
    * Kicks off setting up and connecting to devices.
@@ -44,6 +38,9 @@ const devicesController = {
    * @returns {undefined}
    */
   initialize() {
+    const devicesEnabled = !process.env.DISABLE_DEVICES;
+    const RUN_MODE = process.env.INDIRECT_MODE ? RUN_INDIRECT : RUN_DIRECT;
+
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
       publicConfig: config.public
@@ -62,12 +59,8 @@ const devicesController = {
       }
     }, CHECK_INTERVAL);
 
-    if (process.env.DISABLE_DEVICES) {
-      return;
-    } else if (process.env.INDIRECT_MODE) {
-      devicesController.runIndirect();
-    } else {
-      devicesController.runDirect();
+    if (devicesEnabled) {
+      devicesController[RUN_MODE]();
     }
   },
 
@@ -147,12 +140,10 @@ const devicesController = {
     }
   },
 
-  boardFail(room) {
-    store.dispatch({
-      type: EMIT_ROOM_MODULE_FAILURE,
-      room
-    });
-  }
+  boardFail: (room) => store.dispatch({
+    type: EMIT_ROOM_MODULE_FAILURE,
+    room
+  })
 };
 
 export default devicesController;

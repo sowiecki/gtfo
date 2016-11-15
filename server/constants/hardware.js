@@ -1,3 +1,6 @@
+export const RUN_DIRECT = 'runDirect';
+export const RUN_INDIRECT = 'runIndirect';
+
 export const RGB_PINS = {
   red: 'A7',
   green: 'A5',
