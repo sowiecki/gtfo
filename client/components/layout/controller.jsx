@@ -19,6 +19,12 @@ import { PING_TIMEOUT } from '../../constants';
 let originalLocation;
 
 class LayoutController extends Component {
+  componentWillMount() {
+    const { actions, location } = this.props;
+
+    actions.connectSocket(location.query);
+  }
+
   componentDidMount() {
     if (this.props.ping) {
       this.flashPing();
