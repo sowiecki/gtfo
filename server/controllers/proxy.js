@@ -28,8 +28,7 @@ const proxyController = {
   },
 
   handleSocketOpen() {
-    webSocket.send(JSON.stringify({ event: HANDSHAKE }));
-    // proxyController.send(HANDSHAKE, null, webSocket);
+    proxyController.send(HANDSHAKE, null, webSocket);
   },
 
   parseEvent({ data }) {

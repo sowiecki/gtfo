@@ -2,6 +2,7 @@
 import immutable from 'immutable';
 import slug from 'slug';
 
+import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
@@ -15,9 +16,11 @@ import { flashNotifications,
          initializeRoomModuleState } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
-         ROOM_STATUSES_UPDATE } from '../constants';
+         ROOM_STATUSES_UPDATE,
+         RUN_INDIRECT } from '../constants';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
+export const EMIT_DEVICE_STATUS_UPDATE = 'EMIT_DEVICE_STATUS_UPDATE';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_RESERVATIONS = 'FETCH_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
@@ -116,8 +119,15 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       if (alertChanged) {
+        const devicesEnabled = !process.env.DISABLE_DEVICES;
+        const runningIndirect = process.env.RUN_MODE === RUN_INDIRECT;
+
         consoleController.logRoomStatuses(getSecureRooms(state));
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
+
+        if (devicesEnabled && runningIndirect) {
+          devicesController.statusUpdate(getSecureRooms(state));
+        }
       }
 
       return state;

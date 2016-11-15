@@ -7,6 +7,7 @@
  */
 
 import Particle from 'particle-api-js';
+import colors from 'colors';
 
 import consoleController from './console';
 import store from '../store';
@@ -23,14 +24,16 @@ import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants';
+import { CHECK_INTERVAL, RUN_DIRECT } from '../constants';
 
 const particle = new Particle();
 
 const devicesController = {
   getRooms: () => store.getState().roomsReducer.toJS().rooms,
 
-  getReservations: (req, res) => res.json(secureRooms(devicesController.getRooms())),
+  getSecureRooms: () => secureRooms(devicesController.getRooms()),
+
+  getReservations: (req, res) => res.json(devicesController.getSecureRooms()),
 
   /**
    * Kicks off setting up and connecting to devices.
@@ -39,6 +42,7 @@ const devicesController = {
    */
   initialize() {
     const devicesEnabled = !process.env.DISABLE_DEVICES;
+    const runningDirect = process.env.RUN_MODE === RUN_DIRECT;
 
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
@@ -58,8 +62,8 @@ const devicesController = {
       }
     }, CHECK_INTERVAL);
 
-    if (devicesEnabled) {
-      devicesController[process.env.RUN_MODE]();
+    if (devicesEnabled && runningDirect) {
+      devicesController.runDirect();
     }
   },
 
@@ -82,17 +86,19 @@ const devicesController = {
     });
   },
 
-  runIndirect() {
-    devicesController.getRooms().map((device) => {
+  statusUpdate(rooms) {
+    rooms.forEach((device) => {
       particle.callFunction({
         deviceId: device.deviceId,
         auth: device.deviceAuthToken,
-        name: device.name,
-        argument: 'D0:HIGH'
+        name: 'status',
+        argument: device.alert
       }).then((data) => {
         consoleController.log('Function called succesfully:', data);
       }, (err) => {
-        consoleController.log('An error occurred:', err);
+        const bodyError = colors.red.bold(err.body.error);
+        const deviceName = colors.magenta.bold(device.name);
+        consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
       });
     });
   },

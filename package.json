@@ -9,6 +9,7 @@
   "main": "application.js",
   "node_test_paths": "./tests/server/**/*.spec.* ./tests/universal/**/*.spec.*",
   "scripts": {
+    "flash": "node firmata/flash",
     "clean": "rimraf server/public/dist",
     "demo": "node environment/demo",
     "deploy-server": "NODE_ENV=production forever start ./application.js",

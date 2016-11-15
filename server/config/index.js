@@ -5,7 +5,6 @@ import colors from 'colors/safe';
 import { argv } from 'yargs';
 
 import { config } from '../environment';
-import { RUN_DIRECT, RUN_INDIRECT } from '../constants';
 
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
@@ -40,10 +39,10 @@ if (argv.dd) {
 }
 
 if (config.indirect || argv.indirect) {
-  process.env.RUN_MODE = RUN_INDIRECT;
+  process.env.RUN_MODE = 'runIndirect';
   console.log(colors.gray.italic('Running in indirect mode\n'));
 } else {
-  process.env.RUN_MODE = RUN_DIRECT;
+  process.env.RUN_MODE = 'runDirect';
 }
 
 export const isProd = process.env.NODE_ENV === 'production';
