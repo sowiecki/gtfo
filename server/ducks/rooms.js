@@ -54,7 +54,7 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_SET_ROOM_ACCESSORIES]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action, true)));
+      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action)));
 
       consoleController.logRoomStatuses(getSecureRooms(state));
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -63,7 +63,7 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_MODULE_FAILURE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action, false)));
+      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action)));
 
       consoleController.logRoomStatuses(getSecureRooms(state));
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -122,12 +122,12 @@ const roomsReducer = (state = initialState, action) => {
         const devicesEnabled = !process.env.DISABLE_DEVICES;
         const runningIndirect = process.env.RUN_MODE === RUN_INDIRECT;
 
+        if (devicesEnabled && runningIndirect) {
+          devicesController.statusUpdate(state.get('rooms'));
+        }
+
         consoleController.logRoomStatuses(getSecureRooms(state));
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
-
-        if (devicesEnabled && runningIndirect) {
-          devicesController.statusUpdate(getSecureRooms(state));
-        }
       }
 
       return state;

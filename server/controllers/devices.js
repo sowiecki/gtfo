@@ -7,6 +7,7 @@
  */
 
 import Particle from 'particle-api-js';
+import { isEmpty } from 'lodash';
 import colors from 'colors';
 
 import consoleController from './console';
@@ -69,14 +70,16 @@ const devicesController = {
 
   runDirect() {
     devicesController.getRooms().map((room) => {
-      const board = registerBoard(room);
+      if (!isEmpty(room.deviceAuthToken)) {
+        const board = registerBoard(room);
 
-      board.on('ready', () => devicesController.boardReady(board, room));
-      board.on('warn', consoleController.logBoardWarn);
-      board.on('fail', (event) => {
-        consoleController.logBoardFail(event);
-        devicesController.boardFail(room);
-      });
+        board.on('ready', () => devicesController.boardReady(board, room));
+        board.on('warn', consoleController.logBoardWarn);
+        board.on('fail', (event) => {
+          consoleController.logBoardFail(event);
+          devicesController.boardFail(room);
+        });
+      }
     });
 
     // Catches exceptions caused by individual modules, keeping system online
@@ -87,18 +90,31 @@ const devicesController = {
   },
 
   statusUpdate(rooms) {
-    rooms.forEach((device) => {
+    rooms.forEach((room) => {
       particle.callFunction({
-        deviceId: device.deviceId,
-        auth: device.deviceAuthToken,
+        deviceId: room.get('deviceId'),
+        auth: room.get('deviceAuthToken'),
         name: 'status',
-        argument: device.alert
+        argument: room.get('alert')
       }).then((data) => {
-        consoleController.log('Function called succesfully:', data);
+        const deviceName = colors.green.bold(room.get('name'));
+        consoleController.log(`Successfully updated status of ${deviceName}`);
+
+        store.dispatch({
+          type: EMIT_SET_ROOM_ACCESSORIES,
+          room,
+          connectionStatus: true
+        });
       }, (err) => {
         const bodyError = colors.red.bold(err.body.error);
-        const deviceName = colors.magenta.bold(device.name);
+        const deviceName = colors.magenta.bold(room.get('name'));
         consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
+
+        store.dispatch({
+          type: EMIT_ROOM_MODULE_FAILURE,
+          room,
+          connectionStatus: false
+        })
       });
     });
   },
@@ -125,7 +141,8 @@ const devicesController = {
     store.dispatch({
       type: EMIT_SET_ROOM_ACCESSORIES,
       room,
-      accessories
+      accessories,
+      connectionStatus: true
     });
 
     if (config.public.enableTemperature) {
@@ -147,7 +164,8 @@ const devicesController = {
 
   boardFail: (room) => store.dispatch({
     type: EMIT_ROOM_MODULE_FAILURE,
-    room
+    room,
+    connectionStatus: false
   })
 };
 

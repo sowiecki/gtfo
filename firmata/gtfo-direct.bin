@@ -1,0 +1,34 @@
+#include "rgb-controls/rgb-controls.h"
+using namespace RGBControls;
+
+Led led(A7, A5, A4, false);
+Color standby(10, 10, 10);
+Color purple(150, 0, 150);
+Color green(0, 255, 0);
+Color red(255, 0, 0);
+Color orange(255, 148, 0);
+Color blue(0, 0, 255);
+Color colors[3] = { red, green, blue };
+
+void setup() {
+  led.setColor(standby);
+  Particle.function("status", handleStatus);
+}
+
+int handleStatus(String status) {
+  if (status == "BOOKED") {
+    led.setColor(blue);
+    return 1;
+  } else if (status == "VACANT") {
+    led.setColor(green);
+    return 1;
+  } else if (status == "FIVE_MINUTE_WARNING") {
+    led.setColor(orange);
+    return 1;
+  } else if (status == "ONE_MINUTE_WARNING") {
+    led.setColor(red);
+    return 1;
+  }
+
+  return 0;
+}
