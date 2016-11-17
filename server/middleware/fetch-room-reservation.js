@@ -2,7 +2,6 @@ import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import { FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE, RESERVATIONS_URL } from '../constants';
-import consoleController from '../controllers/console';
 import { formatReservations, logfetchRoomReservationError } from '../utils';
 
 const fetchRoomReservation = (next) => {
@@ -24,7 +23,7 @@ const fetchRoomReservation = (next) => {
           reservations
         });
       } catch (error) {
-        consoleController.log(FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE, error, 'bgRed');
+        throw new Error(FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE);
       }
     });
   }).on('error', logfetchRoomReservationError);

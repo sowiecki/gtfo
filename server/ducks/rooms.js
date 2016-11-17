@@ -2,6 +2,7 @@
 import immutable from 'immutable';
 import slug from 'slug';
 
+import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
@@ -15,9 +16,11 @@ import { flashNotifications,
          initializeRoomModuleState } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
-         ROOM_STATUSES_UPDATE } from '../constants';
+         ROOM_STATUSES_UPDATE,
+         RUN_INDIRECT } from '../constants';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
+export const EMIT_DEVICE_STATUS_UPDATE = 'EMIT_DEVICE_STATUS_UPDATE';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_RESERVATIONS = 'FETCH_ROOM_RESERVATIONS';
 export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
@@ -51,7 +54,7 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_SET_ROOM_ACCESSORIES]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action, true)));
+      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action)));
 
       consoleController.logRoomStatuses(getSecureRooms(state));
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -60,7 +63,7 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_MODULE_FAILURE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action, false)));
+      state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action)));
 
       consoleController.logRoomStatuses(getSecureRooms(state));
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -116,6 +119,13 @@ const roomsReducer = (state = initialState, action) => {
       }));
 
       if (alertChanged) {
+        const devicesEnabled = !process.env.DISABLE_DEVICES;
+        const runningIndirect = process.env.RUN_MODE === RUN_INDIRECT;
+
+        if (devicesEnabled && runningIndirect) {
+          devicesController.updateIndirect(state.get('rooms'));
+        }
+
         consoleController.logRoomStatuses(getSecureRooms(state));
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
       }

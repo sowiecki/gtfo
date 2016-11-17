@@ -6,6 +6,10 @@
  * Registers accessories for each device
  */
 
+import Particle from 'particle-api-js';
+import { isEmpty } from 'lodash';
+import colors from 'colors';
+
 import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
@@ -13,21 +17,24 @@ import { registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
-         registerMotion } from '../utils';
+         registerMotion,
+         secureRooms } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
-import { CHECK_INTERVAL } from '../constants';
+import { CHECK_INTERVAL, RUN_DIRECT } from '../constants';
+
+const particle = new Particle();
 
 const devicesController = {
-  getRooms() {
-    const { rooms } = store.getState().roomsReducer.toJS();
+  getRooms: () => store.getState().roomsReducer.toJS().rooms,
 
-    return rooms;
-  },
+  getSecureRooms: () => secureRooms(devicesController.getRooms()),
+
+  getReservations: (req, res) => res.json(devicesController.getSecureRooms()),
 
   /**
    * Kicks off setting up and connecting to devices.
@@ -35,6 +42,9 @@ const devicesController = {
    * @returns {undefined}
    */
   initialize() {
+    const devicesEnabled = !process.env.DISABLE_DEVICES;
+    const runningDirect = process.env.RUN_MODE === RUN_DIRECT;
+
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
       publicConfig: config.public
@@ -42,27 +52,6 @@ const devicesController = {
 
     const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
     fetchRoomReservations();
-
-    if (process.env.DISABLE_DEVICES) {
-      return;
-    }
-
-    devicesController.getRooms().map((room) => {
-      const board = registerBoard(room);
-
-      board.on('ready', () => devicesController.boardReady(board, room));
-      board.on('warn', consoleController.logBoardWarn);
-      board.on('fail', (event) => {
-        consoleController.logBoardFail(event);
-        devicesController.boardFail(room);
-      });
-    });
-
-    // Catches exceptions caused by individual modules, keeping system online
-    process.on('uncaughtException', (error) => {
-      console.log('Exception caught');
-      console.info(error.stack);
-    });
 
     // Set interval for checking and responding to room state
     const monitorExternalServices = setInterval(() => {
@@ -73,11 +62,65 @@ const devicesController = {
         clearInterval(monitorExternalServices);
       }
     }, CHECK_INTERVAL);
+
+    if (devicesEnabled && runningDirect) {
+      devicesController.updateDirect();
+    }
+  },
+
+  updateDirect() {
+    devicesController.getRooms().map((room) => {
+      if (!isEmpty(room.deviceAuthToken)) {
+        const board = registerBoard(room);
+
+        board.on('ready', () => devicesController.boardReady(board, room));
+        board.on('warn', consoleController.logBoardWarn);
+        board.on('fail', (event) => {
+          consoleController.logBoardFail(event);
+          devicesController.boardFail(room);
+        });
+      }
+    });
+
+    // Catches exceptions caused by individual modules, keeping system online
+    process.on('uncaughtException', (error) => {
+      consoleController.log('Exception caught');
+      consoleController.log(error.stack);
+    });
+  },
+
+  updateIndirect(rooms) {
+    rooms.forEach((room) => {
+      particle.callFunction({
+        deviceId: room.get('deviceId'),
+        auth: room.get('deviceAuthToken'),
+        name: 'status',
+        argument: room.get('alert')
+      }).then((data) => {
+        const deviceName = colors.green.bold(room.get('name'));
+        consoleController.log(`Successfully updated status of ${deviceName}`);
+
+        store.dispatch({
+          type: EMIT_SET_ROOM_ACCESSORIES,
+          room: room.toJS(),
+          connectionStatus: data.body.connected
+        });
+      }, (err) => {
+        const bodyError = colors.red.bold(err.body.error);
+        const deviceName = colors.magenta.bold(room.get('name'));
+        consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
+
+        store.dispatch({
+          type: EMIT_ROOM_MODULE_FAILURE,
+          room,
+          connectionStatus: false
+        });
+      });
+    });
   },
 
   /**
-   * Top-level scope for handling an individual room's
-   *  board accessories and reservations.
+   * Handle an individual room's board accessories and reservations.
    * Kicks off actions to monitor accessory states, updating server state as necessary.
    * @param {object} board JohnnyFive board object.
    * @param {object} room Corresponding room object.
@@ -98,7 +141,8 @@ const devicesController = {
     store.dispatch({
       type: EMIT_SET_ROOM_ACCESSORIES,
       room,
-      accessories
+      accessories,
+      connectionStatus: true
     });
 
     if (config.public.enableTemperature) {
@@ -118,12 +162,11 @@ const devicesController = {
     }
   },
 
-  boardFail(room) {
-    store.dispatch({
-      type: EMIT_ROOM_MODULE_FAILURE,
-      room
-    });
-  }
+  boardFail: (room) => store.dispatch({
+    type: EMIT_ROOM_MODULE_FAILURE,
+    room,
+    connectionStatus: false
+  })
 };
 
 export default devicesController;

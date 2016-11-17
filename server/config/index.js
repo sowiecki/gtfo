@@ -38,6 +38,13 @@ if (argv.dd) {
   console.log(colors.gray.italic('Devices disabled'));
 }
 
+if (config.indirect || argv.indirect) {
+  process.env.RUN_MODE = 'runIndirect';
+  console.log(colors.gray.italic('Running in indirect mode\n'));
+} else {
+  process.env.RUN_MODE = 'runDirect';
+}
+
 export const isProd = process.env.NODE_ENV === 'production';
 export const isTest = process.env.NODE_ENV === 'test';
 export const enableproxy = !!config.proxyHost;

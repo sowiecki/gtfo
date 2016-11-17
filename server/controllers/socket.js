@@ -1,12 +1,10 @@
-/* eslint new-cap:0, no-console:0 */
-/* globals console */
 import WebSocket from 'ws';
 import moment from 'moment';
 import { filter, forEach } from 'lodash';
 
 import store from '../store';
 
-import { getFutureAlerts } from '../utils';
+import { send, getFutureAlerts } from '../utils';
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
@@ -49,22 +47,6 @@ const socketController = {
         store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
       });
     });
-  },
-
-  /**
-   * Middleware function for all open socket communication.
-   * Fails gracefully if communication with client fails unexpectedly.
-   * @param {string} event Event constant that determines handling client-side.
-   * @param {object} payload Payload to send to client.
-   * @param {ws} client WebSocket object associated with specific targetted client.
-   * @returns {undefined}
-   */
-  send(event, payload, client) {
-    try {
-      client.send(JSON.stringify({ event, payload }));
-    } catch (e) {
-      console.log(e);
-    }
   },
 
   /**
@@ -127,7 +109,9 @@ const socketController = {
     };
 
     return handlers[event] ? handlers[event]() : handlers.sendToAll();
-  }
+  },
+
+  send
 };
 
 export default socketController;
