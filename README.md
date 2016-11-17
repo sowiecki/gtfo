@@ -105,10 +105,10 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 ```bash
 git clone https://github.com/Nase00/gtfo.git && cd gtfo && yarn
 ```
-Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
+Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `yarn run demo` to generate an example configuration. The application will not run otherwise.
 ```
 # After environment files have been configured
-npm run hot -- --mocks
+yarn run hot -- --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
@@ -120,8 +120,8 @@ See [environment configuration documentation](./environment/README.md).
 
 ##### Production build and deploy
 ```bash
-npm install --production # Several dev dependencies are not Raspberry Pi compatible.
-npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
+yarn --production # Several dev dependencies are not Raspberry Pi compatible.
+yarn run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
 ```
 
 ### Ping API
@@ -151,6 +151,11 @@ Some internal office networks restrict exposing ports for making HTTP requests. 
 To avoid confusion, note that there are two distinct WebSocket services within GTFO. The [socket controller]('./server/controllers/socket') exists to *host* a WebSocket server to which browser applications connect to as *clients*. The [proxy controller]('./server/controllers/proxy') controller exists to connect to the proxy *host* where GTFO itself is considered the sole *client*.
 
 ## Development
+##### Development mode with hot-module reloading
+```bash
+yarn run hot
+```
+
 ##### DevTools keybindings
  `shift+q` Open/close DevTools dock.
 <br/> `shift+w` Change DevTools dock position.
@@ -158,11 +163,12 @@ To avoid confusion, note that there are two distinct WebSocket services within G
 
 ##### Tests
 ```bash
-npm run test # Lints and tests client, server, and universal code.
+yarn run test # Lints and tests client, server, and universal code.
 ```
 
 ##### CLI Options
 ```bash
+# pipe flags with "--", e.g. "yarn run hot -- --mocks --dhc"
 --mocks # Disables Outlook api in favor of using mock reservation data.
 --dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
 --dd # Disables devices, useful for client testing without room module hardware.
