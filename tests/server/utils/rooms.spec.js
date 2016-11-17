@@ -259,12 +259,13 @@ describe('Room utilities (server)', () => {
         room: {
           id: 'foo'
         },
-        accessories: 'bizzbazz'
+        accessories: 'bizzbazz',
+        connectionStatus: true
       };
 
       const mockNewState = mockInitialState
         .get('rooms')
-        .map(initializeRoomModuleState.bind(null, mockAction, true));
+        .map(initializeRoomModuleState.bind(null, mockAction));
 
       const initialState = mockInitialState.get('rooms').toJS();
       const result = mockNewState.toJS();

@@ -52,15 +52,18 @@ Minimum required hardware **per each remote module**:
 #### Photon Boards
 There are two ways to configure boards.
 
-**Direct (LAN-only):** Modules are controlled over a LAN through the Johnny-Five library.
+**Direct (LAN-only):** Modules are controlled over a LAN using
+[particle-io](https://www.npmjs.com/package/particle-io) and [Johnny-Five](johnny-five.io).
 
-**Indirect:** The application hosts an API for individual modules to query.
-Motion and temperature features are currently unavailable through this method.
+**Indirect:** Modules runs directly on the Particle cloud and receive updates through the [Particle API for JS](https://www.npmjs.com/package/particle-api-js).
+Motion and temperature features currently do not function in indirect mode.
 
 [Connect each board](https://docs.particle.io/guide/getting-started/start/photon/) to your WiFi network.
 
 If running in **direct** mode, flash each with the [VoodooSpark firmware](https://github.com/voodootikigod/voodoospark).
-If running in **indirect** mode, flash each module with TODO
+
+If running in **indirect** mode, flash each module with `firmware/gtfo-indirect.ino`.
+(`npm run flash` is a WIP script to flash every device listed in `devices.json`.)
 
 Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
 See [environment configuration documentation](./environment/README.md).

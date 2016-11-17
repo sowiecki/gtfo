@@ -9,7 +9,7 @@
   "main": "application.js",
   "node_test_paths": "./tests/server/**/*.spec.* ./tests/universal/**/*.spec.*",
   "scripts": {
-    "flash": "node firmata/flash",
+    "flash": "node firmware/flash",
     "clean": "rimraf server/public/dist",
     "demo": "node environment/demo",
     "deploy-server": "NODE_ENV=production forever start ./application.js",
@@ -71,7 +71,7 @@
     "material-ui": "^0.16.0",
     "moment": "^2.16.0",
     "morgan": "^1.7.0",
-    "particle-api-js": "^6.2.0",
+    "particle-api-js": "^5.3.1",
     "particle-io": "^0.14.0",
     "radium": "^0.18.0",
     "react": "^15.3.0",

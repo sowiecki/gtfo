@@ -4,27 +4,25 @@
 require('babel-core/register');
 
 const Particle = require('particle-api-js');
-const fs = require('fs');
 const path = require('path');
 const colors = require('colors');
 const { devices } = require('../server/environment');
 
-// const readFile = (filePath) => JSON.parse(fs.readFileSync(path.join(__dirname, filePath), 'utf8'));
-
 const particle = new Particle();
 
-const FIRMATA_PATH = path.join(__dirname, './gtfo-direct.bin');
+const FIRMATA_PATH = path.join(__dirname, './gtfo-indirect.ino');
 
 devices.forEach((device) => {
-  console.log(device)
-  particle.flashDevice({
+  const flash = particle.flashDevice({
     deviceId: device.deviceId,
     auth: device.deviceAuthToken,
     files: {
       file1: FIRMATA_PATH
     }
-  }).then((e) => {
-    console.log(e)
+  });
+
+  flash.then((data) => {
+    console.log('Device flash result:', JSON.stringify(data));
     const deviceName = colors.green.bold(device.name);
     console.log(`${deviceName} flashing started successfully!`);
   }, (err) => {

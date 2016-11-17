@@ -64,11 +64,11 @@ const devicesController = {
     }, CHECK_INTERVAL);
 
     if (devicesEnabled && runningDirect) {
-      devicesController.runDirect();
+      devicesController.updateDirect();
     }
   },
 
-  runDirect() {
+  updateDirect() {
     devicesController.getRooms().map((room) => {
       if (!isEmpty(room.deviceAuthToken)) {
         const board = registerBoard(room);
@@ -89,7 +89,7 @@ const devicesController = {
     });
   },
 
-  statusUpdate(rooms) {
+  updateIndirect(rooms) {
     rooms.forEach((room) => {
       particle.callFunction({
         deviceId: room.get('deviceId'),
@@ -102,8 +102,8 @@ const devicesController = {
 
         store.dispatch({
           type: EMIT_SET_ROOM_ACCESSORIES,
-          room,
-          connectionStatus: true
+          room: room.toJS(),
+          connectionStatus: data.body.connected
         });
       }, (err) => {
         const bodyError = colors.red.bold(err.body.error);
@@ -114,7 +114,7 @@ const devicesController = {
           type: EMIT_ROOM_MODULE_FAILURE,
           room,
           connectionStatus: false
-        })
+        });
       });
     });
   },

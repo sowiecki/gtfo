@@ -123,7 +123,7 @@ const roomsReducer = (state = initialState, action) => {
         const runningIndirect = process.env.RUN_MODE === RUN_INDIRECT;
 
         if (devicesEnabled && runningIndirect) {
-          devicesController.statusUpdate(state.get('rooms'));
+          devicesController.updateIndirect(state.get('rooms'));
         }
 
         consoleController.logRoomStatuses(getSecureRooms(state));
