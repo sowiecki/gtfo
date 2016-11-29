@@ -89,6 +89,7 @@
     "serve-favicon": "^2.3.0",
     "slug": "^0.9.1",
     "split": "^1.0.0",
+    "unicode": "^0.6.1",
     "velocity-animate": "^1.2.3",
     "velocity-react": "^1.1.5",
     "webpack": "^1.13.1",
