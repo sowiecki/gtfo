@@ -120,7 +120,7 @@ export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
  * @returns {object} room
  */
 export const initializeRoomModuleState = (action, room) => {
-  if (room.get('id') === action.room.id) {
+  if (room.get('id') === action.room.get('id')) {
     room = room
       .set('accessories', action.accessories)
       .set('connectionStatus', action.connectionStatus);

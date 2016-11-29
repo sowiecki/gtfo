@@ -102,7 +102,7 @@ const devicesController = {
 
         store.dispatch({
           type: EMIT_SET_ROOM_ACCESSORIES,
-          room: room.toJS(),
+          room,
           connectionStatus: data.body.connected
         });
       }, (err) => {
