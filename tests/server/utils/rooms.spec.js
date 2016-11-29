@@ -256,9 +256,9 @@ describe('Room utilities (server)', () => {
       });
 
       const mockAction = {
-        room: {
+        room: immutable.fromJS({
           id: 'foo'
-        },
+        }),
         accessories: 'bizzbazz',
         connectionStatus: true
       };
