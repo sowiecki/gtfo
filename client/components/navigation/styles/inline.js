@@ -117,6 +117,11 @@ export const styles = {
     right: 0,
     bottom: 0,
     color: colors.WHITE
+  },
+
+  note: {
+    position: 'absolute',
+    bottom: '50px'
   }
 };
 

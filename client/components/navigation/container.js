@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
 
   return {
     documentTitle: navigationReducer.get('documentTitle'),
+    note: navigationReducer.get('note'),
     deviceWidth: navigationReducer.get('deviceWidth'),
     siteNavOpen: navigationReducer.get('siteNavOpen'),
     locationModalOpen: navigationReducer.get('locationModalOpen'),

@@ -12,7 +12,8 @@ export default {
           enableConfig: { type: 'bool' },
           defaultTempScale: {
             type: 'string', enum: ['fahrenheit', 'celcius']
-          }
+          },
+          note: { type: 'string' }
         }
       },
       prodReservationsHost: { type: 'string' },

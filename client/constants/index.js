@@ -1,5 +1,5 @@
 export * from 'universal/constants';
-export * from './document-titles';
+export * from './defaults';
 export * from './errors';
 export * from './messages';
 export * from './svg';
