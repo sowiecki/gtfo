@@ -143,6 +143,11 @@ export const rules = {
         'text.temperature-text': {
           fontSize: '12px',
           transform: `${svgLabelBaseTransform} translate(22px, -22px)`
+        },
+
+        '.map-legend': {
+          margin: '0 auto 0 45%',
+          zoom: 1
         }
       },
 
@@ -159,6 +164,12 @@ export const rules = {
         'text.restroom-marker': {
           fontSize: '38px',
           transform: 'translateY(28px)'
+        },
+
+        '.map-legend': {
+          position: 'absolute',
+          top: '20px',
+          zoom: 2
         }
       },
 
@@ -208,6 +219,24 @@ export const rules = {
         'text.restroom-marker': {
           fontSize: '22px',
           transform: 'translateY(-8px)'
+        },
+
+        '.map-legend-container': {
+          position: 'absolute',
+          top: 'auto',
+          left: 0,
+          width: '100%',
+          textAlign: '100%',
+          bottom: '160px'
+        },
+
+        '.map-legend': {
+          zoom: 0.9,
+          margin: '0 auto',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0
         }
       }
     }

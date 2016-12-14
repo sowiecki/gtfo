@@ -1,15 +1,18 @@
+/* eslint react/no-danger:0 */
 import React, { PropTypes } from 'react';
 
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
+import CardText from 'material-ui/Card/CardText';
 
 import { base } from '../../config/composition';
 import { styles } from './styles';
 
 const DrawerContent = (props) => {
-  const { onViewFutureAvailabilitiesClick,
+  const { note,
+          onViewFutureAvailabilitiesClick,
           onOpenFullscreenClick,
           siteNavOpen,
           actions,
@@ -59,11 +62,15 @@ const DrawerContent = (props) => {
         onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
         leftIcon={generateIcon('clear', styles.navIcons)}
         primaryText='Close'/>
+      <CardText style={styles.note}>
+        <span dangerouslySetInnerHTML={{ __html: note }}/>
+      </CardText>
     </List>
   );
 };
 
 DrawerContent.propTypes = {
+  note: PropTypes.string.isRequired,
   onViewFutureAvailabilitiesClick: PropTypes.func.isRequired,
   onOpenFullscreenClick: PropTypes.func.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,

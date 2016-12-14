@@ -3,7 +3,7 @@ import immutable from 'immutable';
 
 import history from '../config/history';
 import { handleAction } from '../utils';
-import { DEFAULT_DOCUMENT_TITLE } from '../constants';
+import { DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
 import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
@@ -67,6 +67,7 @@ export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
 
 const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
+  note: DEFAULT_NOTE,
   deviceWidth: document.body.clientWidth,
   siteNavOpen: document.body.clientWidth > MOBILE_WIDTH_BREAKPOINT,
   timeTravelControlsOpen: false,
@@ -77,9 +78,11 @@ const initialState = immutable.fromJS({
 const navigationReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]() {
-      const { title } = action.config;
+      const { title, note } = action.config;
 
-      return state.set('documentTitle', title || DEFAULT_DOCUMENT_TITLE);
+      return state
+        .set('documentTitle', title || DEFAULT_DOCUMENT_TITLE)
+        .set('note', note || DEFAULT_NOTE);
     },
 
     [EMIT_DEVICE_WIDTH_UPDATE]() {

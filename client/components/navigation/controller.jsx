@@ -58,10 +58,11 @@ class NavigationController extends Component {
           onSelectFieldChange={onSelectFieldChange}
           {...this.props}/>
         <Drawer
+          containerStyle={styles.drawerContainer}
           open={siteNavOpen}
           onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
           width={LEFT_HAND_NAV_WIDTH}
-          containerStyle={styles.drawerContainer}>
+          {...this.props}>
             <DrawerContent
               onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
               onOpenFullscreenClick={onOpenFullscreenClick}
