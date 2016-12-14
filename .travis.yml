@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6.2"
 script:
-  - travis_wait npm run test-cov
+  - travis_wait yarn run test-cov
 env:
   - NODE_ENV=test
 # Google Chrome
