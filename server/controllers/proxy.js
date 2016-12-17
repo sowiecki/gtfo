@@ -32,7 +32,7 @@ const proxyController = {
   },
 
   parseEvent({ data }) {
-    const { event, payload } = JSON.parse(data);
+    const { payload } = JSON.parse(data);
 
     const handlers = {
       [HANDSHAKE]() {
@@ -52,7 +52,7 @@ const proxyController = {
       }
     };
 
-    handlers[event]();
+    handlers[payload.event]();
   },
 
   reconnect() {

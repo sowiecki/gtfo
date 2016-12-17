@@ -139,7 +139,8 @@ To ping this client from an external service, direct a POST request to `http://h
 ```
 {
   id: kerbin,
-  anchor: east-lobby
+  anchor: east-lobby,
+  event: NEW_ROOM_PING
 }
 ```
 
