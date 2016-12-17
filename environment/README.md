@@ -20,10 +20,9 @@ General configuration.
 | - enableMotion       | Enables (experimental) motion readings      | No        |         |
 | - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |         |
 | - note               | Note to be displayed in sidebar             | No        |         |
-| emailDomain          | @yourCompany.com                            | Yes       |         |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
 | prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
-| proxyHost            | URL of hosted proxy instance                | Yes       |         |
+| proxyHost            | URL of hosted proxy instance                | no       |         |
 | indirect             | Run modules in indirect mode                | No        | `false` |
 
 Example of a `config.json`:
