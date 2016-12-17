@@ -76,7 +76,7 @@ Example of a `devices.json` with a single device configured to The Loop:
 ```
 
 ### coordinates.json
-Each room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured
+If you intend to use the office map feature, each room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured
 with a size and position in `coordinates.json`.
 
 Example of an `environment/coordinates.json` file configured to display a meeting room nicknamed "Duna":
@@ -95,7 +95,7 @@ Example of an `environment/coordinates.json` file configured to display a meetin
 Markers to overlay on maps.
 
 ### mock-data.json
-Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated with the `--mocks` flag.
+Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated with the `--mocks` flag, or automatically regenerated if existing mock reservations are over a day old.
 
 ### Office map backgrounds
 Each floor/section of an office map should have its own backgrund image.
