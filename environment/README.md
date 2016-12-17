@@ -14,11 +14,12 @@ General configuration.
 
 | Parameter            | Description                                 | Required? | Default |
 |----------------------|---------------------------------------------|-----------|---------|
-| public               | Configurations passed to client (insecure!)  | Yes       |         |
+| public               | Configurations passed to client (insecure!) | Yes       |         |
 | - title              | Page title to display on client             | No        |         |
 | - enableTemperature  | Enables (experimental) temperature readings | No        |         |
 | - enableMotion       | Enables (experimental) motion readings      | No        |         |
 | - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |         |
+| - note               | Note to be displayed in sidebar             | No        |         |
 | emailDomain          | @yourCompany.com                            | Yes       |         |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
 | prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
