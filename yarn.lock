@@ -3406,9 +3406,9 @@ inline-style-prefixer@^2.0.1:
     bowser "^1.0.0"
     hyphenate-style-name "^1.0.1"
 
-"inline-style-prefixer@github:khan/inline-style-prefixer#f41f3040ac27eeec3b7a1fb7450ddce250cac4e4":
+inline-style-prefixer@Khan/inline-style-prefixer#f41f3040ac27eeec3b7a1fb7450ddce250cac4e4:
   version "0.6.7"
-  resolved "https://codeload.github.com/khan/inline-style-prefixer/tar.gz/f41f3040ac27eeec3b7a1fb7450ddce250cac4e4"
+  resolved "https://codeload.github.com/Khan/inline-style-prefixer/tar.gz/f41f3040ac27eeec3b7a1fb7450ddce250cac4e4"
   dependencies:
     bowser "^1.0.0"
 
@@ -4185,7 +4185,7 @@ loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.5, loader-utils@~0
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-lodash-es@^4.2.1:
+lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.2.tgz#59011b585166e613eb9dd5fc256b2cd1a30f3712"
 
@@ -5746,13 +5746,23 @@ react-pure-render@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-pure-render/-/react-pure-render-1.0.2.tgz#9d8a928c7f2c37513c2d064e57b3e3c356e9fabb"
 
-react-redux@^4.0.0, react-redux@^4.4.2:
+react-redux@^4.0.0:
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-4.4.6.tgz#4b9d32985307a11096a2dd61561980044fcc6209"
   dependencies:
     hoist-non-react-statics "^1.0.3"
     invariant "^2.0.0"
     lodash "^4.2.0"
+    loose-envify "^1.1.0"
+
+react-redux@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.1.tgz#84a41bd4cdd180452bb6922bc79ad25bd5abb7c4"
+  dependencies:
+    hoist-non-react-statics "^1.0.3"
+    invariant "^2.0.0"
+    lodash "^4.2.0"
+    lodash-es "^4.2.0"
     loose-envify "^1.1.0"
 
 react-router-redux@^4.0.2:
