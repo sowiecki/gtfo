@@ -14,7 +14,10 @@ import { isTest,
          logOptions,
          tableOptions,
          markdownOptions } from '../config';
-import { getRoomStatusMessage, genGuagePercentage, logBoardReady } from '../utils';
+import { getRoomStatusMessage,
+         genGuagePercentage,
+         logBoardReady,
+         formatDurationForDisplay } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
@@ -28,12 +31,14 @@ const guage = grid.set(8.5, 2.5, 1.5, 2.5, contrib.gauge, guageOptions);
 
 const consoleController = {
   initialize() {
-    const timeOfBoot = moment();
+    const timeOfBoot = moment().toDate();
 
     setInterval(() => {
-      const now = moment();
-      const uptimeDiff = moment.utc(now.diff(timeOfBoot)).format('HH:mm:ss');
-      uptimeCounter.setContent(uptimeDiff);
+      const uptimeDiff = moment().diff(timeOfBoot);
+      const uptimeDuration = moment.duration(uptimeDiff);
+      const prettyUptime = formatDurationForDisplay(uptimeDuration);
+
+      uptimeCounter.setContent(prettyUptime);
     }, 1000);
   },
 
