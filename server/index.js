@@ -19,7 +19,7 @@ const server = express();
 /* Client hot reloading (dev only) */
 if (process.env.HOT) {
   const webpack = require('webpack');
-  const webpackConfig = require('../webpack/webpack.config.hot');
+  const webpackConfig = require('../webpack/webpack.hot.config');
 
   const compiler = webpack(webpackConfig);
 

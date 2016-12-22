@@ -1,4 +1,4 @@
-const testConfig = require('./webpack.config.test');
+const testConfig = require('./webpack.test.config');
 
 testConfig.module.postLoaders = [
   {
