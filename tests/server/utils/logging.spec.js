@@ -59,7 +59,9 @@ describe('Logging utilities', () => {
       const genTestUnit = (key, i) => genFormat(i)[key];
 
       testUnits.forEach((unit) => {
-        const genDuration = (e, i) => moment.duration(moment().diff(moment().subtract(i, unit)));
+        const getMockTime = () => moment('12:00', 'HH:mm');
+        const getDuration = (i) => getMockTime().diff(getMockTime().subtract(i, unit));
+        const genDuration = (e, i) => moment.duration(getDuration(i));
         const mockDurations = new Array(10).fill('foo').map(genDuration);
 
         mockDurations.forEach((mockDuration, i) => {
