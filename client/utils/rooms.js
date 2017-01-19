@@ -47,7 +47,11 @@ export const filterByLocation = (collection, location) => {
     location = DEFAULT_LOCATION;
   }
 
-  return filter(collection, (room) => location === slug(room.location, { lower: true }));
+  return filter(collection, (prop) => {
+    const propLocation = get(prop, 'location.name', prop.location);
+
+    return location === slug(propLocation, { lower: true });
+  });
 };
 
 /**
