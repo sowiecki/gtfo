@@ -32,10 +32,10 @@ export const formatStallsResponse = (stalls) => {
 
   Object.keys(statuses).forEach((status) => {
     const floor = statuses[status];
-    const { location } = floor;
+    const location = floor.Location;
 
     Object.keys(floor).forEach((prop) => {
-      if (prop === 'location') {
+      if (prop === 'Location') {
         return;
       }
 
