@@ -9,7 +9,7 @@ import { applyStyles } from '../../config/composition';
 import { STATUS_COLORS } from '../../constants';
 import { styles } from './styles';
 
-const MapLegend = ({ showYouAreHere, enabled, enableMotion }) => {
+const MapLegend = ({ showYouAreHere, enabled, enableMotion, enableStalls }) => {
   if (!enabled) {
     return null;
   }
@@ -51,11 +51,11 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion }) => {
           leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
             Booked
         </ListItem>
-        {enableMotion ? <ListItem
+        {enableMotion || enableStalls ? <ListItem
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
-            Occupied, no reservation
+            Occupied
         </ListItem> : null}
         <ListItem
           style={styles.mapLegendItem}
@@ -83,7 +83,8 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion }) => {
 MapLegend.propTypes = {
   enabled: PropTypes.bool,
   showYouAreHere: PropTypes.bool.isRequired,
-  enableMotion: PropTypes.bool.isRequired
+  enableMotion: PropTypes.bool.isRequired,
+  enableStalls: PropTypes.bool.isRequired
 };
 
 export default applyStyles(MapLegend);

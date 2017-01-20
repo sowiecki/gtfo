@@ -14,6 +14,7 @@ const mapStateToProps = ({ layoutReducer }) => ({
   displayLegend: layoutReducer.get('displayLegend'),
   displayTemp: layoutReducer.get('displayTemp'),
   enableMotion: layoutReducer.get('enableMotion'),
+  enableStalls: layoutReducer.get('enableStalls'),
   unitOfTemp: layoutReducer.get('unitOfTemp')
 });
 

@@ -90,7 +90,12 @@ class LayoutController extends Component {
   }
 
   render() {
-    const { meetingRooms, displayLegend, params, location, enableMotion } = this.props;
+    const { meetingRooms,
+            displayLegend,
+            params,
+            location,
+            enableMotion,
+            enableStalls } = this.props;
     const locationKeys = pluckLocations(meetingRooms);
 
     const renderLocation = (locationKey, index) => (
@@ -112,6 +117,7 @@ class LayoutController extends Component {
           <MapLegend
             enabled={displayLegend}
             enableMotion={enableMotion}
+            enableStalls={enableStalls}
             showYouAreHere={hasAnchor(location)}/>
         </Paper>
         <DisplayError {...this.props}/>
@@ -128,6 +134,7 @@ LayoutController.propTypes = {
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,
+  enableStalls: PropTypes.bool.isRequired,
   unitOfTemp: PropTypes.string.isRequired,
   params: PropTypes.shape({
     location: PropTypes.string
