@@ -25,7 +25,7 @@ import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
          EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
-import { CHECK_INTERVAL, RUN_DIRECT } from '../constants';
+import { RESERVATIONS_CHECK_INTERVAL, RUN_DIRECT } from '../constants';
 
 const particle = new Particle();
 
@@ -61,7 +61,7 @@ const devicesController = {
         // No need to continually check mock data for updates
         clearInterval(monitorExternalServices);
       }
-    }, CHECK_INTERVAL);
+    }, RESERVATIONS_CHECK_INTERVAL);
 
     if (devicesEnabled && runningDirect) {
       devicesController.updateDirect();

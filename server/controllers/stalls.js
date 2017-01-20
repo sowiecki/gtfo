@@ -2,7 +2,7 @@
 import store from '../store';
 import { config } from '../environment';
 import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';
-import { CHECK_INTERVAL } from '../constants';
+import { STALLS_CHECK_INTERVAL } from '../constants';
 
 const stallsController = {
   initialize() {
@@ -21,7 +21,7 @@ const stallsController = {
         // No need to continually check mock data for updates
         clearInterval(monitorExternalServices);
       }
-    }, CHECK_INTERVAL);
+    }, STALLS_CHECK_INTERVAL);
   }
 };
 
