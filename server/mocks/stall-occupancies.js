@@ -7,10 +7,12 @@ const mockStallOccupancies = {
       Men: {
         spaces: {
           'stall 1': {
-            occupied: true
+            occupied: true,
+            active: true
           },
           'stall 2': {
-            occupied: false
+            occupied: false,
+            active: false
           }
         }
       }

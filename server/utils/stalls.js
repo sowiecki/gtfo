@@ -42,12 +42,13 @@ export const formatStallsResponse = (stalls) => {
       const { spaces } = floor[prop];
 
       Object.keys(spaces).forEach((space) => {
-        const isOccupied = spaces[space].occupied;
+        const { occupied, active } = spaces[space];
 
         formattedStalls.push({
           id: `${prop.toLowerCase()}${formatSpace(space)}`,
-          alert: isOccupied ? SQUATTED : VACANT,
-          location: location || DEFAULT_LOCATION
+          alert: occupied ? SQUATTED : VACANT,
+          location: location || DEFAULT_LOCATION,
+          active
         });
       });
     });
