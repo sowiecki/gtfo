@@ -1,6 +1,6 @@
 const merge = require('lodash/merge');
 
-const base = require('./karma.conf.base');
+const base = require('./karma.base.conf');
 
 module.exports = (config) => {
   const configuration = merge(base, {

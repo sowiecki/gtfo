@@ -4,7 +4,9 @@ testConfig.module.postLoaders = [
   {
     test: /\.(js|jsx)$/,
     exclude: /(node_modules|tests)/,
-    loader: 'istanbul-instrumenter'
+    use: {
+      loader: 'istanbul-instrumenter'
+    }
   }
 ];
 

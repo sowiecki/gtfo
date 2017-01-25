@@ -9,9 +9,9 @@ import { VelocityComponent } from 'velocity-react';
 import Card from 'material-ui/Card/Card';
 import Slider from 'material-ui/Slider';
 
-import { MAX_TIME, TIME_FORMAT } from 'constants';
 import TimeTravel from 'components/navigation/time-travel';
 import { provideMuiTheme } from 'config/composition';
+import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
 describe('<TimeTravel/>', () => {
   const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');

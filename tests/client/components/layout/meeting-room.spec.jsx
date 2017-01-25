@@ -8,7 +8,7 @@ import { VelocityComponent } from 'velocity-react';
 import MeetingRoom from 'components/layout/meeting-room';
 import Temperature from 'components/layout/temperature';
 import { provideMuiTheme } from 'config/composition';
-import { VACANT, PING_ANIMATION_LOOPS } from 'constants';
+import { VACANT, PING_ANIMATION_LOOPS } from 'constants/index';
 
 describe('<MeetingRoom/>', () => {
   const props = {
