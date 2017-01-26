@@ -7,7 +7,10 @@ module.exports = (config) => {
     reporters: ['progress', 'coverage'],
     coverageReporter: {
       type: 'lcov',
-      dir: '../coverage/'
+      dir: '../coverage/',
+      instrumenterOptions: {
+        istanbul: { noCompact: true, embedSource: true }
+      }
     },
     webpack: require('../webpack/webpack.cov.config'),
     logLevel: config.LOG_INFO
