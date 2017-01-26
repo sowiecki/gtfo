@@ -52,7 +52,7 @@ patch:
         patched: '2016-09-06T18:32:10.679Z'
   'npm:request:20160119':
     - blessed-contrib > picture-tube > request:
-        patched: '2017-01-10T22:21:00.114Z'
+        patched: '2017-01-26T06:03:09.817Z'
   'npm:negotiator:20160616':
     - react-swipeable-views > react-native > connect > compression > accepts > negotiator:
         patched: '2016-12-14T04:22:31.243Z'

@@ -16,7 +16,13 @@ import { styles, rules } from './styles';
 import { pluckLocations, hasAnchor, getLocationIndex } from '../../utils';
 import { PING_TIMEOUT } from '../../constants';
 
+/*
+ * References and checks used to maintain the default location.
+ * The default location should always be the last location manually navigated to by a user.
+ * Pings should NOT change the default location.
+ */
 let originalLocation;
+let noPingInProgress = true;
 
 class LayoutController extends Component {
   componentWillMount() {
@@ -42,8 +48,9 @@ class LayoutController extends Component {
       history.push({ pathname: locations[0] });
     }
 
-    if (ping) {
+    if (ping && noPingInProgress) {
       this.flashPing();
+      noPingInProgress = false;
     }
   }
 
@@ -74,6 +81,7 @@ class LayoutController extends Component {
       });
 
       originalLocation = params.location;
+      noPingInProgress = true;
 
       clearInterval(setPingTimeout);
     }, PING_TIMEOUT);

@@ -20,12 +20,12 @@ const server = express();
 if (process.env.HOT) {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/webpack.hot.config');
-
   const compiler = webpack(webpackConfig);
 
   server.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
-    publicPath: webpackConfig.output.publicPath
+    publicPath: webpackConfig.output.publicPath,
+    inline: true
   }));
 
   server.use(require('webpack-hot-middleware')(compiler));
