@@ -1,6 +1,6 @@
 module.exports = {
   basePath: '.',
-  frameworks: ['source-map-support', 'mocha'],
+  frameworks: ['mocha'],
   reporters: ['dots'],
   files: [
     '../tests/config.client.js'
