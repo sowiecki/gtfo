@@ -1,7 +1,7 @@
 /* eslint no-console:0 */
 /* globals console */
 import { filter, map, uniq, get } from 'lodash';
-import slug from 'slug';
+import slugify from 'slugify';
 
 import { getBackdropErrorMessage } from './errors';
 
@@ -50,7 +50,7 @@ export const filterByLocation = (collection, location) => {
   return filter(collection, (prop) => {
     const propLocation = get(prop, 'location.name', prop.location);
 
-    return location === slug(propLocation, { lower: true });
+    return location === slugify(propLocation).toLowerCase();
   });
 };
 
@@ -106,7 +106,7 @@ export const hasAnchor = ({ query }) => {
  */
 export const youAreHere = (marker, location) => {
   const anchor = get(location, 'query.anchor', '');
-  const markerName = slug(marker.name, { lower: true });
+  const markerName = slugify(marker.name).toLowerCase();
 
   return anchor === markerName;
 };

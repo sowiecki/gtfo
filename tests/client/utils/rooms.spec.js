@@ -36,8 +36,8 @@ describe('Room utilities (client)', () => {
   describe('filterByLocation', () => {
     it('should return only rooms specific to provided location.', () => {
       expect(filterByLocation(meetingRooms, 'winterfell').length).toBe(1);
-      expect(filterByLocation(meetingRooms, 'kings-landing').length).toBe(1);
-      expect(filterByLocation(meetingRooms, 'moles-town').length).toBe(1);
+      expect(filterByLocation(meetingRooms, 'king\'s-landing').length).toBe(1);
+      expect(filterByLocation(meetingRooms, 'mole\'s-town').length).toBe(1);
       expect(filterByLocation(meetingRooms, 'asshai').length).toBe(3);
     });
   });

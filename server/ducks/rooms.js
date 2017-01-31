@@ -1,6 +1,6 @@
 /* eslint new-cap:0 */
 import immutable from 'immutable';
-import slug from 'slug';
+import slugify from 'slugify';
 
 import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
@@ -37,7 +37,7 @@ export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 const initialState = immutable.fromJS({
   rooms: devices.map((device) => {
     const id = device.name.toLowerCase();
-    const location = slug(device.location, { lower: true });
+    const location = slugify(device.location).toLowerCase();
 
     return { ...device, id, location, coordinates: coordinates[id], connectionStatus: false };
   })
