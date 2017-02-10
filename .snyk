@@ -62,3 +62,6 @@ patch:
         patched: '2016-12-14T04:22:31.243Z'
     - react-swipeable-views > react-native > connect > serve-index > accepts > negotiator:
         patched: '2016-12-14T04:22:31.243Z'
+  'npm:marked:20170112':
+    - blessed-contrib > marked:
+        patched: '2017-02-10T14:13:11.605Z'
