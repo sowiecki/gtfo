@@ -205,6 +205,13 @@ array-unique@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
+array.prototype.find@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/array.prototype.find/-/array.prototype.find-2.0.3.tgz#08c3ec33e32ec4bab362a2958e686ae92f59271d"
+  dependencies:
+    define-properties "^1.1.2"
+    es-abstract "^1.7.0"
+
 arraybuffer.slice@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/arraybuffer.slice/-/arraybuffer.slice-0.0.6.tgz#f33b2159f0532a3f3107a272c0ccfbd1ad2979ca"
@@ -671,9 +678,9 @@ babel-plugin-transform-react-jsx@^6.3.13:
     babel-plugin-syntax-jsx "^6.8.0"
     babel-runtime "^6.0.0"
 
-babel-plugin-transform-react-remove-prop-types@^0.2.7:
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.2.11.tgz#05eb7cc4670d6506d801680576589c7abcd51b00"
+babel-plugin-transform-react-remove-prop-types@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.3.2.tgz#6da8d834c6d7ad8ab02f956509790cfaa01ffe19"
 
 babel-plugin-transform-regenerator@^6.16.0:
   version "6.20.0"
@@ -681,7 +688,7 @@ babel-plugin-transform-regenerator@^6.16.0:
   dependencies:
     regenerator-transform "0.9.8"
 
-babel-plugin-transform-runtime@^6.5.0, babel-plugin-transform-runtime@^6.7.5:
+babel-plugin-transform-runtime@^6.5.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-runtime/-/babel-plugin-transform-runtime-6.15.0.tgz#3d75b4d949ad81af157570273846fb59aeb0d57c"
   dependencies:
@@ -1952,6 +1959,15 @@ es-abstract@^1.5.0, es-abstract@^1.6.1:
     is-callable "^1.1.3"
     is-regex "^1.0.3"
 
+es-abstract@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.7.0.tgz#dfade774e01bfcd97f96180298c449c8623fb94c"
+  dependencies:
+    es-to-primitive "^1.1.1"
+    function-bind "^1.1.0"
+    is-callable "^1.1.3"
+    is-regex "^1.0.3"
+
 es-to-primitive@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.1.1.tgz#45355248a88979034b6792e19bb81f2b7975dd0d"
@@ -2157,12 +2173,15 @@ eslint-plugin-jsx-a11y:
     jsx-ast-utils "^1.0.0"
     object-assign "^4.0.1"
 
-eslint-plugin-react@^6.2.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.8.0.tgz#741ab5438a094532e5ce1bbb935d6832356f492d"
+eslint-plugin-react@^6.10.0:
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.10.0.tgz#9c48b48d101554b5355413e7c64238abde6ef1ef"
   dependencies:
+    array.prototype.find "^2.0.1"
     doctrine "^1.2.2"
+    has "^1.0.1"
     jsx-ast-utils "^1.3.4"
+    object.assign "^4.0.4"
 
 espree@^3.3.1:
   version "3.3.2"
@@ -3200,7 +3219,7 @@ is-glob@^3.1.0:
   dependencies:
     is-extglob "^2.1.0"
 
-is-in-browser@^1.0.2:
+is-in-browser@1.0.2, is-in-browser@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-in-browser/-/is-in-browser-1.0.2.tgz#f688bea8f1e5aadc3244ebc870d188cfb9b613cf"
 
@@ -3577,25 +3596,25 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.3.6"
 
-jss-nested@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/jss-nested/-/jss-nested-2.5.0.tgz#d1a5ec778bcc3352616c8917abbed0b80ef1286f"
+jss-nested@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/jss-nested/-/jss-nested-3.0.1.tgz#14c10265c8fc5bd61b450b48f1e9fb36d90ae569"
   dependencies:
     warning "^3.0.0"
 
-jss-vendor-prefixer@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/jss-vendor-prefixer/-/jss-vendor-prefixer-3.0.3.tgz#b36a9cb36273707595d8b60c84d07d60947e8254"
+jss-vendor-prefixer@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/jss-vendor-prefixer/-/jss-vendor-prefixer-4.0.0.tgz#df16a8fcc6ecb4567394174e6ab90145cf8b34a3"
   dependencies:
     css-vendor "^0.3.8"
 
-jss@^5.5.6:
-  version "5.5.6"
-  resolved "https://registry.yarnpkg.com/jss/-/jss-5.5.6.tgz#30107928dc6f608f6b8e3e70e0577edc8a94e216"
+jss@^6.0.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/jss/-/jss-6.3.0.tgz#b4c894da4617669ef24a45079571f1d0f40b65eb"
   dependencies:
-    is-in-browser "^1.0.2"
-    murmurhash-js "^1.0.0"
-    warning "^3.0.0"
+    is-in-browser "1.0.2"
+    murmurhash-js "1.0.0"
+    warning "3.0.0"
 
 jsx-ast-utils@^1.0.0, jsx-ast-utils@^1.3.4:
   version "1.3.4"
@@ -4097,11 +4116,11 @@ marked@^0.3.3:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
-material-ui@^0.16.0:
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-0.16.5.tgz#bb8661aac7cac8cb223a3e76f4f57ee18a4aefc1"
+material-ui@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-0.17.0.tgz#fd0e2e16f55184f66bc770225a053444e4ae7d33"
   dependencies:
-    babel-runtime "^6.11.6"
+    babel-runtime "^6.18.0"
     inline-style-prefixer "^2.0.1"
     keycode "^2.1.1"
     lodash.merge "^4.6.0"
@@ -4109,7 +4128,7 @@ material-ui@^0.16.0:
     react-addons-create-fragment "^15.0.0"
     react-addons-transition-group "^15.0.0"
     react-event-listener "^0.4.0"
-    recompose "^0.20.2"
+    recompose "^0.22.0"
     simple-assign "^0.1.0"
     warning "^3.0.0"
 
@@ -4299,7 +4318,7 @@ mumath@^3.0.0:
   dependencies:
     almost-equal "^1.1.0"
 
-murmurhash-js@^1.0.0:
+murmurhash-js@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/murmurhash-js/-/murmurhash-js-1.0.0.tgz#b06278e21fc6c37fa5313732b0412bcb6ae15f51"
 
@@ -5095,11 +5114,10 @@ react-hot-loader@3.0.0-beta.6:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
-react-json-tree@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/react-json-tree/-/react-json-tree-0.10.0.tgz#92d5c223fc7718614a906591cd916127ce2b6033"
+react-json-tree@^0.10.0, react-json-tree@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/react-json-tree/-/react-json-tree-0.10.3.tgz#4b9468159f3fdca582f1f7fe46f4e6dc54d4e0d5"
   dependencies:
-    babel-plugin-transform-runtime "^6.7.5"
     babel-runtime "^6.6.1"
     react-base16-styling "^0.4.1"
     react-pure-render "^1.0.2"
@@ -5318,23 +5336,14 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-recompose@^0.20.2:
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.20.2.tgz#113d6ac7e29ca664cfffec16b681ddddf15250bc"
+recompose@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.22.0.tgz#f099d18385882ca41d9eec891718dadddc3204ef"
   dependencies:
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
     hoist-non-react-statics "^1.0.0"
-    symbol-observable "^0.2.4"
-
-recompose@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.21.0.tgz#91d50059a04439bba4c3a7b9cd4aef4755a9af19"
-  dependencies:
-    change-emitter "^0.1.2"
-    fbjs "^0.8.1"
-    hoist-non-react-statics "^1.0.0"
-    symbol-observable "^0.2.4"
+    symbol-observable "^1.0.4"
 
 redbox-react@^1.2.2, redbox-react@^1.2.5:
   version "1.3.3"
@@ -5390,9 +5399,9 @@ redux-devtools-dock-monitor@^1.1.0:
     react-dock "^0.2.1"
     react-pure-render "^1.0.2"
 
-redux-devtools-inspector@^0.9.1:
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/redux-devtools-inspector/-/redux-devtools-inspector-0.9.4.tgz#7cbe388f5fced0dbc493f0e727b1285af4ca5167"
+redux-devtools-inspector@^0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/redux-devtools-inspector/-/redux-devtools-inspector-0.11.2.tgz#b26ce56e7df6d0256ecb2f7af1c18af91a3ec767"
   dependencies:
     babel-runtime "^6.3.19"
     dateformat "^1.0.12"
@@ -5400,12 +5409,12 @@ redux-devtools-inspector@^0.9.1:
     immutable "^3.7.6"
     javascript-stringify "^1.1.0"
     jsondiffpatch "^0.2.4"
-    jss "^5.5.6"
-    jss-nested "^2.5.0"
-    jss-vendor-prefixer "^3.0.1"
+    jss "^6.0.0"
+    jss-nested "^3.0.0"
+    jss-vendor-prefixer "^4.0.0"
     lodash.debounce "^4.0.3"
     react-base16-styling "^0.4.1"
-    react-json-tree "^0.10.0"
+    react-json-tree "^0.10.3"
     react-pure-render "^1.0.2"
     redux-devtools-themes "^1.0.0"
 
@@ -6250,7 +6259,7 @@ symbol-observable@^0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-0.2.4.tgz#95a83db26186d6af7e7a18dbd9760a2f86d08f40"
 
-symbol-observable@^1.0.2:
+symbol-observable@^1.0.2, symbol-observable@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
@@ -6592,7 +6601,7 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-warning@^3.0.0:
+warning@3.0.0, warning@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
   dependencies:
@@ -6772,9 +6781,9 @@ ws@1.0.1:
     options ">=0.0.5"
     ultron "1.0.x"
 
-ws@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-2.0.0.tgz#31bd7fc93c3dc8940ca812e36aef0d0754450f77"
+ws@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-2.1.0.tgz#b24eaed9609f8632dd51e3f7698619a90fddcc92"
   dependencies:
     ultron "~1.1.0"
 
