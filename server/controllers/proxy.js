@@ -25,6 +25,7 @@ const proxyController = {
     webSocket.onopen = this.handleSocketOpen;
     webSocket.onmessage = this.parseEvent;
     webSocket.onclose = this.reconnect;
+    webSocket.onerror = this.handleError;
   },
 
   handleSocketOpen() {
@@ -59,6 +60,10 @@ const proxyController = {
     interval = setInterval(() => {
       proxyController.initialize();
     }, WEBSOCKET_RECONNECT_INTERVAL);
+  },
+
+  handleError(e) {
+    consoleController.log(`Proxy error: ${e}`);
   },
 
   send
