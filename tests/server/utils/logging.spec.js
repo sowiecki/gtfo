@@ -21,28 +21,45 @@ describe('Logging utilities', () => {
         alert: 'VACANT'
       },
       {
-        name: 'Laythe'
+        name: 'Laythe',
+        alert: 'ABANDONED'
+      },
+      {
+        name: 'Dres'
       }
     ];
 
     const expectedForBooked = {
-      percent: 50,
+      percent: 40,
+      stroke: 'blue'
+    };
+
+    const expectedForAbandoned = {
+      percent: 20,
       stroke: 'cyan'
     };
 
+
     const expectedForVacant = {
-      percent: 25,
+      percent: 20,
       stroke: 'green'
     };
 
+    const expectedForSquatted = {
+      percent: 0,
+      stroke: 'magenta'
+    };
+
     const expectedForOffline = {
-      percent: 25,
+      percent: 20,
       stroke: 'black'
     };
 
     it('should return parsed host name.', () => {
       expect(genGuagePercentage(mockRooms, 'BOOKED')).toEqual(expectedForBooked);
+      expect(genGuagePercentage(mockRooms, 'ABANDONED')).toEqual(expectedForAbandoned);
       expect(genGuagePercentage(mockRooms, 'VACANT')).toEqual(expectedForVacant);
+      expect(genGuagePercentage(mockRooms, 'SQUATTED')).toEqual(expectedForSquatted);
       expect(genGuagePercentage(mockRooms, undefined)).toEqual(expectedForOffline);
     });
   });

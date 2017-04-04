@@ -7,11 +7,11 @@ const environmentConext = path.join(__dirname, '../environment');
 const universalContext = path.join(__dirname, '../universal');
 
 const aliasSafety = (result, developmentModule) => {
-  const isProd = process.env.NODE_ENV === 'production';
+  const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 
   const nullModulePath = path.join(__dirname, '../client/components/common/loading');
 
-  result[developmentModule] = isProd ? nullModulePath : developmentModule;
+  result[developmentModule] = IS_PROD_ENV ? nullModulePath : developmentModule;
 
   return result;
 };

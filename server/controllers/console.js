@@ -8,7 +8,7 @@ import { uniq } from 'lodash';
 import moment from 'moment';
 
 import { CONTRIB_TABLE_HEADERS } from '../constants';
-import { isTest,
+import { IS_TEST_ENV,
          titleOptions,
          guageOptions,
          logOptions,
@@ -122,7 +122,7 @@ const consoleController = {
 };
 
 
-if (process.env.DONT_HOOK_CONSOLE || isTest) {
+if (process.env.DONT_HOOK_CONSOLE || IS_TEST_ENV) {
   screen.destroy();
 }
 

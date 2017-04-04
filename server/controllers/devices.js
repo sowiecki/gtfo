@@ -7,7 +7,7 @@
  */
 
 import Particle from 'particle-api-js';
-import { isEmpty } from 'lodash';
+import { find, isEmpty } from 'lodash';
 import colors from 'colors';
 
 import consoleController from './console';
@@ -24,7 +24,8 @@ import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
          FETCH_ROOM_MOTION,
          EMIT_SET_ROOM_ACCESSORIES,
-         EMIT_ROOM_MODULE_FAILURE } from '../ducks/rooms';
+         EMIT_ROOM_MODULE_FAILURE,
+         EMIT_ROOM_MOTION_UPDATE } from '../ducks/rooms';
 import { RESERVATIONS_CHECK_INTERVAL, RUN_DIRECT } from '../constants';
 
 const particle = new Particle();
@@ -54,13 +55,8 @@ const devicesController = {
     fetchRoomReservations();
 
     // Set interval for checking and responding to room state
-    const monitorExternalServices = setInterval(() => {
+    setInterval(() => {
       fetchRoomReservations();
-
-      if (process.env.MOCKS) {
-        // No need to continually check mock data for updates
-        clearInterval(monitorExternalServices);
-      }
     }, RESERVATIONS_CHECK_INTERVAL);
 
     if (devicesEnabled && runningDirect) {
@@ -89,33 +85,41 @@ const devicesController = {
     });
   },
 
-  updateIndirect(rooms) {
-    rooms.forEach((room) => {
-      particle.callFunction({
-        deviceId: room.get('deviceId'),
-        auth: room.get('deviceAuthToken'),
-        name: 'status',
-        argument: room.get('alert')
-      }).then((data) => {
-        const deviceName = colors.green.bold(room.get('name'));
-        consoleController.log(`Successfully updated status of ${deviceName}`);
+  updateIndirect(room) {
+    particle.callFunction({
+      deviceId: room.get('deviceId'),
+      auth: room.get('deviceAuthToken'),
+      name: 'status',
+      argument: room.get('alert')
+    }).then((data) => {
+      const deviceName = colors.green.bold(room.get('name'));
+      consoleController.log(`Successfully updated status of ${deviceName}`);
 
-        store.dispatch({
-          type: EMIT_SET_ROOM_ACCESSORIES,
-          room,
-          connectionStatus: data.body.connected
-        });
-      }, (err) => {
-        const bodyError = colors.red.bold(err.body.error);
-        const deviceName = colors.magenta.bold(room.get('name'));
-        consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
-
-        store.dispatch({
-          type: EMIT_ROOM_MODULE_FAILURE,
-          room,
-          connectionStatus: false
-        });
+      store.dispatch({
+        type: EMIT_SET_ROOM_ACCESSORIES,
+        room,
+        connectionStatus: data.body.connected
       });
+    }, (err) => {
+      const bodyError = colors.red.bold(err.body.error);
+      const deviceName = colors.magenta.bold(room.get('name'));
+      consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
+
+      store.dispatch({
+        type: EMIT_ROOM_MODULE_FAILURE,
+        room,
+        connectionStatus: false
+      });
+    });
+  },
+
+  handleIndirectMotion(payload) {
+    const deviceId = payload.particleInfo.coreid;
+    const room = find(devicesController.getRooms(), { deviceId });
+
+    store.dispatch({
+      type: EMIT_ROOM_MOTION_UPDATE,
+      room
     });
   },
 

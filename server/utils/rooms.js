@@ -6,38 +6,42 @@ import { filterExpiredReservations } from '../../universal/utils';
 import {
   SQUATTED,
   VACANT,
+  ABANDONED,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED,
-  MOTION_TIMEOUT
+  MOTION_GRACE_PERIOD
 } from '../constants';
+import { config } from '../environment';
 
 /**
  * Gets alert based on reservation times.
  * Assumes no reservation if start and end times are in the past!
  * @param {array} reservations - Array of reservation objects.
- * @param {moment} recentMotion - Most recent time motion was detected.
+ * @param {moment} motion - Most recent time motion was detected.
+ *                          Set to false to disregard motion-based status calculations
  * @param {moment} now - Time to calculate alert on.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], recentMotion, time = moment()) => {
+export const getRoomAlert = (reservations = [], motion, time = moment()) => {
   const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
-  const hasMotionWithinTimeout = recentMotion ?
-    recentMotion.isAfter(getTime().subtract(MOTION_TIMEOUT, 'seconds')) : false;
+  const shouldConsiderMotion = config.public.enableMotion && motion !== false;
+  const hasRecentMotion = motion ?
+    motion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds')) : false;
 
-  if (noReservations && !hasMotionWithinTimeout) {
+  if (noReservations && !hasRecentMotion) {
     return VACANT;
-  } else if (noReservations && hasMotionWithinTimeout) {
+  } else if (noReservations && hasRecentMotion) {
     return SQUATTED;
   }
 
   // Advanced reservation conditions
   const minutesFromNow = (minutes) => getTime().add(minutes, 'minutes');
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
-  const currentlyVacant = isEmpty(reservations) || noMeetingWithinFive;
+  const currentlyNotReserved = isEmpty(reservations) || noMeetingWithinFive;
   const currentlyReserved =
     time.isBetween(firstMeeting.startDate, firstMeeting.endDate, null, '[]');
 
@@ -51,14 +55,16 @@ export const getRoomAlert = (reservations = [], recentMotion, time = moment()) =
     return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '(]');
   };
 
-  if (currentlyVacant && hasMotionWithinTimeout) {
+  if (shouldConsiderMotion && currentlyNotReserved && hasRecentMotion) {
     return SQUATTED;
-  } else if (currentlyVacant) {
+  } else if (currentlyNotReserved) {
     return VACANT;
   } else if (nextMeetingStartingIn(1)) {
     return ONE_MINUTE_WARNING;
   } else if (nextMeetingStartingIn(5)) {
     return FIVE_MINUTE_WARNING;
+  } else if (shouldConsiderMotion && !hasRecentMotion && currentlyReserved) {
+    return ABANDONED;
   } else if (currentlyReserved) {
     return BOOKED;
   }

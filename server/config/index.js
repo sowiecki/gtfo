@@ -45,9 +45,11 @@ if (config.indirect || argv.indirect) {
   process.env.RUN_MODE = 'runDirect';
 }
 
-export const isProd = process.env.NODE_ENV === 'production';
-export const isTest = process.env.NODE_ENV === 'test';
-export const enableproxy = !!config.proxyHost;
+export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
+export const IS_TEST_ENV = process.env.NODE_ENV === 'test';
+export const IS_INDIRECT_MODE = config.indirect;
+export const DEVICES_ENABLED = !process.env.DISABLE_DEVICES;
+export const PROXY_ENABLED = !!config.proxyHost;
 
 export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
 export const WEB_SOCKET_PORT = 4001;

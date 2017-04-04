@@ -5,6 +5,9 @@
 
 export default {
   config: {
+    public: {
+      enableMotion: true
+    },
     prodReservationsHost: ''
   },
   devices: [

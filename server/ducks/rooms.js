@@ -1,6 +1,7 @@
 /* eslint new-cap:0 */
 import immutable from 'immutable';
 import slugify from 'slugify';
+import moment from 'moment';
 
 import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
@@ -16,8 +17,8 @@ import { flashNotifications,
          initializeRoomModuleState } from '../utils';
 import { INITIALIZE_ROOMS,
          ROOM_TEMPERATURE_UPDATE,
-         ROOM_STATUSES_UPDATE,
-         RUN_INDIRECT } from '../constants';
+         ROOM_STATUSES_UPDATE } from '../constants';
+import { IS_INDIRECT_MODE } from '../config';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
 export const EMIT_DEVICE_STATUS_UPDATE = 'EMIT_DEVICE_STATUS_UPDATE';
@@ -73,7 +74,7 @@ const roomsReducer = (state = initialState, action) => {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map(
-        (room) => room.set('reservations', action.reservations[room.get('name').toLowerCase()])
+        (room) => room.set('reservations', action.reservations[room.get('name')])
       ));
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
@@ -83,10 +84,10 @@ const roomsReducer = (state = initialState, action) => {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map((room) => {
-        const motionDetectedInRoom = room.get('id') === action.room.id && action.motion;
+        const motionDetectedInRoom = room.get('id') === action.room.id;
 
         if (motionDetectedInRoom) {
-          room = room.set('motion', action.motion);
+          room = room.set('motion', moment());
         }
 
         return room;
@@ -97,7 +98,8 @@ const roomsReducer = (state = initialState, action) => {
 
     [EMIT_ROOM_STATUSES_UPDATE]() {
       const rooms = state.get('rooms');
-      let alertChanged = false;
+      let alertHasChanged;
+      let anyAlertChanged;
 
       state = state.set('rooms', rooms.map((room) => {
         const accessories = room.get('accessories');
@@ -105,27 +107,23 @@ const roomsReducer = (state = initialState, action) => {
         const motion = action.motion || room.get('motion');
         const filteredReservations = filterExpiredReservations(reservations);
         const alert = getRoomAlert(filteredReservations, motion);
+        alertHasChanged = room.get('alert') !== alert;
 
-        if (room.get('alert') !== alert) {
-          alertChanged = true;
+        if (alertHasChanged) {
+          anyAlertChanged = true;
           room = room.set('alert', alert);
-        }
 
-        if (accessories) {
-          flashNotifications(room.toJS(), accessories);
+          if (accessories) {
+            flashNotifications(room.toJS(), accessories);
+          } else if (IS_INDIRECT_MODE) {
+            devicesController.updateIndirect(room);
+          }
         }
 
         return room;
       }));
 
-      if (alertChanged) {
-        const devicesEnabled = !process.env.DISABLE_DEVICES;
-        const runningIndirect = process.env.RUN_MODE === RUN_INDIRECT;
-
-        if (devicesEnabled && runningIndirect) {
-          devicesController.updateIndirect(state.get('rooms'));
-        }
-
+      if (anyAlertChanged) {
         consoleController.logRoomStatuses(getSecureRooms(state));
         socketController.handle(ROOM_STATUSES_UPDATE, getSecureRooms(state));
       }

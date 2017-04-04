@@ -7,13 +7,13 @@ import { provideMuiTheme, base } from '../config/composition';
 import { rules } from './common/styles';
 
 const Body = (props) => {
-  const isProd = process.env.NODE_ENV === 'production';
-  const DevTools = isProd ? null : require('./dev-tools').default;
+  const IS_PROD_ENV = process.env.NODE_ENV === 'production';
+  const DevTools = IS_PROD_ENV ? null : require('./dev-tools').default;
 
   return provideMuiTheme(
     <StyleRoot>
       <Style rules={rules.body}/>
-      {isProd ? null : <DevTools/>}
+      {IS_PROD_ENV ? null : <DevTools/>}
       <NavigationContainer {...props}/>
       {props.children}
     </StyleRoot>

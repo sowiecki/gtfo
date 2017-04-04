@@ -51,12 +51,22 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion, enableStalls }) => {
           leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
             Booked
         </ListItem>
-        {enableMotion || enableStalls ? <ListItem
-          style={styles.mapLegendItem}
-          disabled={true}
-          leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
-            Occupied
-        </ListItem> : null}
+        {enableMotion || enableStalls ? [
+          <ListItem
+            key='squatted'
+            style={styles.mapLegendItem}
+            disabled={true}
+            leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
+              Squatted
+          </ListItem>,
+          <ListItem
+            key='abandonded'
+            style={styles.mapLegendItem}
+            disabled={true}
+            leftAvatar={getIcon(STATUS_COLORS.ABANDONED)}>
+              Abandoned
+          </ListItem>
+        ] : null}
         <ListItem
           style={styles.mapLegendItem}
           disabled={true}
