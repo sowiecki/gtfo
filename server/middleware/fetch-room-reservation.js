@@ -1,7 +1,7 @@
 import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
-import { FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE, RESERVATIONS_URL } from '../constants';
+import { RESERVATIONS_URL } from '../constants';
 import { formatReservations, logfetchRoomReservationError } from '../utils';
 
 const fetchRoomReservation = (next) => {
@@ -14,17 +14,13 @@ const fetchRoomReservation = (next) => {
     });
 
     response.on('end', () => {
-      try {
-        const parsedData = JSON.parse(body.toString('utf8'));
-        const reservations = formatReservations(parsedData);
+      const parsedData = JSON.parse(body.toString('utf8'));
+      const reservations = formatReservations(parsedData);
 
-        next({
-          type: EMIT_RESERVATIONS_UPDATE,
-          reservations
-        });
-      } catch (error) {
-        throw new Error(FETCH_ROOM_RESERVATIONS_ERROR_MESSAGE);
-      }
+      next({
+        type: EMIT_RESERVATIONS_UPDATE,
+        reservations
+      });
     });
   }).on('error', logfetchRoomReservationError);
 };
