@@ -36,7 +36,7 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion, enableStalls }) => {
   );
 
   return (
-    <div className='map-legend-container' style={styles.mapLegendContainer}>
+    <div id='map-legend' className='map-legend-container' style={styles.mapLegendContainer}>
       <List className='map-legend' style={styles.mapLegend}>
         {youAreHereListItem}
         <ListItem
