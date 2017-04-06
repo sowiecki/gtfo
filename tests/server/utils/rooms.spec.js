@@ -195,7 +195,15 @@ describe('Room utilities (server)', () => {
     thermo: {
       F: '65',
       C: '18'
-    }
+    },
+    reservations: [
+      {
+        email: 'foo@bar.com'
+      },
+      {
+        email: 'bizz@bazz.com'
+      }
+    ]
   };
 
   const mockSecureRoom = {
@@ -208,6 +216,9 @@ describe('Room utilities (server)', () => {
     thermo: {
       F: '65',
       C: '18'
+    },
+    currentReservation: {
+      email: 'foo@bar.com'
     }
   };
 
