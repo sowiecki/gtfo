@@ -97,6 +97,7 @@ export const secureRoom = (room) => {
     location: room.location,
     name: room.name,
     connectionStatus: room.connectionStatus,
+    currentReservation: room.reservations[0],
     thermo
   };
 };
