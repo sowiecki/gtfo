@@ -49,7 +49,6 @@ const devicesController = {
     const overrides = {
       enableMotion: shouldOverrideMotion(devicesController.getRooms())
     };
-    console.info(overrides);
 
     store.dispatch({
       type: EMIT_INIT_SOCKETS,

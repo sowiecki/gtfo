@@ -35,7 +35,7 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const noReservations = !reservations.length;
   const moduleIsMotionEquipped = config.public.enableMotion === true || capabilities.motion;
   const shouldConsiderMotion = moduleIsMotionEquipped && isNotFutureQuery;
-  const hasRecentMotion = recentMotion ?
+  const hasRecentMotion = shouldConsiderMotion && recentMotion ?
     recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
