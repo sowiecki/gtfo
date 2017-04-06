@@ -53,6 +53,10 @@ export const logFetchStallOccupanciesError = ({ code, message }) => {
   console.error('Error fetching or parsing stall occupancies.', code, message);
 };
 
+export const logUnhandledMotionUpdate = ({ coreid }) => {
+  console.error(`Unhandled motion update for unknown room module ${coreid}`);
+};
+
 /**
  * Generates percentage object for contrib guage data array.
  * @param {array} rooms Array of rooms.

@@ -117,10 +117,14 @@ const devicesController = {
     const deviceId = payload.particleInfo.coreid;
     const room = find(devicesController.getRooms(), { deviceId });
 
-    store.dispatch({
-      type: EMIT_ROOM_MOTION_UPDATE,
-      room
-    });
+    if (room) {
+      store.dispatch({
+        type: EMIT_ROOM_MOTION_UPDATE,
+        room
+      });
+    } else {
+      logUnhandledMotionUpdate(payload.particleInfo);
+    }
   },
 
   /**
