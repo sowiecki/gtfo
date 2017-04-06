@@ -2,6 +2,7 @@
 import immutable from 'immutable';
 import slugify from 'slugify';
 import moment from 'moment';
+import { get } from 'lodash';
 
 import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
@@ -39,8 +40,18 @@ const initialState = immutable.fromJS({
   rooms: devices.map((device) => {
     const id = device.name.toLowerCase();
     const location = slugify(device.location).toLowerCase();
+    const capabilities = {
+      motion: get(device, 'capabilities.motion', false)
+    };
 
-    return { ...device, id, location, coordinates: coordinates[id], connectionStatus: false };
+    return {
+      ...device,
+      id,
+      location,
+      capabilities,
+      coordinates: coordinates[id],
+      connectionStatus: false
+    };
   })
 });
 
@@ -87,7 +98,7 @@ const roomsReducer = (state = initialState, action) => {
         const motionDetectedInRoom = room.get('id') === action.room.id;
 
         if (motionDetectedInRoom) {
-          room = room.set('motion', moment());
+          room = room.set('recentMotion', moment());
         }
 
         return room;
@@ -102,11 +113,12 @@ const roomsReducer = (state = initialState, action) => {
       let anyAlertChanged;
 
       state = state.set('rooms', rooms.map((room) => {
-        const accessories = room.get('accessories');
-        const reservations = room.get('reservations');
-        const motion = action.motion || room.get('motion');
-        const filteredReservations = filterExpiredReservations(reservations);
-        const alert = getRoomAlert(filteredReservations, motion);
+        const { accessories, reservations, capabilities, recentMotion } = room.toJS();
+        const roomProperties = {
+          reservations: filterExpiredReservations(reservations),
+          recentMotion: action.recentMotion || recentMotion
+        };
+        const alert = getRoomAlert(roomProperties, capabilities);
         alertHasChanged = room.get('alert') !== alert;
 
         if (alertHasChanged) {

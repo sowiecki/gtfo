@@ -13,12 +13,13 @@ import colors from 'colors';
 import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
-import { registerBoard,
+import { shouldOverrideMotion,
+         registerBoard,
          registerLed,
          registerPiezo,
          registerThermo,
          registerMotion,
-         secureRooms } from '../utils';
+         secureRooms, } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
@@ -45,10 +46,15 @@ const devicesController = {
   initialize() {
     const devicesEnabled = !process.env.DISABLE_DEVICES;
     const runningDirect = process.env.RUN_MODE === RUN_DIRECT;
+    const overrides = {
+      enableMotion: shouldOverrideMotion(devicesController.getRooms())
+    };
+    console.info(overrides);
 
     store.dispatch({
       type: EMIT_INIT_SOCKETS,
-      publicConfig: config.public
+      config,
+      overrides
     });
 
     const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });

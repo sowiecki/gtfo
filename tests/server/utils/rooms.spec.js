@@ -113,7 +113,9 @@ describe('Room utilities (server)', () => {
     it('should correctly determine squatting', () => {
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
-        expect(getRoomAlert(mockReservations(), getRecentMotion())).toBe(SQUATTED);
+        const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
+
+        expect(getRoomAlert(properties)).toBe(SQUATTED);
       });
     });
 
@@ -123,45 +125,59 @@ describe('Room utilities (server)', () => {
 
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
-        expect(getRoomAlert(mockReservations(), getExpiredMotion())).toBe(VACANT);
+        const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
+
+        expect(getRoomAlert(properties)).toBe(VACANT);
       });
     });
 
     it('should correctly determine five minute alerts.', () => {
       fiveMinuteWarningTimes.forEach((fiveMinuteWarningTime) => {
         clock(fiveMinuteWarningTime);
-        expect(getRoomAlert(mockReservations(), getExpiredMotion())).toBe(FIVE_MINUTE_WARNING);
+        const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
+
+        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
       });
 
       fiveMinuteWarningTimes.forEach((fiveMinuteWarningTime) => {
         clock(fiveMinuteWarningTime);
-        expect(getRoomAlert(mockReservations(), getRecentMotion())).toBe(FIVE_MINUTE_WARNING);
+        const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
+
+        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
       });
     });
 
     it('should correctly determine one minute alerts.', () => {
       oneMinuteWarningTimes.forEach((oneMinuteWarningTime) => {
         clock(oneMinuteWarningTime);
-        expect(getRoomAlert(mockReservations(), getExpiredMotion())).toBe(ONE_MINUTE_WARNING);
+        const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
+
+        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
       });
 
       oneMinuteWarningTimes.forEach((oneMinuteWarningTime) => {
         clock(oneMinuteWarningTime);
-        expect(getRoomAlert(mockReservations(), getRecentMotion())).toBe(ONE_MINUTE_WARNING);
+        const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
+
+        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
       });
     });
 
     it('should correctly determine booked alerts.', () => {
       bookedTimes.forEach((bookedTime) => {
         clock(bookedTime);
-        expect(getRoomAlert(mockReservations(), getRecentMotion())).toBe(BOOKED);
+        const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
+
+        expect(getRoomAlert(properties)).toBe(BOOKED);
       });
     });
 
     it('should correctly determine abandoned alerts.', () => {
       bookedTimes.forEach((bookedTime) => {
         clock(bookedTime);
-        expect(getRoomAlert(mockReservations(), getExpiredMotion())).toBe(ABANDONED);
+        const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
+
+        expect(getRoomAlert(properties)).toBe(ABANDONED);
       });
     });
   });

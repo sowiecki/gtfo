@@ -1,6 +1,6 @@
 /* eslint max-statements:0, no-magic-numbers:0 */
 import moment from 'moment';
-import { isEmpty } from 'lodash';
+import { some, get, isEmpty } from 'lodash';
 
 import { filterExpiredReservations } from '../../universal/utils';
 import {
@@ -17,20 +17,26 @@ import { config } from '../environment';
 /**
  * Gets alert based on reservation times.
  * Assumes no reservation if start and end times are in the past!
- * @param {array} reservations - Array of reservation objects.
- * @param {moment} motion - Most recent time motion was detected.
- *                          Set to false to disregard motion-based status calculations
+ * @param {array} properties - Properties of room.
+ * @param {array} properties.reservations - Array of reservation objects.
+ * @param {array} properties.recentMotion - Most recent time motion was detected.
+ * @param {object} capabilities - Hardware capability flags of room's module.
+ * @param {bool} capabilities.motion - Is room module motion forced to be enabled.
  * @param {moment} now - Time to calculate alert on.
  * @returns {string} Room reservation alert.
  */
-export const getRoomAlert = (reservations = [], motion, time = moment()) => {
+export const getRoomAlert = (properties, capabilities, time = moment()) => {
+  const reservations = properties.reservations || [];
+  const recentMotion = properties.recentMotion;
+  const isNotFutureQuery = time.isSameOrBefore(moment());
   const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
-  const shouldConsiderMotion = config.public.enableMotion && motion !== false;
-  const hasRecentMotion = motion ?
-    motion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds')) : false;
+  const moduleIsMotionEquipped = config.public.enableMotion === true || capabilities.motion;
+  const shouldConsiderMotion = moduleIsMotionEquipped && isNotFutureQuery;
+  const hasRecentMotion = recentMotion ?
+    recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds')) : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -112,10 +118,11 @@ export const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
  */
 export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
   room.reservations = filterExpiredReservations(room.reservations, time);
+  const roomProperties = { reservations: room.reservations, recentMotion: false };
 
   return {
     ...secureRoom(room),
-    alert: getRoomAlert(room.reservations, false, time)
+    alert: getRoomAlert(roomProperties, room.capabilities, time)
   };
 });
 
@@ -134,3 +141,10 @@ export const initializeRoomModuleState = (action, room) => {
 
   return room;
 };
+
+/**
+ * Used to override publicConfig before sending to client
+ * @param {array} rooms
+ * @returns {bool}
+ */
+export const shouldOverrideMotion = (rooms) => some(get(rooms, 'capabilities.motion', { motion: true }));

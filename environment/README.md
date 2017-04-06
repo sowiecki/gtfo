@@ -22,7 +22,7 @@ General configuration.
 | - note               | Note to be displayed in sidebar             | No        |         |
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
 | prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
-| proxyHost            | URL of hosted proxy instance                | no       |         |
+| proxyHost            | URL of hosted proxy instance                | no        |         |
 | indirect             | Run modules in indirect mode                | No        | `false` |
 
 Example of a `config.json`:
@@ -45,19 +45,24 @@ Example of a `config.json`:
 ### devices.json
 Room device properties.
 
-| Parameter        | Description                           | Required? |
-|------------------|---------------------------------------|-----------|
-| id               | ID of exchange account<sup>1</sup>    | Yes       |
-| name             | Display name for room<sup>2</sup>     | Yes       |
-| location         | Floor or location of room <sup>2, 3</sup>| Yes       |
-| deviceId         | ID of Photon board                    | Yes       |
-| deviceAuthToken  | Auth token of Photon board            | Yes       |
-| deviceAlias      | Name of module                        | No        |
+| Parameter        | Description                                           | Required? | Type   |
+|------------------|-------------------------------------------------------|-----------|--------|
+| id               | ID of exchange account<sup>1</sup>                    | Yes       | String |
+| name             | Display name for room<sup>2</sup>                     | Yes       | String |
+| location         | Floor or location of room <sup>2, 3</sup>             | Yes       | String |
+| deviceId         | ID of Photon board                                    | Yes       | String |
+| deviceAuthToken  | Auth token of Photon board                            | Yes       | String |
+| deviceAlias      | Name of module                                        | No        | String |
+| capabilities     | Hardware capabilities of module                       | No        | Object |
+| - motion         | Set to true if module has a motion sensor<sup>4</sup> | No        | Bool   |
 <sup>1</sup> Formatted exactly as displayed on Exchange Services.
 
 <sup>2</sup> Proper format, including any spaces or capitalization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
 
 <sup>3</sup> Make sure that all rooms in the same location have **exactly** matching locations properties. Location tabs are displayed in order of first device entry in the file, e.g. if the first device has the location `Sears Tower 251` it will be the first tab rendered.
+
+<sup>4</sup> Takes precedence over and overrides `config.json`'s `enableMotion` property.
+Use this to enable motion only on individual modules equipped with motion sensors.
 
 Example of a `devices.json` with a single device configured to The Loop:
 ```json

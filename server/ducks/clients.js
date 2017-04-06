@@ -16,9 +16,10 @@ const initialState = immutable.fromJS({
 const clientsReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_INIT_SOCKETS]() {
-      const { publicConfig } = action;
+      const { config, overrides } = action;
+      const configWithOverrides = { ...config.publicConfig, ...overrides };
 
-      socketController.open(HANDSHAKE, publicConfig);
+      socketController.open(HANDSHAKE, configWithOverrides);
 
       return state;
     },
