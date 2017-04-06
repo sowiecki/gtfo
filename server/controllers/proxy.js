@@ -1,6 +1,8 @@
 /* eslint new-cap:0 */
 import WebSocket from 'ws';
+import { get } from 'lodash';
 
+import devicesController from './devices';
 import pingsController from './pings';
 import consoleController from './console';
 import { send } from '../utils';
@@ -9,7 +11,9 @@ import { PROXY_HOST,
          WEBSOCKET_RECONNECT_INTERVAL,
          HANDSHAKE,
          RECONNECTED,
-         NEW_ROOM_PING } from '../constants';
+         NEW_ROOM_PING,
+         NEW_ROOM_MOTION,
+         UNDEFINED_EVENT } from '../constants';
 
 let interval;
 let webSocket;
@@ -48,12 +52,17 @@ const proxyController = {
         pingsController.handlePingOverWS(payload);
       },
 
-      [undefined]() {
+      [NEW_ROOM_MOTION]() {
+        devicesController.handleIndirectMotion(payload);
+      },
+
+      [UNDEFINED_EVENT]() {
         consoleController.log(JSON.parse(data));
       }
     };
 
-    handlers[payload.event]();
+    const eventHandler = get(payload, 'event', UNDEFINED_EVENT);
+    handlers[eventHandler]();
   },
 
   reconnect() {

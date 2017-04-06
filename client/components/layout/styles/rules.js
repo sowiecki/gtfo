@@ -234,7 +234,7 @@ export const rules = {
           zoom: 0.9,
           margin: '0 auto',
           position: 'absolute',
-          top: 0,
+          top: '-50px',
           left: 0,
           right: 0
         }

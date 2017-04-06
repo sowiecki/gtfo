@@ -6,12 +6,12 @@ import devicesController from '../controllers/devices';
 import applicationView from '../views/application';
 
 import { config } from '../environment';
-import { isProd } from '../config';
+import { IS_PROD_ENV } from '../config';
 import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
 
 const router = express.Router();
 
-if (config.public.enableStalls || !isProd) {
+if (config.public.enableStalls || !IS_PROD_ENV) {
   const mockServices = require('../controllers/mocks').default;
 
   const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);

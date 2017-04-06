@@ -2,6 +2,7 @@ import { SQUATTED,
          VACANT,
          ONE_MINUTE_WARNING,
          FIVE_MINUTE_WARNING,
+         ABANDONED,
          BOOKED,
          OFFLINE } from '../../universal/constants';
 
@@ -11,6 +12,7 @@ export const STATUS_MESSAGES = {
   [ONE_MINUTE_WARNING]: '1 minute left on current reservation',
   [FIVE_MINUTE_WARNING]: '5 minutes left on current reservation',
   [BOOKED]: 'Currently booked',
+  [ABANDONED]: 'Booked but not in use',
   [OFFLINE]: 'Offline',
   [undefined]: 'Offline'
 };
@@ -20,7 +22,8 @@ export const LOG_COLORS = {
   [VACANT]: 'green',
   [ONE_MINUTE_WARNING]: 'red',
   [FIVE_MINUTE_WARNING]: 'yellow',
-  [BOOKED]: 'cyan',
+  [BOOKED]: 'blue',
+  [ABANDONED]: 'cyan',
   [OFFLINE]: 'grey',
   [undefined]: 'grey'
 };
@@ -30,7 +33,8 @@ export const GUAGE_COLORS = {
   [VACANT]: 'green',
   [ONE_MINUTE_WARNING]: 'red',
   [FIVE_MINUTE_WARNING]: 'yellow',
-  [BOOKED]: 'cyan',
+  [BOOKED]: 'blue',
+  [ABANDONED]: 'cyan',
   [OFFLINE]: 'black',
   [undefined]: 'black'
 };

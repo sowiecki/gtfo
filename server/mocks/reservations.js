@@ -13,7 +13,7 @@ import { randomMeetingDuration,
          randomReservationGap,
          generateMockReservation } from './utils';
 
-const roomNames = map(devices, (device) => device.name.toLowerCase());
+const roomNames = map(devices, (device) => device.name);
 
 const generateMockData = () => {
   const mockReservations = [];

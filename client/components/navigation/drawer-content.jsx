@@ -48,6 +48,7 @@ const DrawerContent = (props) => {
         primaryText='View future availabilities'/>
       <Divider/>
       <ListItem
+        id='toggle-map-legend'
         onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}
         style={displayLegend ? null : styles.fadedIcon}
         leftIcon={generateIcon('map', styles.navIcons)}

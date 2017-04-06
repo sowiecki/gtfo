@@ -3,6 +3,7 @@ logs
 *.log
 npm-debug.log*
 secrets
+reports
 
 # Build
 /server/public/dist

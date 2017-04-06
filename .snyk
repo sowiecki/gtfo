@@ -1,6 +1,4 @@
-# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+version: v1.5.2
 ignore:
   'npm:unicode:20161219':
     - slug > unicode:
@@ -10,7 +8,6 @@ ignore:
     - blessed-contrib > marked:
         reason: None given
         expires: '2017-03-02T02:19:58.429Z'
-# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - johnny-five > serialport > node-pre-gyp > tar-pack > fstream > rimraf > glob > minimatch:
@@ -56,9 +53,12 @@ patch:
         patched: '2016-09-06T18:32:10.679Z'
   'npm:request:20160119':
     - blessed-contrib > picture-tube > request:
-        patched: '2017-01-31T02:18:23.027Z'
+        patched: '2017-04-06T18:00:59.457Z'
   'npm:negotiator:20160616':
     - react-swipeable-views > react-native > connect > compression > accepts > negotiator:
         patched: '2016-12-14T04:22:31.243Z'
     - react-swipeable-views > react-native > connect > serve-index > accepts > negotiator:
         patched: '2016-12-14T04:22:31.243Z'
+  'npm:marked:20170112':
+    - blessed-contrib > marked:
+        patched: '2017-04-06T18:00:59.457Z'

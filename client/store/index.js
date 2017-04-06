@@ -9,15 +9,15 @@ import api from '../middleware/api';
 
 const MATCH_REGEX = /[?&]debug_session=([^&#]+)\b/;
 const getDebugSessionKey = () => get(window.location.href.match(MATCH_REGEX), '[1]', null);
-const isProd = process.env.NODE_ENV === 'production';
+const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 
 const baseMiddleware = applyMiddleware(api, routerMiddleware(history));
 const getMiddlewares = () => [
   baseMiddleware,
 
   // Do not bundle Dev-Tool middleware in prod
-  isProd ? null : require('components/dev-tools').default.instrument(),
-  isProd ? null : require('redux-devtools').persistState(getDebugSessionKey())
+  IS_PROD_ENV ? null : require('components/dev-tools').default.instrument(),
+  IS_PROD_ENV ? null : require('redux-devtools').persistState(getDebugSessionKey())
 ].filter((middleware) => middleware !== null);
 
 const generateStore = (history, initialState = {}) => {
