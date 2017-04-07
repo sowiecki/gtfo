@@ -14,6 +14,7 @@ import { PROXY_HOST,
          NEW_ROOM_PING,
          NEW_ROOM_MOTION,
          UNDEFINED_EVENT } from '../constants';
+import { config } from '../environment';
 
 let interval;
 let webSocket;
@@ -33,7 +34,9 @@ const proxyController = {
   },
 
   handleSocketOpen() {
-    proxyController.send(HANDSHAKE, null, webSocket);
+    const payload = { headers: { id: config.id } };
+
+    proxyController.send(HANDSHAKE, payload, webSocket);
   },
 
   parseEvent({ data }) {
