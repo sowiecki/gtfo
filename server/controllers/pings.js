@@ -10,22 +10,22 @@ const pingsController = {
    * Handles pings received via HTTP POST requests.
    */
   handlePingOverHTTP(req, res) {
-    const { id, anchor } = req.headers;
-    const room = this.getRoom(id);
+    const { targetId, anchor } = req.headers;
+    const room = this.getRoom(targetId);
 
-    if (this.getRoom(id)) {
+    if (this.getRoom(targetId)) {
       store.dispatch({
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           location: room.location,
-          id,
+          targetId,
           anchor
         }
       });
 
-      res.json({ status: 200, message: `Pinged ${id} at ${anchor}` });
+      res.json({ status: 200, message: `Pinged ${targetId} at ${anchor}` });
     } else {
-      res.json({ status: 500, message: PING_ERROR, originalRequest: { id, anchor } });
+      res.json({ status: 500, message: PING_ERROR, originalRequest: { targetId, anchor } });
     }
   },
 
@@ -33,23 +33,24 @@ const pingsController = {
    * Handles pings received via WebSocket connection to proxy.
    */
   handlePingOverWS(payload) {
-    const { id } = payload;
-    const room = this.getRoom(id);
+    const { targetId } = payload;
+    const room = pingsController.getRoom(targetId);
 
     if (room) {
       store.dispatch({
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           location: room.location,
-          ...payload
+          ...payload,
+          id: targetId
         }
       });
     }
   },
 
-  getRoom(id) {
+  getRoom(targetId) {
     const { rooms } = store.getState().roomsReducer.toJS();
-    const room = find(rooms, { id });
+    const room = find(rooms, { id: targetId });
 
     return room;
   }

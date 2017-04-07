@@ -139,11 +139,12 @@ To anchor a client, simply add an `anchor` query paramter to its route. E.g., `h
 
 To ping this client from an external service, direct a POST request to `http://hostname:3000/api/ping` with the headers:
 
-```
+```js
 {
-  id: kerbin,
-  anchor: east-lobby,
-  event: NEW_ROOM_PING
+  "id": "foo", // Required only when using a proxy (see blow), must match the application ID set in config.json
+  "targetId": "kerbin",
+  "anchor": "east-lobby",
+  "event": "NEW_ROOM_PING"
 }
 ```
 

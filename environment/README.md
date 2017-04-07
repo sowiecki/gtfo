@@ -14,6 +14,7 @@ General configuration.
 
 | Parameter            | Description                                 | Required? | Default |
 |----------------------|---------------------------------------------|-----------|---------|
+| id                   | Identifier for pings proxy                  | No        |         |
 | public               | Configurations passed to client (insecure!) | Yes       |         |
 | - title              | Page title to display on client             | No        |         |
 | - enableTemperature  | Enables (experimental) temperature readings | No        |         |
@@ -28,6 +29,7 @@ General configuration.
 Example of a `config.json`:
 ```json
 {
+  "id": "foo",
   "config": {
     "public": {
       "title": "Some Company Name",
