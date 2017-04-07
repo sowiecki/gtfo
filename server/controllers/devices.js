@@ -19,7 +19,8 @@ import { shouldOverrideMotion,
          registerPiezo,
          registerThermo,
          registerMotion,
-         secureRooms, } from '../utils';
+         secureRooms,
+         logUnhandledMotionUpdate } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
          FETCH_ROOM_TEMPERATURE,
