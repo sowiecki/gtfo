@@ -1,6 +1,6 @@
 /* eslint max-statements:0, no-magic-numbers:0 */
 import moment from 'moment';
-import { some, get, isEmpty } from 'lodash';
+import { some, isEmpty } from 'lodash';
 
 import { filterExpiredReservations } from '../../universal/utils';
 import {
@@ -148,4 +148,4 @@ export const initializeRoomModuleState = (action, room) => {
  * @param {array} rooms
  * @returns {bool}
  */
-export const shouldOverrideMotion = (rooms) => some(get(rooms, 'capabilities.motion', { motion: true }));
+export const shouldOverrideMotion = (rooms) => some(rooms, 'capabilities.motion');
