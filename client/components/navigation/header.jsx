@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Tab from 'material-ui/Tabs/Tab';
 import Tabs from 'material-ui/Tabs/Tabs';

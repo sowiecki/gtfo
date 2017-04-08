@@ -1,5 +1,6 @@
 /* eslint react/no-danger:0 */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';

@@ -1,5 +1,5 @@
-/* eslint class-methods-use-this:0 */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Style } from 'radium';
 
 import Drawer from 'material-ui/Drawer';
