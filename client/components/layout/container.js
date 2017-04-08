@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 
 import RoomsController from './controller';
 
-import * as RoomsActions from '../../ducks/layout';
+import * as LayoutActions from '../../ducks/layout';
+import * as NavigationActions from '../../ducks/navigation';
 
-const mapStateToProps = ({ layoutReducer }) => ({
+const mapStateToProps = ({ layoutReducer, navigationReducer }, props) => ({
+  location: { ...props.location, ...navigationReducer.get('location').toJS() },
   error: layoutReducer.get('error'),
   meetingRooms: layoutReducer.get('meetingRooms'),
   ping: layoutReducer.get('ping'),
@@ -18,9 +20,16 @@ const mapStateToProps = ({ layoutReducer }) => ({
   unitOfTemp: layoutReducer.get('unitOfTemp')
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(RoomsActions, dispatch)
-});
+const mapDispatchToProps = (dispatch) => {
+  const actions = {
+    ...LayoutActions,
+    ...NavigationActions
+  };
+
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+};
 
 export default connect(
   mapStateToProps,

@@ -13,7 +13,6 @@ export const EMIT_DEVICE_WIDTH_UPDATE = 'EMIT_DEVICE_WIDTH_UPDATE';
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
-export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
 export const EMIT_TIME_TRAVEL_MODAL_TOGGLE = 'EMIT_TIME_TRAVEL_MODAL_TOGGLE';
 export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
@@ -26,27 +25,22 @@ export const emitDeviceWidthUpdate = () => ({
   type: EMIT_DEVICE_WIDTH_UPDATE
 });
 
-export const emitLocationIndexUpdate = (newLocation, anchorId) => {
+export const emitLocationUpdate = (newLocationPathname, prevLocation) => {
   history.push({
-    pathname: newLocation,
-    query: { anchor: anchorId }
+    ...prevLocation,
+    pathname: newLocationPathname
   });
 
   return {
-    type: EMIT_LOCATION_INDEX_UPDATE,
-    newLocation,
-    anchorId
+    type: EMIT_LOCATION_UPDATE,
+    newLocationPathname,
+    prevLocation
   };
 };
 
 export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
-});
-
-export const emitLocationUpdate = (location) => ({
-  type: EMIT_LOCATION_UPDATE,
-  location
 });
 
 export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
@@ -66,6 +60,7 @@ export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
 });
 
 const initialState = immutable.fromJS({
+  location: { pathname: window.location.pathname },
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   note: DEFAULT_NOTE,
   deviceWidth: document.body.clientWidth,
@@ -94,11 +89,12 @@ const navigationReducer = (state = initialState, action) => {
     },
 
     [EMIT_LOCATION_UPDATE]() {
-      return state;
-    },
+      const newLocation = immutable.fromJS({
+        ...action.prevLocation,
+        pathname: action.newLocationPathname
+      });
 
-    [EMIT_LOCATION_INDEX_UPDATE]() {
-      return state;
+      return state.set('location', newLocation);
     },
 
     [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {

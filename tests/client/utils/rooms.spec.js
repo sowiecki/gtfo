@@ -84,7 +84,7 @@ describe('Room utilities (client)', () => {
     const mockReducers = {
       routeReducer: {
         location: {
-          query: { anchor: 'example-anchor' }
+          search: '?anchor=example-anchor'
         }
       }
     };
@@ -100,7 +100,7 @@ describe('Room utilities (client)', () => {
     });
 
     it('should return an empty string if it can\'t find an anchor.', () => {
-      mockReducers.routeReducer.location.query = null;
+      mockReducers.routeReducer.location.search = null;
 
       expect(getAnchorFromStore(mockStore)).toEqual('');
     });
@@ -108,7 +108,7 @@ describe('Room utilities (client)', () => {
 
   describe('youAreHere', () => {
     const location = {
-      query: { anchor: 'lobby' }
+      search: '?anchor=lobby'
     };
 
     it('should check if the provided marker matches the current location.', () => {
@@ -121,16 +121,14 @@ describe('Room utilities (client)', () => {
 
   describe('youAreHere', () => {
     const locationWithAnchor = {
-      query: { anchor: 'lobby' }
+      search: '?anchor=lobby'
     };
 
     const locationWithoutAnchor = {
-      query: {}
+      search: ''
     };
 
-    const locationWithNullAnchor = {
-      query: { anchor: null }
-    };
+    const locationWithNullAnchor = {};
 
     it('should check if the provided marker matches the current location.', () => {
       expect(hasAnchor(locationWithAnchor)).toBe(true);
@@ -151,12 +149,12 @@ describe('Room utilities (client)', () => {
     const mockLocationParams = ['Winterfell', 'Storm\'s End'];
 
     it('should find the index of a provided location parameter.', () => {
-      expect(getLocationIndex(mockLocationParams, 'Winterfell')).toEqual(0);
-      expect(getLocationIndex(mockLocationParams, 'Storm\'s End')).toEqual(1);
+      expect(getLocationIndex(mockLocationParams, { pathname: 'Winterfell' })).toEqual(0);
+      expect(getLocationIndex(mockLocationParams, { pathname: 'Storm\'s End' })).toEqual(1);
     });
 
     it('should fail gracefully, returning 0 when the parameter is not found.', () => {
-      expect(getLocationIndex(mockLocationParams, 'Casterly Rock')).toEqual(0);
+      expect(getLocationIndex(mockLocationParams, { pathname: 'Casterly Rock' })).toEqual(0);
     });
   });
 });

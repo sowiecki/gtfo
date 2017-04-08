@@ -8,29 +8,31 @@ import { styles } from './styles';
 import { formatForDisplay } from '../../utils';
 import { base } from '../../config/composition';
 
-const LocationModal = (props) => {
+const LocationDropdown = (props) => {
   const { onSelectFieldChange,
           actions,
-          params,
           locations,
           location } = props;
-  const { anchor } = location.query;
 
-  const renderLocationSelection = (renderedLocation, index) => (
-    <MenuItem
-      key={index}
-      value={index}
-      style={styles.mobileLocationSelectionMenuItem}
-      primaryText={formatForDisplay(renderedLocation)}
-      onClick={actions.emitLocationIndexUpdate.bind(null, renderedLocation, anchor)}/>
-  );
+  const renderLocationSelection = (renderedLocation, index) => {
+    const onClick = () => actions.emitLocationUpdate(renderedLocation, location);
+
+    return (
+      <MenuItem
+        key={index}
+        value={index}
+        style={styles.mobileLocationSelectionMenuItem}
+        primaryText={formatForDisplay(renderedLocation)}
+        onClick={onClick}/>
+    );
+  };
 
   return locations ? (
     <SelectField
       className='mobile-location-selection-label'
       labelStyle={styles.mobileLocationSelectionLabel}
       underlineStyle={styles.mobileLocationSelectionUnderline}
-      value={locations.indexOf(params.location)}
+      value={locations.indexOf(location.pathname.replace('/', ''))}
       onChange={onSelectFieldChange}>
         {locations.map(renderLocationSelection)}
     </SelectField>
@@ -41,18 +43,15 @@ const LocationModal = (props) => {
   );
 };
 
-LocationModal.propTypes = {
+LocationDropdown.propTypes = {
   onSelectFieldChange: PropTypes.func.isRequired,
   actions: PropTypes.shape({
-    emitLocationIndexUpdate: PropTypes.func.isRequired
-  }).isRequired,
-  params: PropTypes.shape({
-    location: PropTypes.string
+    emitLocationUpdate: PropTypes.func.isRequired
   }).isRequired,
   location: PropTypes.shape({
-    query: PropTypes.object
+    pathname: PropTypes.string
   }),
   locations: PropTypes.array
 };
 
-export default base(LocationModal);
+export default base(LocationDropdown);

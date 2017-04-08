@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Style } from 'radium';
+import queryString from 'query-string';
 
 import Drawer from 'material-ui/Drawer';
 
@@ -32,10 +33,10 @@ class NavigationController extends Component {
             siteNavOpen } = this.props;
     const fullScreenParams = {
       pathname: location.pathname,
-      query: {
+      search: queryString.stringify({
         fullscreen: true,
-        ...location.query
-      }
+        ...queryString.parse(location.search)
+      })
     };
 
     // Grouped action props.
@@ -88,7 +89,6 @@ NavigationController.propTypes = {
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitTimeSliderValueUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
-    emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitToggleDisplayTemp: PropTypes.func.isRequired,
     emitToggleTempScale: PropTypes.func.isRequired

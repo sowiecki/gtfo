@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import Tab from 'material-ui/Tabs/Tab';
 import Tabs from 'material-ui/Tabs/Tabs';
@@ -17,18 +18,22 @@ import { formatForDisplay } from '../../utils';
 import { applyStyles } from '../../config/composition';
 
 const Header = (props) => {
-  const { params, location, locations, actions, siteNavOpen } = props;
-  const { anchor, fullscreen } = location.query;
+  const { location, locations, actions, siteNavOpen } = props;
+  const { fullscreen } = queryString.parse(location.search);
   const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
-  const renderLocationTab = (tabLocation, index) => (
-    <Tab
-      key={`${tabLocation}-${index}`}
-      label={formatForDisplay(tabLocation)}
-      value={locations.indexOf(tabLocation)}
-      onClick={actions.emitLocationIndexUpdate.bind(null, tabLocation, anchor)}
-      style={styles.toolbarTab}/>
-  );
+  const renderLocationTab = (tabLocation, index) => {
+    const onClick = () => actions.emitLocationUpdate(tabLocation, location);
+
+    return (
+      <Tab
+        key={`${tabLocation}-${index}`}
+        label={formatForDisplay(tabLocation)}
+        value={locations.indexOf(tabLocation)}
+        onClick={onClick}
+        style={styles.toolbarTab}/>
+    );
+  };
 
   return fullscreen === 'true' ? null : (
     <Toolbar style={styles.toolbar}>
@@ -43,13 +48,17 @@ const Header = (props) => {
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
           mobileAlt={<LocationDropDown {...props}/>}
           {...props}>
-            <Tabs value={locations.indexOf(params.location)}>
+            <Tabs value={locations.indexOf(location.pathname.replace('/', ''))}>
               {locations.map(renderLocationTab)}
             </Tabs>
         </Responsive>
       </ToolbarGroup>
     </Toolbar>
   );
+};
+
+Header.defaultProps = {
+  location: {}
 };
 
 Header.propTypes = {
@@ -62,7 +71,6 @@ Header.propTypes = {
       fullscreen: PropTypes.string
     })
   }),
-  params: PropTypes.object.isRequired,
   locations: PropTypes.array
 };
 

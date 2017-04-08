@@ -1,7 +1,8 @@
 /* globals window */
 import { get } from 'lodash';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { browserHistory } from 'react-router';
+import { createBrowserHistory } from 'history';
+
 import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../ducks';
@@ -26,4 +27,4 @@ const generateStore = (history, initialState = {}) => {
   return composeStore(rootReducer, initialState);
 };
 
-export default generateStore(browserHistory);
+export default generateStore(createBrowserHistory());
