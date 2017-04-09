@@ -1,17 +1,18 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { VelocityComponent } from 'velocity-react';
 
-import Temperature from './temperature';
+import { applyStyles } from 'config/composition';
+import { parsePosition, parseShape } from 'utils';
 
-import { styles,
-         ROOM_NAME_TEXT_DX,
-         ROOM_NAME_TEXT_DY } from './styles';
-import { applyStyles } from '../../config/composition';
-import { parsePosition, parseShape } from '../../utils';
+import Temperature from './temperature';
 import { STATUS_COLORS,
          PING_ANIMATION_LOOPS,
          PING_ANIMATION_TIMEOUT } from '../../constants';
+import { styles,
+         ROOM_NAME_TEXT_DX,
+         ROOM_NAME_TEXT_DY } from './styles';
 
 const MeetingRoom = (props) => {
   const { name,

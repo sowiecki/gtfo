@@ -1,39 +1,15 @@
 /* globals __dirname */
 const path = require('path');
+const fs = require('fs');
 const merge = require('lodash/merge');
 
 const baseContext = path.join(__dirname, '../client');
 const environmentConext = path.join(__dirname, '../environment');
 const universalContext = path.join(__dirname, '../universal');
 
-const aliasSafety = (result, developmentModule) => {
-  const IS_PROD_ENV = process.env.NODE_ENV === 'production';
-
-  const nullModulePath = path.join(__dirname, '../client/components/common/loading');
-
-  result[developmentModule] = IS_PROD_ENV ? nullModulePath : developmentModule;
-
-  return result;
-};
-
-/**
- * Development-only modules listed here will be aliased to an arbitrary replacement,
- * to prevent them from being used in production.
- */
-const developmentModules = [
-  'redux-devtools',
-  'redux-devtools-dock-monitor',
-  'redux-devtools-log-monitor',
-  'redux-slider-monitor',
-  'redux-devtools-chart-monitor',
-  'redux-devtools-diff-monitor',
-  'redux-devtools-inspector',
-  'redux-devtools-dispatch'
-].reduce(aliasSafety, {});
-
 module.exports = {
   context: baseContext,
-  entry: '../client/application.jsx',
+  entry: '../client/index.jsx',
   output: {
     path: path.resolve(__dirname, '../server', 'public', 'dist'),
     filename: 'bundle.js',
@@ -41,9 +17,9 @@ module.exports = {
   },
   resolve: {
     modules: [baseContext, 'node_modules'],
-    alias: merge({
+    alias: {
       universal: path.resolve(universalContext)
-    }, developmentModules),
+    },
     extensions: ['.js', '.jsx']
   },
   module: {
@@ -51,7 +27,14 @@ module.exports = {
       {
         test: /\.js(x|)?$/,
         use: {
-          loader: 'babel-loader?plugins[]=transform-object-rest-spread'
+          loader: 'babel-loader',
+
+          // Work-around to enable commonjs on server and native modules on client,
+          // while (mostly) maintaining one source for Babel configuration
+          options: merge(JSON.parse(fs.readFileSync('./.babelrc')), {
+            babelrc: false,
+            presets: [['es2015', { modules: false }], 'react']
+          })
         },
         include: [baseContext, universalContext],
         exclude: /node_modules/

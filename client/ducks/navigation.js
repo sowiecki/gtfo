@@ -1,7 +1,6 @@
 /* globals location */
 import immutable from 'immutable';
 
-import history from '../config/history';
 import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
 import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
@@ -13,7 +12,6 @@ export const EMIT_DEVICE_WIDTH_UPDATE = 'EMIT_DEVICE_WIDTH_UPDATE';
 export const EMIT_SITE_NAV_TOGGLE = 'EMIT_SITE_NAV_TOGGLE';
 
 export const EMIT_LOCATION_UPDATE = 'EMIT_LOCATION_UPDATE';
-export const EMIT_LOCATION_INDEX_UPDATE = 'EMIT_LOCATION_INDEX_UPDATE';
 
 export const EMIT_TIME_TRAVEL_MODAL_TOGGLE = 'EMIT_TIME_TRAVEL_MODAL_TOGGLE';
 export const EMIT_TIME_TRAVEL_ERROR = 'EMIT_TIME_TRAVEL_ERROR';
@@ -26,27 +24,9 @@ export const emitDeviceWidthUpdate = () => ({
   type: EMIT_DEVICE_WIDTH_UPDATE
 });
 
-export const emitLocationIndexUpdate = (newLocation, anchorId) => {
-  history.push({
-    pathname: newLocation,
-    query: { anchor: anchorId }
-  });
-
-  return {
-    type: EMIT_LOCATION_INDEX_UPDATE,
-    newLocation,
-    anchorId
-  };
-};
-
 export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
-});
-
-export const emitLocationUpdate = (location) => ({
-  type: EMIT_LOCATION_UPDATE,
-  location
 });
 
 export const emitTimeTravelControlsToggle = (timeTravelControlsOpen) => ({
@@ -91,14 +71,6 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_SITE_NAV_TOGGLE]() {
       return state.set('siteNavOpen', action.siteNavOpen);
-    },
-
-    [EMIT_LOCATION_UPDATE]() {
-      return state;
-    },
-
-    [EMIT_LOCATION_INDEX_UPDATE]() {
-      return state;
     },
 
     [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {

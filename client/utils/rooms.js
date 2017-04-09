@@ -2,6 +2,7 @@
 /* globals console */
 import { filter, map, uniq, get } from 'lodash';
 import slugify from 'slugify';
+import queryString from 'query-string';
 
 import { getBackdropErrorMessage } from './errors';
 
@@ -82,9 +83,10 @@ export const pluckLocations = (rooms) => uniq(map(rooms, 'location'));
  * @returns {string} Parsed anchor parameter.
  */
 export const getAnchorFromStore = (store) => {
-  const anchor = get(store.getState(), 'routeReducer.location.query.anchor', '');
+  const search = get(store.getState(), 'routeReducer.location.search');
+  const { anchor } = queryString.parse(search);
 
-  return anchor;
+  return anchor || '';
 };
 
 /**
@@ -92,8 +94,8 @@ export const getAnchorFromStore = (store) => {
  * @param {object} Query params.
  * @returns {bool} True is query anchor is defined.
  */
-export const hasAnchor = ({ query }) => {
-  const anchor = get(query, 'anchor', '');
+export const hasAnchor = ({ search }) => {
+  const { anchor } = queryString.parse(search);
 
   return !!anchor;
 };
@@ -105,7 +107,7 @@ export const hasAnchor = ({ query }) => {
  * @returns {bool} Parsed anchor parameter.
  */
 export const youAreHere = (marker, location) => {
-  const anchor = get(location, 'query.anchor', '');
+  const { anchor } = queryString.parse(location.search);
   const markerName = slugify(marker.name).toLowerCase();
 
   return anchor === markerName;
@@ -129,8 +131,8 @@ export const genWidthAndHeight = (width) => ({
  * @param {string} locationParam
  * @returns {integer}
  */
-export const getLocationIndex = (locationKeys, locationParam) => {
-  const locationIndex = locationKeys.indexOf(locationParam);
+export const getLocationIndex = (locationKeys, location) => {
+  const locationIndex = locationKeys.indexOf(location.pathname);
 
   return locationIndex >= 0 ? locationIndex : 0;
 };

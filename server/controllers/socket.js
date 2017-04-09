@@ -1,6 +1,6 @@
 import WebSocket from 'ws';
 import moment from 'moment';
-import { filter, forEach } from 'lodash';
+import { get, filter, forEach } from 'lodash';
 
 import store from '../store';
 
@@ -60,7 +60,7 @@ const socketController = {
   handle(event, payload, client) {
     const handlers = {
       [HANDSHAKE]() { // Register client socket with anchor parameter.
-        const { anchor } = payload;
+        const anchor = get(payload, 'anchor');
 
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
       },
@@ -78,7 +78,7 @@ const socketController = {
       },
 
       [RECONNECTED]() { // Reregister client socket with anchor parameter.
-        const { anchor } = payload;
+        const anchor = get(payload, 'anchor');
 
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
       },

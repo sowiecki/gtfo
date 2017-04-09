@@ -1,15 +1,15 @@
-/* eslint class-methods-use-this:0 */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Style } from 'radium';
+import queryString from 'query-string';
 
 import Drawer from 'material-ui/Drawer';
+
+import { base } from 'config/composition';
 
 import Header from './header';
 import DrawerContent from './drawer-content';
 import TimeTravel from './time-travel';
-
-import history from '../../config/history';
-import { base } from '../../config/composition';
 import { styles, rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
@@ -31,11 +31,11 @@ class NavigationController extends Component {
             timeTravelControlsOpen,
             siteNavOpen } = this.props;
     const fullScreenParams = {
-      pathname: location.pathname,
-      query: {
+      ...location,
+      search: queryString.stringify({
         fullscreen: true,
-        ...location.query
-      }
+        ...queryString.parse(location.search)
+      })
     };
 
     // Grouped action props.
@@ -43,7 +43,7 @@ class NavigationController extends Component {
       actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
       actions.emitToggleSiteNav(false);
     };
-    const onOpenFullscreenClick = () => history.push(fullScreenParams);
+    const onOpenFullscreenClick = () => actions.push(fullScreenParams);
     const onTimeTravelDismissClick = () => {
       actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
       actions.emitTimeTravelUpdate(null);
@@ -88,7 +88,6 @@ NavigationController.propTypes = {
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitTimeSliderValueUpdate: PropTypes.func.isRequired,
     emitToggleSiteNav: PropTypes.func.isRequired,
-    emitLocationUpdate: PropTypes.func.isRequired,
     emitToggleDisplayLegend: PropTypes.func.isRequired,
     emitToggleDisplayTemp: PropTypes.func.isRequired,
     emitToggleTempScale: PropTypes.func.isRequired

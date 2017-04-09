@@ -6,8 +6,8 @@ module.exports = {
   entry: {
     app: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-      'react-hot-loader/patch',
       'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
       base.entry
     ]
   },

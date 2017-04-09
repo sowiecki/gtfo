@@ -1,10 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Place from 'material-ui/svg-icons/maps/place';
 
-import { applyStyles } from '../../config/composition';
+import { applyStyles } from 'config/composition';
+import { parsePosition } from 'utils';
+
 import { styles, ROOM_NAME_TEXT_DX, MARKER_ROOM_NAME_TEXT_DY } from './styles';
-import { parsePosition } from '../../utils';
 
 const Marker = ({ marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';

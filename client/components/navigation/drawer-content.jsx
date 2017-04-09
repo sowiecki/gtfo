@@ -1,5 +1,6 @@
 /* eslint react/no-danger:0 */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider';
@@ -7,7 +8,8 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import CardText from 'material-ui/Card/CardText';
 
-import { base } from '../../config/composition';
+import { base } from 'config/composition';
+
 import { styles } from './styles';
 
 const DrawerContent = (props) => {

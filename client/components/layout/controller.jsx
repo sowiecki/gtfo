@@ -1,20 +1,20 @@
 /* globals setInterval, clearInterval */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Style } from 'radium';
+import queryString from 'query-string';
 
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
+import { applyStyles } from 'config/composition';
+import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
+
+import { PING_TIMEOUT } from '../../constants';
 import DisplayError from '../common/display-error';
 import MapLegend from './map-legend';
-
 import Location from './location';
-
-import history from '../../config/history';
-import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { pluckLocations, hasAnchor, getLocationIndex } from '../../utils';
-import { PING_TIMEOUT } from '../../constants';
 
 /*
  * References and checks used to maintain the default location.
@@ -27,8 +27,9 @@ let noPingInProgress = true;
 class LayoutController extends Component {
   componentWillMount() {
     const { actions, location } = this.props;
+    const { anchor } = queryString.parse(location.search);
 
-    actions.connectSocket(location.query);
+    actions.connectSocket({ anchor });
   }
 
   componentDidMount() {
@@ -41,11 +42,11 @@ class LayoutController extends Component {
    * Forces default location parameter to first location.
    */
   componentDidUpdate() {
-    const { meetingRooms, ping, params } = this.props;
+    const { location, meetingRooms, ping } = this.props;
     const locations = pluckLocations(meetingRooms);
 
-    if (!params.location && locations.length) {
-      history.push({ pathname: locations[0] });
+    if (!location.pathname && locations.length) {
+      actions.push({ ...location, pathname: locations[0] });
     }
 
     if (ping && noPingInProgress) {
@@ -59,28 +60,22 @@ class LayoutController extends Component {
    * Automatically clears pings after defined amount of time.
    */
   flashPing() {
-    const { actions, params, location, ping } = this.props;
+    const { actions, location, ping } = this.props;
 
     // Save original location.
-    originalLocation = originalLocation || params.location;
+    originalLocation = originalLocation || location.pathname;
 
-    if (params.location !== ping.location) {
-      history.push({
-        pathname: ping.location,
-        query: { ...location.query }
-      });
+    if (location.pathname !== ping.location) {
+      actions.push({ ...location, pathname: ping.location });
     }
 
     const setPingTimeout = setInterval(() => {
       actions.emitClearPing();
 
       // Revert to original location and re-save.
-      history.push({
-        pathname: originalLocation,
-        query: { ...location.query }
-      });
+      actions.push({ ...location, pathname: originalLocation });
 
-      originalLocation = params.location;
+      originalLocation = location.pathname;
       noPingInProgress = true;
 
       clearInterval(setPingTimeout);
@@ -88,19 +83,15 @@ class LayoutController extends Component {
   }
 
   handleChangeLocation(newIndex) {
-    const { meetingRooms, location } = this.props;
+    const { actions, meetingRooms, location } = this.props;
     const locations = pluckLocations(meetingRooms);
 
-    history.push({
-      pathname: locations[newIndex],
-      query: { ...location.query }
-    });
+    actions.push({ ...location, pathname: locations[newIndex] });
   }
 
   render() {
     const { meetingRooms,
             displayLegend,
-            params,
             location,
             enableMotion,
             enableStalls } = this.props;
@@ -117,7 +108,7 @@ class LayoutController extends Component {
           <SwipeableViews
             className='swipeable-viewport'
             style={styles.swipableOverride}
-            index={getLocationIndex(locationKeys, params.location)}
+            index={getLocationIndex(locationKeys, location)}
             onChangeIndex={this.handleChangeLocation.bind(this)}
             resistance={true}>
               {locationKeys.map(renderLocation)}
@@ -144,12 +135,15 @@ LayoutController.propTypes = {
   enableMotion: PropTypes.bool.isRequired,
   enableStalls: PropTypes.bool.isRequired,
   unitOfTemp: PropTypes.string.isRequired,
-  params: PropTypes.shape({
-    location: PropTypes.string
-  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      location: PropTypes.string
+    }).isRequired
+  }),
   ping: PropTypes.object,
   actions: PropTypes.shape({
-    emitClearPing: PropTypes.func.isRequired
+    emitClearPing: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired
 };
 
