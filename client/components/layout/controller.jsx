@@ -70,15 +70,15 @@ class LayoutController extends Component {
     // Save original location.
     originalLocation = originalLocation || location.pathname;
 
-    if (location.pathname.replace('/', '') !== ping.location) {
-      actions.emitLocationUpdate(ping.location, location);
+    if (location.pathname !== ping.location) {
+      actions.push({ ...location, pathname: ping.location });
     }
 
     const setPingTimeout = setInterval(() => {
       actions.emitClearPing();
 
       // Revert to original location and re-save.
-      actions.emitLocationUpdate(originalLocation, location);
+      actions.push({ ...location, pathname: originalLocation });
 
       originalLocation = location.pathname;
       noPingInProgress = true;
@@ -91,7 +91,7 @@ class LayoutController extends Component {
     const { actions, meetingRooms, location } = this.props;
     const locations = pluckLocations(meetingRooms);
 
-    actions.emitLocationUpdate(locations[newIndex], location);
+    actions.push({ ...location, pathname: locations[newIndex] });
   }
 
   render() {
@@ -147,7 +147,8 @@ LayoutController.propTypes = {
   }),
   ping: PropTypes.object,
   actions: PropTypes.shape({
-    emitClearPing: PropTypes.func.isRequired
+    emitClearPing: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired
 };
 

@@ -1,13 +1,15 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+
+import * as LayoutActions from 'ducks/layout';
+import * as NavigationActions from 'ducks/navigation';
+import { formatLocationProps } from 'utils';
 
 import NavigationController from './controller';
 
-import * as LayoutActions from '../../ducks/layout';
-import * as NavigationActions from '../../ducks/navigation';
-
-const mapStateToProps = ({ navigationReducer, layoutReducer }, props) => ({
-  location: { ...props.location, ...navigationReducer.get('location').toJS() },
+const mapStateToProps = ({ navigationReducer, layoutReducer, routerReducer }) => ({
+  location: formatLocationProps(routerReducer.location),
   documentTitle: navigationReducer.get('documentTitle'),
   note: navigationReducer.get('note'),
   deviceWidth: navigationReducer.get('deviceWidth'),
@@ -25,7 +27,8 @@ const mapStateToProps = ({ navigationReducer, layoutReducer }, props) => ({
 const mapDispatchToProps = (dispatch) => {
   const actions = {
     ...LayoutActions,
-    ...NavigationActions
+    ...NavigationActions,
+    push
   };
 
   return {

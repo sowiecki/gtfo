@@ -28,4 +28,4 @@ export const provideMuiTheme = (element) => (
 
 export const base = (component) => pure(component);
 
-export const applyStyles = (component) => radium(pure(component));
+export const applyStyles = (component) => radium(base(component));

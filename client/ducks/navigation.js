@@ -1,7 +1,6 @@
 /* globals location */
 import immutable from 'immutable';
 
-import history from '../config/history';
 import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
 import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
@@ -25,19 +24,6 @@ export const emitDeviceWidthUpdate = () => ({
   type: EMIT_DEVICE_WIDTH_UPDATE
 });
 
-export const emitLocationUpdate = (newLocationPathname, prevLocation) => {
-  history.push({
-    ...prevLocation,
-    pathname: newLocationPathname
-  });
-
-  return {
-    type: EMIT_LOCATION_UPDATE,
-    newLocationPathname,
-    prevLocation
-  };
-};
-
 export const emitToggleSiteNav = (siteNavOpen) => ({
   type: EMIT_SITE_NAV_TOGGLE,
   siteNavOpen
@@ -60,7 +46,6 @@ export const emitTimeSliderValueUpdate = (timeSliderValue) => ({
 });
 
 const initialState = immutable.fromJS({
-  location: { pathname: window.location.pathname },
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   note: DEFAULT_NOTE,
   deviceWidth: document.body.clientWidth,
@@ -86,15 +71,6 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_SITE_NAV_TOGGLE]() {
       return state.set('siteNavOpen', action.siteNavOpen);
-    },
-
-    [EMIT_LOCATION_UPDATE]() {
-      const newLocation = immutable.fromJS({
-        ...action.prevLocation,
-        pathname: action.newLocationPathname
-      });
-
-      return state.set('location', newLocation);
     },
 
     [EMIT_TIME_TRAVEL_MODAL_TOGGLE]() {

@@ -15,7 +15,7 @@ const LocationDropdown = (props) => {
           location } = props;
 
   const renderLocationSelection = (renderedLocation, index) => {
-    const onClick = () => actions.emitLocationUpdate(renderedLocation, location);
+    const onClick = () => actions.push({ ...location, pathname: renderedLocation });
 
     return (
       <MenuItem
@@ -32,7 +32,7 @@ const LocationDropdown = (props) => {
       className='mobile-location-selection-label'
       labelStyle={styles.mobileLocationSelectionLabel}
       underlineStyle={styles.mobileLocationSelectionUnderline}
-      value={locations.indexOf(location.pathname.replace('/', ''))}
+      value={locations.indexOf(location.pathname)}
       onChange={onSelectFieldChange}>
         {locations.map(renderLocationSelection)}
     </SelectField>
@@ -46,7 +46,7 @@ const LocationDropdown = (props) => {
 LocationDropdown.propTypes = {
   onSelectFieldChange: PropTypes.func.isRequired,
   actions: PropTypes.shape({
-    emitLocationUpdate: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string

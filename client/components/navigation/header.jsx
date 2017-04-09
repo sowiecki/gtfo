@@ -23,7 +23,7 @@ const Header = (props) => {
   const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
   const renderLocationTab = (tabLocation, index) => {
-    const onClick = () => actions.emitLocationUpdate(tabLocation, location);
+    const onClick = () => actions.push({ ...location, pathname: tabLocation });
 
     return (
       <Tab
@@ -48,7 +48,7 @@ const Header = (props) => {
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
           mobileAlt={<LocationDropDown {...props}/>}
           {...props}>
-            <Tabs value={locations.indexOf(location.pathname.replace('/', ''))}>
+            <Tabs value={locations.indexOf(location.pathname)}>
               {locations.map(renderLocationTab)}
             </Tabs>
         </Responsive>
@@ -64,7 +64,8 @@ Header.defaultProps = {
 Header.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
-    emitToggleSiteNav: PropTypes.func.isRequired
+    emitToggleSiteNav: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired,
   location: PropTypes.shape({
     query: PropTypes.shape({

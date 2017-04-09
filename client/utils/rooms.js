@@ -132,7 +132,7 @@ export const genWidthAndHeight = (width) => ({
  * @returns {integer}
  */
 export const getLocationIndex = (locationKeys, location) => {
-  const locationIndex = locationKeys.indexOf(location.pathname.replace('/', ''));
+  const locationIndex = locationKeys.indexOf(location.pathname);
 
   return locationIndex >= 0 ? locationIndex : 0;
 };
