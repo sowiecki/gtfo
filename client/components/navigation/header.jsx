@@ -8,14 +8,14 @@ import Toolbar from 'material-ui/Toolbar';
 import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 
+import { formatForDisplay } from 'utils';
+import { applyStyles } from 'config/composition';
+
+import { MOBILE_WIDTH_BREAKPOINT } from '../common/styles';
 import Responsive from '../common/responsive';
 import MenuButton from './menu-button';
 import LocationDropDown from './location-dropdown';
-
 import { styles } from './styles';
-import { MOBILE_WIDTH_BREAKPOINT } from '../common/styles';
-import { formatForDisplay } from '../../utils';
-import { applyStyles } from '../../config/composition';
 
 const Header = (props) => {
   const { location, locations, actions, siteNavOpen } = props;

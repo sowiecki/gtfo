@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 
+import { base } from 'config/composition';
+import { formatForDisplay } from 'utils';
+
 import { styles } from './styles';
-import { formatForDisplay } from '../../utils';
-import { base } from '../../config/composition';
 
 const LocationDropdown = (props) => {
   const { onSelectFieldChange,

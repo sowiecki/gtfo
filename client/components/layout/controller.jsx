@@ -7,16 +7,14 @@ import queryString from 'query-string';
 import Paper from 'material-ui/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
+import { applyStyles } from 'config/composition';
+import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
+
+import { PING_TIMEOUT } from '../../constants';
 import DisplayError from '../common/display-error';
 import MapLegend from './map-legend';
-
 import Location from './location';
-
-import history from '../../config/history';
-import { applyStyles } from '../../config/composition';
 import { styles, rules } from './styles';
-import { pluckLocations, hasAnchor, getLocationIndex } from '../../utils';
-import { PING_TIMEOUT } from '../../constants';
 
 /*
  * References and checks used to maintain the default location.
@@ -48,10 +46,7 @@ class LayoutController extends Component {
     const locations = pluckLocations(meetingRooms);
 
     if (!location.pathname && locations.length) {
-      history.push({
-        pathname: locations[0],
-        search: location.search
-      });
+      actions.push({ ...location, pathname: locations[0] });
     }
 
     if (ping && noPingInProgress) {

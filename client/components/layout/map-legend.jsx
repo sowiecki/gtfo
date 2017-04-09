@@ -6,7 +6,8 @@ import List from 'material-ui/List';
 import ListItem from 'material-ui/List/ListItem';
 import Place from 'material-ui/svg-icons/maps/place';
 
-import { applyStyles } from '../../config/composition';
+import { applyStyles } from 'config/composition';
+
 import { STATUS_COLORS } from '../../constants';
 import { styles } from './styles';
 

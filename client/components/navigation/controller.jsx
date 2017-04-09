@@ -5,12 +5,11 @@ import queryString from 'query-string';
 
 import Drawer from 'material-ui/Drawer';
 
+import { base } from 'config/composition';
+
 import Header from './header';
 import DrawerContent from './drawer-content';
 import TimeTravel from './time-travel';
-
-import history from '../../config/history';
-import { base } from '../../config/composition';
 import { styles, rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
 class NavigationController extends Component {
@@ -32,7 +31,7 @@ class NavigationController extends Component {
             timeTravelControlsOpen,
             siteNavOpen } = this.props;
     const fullScreenParams = {
-      pathname: location.pathname,
+      ...location,
       search: queryString.stringify({
         fullscreen: true,
         ...queryString.parse(location.search)
@@ -44,7 +43,7 @@ class NavigationController extends Component {
       actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
       actions.emitToggleSiteNav(false);
     };
-    const onOpenFullscreenClick = () => history.push(fullScreenParams);
+    const onOpenFullscreenClick = () => actions.push(fullScreenParams);
     const onTimeTravelDismissClick = () => {
       actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
       actions.emitTimeTravelUpdate(null);
