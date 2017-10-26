@@ -30,7 +30,7 @@
     "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls",
     "yolo": "rimraf environment/mock-data.json",
     "snyk-protect": "snyk protect",
-    "prepublish": "yarn run snyk-protect"
+    "prepublish": "npm run snyk-protect; yarn run snyk-protect"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -97,7 +97,8 @@
     "velocity-react": "^1.1.5",
     "webpack": "^2.2.0",
     "ws": "^2.2.3",
-    "yargs": "^7.0.2"
+    "yargs": "^7.0.2",
+    "snyk": "^1.46.0"
   },
   "devDependencies": {
     "app-module-path": "^2.1.0",
@@ -145,7 +146,6 @@
     "redux-devtools-log-monitor": "^1.0.5",
     "redux-slider-monitor": "^1.0.2",
     "sinon": "^2.0.0-pre",
-    "snyk": "^1.19.1",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.6.0"
