@@ -73,7 +73,7 @@
     "material-ui": "^0.17.2",
     "moment": "^2.16.0",
     "morgan": "^1.7.0",
-    "particle-api-js": "^6.4.0",
+    "particle-api-js": "^7.0.0",
     "particle-io": "^0.14.0",
     "prop-types": "^15.5.2",
     "query-string": "^4.3.2",
@@ -96,7 +96,7 @@
     "velocity-animate": "^1.2.3",
     "velocity-react": "^1.1.5",
     "webpack": "^2.2.0",
-    "ws": "^2.2.3",
+    "ws": "^3.3.1",
     "yargs": "^7.0.2"
   },
   "devDependencies": {
