@@ -16,10 +16,7 @@ const historyMiddleware = routerMiddleware(history);
 const baseMiddleware = applyMiddleware(api, historyMiddleware);
 const getMiddlewares = () => [
   baseMiddleware,
-
-  // Do not bundle Dev-Tool middleware in prod
-  IS_PROD_ENV ? null : require('components/dev-tools').default.instrument(),
-  IS_PROD_ENV ? null : require('redux-devtools').persistState(getDebugSessionKey())
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ].filter((middleware) => middleware !== null);
 
 const generateStore = (initialState = {}) => {

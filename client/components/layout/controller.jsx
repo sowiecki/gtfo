@@ -42,7 +42,7 @@ class LayoutController extends Component {
    * Forces default location parameter to first location.
    */
   componentDidUpdate() {
-    const { location, meetingRooms, ping } = this.props;
+    const { location, meetingRooms, ping, actions } = this.props;
     const locations = pluckLocations(meetingRooms);
 
     if (!location.pathname && locations.length) {
