@@ -48,9 +48,9 @@ const Header = (props) => {
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
           mobileAlt={<LocationDropDown {...props}/>}
           {...props}>
-            <Tabs value={locations.indexOf(location.pathname)}>
-              {locations.map(renderLocationTab)}
-            </Tabs>
+          <Tabs value={locations.indexOf(location.pathname)}>
+            {locations.map(renderLocationTab)}
+          </Tabs>
         </Responsive>
       </ToolbarGroup>
     </Toolbar>

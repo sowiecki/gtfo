@@ -14,14 +14,14 @@ import { styles } from './styles';
 
 const DrawerContent = (props) => {
   const { note,
-          onViewFutureAvailabilitiesClick,
-          onOpenFullscreenClick,
-          siteNavOpen,
-          actions,
-          displayLegend,
-          displayTemp,
-          enableTemp,
-          unitOfTemp } = props;
+    onViewFutureAvailabilitiesClick,
+    onOpenFullscreenClick,
+    siteNavOpen,
+    actions,
+    displayLegend,
+    displayTemp,
+    enableTemp,
+    unitOfTemp } = props;
 
   const generateIcon = (icon, style) => (
     <FontIcon className='material-icons' style={style}>{icon}</FontIcon>

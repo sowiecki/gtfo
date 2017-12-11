@@ -4,14 +4,14 @@ import expect from 'expect';
 import { forEach } from 'lodash';
 
 import { getPathname,
-         filterByLocation,
-         formatForDisplay,
-         pluckLocations,
-         getAnchorFromStore,
-         youAreHere,
-         hasAnchor,
-         genWidthAndHeight,
-         getLocationIndex } from 'utils';
+  filterByLocation,
+  formatForDisplay,
+  pluckLocations,
+  getAnchorFromStore,
+  youAreHere,
+  hasAnchor,
+  genWidthAndHeight,
+  getLocationIndex } from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [

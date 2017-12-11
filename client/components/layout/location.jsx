@@ -9,13 +9,13 @@ import Marker from './marker';
 
 const Location = (props) => {
   const { meetingRooms,
-          stalls,
-          markers,
-          ping,
-          displayTemp,
-          unitOfTemp,
-          location,
-          locationKey } = props;
+    stalls,
+    markers,
+    ping,
+    displayTemp,
+    unitOfTemp,
+    location,
+    locationKey } = props;
 
   const filteredMeetingRooms = filterByLocation(meetingRooms, locationKey);
   const filteredStalls = filterByLocation(stalls, locationKey);

@@ -7,11 +7,11 @@ import { every, map, flatten } from 'lodash';
 
 import { devices } from '../environment';
 import { MOCK_DATA_FILE,
-         RESERVATIONS_PER_DAY,
-         START_OF_DAY } from './constants';
+  RESERVATIONS_PER_DAY,
+  START_OF_DAY } from './constants';
 import { randomMeetingDuration,
-         randomReservationGap,
-         generateMockReservation } from './utils';
+  randomReservationGap,
+  generateMockReservation } from './utils';
 
 const roomNames = map(devices, (device) => device.name);
 

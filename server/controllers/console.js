@@ -9,15 +9,15 @@ import moment from 'moment';
 
 import { CONTRIB_TABLE_HEADERS } from '../constants';
 import { IS_TEST_ENV,
-         titleOptions,
-         guageOptions,
-         logOptions,
-         tableOptions,
-         markdownOptions } from '../config';
+  titleOptions,
+  guageOptions,
+  logOptions,
+  tableOptions,
+  markdownOptions } from '../config';
 import { getRoomStatusMessage,
-         genGuagePercentage,
-         logBoardReady,
-         formatDurationForDisplay } from '../utils';
+  genGuagePercentage,
+  logBoardReady,
+  formatDurationForDisplay } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
@@ -111,7 +111,7 @@ const consoleController = {
     log.log(colors.bgYellow(message));
   },
 
-   /**
+  /**
     * Logs board failures.
     * @params {object} data Failure object.
     * @returns {undefined}

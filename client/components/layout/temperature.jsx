@@ -9,8 +9,8 @@ import { ROOM_TEMPERATURE_TEXT_DX, ROOM_TEMPERATURE_TEXT_DY } from './styles';
 
 const Temperature = (props) => {
   const { thermo,
-          unitOfTemp,
-          coordinates } = props;
+    unitOfTemp,
+    coordinates } = props;
 
   if (!thermo) {
     return null;
@@ -21,13 +21,13 @@ const Temperature = (props) => {
   const unitOfTempSuffix = isFarenheit ? '°F' : '°C';
 
   return (
-      <text
-        className='temperature-text'
-        dx={ROOM_TEMPERATURE_TEXT_DX}
-        dy={ROOM_TEMPERATURE_TEXT_DY}
-        {...parseShape(coordinates)}>
-          {Math.floor(temperature)} {unitOfTempSuffix}
-      </text>
+    <text
+      className='temperature-text'
+      dx={ROOM_TEMPERATURE_TEXT_DX}
+      dy={ROOM_TEMPERATURE_TEXT_DY}
+      {...parseShape(coordinates)}>
+      {Math.floor(temperature)} {unitOfTempSuffix}
+    </text>
   );
 };
 

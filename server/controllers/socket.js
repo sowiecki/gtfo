@@ -8,13 +8,13 @@ import { send, getFutureAlerts } from '../utils';
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { HANDSHAKE,
-         INITIALIZE_ROOMS,
-         INITIALIZE_MARKERS,
-         INITIALIZE_STALLS,
-         RECONNECTED,
-         NEW_ROOM_PING,
-         TIME_TRAVEL_UPDATE,
-         TIME_FORMAT } from '../constants';
+  INITIALIZE_ROOMS,
+  INITIALIZE_MARKERS,
+  INITIALIZE_STALLS,
+  RECONNECTED,
+  NEW_ROOM_PING,
+  TIME_TRAVEL_UPDATE,
+  TIME_FORMAT } from '../constants';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 

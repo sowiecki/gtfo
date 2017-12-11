@@ -1,9 +1,9 @@
 import * as flash from './flash';
 import { SQUATTED,
-         VACANT,
-         ONE_MINUTE_WARNING,
-         FIVE_MINUTE_WARNING,
-         BOOKED } from '../constants';
+  VACANT,
+  ONE_MINUTE_WARNING,
+  FIVE_MINUTE_WARNING,
+  BOOKED } from '../constants';
 
 /**
  * Sends command to board LED to flash room status color.

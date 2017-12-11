@@ -14,20 +14,20 @@ import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
 import { shouldOverrideMotion,
-         registerBoard,
-         registerLed,
-         registerPiezo,
-         registerThermo,
-         registerMotion,
-         secureRooms,
-         logUnhandledMotionUpdate } from '../utils';
+  registerBoard,
+  registerLed,
+  registerPiezo,
+  registerThermo,
+  registerMotion,
+  secureRooms,
+  logUnhandledMotionUpdate } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import { FETCH_ROOM_RESERVATIONS,
-         FETCH_ROOM_TEMPERATURE,
-         FETCH_ROOM_MOTION,
-         EMIT_SET_ROOM_ACCESSORIES,
-         EMIT_ROOM_MODULE_FAILURE,
-         EMIT_ROOM_MOTION_UPDATE } from '../ducks/rooms';
+  FETCH_ROOM_TEMPERATURE,
+  FETCH_ROOM_MOTION,
+  EMIT_SET_ROOM_ACCESSORIES,
+  EMIT_ROOM_MODULE_FAILURE,
+  EMIT_ROOM_MOTION_UPDATE } from '../ducks/rooms';
 import { RESERVATIONS_CHECK_INTERVAL, RUN_DIRECT } from '../constants';
 
 const particle = new Particle();

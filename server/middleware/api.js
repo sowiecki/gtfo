@@ -5,9 +5,9 @@ import fetchRoomTemperature from './fetch-room-temperature';
 import fetchRoomMotion from './fetch-room-motion';
 
 import { FETCH_ROOM_RESERVATIONS,
-         FETCH_ROOM_TEMPERATURE,
-         FETCH_ROOM_MOTION,
-         EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
+  FETCH_ROOM_TEMPERATURE,
+  FETCH_ROOM_MOTION,
+  EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';
 import { NEW_ROOM_PING } from '../constants';
 

@@ -5,11 +5,11 @@ import { filter } from 'lodash';
 
 import { IS_TEST_ENV } from '../config';
 import { OFFLINE,
-         STATUS_MESSAGES,
-         GUAGE_COLORS,
-         LOG_COLORS,
-         ONLINE,
-         DISCONNECTED } from '../constants';
+  STATUS_MESSAGES,
+  GUAGE_COLORS,
+  LOG_COLORS,
+  ONLINE,
+  DISCONNECTED } from '../constants';
 
 /**
  * Logs individual room status.

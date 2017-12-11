@@ -91,10 +91,10 @@ class LayoutController extends Component {
 
   render() {
     const { meetingRooms,
-            displayLegend,
-            location,
-            enableMotion,
-            enableStalls } = this.props;
+      displayLegend,
+      location,
+      enableMotion,
+      enableStalls } = this.props;
     const locationKeys = pluckLocations(meetingRooms);
 
     const renderLocation = (locationKey, index) => (
@@ -111,7 +111,7 @@ class LayoutController extends Component {
             index={getLocationIndex(locationKeys, location)}
             onChangeIndex={this.handleChangeLocation.bind(this)}
             resistance={true}>
-              {locationKeys.map(renderLocation)}
+            {locationKeys.map(renderLocation)}
           </SwipeableViews>
           <MapLegend
             enabled={displayLegend}

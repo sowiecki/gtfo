@@ -1,12 +1,12 @@
 import { OCCUPIED,
-         SQUATTED,
-         ABANDONED,
-         VACANT,
-         FIVE_MINUTE_WARNING,
-         ONE_MINUTE_WARNING,
-         BOOKED,
-         OFFLINE,
-         PINGED } from './statuses';
+  SQUATTED,
+  ABANDONED,
+  VACANT,
+  FIVE_MINUTE_WARNING,
+  ONE_MINUTE_WARNING,
+  BOOKED,
+  OFFLINE,
+  PINGED } from './statuses';
 
 const PURPLE = '#9800FF';
 const BLUE = '#3399FF';

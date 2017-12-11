@@ -11,9 +11,9 @@ import { styles } from './styles';
 
 const LocationDropdown = (props) => {
   const { onSelectFieldChange,
-          actions,
-          locations,
-          location } = props;
+    actions,
+    locations,
+    location } = props;
 
   const renderLocationSelection = (renderedLocation, index) => {
     const onClick = () => actions.push({ ...location, pathname: renderedLocation });
@@ -35,7 +35,7 @@ const LocationDropdown = (props) => {
       underlineStyle={styles.mobileLocationSelectionUnderline}
       value={locations.indexOf(location.pathname)}
       onChange={onSelectFieldChange}>
-        {locations.map(renderLocationSelection)}
+      {locations.map(renderLocationSelection)}
     </SelectField>
   ) : (
     <span>

@@ -11,7 +11,7 @@ const MenuButton = ({ toggleSiteNav }) => (
   <IconButton
     style={styles.menuButton}
     onClick={toggleSiteNav}>
-      <i className='material-icons'>menu</i>
+    <i className='material-icons'>menu</i>
   </IconButton>
 );
 

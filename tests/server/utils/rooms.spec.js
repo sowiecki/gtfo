@@ -5,20 +5,24 @@ import moment from 'moment';
 import sinon from 'sinon';
 import immutable from 'immutable';
 
-import { filterExpiredReservations,
-         getRoomAlert,
-         secureRoom,
-         secureRooms,
-         getFutureAlerts,
-         initializeRoomModuleState } from 'server/utils';
+import {
+  filterExpiredReservations,
+  getRoomAlert,
+  secureRoom,
+  secureRooms,
+  getFutureAlerts,
+  initializeRoomModuleState
+} from 'server/utils';
 
-import { SQUATTED,
-         VACANT,
-         ONE_MINUTE_WARNING,
-         FIVE_MINUTE_WARNING,
-         BOOKED,
-         ABANDONED,
-         MOTION_GRACE_PERIOD } from 'server/constants';
+import {
+  SQUATTED,
+  VACANT,
+  ONE_MINUTE_WARNING,
+  FIVE_MINUTE_WARNING,
+  BOOKED,
+  ABANDONED,
+  MOTION_GRACE_PERIOD
+} from 'server/constants';
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {

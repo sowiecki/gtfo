@@ -27,7 +27,7 @@ import { config } from '../environment';
  */
 export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const reservations = properties.reservations || [];
-  const recentMotion = properties.recentMotion;
+  const { recentMotion } = properties;
   const isNotFutureQuery = time.isSameOrBefore(moment());
   const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];
