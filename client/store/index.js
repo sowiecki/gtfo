@@ -8,16 +8,11 @@ import rootReducer from '../ducks';
 import api from '../middleware/api';
 
 const historyMiddleware = routerMiddleware(history);
-
 const baseMiddleware = applyMiddleware(api, historyMiddleware);
-const getMiddlewares = () => [
-  baseMiddleware,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-].filter((middleware) => !!middleware);
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const generateStore = (initialState = {}) => {
-  const composeStore = composeEnhancers(...getMiddlewares())(createStore);
+  const composeStore = composeEnhancers(baseMiddleware)(createStore);
 
   return composeStore(rootReducer, initialState);
 };
