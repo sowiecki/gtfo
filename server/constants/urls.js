@@ -1,8 +1,6 @@
 import { IS_PROD_ENV, SERVER_PORT } from '../config';
 
-const { prodReservationsHost,
-        prodStallsHost,
-        proxyHost } = require('../environment').config;
+const { prodReservationsHost, prodStallsHost, proxyHost } = require('../environment').config;
 
 /**
  * Used when services are running locally, but as separate services.
@@ -16,7 +14,7 @@ const MOCKS_HOST = `${LOCAL_HOST}:${SERVER_PORT}`;
 const RESERVATIONS_HOST = IS_PROD_ENV ? prodReservationsHost : `${LOCAL_HOST}:8080`;
 const STALLS_HOST = IS_PROD_ENV ? prodStallsHost : MOCKS_HOST;
 
-const PROD_RESERVATIONS_API = '/rest/meetingRoom/lookup/all';
+const PROD_RESERVATIONS_API = '/meetingRoom/lookup/all';
 const PROD_STALLS_API = '/stalls';
 export const MOCK_RESERVATIONS_API = '/mocks/meetingRoom/all';
 export const MOCK_STALLS_API = '/mocks/stalls';
