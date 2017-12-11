@@ -26,7 +26,10 @@ import {
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
-  const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
+  const clock = (time) => sinon.useFakeTimers({
+    now: Date.parse(time),
+    toFake: ['Date']
+  });
 
   const baseMockReservations = [
     {
@@ -265,12 +268,12 @@ describe('Room utilities (server)', () => {
         { [moment('2016-03-08T16:31:00.000Z')]: BOOKED }
       ];
 
-      expect(getFutureAlerts(mockRooms)[0].alert, moment('8:00PM', TIME_FORMAT)).toEqual(VACANT);
+      expect(getFutureAlerts(mockRooms, moment('8:00PM', TIME_FORMAT))[0].alert).toEqual(VACANT);
 
-      futureTimes.forEach((futureTimePairs) => {
-        const key = Object.keys(futureTimePairs)[0];
+      futureTimes.forEach((futureTime) => {
+        const key = Object.keys(futureTime)[0];
         const time = moment(key, 'LLLL');
-        const expected = futureTimePairs[key];
+        const expected = futureTime[key];
 
         expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
         expect(getFutureAlerts(mockRooms, time)[1].alert).toEqual(expected);

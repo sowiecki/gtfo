@@ -104,6 +104,7 @@
     "chromedriver": "^2.28.0",
     "coveralls": "^3.0.0",
     "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.13.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-formatter-pretty": "^1.0.0",
