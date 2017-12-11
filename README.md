@@ -111,7 +111,7 @@ git clone https://github.com/Nase00/gtfo.git && cd gtfo && yarn
 Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `yarn run demo` to generate an example configuration. The application will not run otherwise.
 ```
 # After environment files have been configured
-yarn run hot -- --mocks
+yarn run hot --mocks
 ```
 This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 

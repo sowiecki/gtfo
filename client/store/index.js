@@ -13,10 +13,11 @@ const baseMiddleware = applyMiddleware(api, historyMiddleware);
 const getMiddlewares = () => [
   baseMiddleware,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-].filter((middleware) => middleware !== null);
+].filter((middleware) => !!middleware);
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const generateStore = (initialState = {}) => {
-  const composeStore = compose(...getMiddlewares())(createStore);
+  const composeStore = composeEnhancers(...getMiddlewares())(createStore);
 
   return composeStore(rootReducer, initialState);
 };
