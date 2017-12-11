@@ -2,15 +2,6 @@
   "plugins": ["react", "filenames"],
   "extends": "airbnb",
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true,
-      "modules": true
-    }
-  },
-  "ecmaFeatures": {
-    "experimentalObjectRestSpread": true
-  },
   "env": {
     "es6": true
   },
@@ -24,7 +15,7 @@
     "func-style": [2, "expression"],
     "prefer-arrow-callback": [2, {
       "allowNamedFunctions": false,
-      "allowUnboundThis": false,
+      "allowUnboundThis": false
     }],
     "import/extensions": 0,
     "func-names": 2,
