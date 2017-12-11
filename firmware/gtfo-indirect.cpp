@@ -22,7 +22,7 @@ Color red(255, 0, 0);
 Color blue(0, 0, 255);
 Color blueSoft(50, 50, 255);
 
-Color colors[2] = { standby1, standby2 };
+Color colors[2] = {standby1, standby2};
 
 void getDeviceInfo(const char *topic, const char *data) {
   Serial.println("received " + String(topic) + ": " + String(data));
@@ -31,11 +31,12 @@ void getDeviceInfo(const char *topic, const char *data) {
 }
 
 void setup() {
+  pinMode(motionSensorPin, INPUT);
   led.setColor(standby1);
   Particle.function("status", handleStatus);
 
   Serial.begin(115200);
-  for(int i=0;i<5;i++) {
+  for (int i = 0; i < 5; i++) {
     Serial.println("waiting... " + String(5 - i));
     delay(1000);
   }
@@ -85,11 +86,14 @@ int handleStatus(String status) {
 void loop() {
   led.fade(colors, 2, fadeRate);
 
-  for(int i = 0; i < 100; i += 1) {
-    int analogMotionValue = analogRead(motionSensorPin);
-    if (analogMotionValue > 1000) {
-      Particle.publish("MOTION_DETECTED", id);
+  if (digitalRead(motionSensorPin)) {
+    Particle.publish("MOTION_DETECTED", id);
+
+    unsigned long motionTime = millis();
+
+    while (millis() - motionTime < MIN_TIME_BETWEEN_TRIGGERS) {
+      if (digitalRead(motionSensorPin))
+        motionTime = millis();
     }
-    delay(10);
   }
 }
