@@ -14,7 +14,10 @@ import { provideMuiTheme } from 'config/composition';
 import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
 describe('<TimeTravel/>', () => {
-  const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
+  const clock = (time) => sinon.useFakeTimers({
+    now: Date.parse(time),
+    toFake: 'Date'
+  });
 
   const props = {
     actions: {
