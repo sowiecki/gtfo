@@ -9,16 +9,20 @@ import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
 import { devices, coordinates } from '../environment';
-import { flashNotifications,
+import {
+  flashNotifications,
   filterExpiredReservations,
   getRoomAlert,
   secureRoom,
   getSecureRooms,
   handleAction,
-  initializeRoomModuleState } from '../utils';
-import { INITIALIZE_ROOMS,
+  initializeRoomModuleState
+} from '../utils';
+import {
+  INITIALIZE_ROOMS,
   ROOM_TEMPERATURE_UPDATE,
-  ROOM_STATUSES_UPDATE } from '../constants';
+  ROOM_STATUSES_UPDATE
+} from '../constants';
 import { IS_INDIRECT_MODE } from '../config';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
