@@ -28,9 +28,7 @@ if (argv.mocks) {
 
 if (argv.dhc) {
   process.env.DONT_HOOK_CONSOLE = true;
-  console.log(
-    colors.gray.italic('Not hooking into console.log, output may be messy\n')
-  );
+  console.log(colors.gray.italic('Not hooking into console.log, output may be messy\n'));
 }
 
 if (argv.dd) {

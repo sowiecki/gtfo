@@ -17,7 +17,8 @@ describe('<Stall/>', () => {
       y: 1,
       height: 1,
       width: 1
-    }
+    },
+    active: true
   };
 
   it('renders.', () => {

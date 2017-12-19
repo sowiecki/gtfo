@@ -7,13 +7,13 @@ import pingsController from './pings';
 import consoleController from './console';
 import { send } from '../utils';
 import { PROXY_HOST,
-         WEBSOCKET_PROTOCOL,
-         WEBSOCKET_RECONNECT_INTERVAL,
-         HANDSHAKE,
-         RECONNECTED,
-         NEW_ROOM_PING,
-         NEW_ROOM_MOTION,
-         UNDEFINED_EVENT } from '../constants';
+  WEBSOCKET_PROTOCOL,
+  WEBSOCKET_RECONNECT_INTERVAL,
+  HANDSHAKE,
+  RECONNECTED,
+  NEW_ROOM_PING,
+  NEW_ROOM_MOTION,
+  UNDEFINED_EVENT } from '../constants';
 import { config } from '../environment';
 
 let interval;

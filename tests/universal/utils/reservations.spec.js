@@ -7,7 +7,10 @@ import { filterExpiredReservations } from 'server/utils';
 
 describe('Reservation utilities (universal)', () => {
   describe('filterExpiredReservations', () => {
-    const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
+    const clock = (time) => sinon.useFakeTimers({
+      now: Date.parse(time),
+      toFake: ['Date']
+    });
 
     beforeEach(() => {
       sinon.useFakeTimers().restore();

@@ -4,25 +4,33 @@ import expect from 'expect';
 import moment from 'moment';
 import sinon from 'sinon';
 import immutable from 'immutable';
+import { forEach } from 'lodash';
 
-import { filterExpiredReservations,
-         getRoomAlert,
-         secureRoom,
-         secureRooms,
-         getFutureAlerts,
-         initializeRoomModuleState } from 'server/utils';
-
-import { SQUATTED,
-         VACANT,
-         ONE_MINUTE_WARNING,
-         FIVE_MINUTE_WARNING,
-         BOOKED,
-         ABANDONED,
-         MOTION_GRACE_PERIOD } from 'server/constants';
+import {
+  filterExpiredReservations,
+  getRoomAlert,
+  secureRoom,
+  secureRooms,
+  getFutureAlerts,
+  initializeRoomModuleState
+} from 'server/utils';
+import {
+  SQUATTED,
+  VACANT,
+  ONE_MINUTE_WARNING,
+  FIVE_MINUTE_WARNING,
+  BOOKED,
+  ABANDONED,
+  MOTION_GRACE_PERIOD
+} from 'server/constants';
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
-  const clock = (time) => sinon.useFakeTimers(Date.parse(time), 'Date');
+  const clock = (time) => sinon.useFakeTimers({
+    now: Date.parse(time),
+    toFake: ['Date']
+  });
+  const mockCapabilities = { motion: true };
 
   const baseMockReservations = [
     {
@@ -115,19 +123,19 @@ describe('Room utilities (server)', () => {
         clock(vacantTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(SQUATTED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(SQUATTED);
       });
     });
 
     it('should correctly determine vacancy.', () => {
-      expect(getRoomAlert([], false)).toBe(VACANT);
-      expect(getRoomAlert([], getExpiredMotion())).toBe(VACANT);
+      expect(getRoomAlert([], {})).toBe(VACANT);
+      expect(getRoomAlert([], {}, getExpiredMotion())).toBe(VACANT);
 
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(VACANT);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(VACANT);
       });
     });
 
@@ -136,14 +144,14 @@ describe('Room utilities (server)', () => {
         clock(fiveMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(FIVE_MINUTE_WARNING);
       });
 
       fiveMinuteWarningTimes.forEach((fiveMinuteWarningTime) => {
         clock(fiveMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(FIVE_MINUTE_WARNING);
       });
     });
 
@@ -152,14 +160,14 @@ describe('Room utilities (server)', () => {
         clock(oneMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ONE_MINUTE_WARNING);
       });
 
       oneMinuteWarningTimes.forEach((oneMinuteWarningTime) => {
         clock(oneMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ONE_MINUTE_WARNING);
       });
     });
 
@@ -168,7 +176,7 @@ describe('Room utilities (server)', () => {
         clock(bookedTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(BOOKED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(BOOKED);
       });
     });
 
@@ -177,7 +185,7 @@ describe('Room utilities (server)', () => {
         clock(bookedTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ABANDONED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ABANDONED);
       });
     });
   });
@@ -238,38 +246,38 @@ describe('Room utilities (server)', () => {
     it('should return meeting rooms as they would be for the given future time parameter', () => {
       clock('Tuesday, March 8, 2016 8:00 AM CST');
 
-      const mockRooms = [
+      const getMockRooms = () => [
         {
           name: 'Hill Valley',
-          reservations: []
+          reservations: [],
+          capabilities: {}
         },
         {
           name: 'Twin Pines Mall',
-          reservations: baseMockReservations
+          reservations: baseMockReservations,
+          capabilities: {}
         }
       ];
 
       const futureTimes = [
-        { [moment('2016-03-08T15:10:00.000Z')]: BOOKED },
-        { [moment('2016-03-08T16:10:00.000Z')]: BOOKED },
-        { [moment('2016-03-08T16:25:00.000Z')]: FIVE_MINUTE_WARNING },
-        { [moment('2016-03-08T16:26:00.000Z')]: FIVE_MINUTE_WARNING },
-        { [moment('2016-03-08T16:27:00.000Z')]: FIVE_MINUTE_WARNING },
-        { [moment('2016-03-08T16:28:00.000Z')]: FIVE_MINUTE_WARNING },
-        { [moment('2016-03-08T16:29:00.000Z')]: ONE_MINUTE_WARNING },
-        { [moment('2016-03-08T16:30:00.000Z')]: BOOKED },
-        { [moment('2016-03-08T16:31:00.000Z')]: BOOKED }
+        { time: moment('2016-03-08T15:10:00.000Z'), alert: BOOKED },
+        { time: moment('2016-03-08T16:10:00.000Z'), alert: BOOKED },
+        { time: moment('2016-03-08T16:25:00.000Z'), alert: FIVE_MINUTE_WARNING },
+        { time: moment('2016-03-08T16:26:00.000Z'), alert: FIVE_MINUTE_WARNING },
+        { time: moment('2016-03-08T16:27:00.000Z'), alert: FIVE_MINUTE_WARNING },
+        { time: moment('2016-03-08T16:28:00.000Z'), alert: FIVE_MINUTE_WARNING },
+        { time: moment('2016-03-08T16:29:00.000Z'), alert: ONE_MINUTE_WARNING },
+        { time: moment('2016-03-08T16:30:00.000Z'), alert: BOOKED },
+        { time: moment('2016-03-08T16:31:00.000Z'), alert: BOOKED }
       ];
 
-      expect(getFutureAlerts(mockRooms)[0].alert, moment('8:00PM', TIME_FORMAT)).toEqual(VACANT);
+      expect(getFutureAlerts(getMockRooms(), moment('8:00PM', TIME_FORMAT))[0].alert).toEqual(VACANT);
 
-      futureTimes.forEach((futureTimePairs) => {
-        const key = Object.keys(futureTimePairs)[0];
-        const time = moment(key, 'LLLL');
-        const expected = futureTimePairs[key];
+      forEach(futureTimes, (futureTime) => {
+        const time = moment(futureTime.time, 'LLLL');
 
-        expect(getFutureAlerts(mockRooms, time)[0].alert).toEqual(VACANT);
-        expect(getFutureAlerts(mockRooms, time)[1].alert).toEqual(expected);
+        expect(getFutureAlerts(getMockRooms(), time)[0].alert).toEqual(VACANT);
+        expect(getFutureAlerts(getMockRooms(), time)[1].alert).toEqual(futureTime.alert);
       });
     });
   });

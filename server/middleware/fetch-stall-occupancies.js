@@ -5,7 +5,7 @@ import http from 'http';
 import { EMIT_STALL_OCCUPANCIES_UPDATE } from '../ducks/stalls';
 import * as urls from '../constants';
 import { formatStallsResponse,
-         logFetchStallOccupanciesError } from '../utils';
+  logFetchStallOccupanciesError } from '../utils';
 
 const fetchStallOccupancies = (next) => {
   // Retrieve stall occupancies from external service

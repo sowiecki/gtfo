@@ -27,9 +27,9 @@ class NavigationController extends Component {
 
   render() {
     const { actions,
-            locations,
-            timeTravelControlsOpen,
-            siteNavOpen } = this.props;
+      locations,
+      timeTravelControlsOpen,
+      siteNavOpen } = this.props;
     const fullScreenParams = {
       ...location,
       search: queryString.stringify({
@@ -63,10 +63,10 @@ class NavigationController extends Component {
           onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
           width={LEFT_HAND_NAV_WIDTH}
           {...this.props}>
-            <DrawerContent
-              onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
-              onOpenFullscreenClick={onOpenFullscreenClick}
-              {...this.props}/>
+          <DrawerContent
+            onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
+            onOpenFullscreenClick={onOpenFullscreenClick}
+            {...this.props}/>
         </Drawer>
         <TimeTravel
           onTimeTravelDismissClick={onTimeTravelDismissClick}

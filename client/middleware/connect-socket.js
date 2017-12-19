@@ -4,11 +4,11 @@ import parseEvent from './parse-event';
 
 import { getSocketPort } from '../config/web-socket';
 import { EMIT_FETCH_ROOM_STATUSES_ERROR,
-         EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
+  EMIT_CLEAR_CONNECTION_ERRORS } from '../ducks/layout';
 import { HANDSHAKE, RECONNECTED,
-         WEBSOCKET_PROTOCOL,
-         WEBSOCKET_RECONNECT_INTERVAL,
-         lostConnectionToHost } from '../constants';
+  WEBSOCKET_PROTOCOL,
+  WEBSOCKET_RECONNECT_INTERVAL,
+  lostConnectionToHost } from '../constants';
 
 // TODO maybe store this in Redux state
 let webSocket;

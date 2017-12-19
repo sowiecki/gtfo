@@ -10,6 +10,7 @@ reports
 
 # Misc
 .DS_Store
+.vscode
 
 # Environment variables
 environment/*.json
@@ -27,6 +28,7 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 .coveralls.yml
+.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt

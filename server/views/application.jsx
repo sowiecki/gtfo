@@ -28,8 +28,6 @@ Application.propTypes = {
   bundle: PropTypes.string.isRequired
 };
 
-const applicationView = ReactDOMServer.renderToStaticMarkup(
-  <Application bundle={BUNDLE_PATH}/>
-);
+const applicationView = ReactDOMServer.renderToStaticMarkup(<Application bundle={BUNDLE_PATH}/>);
 
 export default applicationView;

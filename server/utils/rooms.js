@@ -22,12 +22,12 @@ import { config } from '../environment';
  * @param {array} properties.recentMotion - Most recent time motion was detected.
  * @param {object} capabilities - Hardware capability flags of room's module.
  * @param {bool} capabilities.motion - Is room module motion forced to be enabled.
- * @param {moment} now - Time to calculate alert on.
+ * @param {moment} time - Time to calculate alert on.
  * @returns {string} Room reservation alert.
  */
 export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const reservations = properties.reservations || [];
-  const recentMotion = properties.recentMotion;
+  const { recentMotion } = properties;
   const isNotFutureQuery = time.isSameOrBefore(moment());
   const getTime = () => Object.assign(moment(time), {});
   const firstMeeting = reservations[0];

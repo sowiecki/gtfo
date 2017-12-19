@@ -1,4 +1,3 @@
-/* globals location */
 import immutable from 'immutable';
 
 import { handleAction } from '../utils';

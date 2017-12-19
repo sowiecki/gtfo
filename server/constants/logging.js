@@ -1,10 +1,10 @@
 import { SQUATTED,
-         VACANT,
-         ONE_MINUTE_WARNING,
-         FIVE_MINUTE_WARNING,
-         ABANDONED,
-         BOOKED,
-         OFFLINE } from '../../universal/constants';
+  VACANT,
+  ONE_MINUTE_WARNING,
+  FIVE_MINUTE_WARNING,
+  ABANDONED,
+  BOOKED,
+  OFFLINE } from '../../universal/constants';
 
 export const STATUS_MESSAGES = {
   [SQUATTED]: 'Occupied without reservation',

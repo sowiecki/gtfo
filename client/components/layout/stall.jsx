@@ -11,9 +11,9 @@ const Stall = ({ active, alert, coordinates }) => (
   <svg {...parsePosition(coordinates)}>
     <VelocityComponent
       animation={{ fill: active ? STATUS_COLORS[alert] : STATUS_COLORS[OFFLINE] }}>
-        <rect
-          style={styles.svgRect}
-          {...parseShape(coordinates)}/>
+      <rect
+        style={styles.svgRect}
+        {...parseShape(coordinates)}/>
     </VelocityComponent>
   </svg>
 );

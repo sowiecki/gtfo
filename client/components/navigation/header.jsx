@@ -23,14 +23,14 @@ const Header = (props) => {
   const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
   const renderLocationTab = (tabLocation, index) => {
-    const onClick = () => actions.push({ ...location, pathname: tabLocation });
+    const onActive = () => actions.push({ ...location, pathname: tabLocation });
 
     return (
       <Tab
         key={`${tabLocation}-${index}`}
         label={formatForDisplay(tabLocation)}
         value={locations.indexOf(tabLocation)}
-        onClick={onClick}
+        onActive={onActive}
         style={styles.toolbarTab}/>
     );
   };
@@ -48,9 +48,9 @@ const Header = (props) => {
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
           mobileAlt={<LocationDropDown {...props}/>}
           {...props}>
-            <Tabs value={locations.indexOf(location.pathname)}>
-              {locations.map(renderLocationTab)}
-            </Tabs>
+          <Tabs value={locations.indexOf(location.pathname)}>
+            {locations.map(renderLocationTab)}
+          </Tabs>
         </Responsive>
       </ToolbarGroup>
     </Toolbar>

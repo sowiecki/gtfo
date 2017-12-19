@@ -22,7 +22,8 @@ describe('<MeetingRoom/>', () => {
     alert: VACANT,
     unitOfTemp: 'F',
     displayTemp: false,
-    pinged: null
+    pinged: null,
+    connectionStatus: true
   };
 
   it('renders.', () => {

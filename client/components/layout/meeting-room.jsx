@@ -8,21 +8,21 @@ import { parsePosition, parseShape } from 'utils';
 
 import Temperature from './temperature';
 import { STATUS_COLORS,
-         PING_ANIMATION_LOOPS,
-         PING_ANIMATION_TIMEOUT } from '../../constants';
+  PING_ANIMATION_LOOPS,
+  PING_ANIMATION_TIMEOUT } from '../../constants';
 import { styles,
-         ROOM_NAME_TEXT_DX,
-         ROOM_NAME_TEXT_DY } from './styles';
+  ROOM_NAME_TEXT_DX,
+  ROOM_NAME_TEXT_DY } from './styles';
 
 const MeetingRoom = (props) => {
   const { name,
-          coordinates,
-          alert,
-          thermo,
-          unitOfTemp,
-          displayTemp,
-          pinged,
-          connectionStatus } = props;
+    coordinates,
+    alert,
+    thermo,
+    unitOfTemp,
+    displayTemp,
+    pinged,
+    connectionStatus } = props;
 
   const pingAnimation = {
     fill: STATUS_COLORS.PINGED,
@@ -42,16 +42,16 @@ const MeetingRoom = (props) => {
     <svg {...parsePosition(coordinates)}>
       <VelocityComponent
         animation={{ fill: STATUS_COLORS[alert] }}>
-          <rect
-            style={styles.svgRect}
-            {...parseShape(coordinates)}/>
+        <rect
+          style={styles.svgRect}
+          {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
         style={styles.svgRect}>
-          <rect {...parseShape(coordinates)}/>
+        <rect {...parseShape(coordinates)}/>
       </VelocityComponent>
       <text
         className='room-text'
@@ -60,7 +60,7 @@ const MeetingRoom = (props) => {
         dy={ROOM_NAME_TEXT_DY}
         transform='translate(18, -6) rotate(45)' // Only applies to Microsoft Edge
         {...parseShape(coordinates)}>
-          {name}
+        {name}
       </text>
       {temperature}
     </svg>

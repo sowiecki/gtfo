@@ -3,7 +3,7 @@ import expect from 'expect';
 import moment from 'moment';
 
 import { randomReservationGap,
-         generateMockReservation } from 'server/mocks/utils';
+  generateMockReservation } from 'server/mocks/utils';
 
 describe('Mock utilities', () => {
   describe('randomReservationGap', () => {
@@ -20,15 +20,15 @@ describe('Mock utilities', () => {
     it('should generate a mock reservation.', () => {
       const mockReservation = generateMockReservation();
 
-      expect(mockReservation).toBeAn('object');
+      expect(typeof mockReservation).toBe('object');
 
-      expect(mockReservation.email).toExist();
-      expect(mockReservation.email).toBeA('string');
+      expect(mockReservation.email).toBeDefined();
+      expect(typeof mockReservation.email).toEqual('string');
 
-      expect(mockReservation.startDate).toExist();
+      expect(mockReservation.startDate).toBeDefined();
       expect(moment(mockReservation.startDate).isValid()).toBe(true);
 
-      expect(mockReservation.endDate).toExist();
+      expect(mockReservation.endDate).toBeDefined();
       expect(moment(mockReservation.endDate).isValid()).toBe(true);
     });
   });

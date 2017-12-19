@@ -9,16 +9,20 @@ import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
 import { devices, coordinates } from '../environment';
-import { flashNotifications,
-         filterExpiredReservations,
-         getRoomAlert,
-         secureRoom,
-         getSecureRooms,
-         handleAction,
-         initializeRoomModuleState } from '../utils';
-import { INITIALIZE_ROOMS,
-         ROOM_TEMPERATURE_UPDATE,
-         ROOM_STATUSES_UPDATE } from '../constants';
+import {
+  flashNotifications,
+  filterExpiredReservations,
+  getRoomAlert,
+  secureRoom,
+  getSecureRooms,
+  handleAction,
+  initializeRoomModuleState
+} from '../utils';
+import {
+  INITIALIZE_ROOMS,
+  ROOM_TEMPERATURE_UPDATE,
+  ROOM_STATUSES_UPDATE
+} from '../constants';
 import { IS_INDIRECT_MODE } from '../config';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
@@ -84,9 +88,7 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_RESERVATIONS_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map(
-        (room) => room.set('reservations', action.reservations[room.get('name')])
-      ));
+      state = state.set('rooms', rooms.map((room) => room.set('reservations', action.reservations[room.get('name')])));
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
