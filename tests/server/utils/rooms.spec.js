@@ -30,6 +30,7 @@ describe('Room utilities (server)', () => {
     now: Date.parse(time),
     toFake: ['Date']
   });
+  const mockCapabilities = { motion: true };
 
   const baseMockReservations = [
     {
@@ -122,19 +123,19 @@ describe('Room utilities (server)', () => {
         clock(vacantTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(SQUATTED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(SQUATTED);
       });
     });
 
     it('should correctly determine vacancy.', () => {
-      expect(getRoomAlert([], false)).toBe(VACANT);
-      expect(getRoomAlert([], getExpiredMotion())).toBe(VACANT);
+      expect(getRoomAlert([], {})).toBe(VACANT);
+      expect(getRoomAlert([], {}, getExpiredMotion())).toBe(VACANT);
 
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(VACANT);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(VACANT);
       });
     });
 
@@ -143,14 +144,14 @@ describe('Room utilities (server)', () => {
         clock(fiveMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(FIVE_MINUTE_WARNING);
       });
 
       fiveMinuteWarningTimes.forEach((fiveMinuteWarningTime) => {
         clock(fiveMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(FIVE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(FIVE_MINUTE_WARNING);
       });
     });
 
@@ -159,14 +160,14 @@ describe('Room utilities (server)', () => {
         clock(oneMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ONE_MINUTE_WARNING);
       });
 
       oneMinuteWarningTimes.forEach((oneMinuteWarningTime) => {
         clock(oneMinuteWarningTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ONE_MINUTE_WARNING);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ONE_MINUTE_WARNING);
       });
     });
 
@@ -175,7 +176,7 @@ describe('Room utilities (server)', () => {
         clock(bookedTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
 
-        expect(getRoomAlert(properties)).toBe(BOOKED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(BOOKED);
       });
     });
 
@@ -184,7 +185,7 @@ describe('Room utilities (server)', () => {
         clock(bookedTime);
         const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
-        expect(getRoomAlert(properties)).toBe(ABANDONED);
+        expect(getRoomAlert(properties, mockCapabilities)).toBe(ABANDONED);
       });
     });
   });
@@ -248,11 +249,13 @@ describe('Room utilities (server)', () => {
       const getMockRooms = () => [
         {
           name: 'Hill Valley',
-          reservations: []
+          reservations: [],
+          capabilities: {}
         },
         {
           name: 'Twin Pines Mall',
-          reservations: baseMockReservations
+          reservations: baseMockReservations,
+          capabilities: {}
         }
       ];
 
