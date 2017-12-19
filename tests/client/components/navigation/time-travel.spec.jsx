@@ -16,7 +16,7 @@ import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 describe('<TimeTravel/>', () => {
   const clock = (time) => sinon.useFakeTimers({
     now: Date.parse(time),
-    toFake: 'Date'
+    toFake: ['Date']
   });
 
   const props = {
