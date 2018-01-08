@@ -1,4 +1,5 @@
 #include "neopixel.h"
+#include "DHT.h"
 
 SYSTEM_MODE(AUTOMATIC);
 
@@ -6,8 +7,11 @@ SYSTEM_MODE(AUTOMATIC);
 #define PIXEL_COUNT 12
 #define PIXEL_TYPE WS2812B
 #define MOTION_SENSOR_PIN A0
+#define DHTPIN A4
+#define DHTTYPE DHT11
 
 Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+DHT dht(DHTPIN, DHTTYPE);
 
 String id;
 int MIN_TIME_BETWEEN_TRIGGERS = 500;
@@ -33,7 +37,7 @@ void getDeviceInfo(const char *topic, const char *data) {
 
 void setup() {
   Serial.begin(115200);
-
+  dht.begin();
   pinMode(MOTION_SENSOR_PIN, INPUT);
 
   setStatusColor(COLOR_WHITE);
@@ -80,7 +84,10 @@ int handleStatus(String status) {
   return 0;
 }
 
+// Motion code must be run before temperatue code
 void loop() {
+  Particle.function("status", handleStatus);
+
   if (digitalRead(MOTION_SENSOR_PIN)) {
     Particle.publish("MOTION_DETECTED", id);
 
@@ -92,5 +99,19 @@ void loop() {
     }
   }
 
-  Particle.function("status", handleStatus);
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float f = dht.readTemperature(true);
+
+  if (isnan(h) || isnan(t) || isnan(f)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  float hif = dht.computeHeatIndex(f, h);
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Particle.publish("TEMPERATURE_READINGS", String::format("{\"Hum(\%)\": %4.2f, \"Temp(°C)\": %4.2f, \"Temp(°F)\": %4.2f, \"HI(°C)\": %4.2f, \"HI(°F)\": %4.2f}", h, t, f, hic, hif));
+
+  delay(500);
 }
