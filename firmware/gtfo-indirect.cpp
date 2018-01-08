@@ -1,82 +1,79 @@
-#include "rgb-controls/rgb-controls.h"
-using namespace RGBControls;
+#include "neopixel.h"
 
-Led led(A7, A5, A4, false);
-int motionSensorPin = A0;
-int fadeRate = 2000;
+SYSTEM_MODE(AUTOMATIC);
+
+#define PIXEL_PIN D2
+#define PIXEL_COUNT 12
+#define PIXEL_TYPE WS2812B
+#define MOTION_SENSOR_PIN A0
+
+Adafruit_NeoPixel strip(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+
 String id;
+int MIN_TIME_BETWEEN_TRIGGERS = 500;
 
-Color standby1(10, 10, 10);
-Color standby2(50, 50, 50);
-
-Color purple(150, 0, 150);
-Color purpleSoft(150, 25, 150);
-
-Color green(0, 255, 0);
-Color greenSoft(25, 255, 25);
-
-Color orange(255, 148, 0);
-Color orangeRed(255, 63, 0);
-Color red(255, 0, 0);
-
-Color blue(0, 0, 255);
-Color blueSoft(50, 50, 255);
-
-Color colors[2] = {standby1, standby2};
+// RGB
+uint32_t COLOR_WHITE = strip.Color(255, 255, 255);
+uint32_t COLOR_GREEN = strip.Color(0, 255, 0);
+uint32_t COLOR_RED = strip.Color(255, 0, 0);
+uint32_t COLOR_ORANGE = strip.Color(255,165, 0);
+uint32_t COLOR_BLUE = strip.Color(0, 0, 255);
+uint32_t COLOR_MAGENTA = strip.Color(255, 0, 255);
+uint32_t COLOR_TEAL = strip.Color(75, 75, 255);
 
 void getDeviceInfo(const char *topic, const char *data) {
+  strip.begin();
+  strip.show();
+
   Serial.println("received " + String(topic) + ": " + String(data));
   id = String(data);
+
   Particle.publish("spark/device/name");
 }
 
 void setup() {
-  pinMode(motionSensorPin, INPUT);
-  led.setColor(standby1);
+  Serial.begin(115200);
+
+  pinMode(MOTION_SENSOR_PIN, INPUT);
+
+  setStatusColor(COLOR_WHITE);
+
   Particle.function("status", handleStatus);
 
-  Serial.begin(115200);
   for (int i = 0; i < 5; i++) {
     Serial.println("waiting... " + String(5 - i));
     delay(1000);
   }
+
   Particle.subscribe("spark/", getDeviceInfo);
   Particle.publish("spark/device/name");
 }
 
+int setStatusColor(int color) {
+  for (int i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, color);
+    strip.show();
+  }
+}
+
 int handleStatus(String status) {
   if (status == "BOOKED") {
-    fadeRate = 2000;
-    led.fadeOnce(colors[1], blue, 2000);
-    colors[0] = blue;
-    colors[1] = blueSoft;
+    setStatusColor(COLOR_BLUE);
     return 1;
   } else if (status == "VACANT") {
-    fadeRate = 2000;
-    led.fadeOnce(colors[1], green, 2000);
-    colors[0] = green;
-    colors[1] = greenSoft;
+    setStatusColor(COLOR_GREEN);
     return 1;
   } else if (status == "FIVE_MINUTE_WARNING") {
-    fadeRate = 1500;
-    led.fadeOnce(colors[1], orange, 2000);
-    colors[0] = orange;
-    colors[1] = orangeRed;
+    setStatusColor(COLOR_ORANGE);
     return 1;
   } else if (status == "ONE_MINUTE_WARNING") {
-    fadeRate = 500;
-    colors[0] = red;
-    colors[1] = orange;
+    setStatusColor(COLOR_RED);
     return 1;
   } else if (status == "SQUATTED") {
-    fadeRate = 750;
-    colors[0] = purple;
-    colors[1] = purpleSoft;
+    setStatusColor(COLOR_MAGENTA);
     return 1;
   } else if (status == "ABANDONED") {
-    fadeRate = 500;
-    colors[0] = blue;
-    colors[1] = green;
+    setStatusColor(COLOR_TEAL);
     return 1;
   }
 
@@ -84,16 +81,16 @@ int handleStatus(String status) {
 }
 
 void loop() {
-  led.fade(colors, 2, fadeRate);
-
-  if (digitalRead(motionSensorPin)) {
+  if (digitalRead(MOTION_SENSOR_PIN)) {
     Particle.publish("MOTION_DETECTED", id);
 
     unsigned long motionTime = millis();
 
     while (millis() - motionTime < MIN_TIME_BETWEEN_TRIGGERS) {
-      if (digitalRead(motionSensorPin))
+      if (digitalRead(MOTION_SENSOR_PIN))
         motionTime = millis();
     }
   }
+
+  Particle.function("status", handleStatus);
 }
