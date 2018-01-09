@@ -1106,8 +1106,8 @@ blessed-contrib@^4.8.5:
     marked-terminal "^1.5.0"
     memory-streams "^0.1.0"
     memorystream "^0.3.1"
-    picture-tube "0.0.4"
-    request "^2.83.0"
+    picture-tube "1.0.0"
+    request "^2.53.0"
     sparkline "^0.1.1"
     strip-ansi "^3.0.0"
     term-canvas "0.0.5"
@@ -6116,9 +6116,9 @@ phantomjs-prebuilt@^2.1.7:
     request-progress "^2.0.1"
     which "^1.2.10"
 
-picture-tube@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/picture-tube/-/picture-tube-0.0.4.tgz#21de02b7179ccb73af083f112f5267632fc6e8c6"
+picture-tube@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/picture-tube/-/picture-tube-1.0.0.tgz#3a18dace8ca206e3b4dc91ec83c982e846dad141"
   dependencies:
     buffers "~0.1.1"
     charm "~0.1.0"
@@ -6868,7 +6868,7 @@ request@2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-request@^2.0.0, request@^2.83.0, request@^2.74.0, request@^2.79.0, request@^2.81.0, request@^2.83.0:
+request@^2.0.0, request@^2.74.0, request@^2.79.0, request@^2.81.0, request@^2.83.0:
   version "2.83.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
   dependencies:
