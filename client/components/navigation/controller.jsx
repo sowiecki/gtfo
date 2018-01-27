@@ -77,6 +77,7 @@ class NavigationController extends Component {
 }
 
 NavigationController.propTypes = {
+  documentTitle: PropTypes.string.isRequired,
   deviceWidth: PropTypes.number.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
   timeTravelControlsOpen: PropTypes.bool.isRequired,
