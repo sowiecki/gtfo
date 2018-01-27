@@ -202,8 +202,8 @@ describe('Room utilities (server)', () => {
     deviceAuthToken: 'hunter2',
     connectionStatus: false,
     thermo: {
-      F: '65',
-      C: '18'
+      f: '65',
+      c: '18'
     },
     reservations: [
       {
