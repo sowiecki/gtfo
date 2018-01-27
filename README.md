@@ -54,11 +54,11 @@ See [environment configuration documentation](./environment/README.md).
 Minimum required hardware **per each remote module**:
 
 * [Particle Photon](https://store.particle.io/)
-* Common anode RGB LED
+* NeoPixel (or equivalent WS2812 LEDs)
 
 ## Hardware Setup
 
-[![Photograph of hardware wiring](./wiring_photo_small.png)](./wiring_photo.png)
+[![Photograph of hardware wiring](./schematic.png)](./schematic.fzz)
 
 #### Photon Boards
 
@@ -76,24 +76,25 @@ Wire a set of NeoPixels to each Photon board. Optionally, wire a motion and temp
 
 Note that the firmware is configured to run with 12 NeoPixels. I recommend [this](https://www.adafruit.com/product/1643) ring for the best effects, but other NeoPixel configurations can be used. Just be sure to update `PIXEL_COUNT` in firmware.cpp to the correct number of pixels.
 
-###### RGB pin configuration (required)
+###### LED pin configuration (required)
 
-Hardware: Common anode RGB LED
+Hardware: NeoPixel Ring (or equivalent WS2812 LEDs)
 
 |  Wire   |  Pin   |
 | :-----: | :----: |
 | Data in |   D2   |
-| Ground  | Ground |
+|   PWR   |   3v   |
+|   GRN   | Ground |
 
 ###### Temperature and humidity sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
 
 Hardware: [DHT11 (with breakout board)](https://smile.amazon.com/gp/product/B06XHJ1BPC)
 
-|  Wire  |  Pin   |
-| :----: | :----: |
-|  Data  |   A4   |
-| Power  |   3v   |
-| Ground | Ground |
+| Wire |  Pin   |
+| :--: | :----: |
+| Out  |   A4   |
+|  +   |   3v   |
+|  -   | Ground |
 
 ###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
 
@@ -101,11 +102,11 @@ Motion sensors enable detecting presence of room occupants in unreserved rooms,
 and setting the room status to "squatted" on the office map.
 Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/)
 
-|  Wire  |  Pin   |
-| :----: | :----: |
-|  Data  |   A0   |
-| Power  |   3v   |
-| Ground | Ground |
+| Wire |  Pin   |
+| :--: | :----: |
+| Data |   A0   |
+| VCC  |   3v   |
+| GND  | Ground |
 
 ## Software Setup
 
