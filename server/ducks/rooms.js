@@ -10,7 +10,6 @@ import consoleController from '../controllers/console';
 
 import { devices, coordinates } from '../environment';
 import {
-  flashNotifications,
   filterExpiredReservations,
   getRoomAlert,
   secureRoom,
@@ -18,20 +17,14 @@ import {
   handleAction,
   initializeRoomModuleState
 } from '../utils';
-import {
-  INITIALIZE_ROOMS,
-  ROOM_TEMPERATURE_UPDATE,
-  ROOM_STATUSES_UPDATE
-} from '../constants';
-import { IS_INDIRECT_MODE } from '../config';
+import { INITIALIZE_ROOMS, ROOM_TEMPERATURE_UPDATE, ROOM_STATUSES_UPDATE } from '../constants';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
 export const EMIT_DEVICE_STATUS_UPDATE = 'EMIT_DEVICE_STATUS_UPDATE';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
 export const FETCH_ROOM_RESERVATIONS = 'FETCH_ROOM_RESERVATIONS';
-export const FETCH_ROOM_TEMPERATURE = 'FETCH_ROOM_TEMPERATURE';
 export const FETCH_ROOM_MOTION = 'FETCH_ROOM_MOTION';
-export const EMIT_SET_ROOM_ACCESSORIES = 'EMIT_SET_ROOM_ACCESSORIES';
+export const EMIT_SET_ROOM_MODULE_STATUS = 'EMIT_SET_ROOM_MODULE_STATUS';
 export const EMIT_ROOM_MODULE_FAILURE = 'EMIT_ROOM_MODULE_FAILURE';
 export const EMIT_RESERVATIONS_UPDATE = 'EMIT_RESERVATIONS_UPDATE';
 export const EMIT_ROOM_STATUSES_UPDATE = 'EMIT_ROOM_STATUSES_UPDATE';
@@ -67,7 +60,7 @@ const roomsReducer = (state = initialState, action) => {
       return state;
     },
 
-    [EMIT_SET_ROOM_ACCESSORIES]() {
+    [EMIT_SET_ROOM_MODULE_STATUS]() {
       const rooms = state.get('rooms');
 
       state = state.set('rooms', rooms.map(initializeRoomModuleState.bind(null, action)));
@@ -88,7 +81,10 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_RESERVATIONS_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => room.set('reservations', action.reservations[room.get('name')])));
+      state = state.set(
+        'rooms',
+        rooms.map((room) => room.set('reservations', action.reservations[room.get('name')]))
+      );
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
@@ -96,15 +92,18 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_MOTION_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => {
-        const motionDetectedInRoom = room.get('id') === action.room.id;
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          const motionDetectedInRoom = room.get('id') === action.room.id;
 
-        if (motionDetectedInRoom) {
-          room = room.set('recentMotion', moment());
-        }
+          if (motionDetectedInRoom) {
+            room = room.set('recentMotion', moment());
+          }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
@@ -114,28 +113,27 @@ const roomsReducer = (state = initialState, action) => {
       let alertHasChanged;
       let anyAlertChanged;
 
-      state = state.set('rooms', rooms.map((room) => {
-        const { accessories, reservations, capabilities, recentMotion } = room.toJS();
-        const roomProperties = {
-          reservations: filterExpiredReservations(reservations),
-          recentMotion: action.recentMotion || recentMotion
-        };
-        const alert = getRoomAlert(roomProperties, capabilities);
-        alertHasChanged = room.get('alert') !== alert;
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          const { reservations, capabilities, recentMotion } = room.toJS();
+          const roomProperties = {
+            reservations: filterExpiredReservations(reservations),
+            recentMotion: action.recentMotion || recentMotion
+          };
+          const alert = getRoomAlert(roomProperties, capabilities);
+          alertHasChanged = room.get('alert') !== alert;
 
-        if (alertHasChanged) {
-          anyAlertChanged = true;
-          room = room.set('alert', alert);
+          if (alertHasChanged) {
+            anyAlertChanged = true;
+            room = room.set('alert', alert);
 
-          if (accessories) {
-            flashNotifications(room.toJS(), accessories);
-          } else if (IS_INDIRECT_MODE) {
-            devicesController.updateIndirect(room);
+            devicesController.updateRoomModule(room);
           }
-        }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       if (anyAlertChanged) {
         consoleController.logRoomStatuses(getSecureRooms(state));
@@ -148,15 +146,18 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_TEMPERATURE_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => {
-        if (room.get('id') === action.room.id) {
-          room = room.set('thermo', action.thermo);
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          if (room.get('id') === action.room.id) {
+            room = room.set('thermo', action.thermo);
 
-          socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(room.toJS()));
-        }
+            socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(room.toJS()));
+          }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       return state;
     }

@@ -10,10 +10,11 @@ All user-configurated files are (and should remain) gitignored to prevent privat
 `npm run demo` will generate a very basic demonstration of generic configuration files, sans backdrop files.
 
 ### config.json
+
 General configuration.
 
 | Parameter            | Description                                 | Required? | Default |
-|----------------------|---------------------------------------------|-----------|---------|
+| -------------------- | ------------------------------------------- | --------- | ------- |
 | id                   | Identifier for pings proxy                  | No        |         |
 | public               | Configurations passed to client (insecure!) | Yes       |         |
 | - title              | Page title to display on client             | No        |         |
@@ -24,9 +25,9 @@ General configuration.
 | prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
 | prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
 | proxyHost            | URL of hosted proxy instance                | no        |         |
-| indirect             | Run modules in indirect mode                | No        | `false` |
 
 Example of a `config.json`:
+
 ```json
 {
   "id": "foo",
@@ -41,22 +42,23 @@ Example of a `config.json`:
     "proxyHost": "ws://digitalocean.com/your-hosted-proxy-instance"
   }
 }
-
 ```
 
 ### devices.json
+
 Room device properties.
 
-| Parameter        | Description                                           | Required? | Type   |
-|------------------|-------------------------------------------------------|-----------|--------|
-| id               | ID of exchange account<sup>1</sup>                    | Yes       | String |
-| name             | Display name for room<sup>2</sup>                     | Yes       | String |
-| location         | Floor or location of room <sup>2, 3</sup>             | Yes       | String |
-| deviceId         | ID of Photon board                                    | Yes       | String |
-| deviceAuthToken  | Auth token of Photon board                            | Yes       | String |
-| deviceAlias      | Name of module                                        | No        | String |
-| capabilities     | Hardware capabilities of module                       | No        | Object |
-| - motion         | Set to true if module has a motion sensor<sup>4</sup> | No        | Bool   |
+| Parameter       | Description                                           | Required? | Type   |
+| --------------- | ----------------------------------------------------- | --------- | ------ |
+| id              | ID of exchange account<sup>1</sup>                    | Yes       | String |
+| name            | Display name for room<sup>2</sup>                     | Yes       | String |
+| location        | Floor or location of room <sup>2, 3</sup>             | Yes       | String |
+| deviceId        | ID of Photon board                                    | Yes       | String |
+| deviceAuthToken | Auth token of Photon board                            | Yes       | String |
+| deviceAlias     | Name of module                                        | No        | String |
+| capabilities    | Hardware capabilities of module                       | No        | Object |
+| - motion        | Set to true if module has a motion sensor<sup>4</sup> | No        | Bool   |
+
 <sup>1</sup> Formatted exactly as displayed on Exchange Services.
 
 <sup>2</sup> Proper format, including any spaces or capitalization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
@@ -67,6 +69,7 @@ Room device properties.
 Use this to enable motion only on individual modules equipped with motion sensors.
 
 Example of a `devices.json` with a single device configured to The Loop:
+
 ```json
 {
   "devices": [
@@ -83,10 +86,12 @@ Example of a `devices.json` with a single device configured to The Loop:
 ```
 
 ### coordinates.json
+
 If you intend to use the office map feature, each room must have an associated [SVG shape](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) configured
 with a size and position in `coordinates.json`.
 
 Example of an `environment/coordinates.json` file configured to display a meeting room nicknamed "Duna":
+
 ```json
 {
   "duna": {
@@ -99,12 +104,15 @@ Example of an `environment/coordinates.json` file configured to display a meetin
 ```
 
 ### markers.json
+
 Markers to overlay on maps.
 
 ### mock-data.json
+
 Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated with the `--mocks` flag, or automatically regenerated if existing mock reservations are over a day old.
 
 ### Office map backgrounds
+
 Each floor/section of an office map should have its own backgrund image.
 These background images are layouts for the room tiles to be displayed onto.
 Ideally, they may be scanned and copied or traced from actual building blueprints.

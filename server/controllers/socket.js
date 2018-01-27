@@ -7,14 +7,16 @@ import store from '../store';
 import { send, getFutureAlerts } from '../utils';
 import { WEB_SOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
-import { HANDSHAKE,
+import {
+  HANDSHAKE,
   INITIALIZE_ROOMS,
   INITIALIZE_MARKERS,
   INITIALIZE_STALLS,
   RECONNECTED,
   NEW_ROOM_PING,
   TIME_TRAVEL_UPDATE,
-  TIME_FORMAT } from '../constants';
+  TIME_FORMAT
+} from '../constants';
 
 const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
 
@@ -59,7 +61,8 @@ const socketController = {
    */
   handle(event, payload, client) {
     const handlers = {
-      [HANDSHAKE]() { // Register client socket with anchor parameter.
+      [HANDSHAKE]() {
+        // Register client socket with anchor parameter.
         const anchor = get(payload, 'anchor');
 
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
@@ -77,13 +80,15 @@ const socketController = {
         socketController.send(event, payload, client);
       },
 
-      [RECONNECTED]() { // Reregister client socket with anchor parameter.
+      [RECONNECTED]() {
+        // Reregister client socket with anchor parameter.
         const anchor = get(payload, 'anchor');
 
         store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
       },
 
-      [NEW_ROOM_PING]() { // Send ping to clients with matching anchor parameter.
+      [NEW_ROOM_PING]() {
+        // Send ping to clients with matching anchor parameter.
         const clients = socketController.getClients();
         const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
 

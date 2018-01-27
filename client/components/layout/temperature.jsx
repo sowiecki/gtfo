@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 import { applyStyles } from 'config/composition';
 import { parseShape } from 'utils';
@@ -8,16 +9,14 @@ import { FAHRENHEIT } from '../../constants';
 import { ROOM_TEMPERATURE_TEXT_DX, ROOM_TEMPERATURE_TEXT_DY } from './styles';
 
 const Temperature = (props) => {
-  const { thermo,
-    unitOfTemp,
-    coordinates } = props;
+  const { thermo, unitOfTemp, coordinates } = props;
 
-  if (!thermo) {
+  if (isEmpty(thermo)) {
     return null;
   }
 
   const isFarenheit = unitOfTemp === FAHRENHEIT;
-  const temperature = isFarenheit ? thermo.F : thermo.C;
+  const temperature = isFarenheit ? thermo.f : thermo.c;
   const unitOfTempSuffix = isFarenheit ? '°F' : '°C';
 
   return (
@@ -33,7 +32,10 @@ const Temperature = (props) => {
 
 Temperature.propTypes = {
   coordinates: PropTypes.object.isRequired,
-  thermo: PropTypes.object,
+  thermo: PropTypes.shape({
+    f: PropTypes.string,
+    c: PropTypes.string
+  }),
   unitOfTemp: PropTypes.string.isRequired
 };
 

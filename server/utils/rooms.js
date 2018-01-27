@@ -35,8 +35,10 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const noReservations = !reservations.length;
   const moduleIsMotionEquipped = config.public.enableMotion === true || capabilities.motion;
   const shouldConsiderMotion = moduleIsMotionEquipped && isNotFutureQuery;
-  const hasRecentMotion = shouldConsiderMotion && recentMotion ?
-    recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds')) : false;
+  const hasRecentMotion =
+    shouldConsiderMotion && recentMotion
+      ? recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds'))
+      : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -48,8 +50,12 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const minutesFromNow = (minutes) => getTime().add(minutes, 'minutes');
   const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
   const currentlyNotReserved = isEmpty(reservations) || noMeetingWithinFive;
-  const currentlyReserved =
-    time.isBetween(firstMeeting.startDate, firstMeeting.endDate, null, '[]');
+  const currentlyReserved = time.isBetween(
+    firstMeeting.startDate,
+    firstMeeting.endDate,
+    null,
+    '[]'
+  );
 
   const nextMeetingStartingIn = (minutes) => {
     if (!secondMeeting) {
@@ -85,10 +91,12 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
  */
 export const secureRoom = (room) => {
   // This crap is necessary or else Node throws a TypeError: Circular JSON error
-  const thermo = room.thermo ? {
-    C: room.thermo.C,
-    F: room.thermo.F
-  } : null;
+  const thermo = room.thermo
+    ? {
+      c: room.thermo.c,
+      f: room.thermo.f
+    }
+    : null;
 
   return {
     id: room.id,
@@ -117,15 +125,16 @@ export const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
  * @param {object} time - Moment object.
  * @returns {array} Meeting rooms as they would be in future time.
  */
-export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
-  room.reservations = filterExpiredReservations(room.reservations, time);
-  const roomProperties = { reservations: room.reservations, recentMotion: false };
+export const getFutureAlerts = (rooms, time) =>
+  rooms.map((room) => {
+    room.reservations = filterExpiredReservations(room.reservations, time);
+    const roomProperties = { reservations: room.reservations, recentMotion: false };
 
-  return {
-    ...secureRoom(room),
-    alert: getRoomAlert(roomProperties, room.capabilities, time)
-  };
-});
+    return {
+      ...secureRoom(room),
+      alert: getRoomAlert(roomProperties, room.capabilities, time)
+    };
+  });
 
 /**
  * Sets up
@@ -135,9 +144,7 @@ export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
  */
 export const initializeRoomModuleState = (action, room) => {
   if (room.get('id') === action.room.get('id')) {
-    room = room
-      .set('accessories', action.accessories)
-      .set('connectionStatus', action.connectionStatus);
+    room = room.set('connectionStatus', action.connectionStatus);
   }
 
   return room;
