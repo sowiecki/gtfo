@@ -18,11 +18,7 @@ import {
   handleAction,
   initializeRoomModuleState
 } from '../utils';
-import {
-  INITIALIZE_ROOMS,
-  ROOM_TEMPERATURE_UPDATE,
-  ROOM_STATUSES_UPDATE
-} from '../constants';
+import { INITIALIZE_ROOMS, ROOM_TEMPERATURE_UPDATE, ROOM_STATUSES_UPDATE } from '../constants';
 import { IS_INDIRECT_MODE } from '../config';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 
@@ -88,7 +84,10 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_RESERVATIONS_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => room.set('reservations', action.reservations[room.get('name')])));
+      state = state.set(
+        'rooms',
+        rooms.map((room) => room.set('reservations', action.reservations[room.get('name')]))
+      );
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
@@ -96,15 +95,18 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_MOTION_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => {
-        const motionDetectedInRoom = room.get('id') === action.room.id;
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          const motionDetectedInRoom = room.get('id') === action.room.id;
 
-        if (motionDetectedInRoom) {
-          room = room.set('recentMotion', moment());
-        }
+          if (motionDetectedInRoom) {
+            room = room.set('recentMotion', moment());
+          }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();
     },
@@ -114,28 +116,31 @@ const roomsReducer = (state = initialState, action) => {
       let alertHasChanged;
       let anyAlertChanged;
 
-      state = state.set('rooms', rooms.map((room) => {
-        const { accessories, reservations, capabilities, recentMotion } = room.toJS();
-        const roomProperties = {
-          reservations: filterExpiredReservations(reservations),
-          recentMotion: action.recentMotion || recentMotion
-        };
-        const alert = getRoomAlert(roomProperties, capabilities);
-        alertHasChanged = room.get('alert') !== alert;
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          const { accessories, reservations, capabilities, recentMotion } = room.toJS();
+          const roomProperties = {
+            reservations: filterExpiredReservations(reservations),
+            recentMotion: action.recentMotion || recentMotion
+          };
+          const alert = getRoomAlert(roomProperties, capabilities);
+          alertHasChanged = room.get('alert') !== alert;
 
-        if (alertHasChanged) {
-          anyAlertChanged = true;
-          room = room.set('alert', alert);
+          if (alertHasChanged) {
+            anyAlertChanged = true;
+            room = room.set('alert', alert);
 
-          if (accessories) {
-            flashNotifications(room.toJS(), accessories);
-          } else if (IS_INDIRECT_MODE) {
-            devicesController.updateIndirect(room);
+            if (accessories) {
+              flashNotifications(room.toJS(), accessories);
+            } else if (IS_INDIRECT_MODE) {
+              devicesController.updateIndirect(room);
+            }
           }
-        }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       if (anyAlertChanged) {
         consoleController.logRoomStatuses(getSecureRooms(state));
@@ -148,15 +153,18 @@ const roomsReducer = (state = initialState, action) => {
     [EMIT_ROOM_TEMPERATURE_UPDATE]() {
       const rooms = state.get('rooms');
 
-      state = state.set('rooms', rooms.map((room) => {
-        if (room.get('id') === action.room.id) {
-          room = room.set('thermo', action.thermo);
+      state = state.set(
+        'rooms',
+        rooms.map((room) => {
+          if (room.get('id') === action.room.id) {
+            room = room.set('thermo', action.thermo);
 
-          socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(room.toJS()));
-        }
+            socketController.handle(ROOM_TEMPERATURE_UPDATE, secureRoom(room.toJS()));
+          }
 
-        return room;
-      }));
+          return room;
+        })
+      );
 
       return state;
     }

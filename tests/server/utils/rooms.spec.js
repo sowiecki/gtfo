@@ -26,10 +26,11 @@ import {
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
-  const clock = (time) => sinon.useFakeTimers({
-    now: Date.parse(time),
-    toFake: ['Date']
-  });
+  const clock = (time) =>
+    sinon.useFakeTimers({
+      now: Date.parse(time),
+      toFake: ['Date']
+    });
   const mockCapabilities = { motion: true };
 
   const baseMockReservations = [
@@ -222,8 +223,8 @@ describe('Room utilities (server)', () => {
     name: 'Hyrule Castle',
     connectionStatus: false,
     thermo: {
-      F: '65',
-      C: '18'
+      f: '65',
+      c: '18'
     },
     currentReservation: {
       email: 'foo@bar.com'
@@ -271,7 +272,9 @@ describe('Room utilities (server)', () => {
         { time: moment('2016-03-08T16:31:00.000Z'), alert: BOOKED }
       ];
 
-      expect(getFutureAlerts(getMockRooms(), moment('8:00PM', TIME_FORMAT))[0].alert).toEqual(VACANT);
+      expect(getFutureAlerts(getMockRooms(), moment('8:00PM', TIME_FORMAT))[0].alert).toEqual(
+        VACANT
+      );
 
       forEach(futureTimes, (futureTime) => {
         const time = moment(futureTime.time, 'LLLL');

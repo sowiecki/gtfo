@@ -6,14 +6,16 @@ import devicesController from './devices';
 import pingsController from './pings';
 import consoleController from './console';
 import { send } from '../utils';
-import { PROXY_HOST,
+import {
+  PROXY_HOST,
   WEBSOCKET_PROTOCOL,
   WEBSOCKET_RECONNECT_INTERVAL,
   HANDSHAKE,
   RECONNECTED,
   NEW_ROOM_PING,
-  NEW_ROOM_MOTION,
-  UNDEFINED_EVENT } from '../constants';
+  ROOM_EVENT,
+  UNDEFINED_EVENT
+} from '../constants';
 import { config } from '../environment';
 
 let interval;
@@ -41,8 +43,10 @@ const proxyController = {
 
   parseEvent({ data }) {
     const { payload } = JSON.parse(data);
+    // TODO update Acheron to forward event types adjecent to body and headers
+    const eventHandler = get(payload, 'event') || get(payload, 'body.event', UNDEFINED_EVENT);
 
-    const handlers = {
+    const HANDLERS_MAP = {
       [HANDSHAKE]() {
         consoleController.log(payload.message);
       },
@@ -55,8 +59,8 @@ const proxyController = {
         pingsController.handlePingOverWS(payload);
       },
 
-      [NEW_ROOM_MOTION]() {
-        devicesController.handleIndirectMotion(payload);
+      [ROOM_EVENT]() {
+        devicesController.handleRoomEvent(payload);
       },
 
       [UNDEFINED_EVENT]() {
@@ -64,8 +68,7 @@ const proxyController = {
       }
     };
 
-    const eventHandler = get(payload, 'event', UNDEFINED_EVENT);
-    handlers[eventHandler]();
+    HANDLERS_MAP[eventHandler]();
   },
 
   reconnect() {

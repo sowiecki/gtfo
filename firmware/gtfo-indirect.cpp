@@ -1,5 +1,7 @@
-#include "neopixel.h"
-#include "DHT.h"
+#define ARDUINOJSON_ENABLE_ARDUINO_STRING 1
+#include <ArduinoJson.h>
+#include <neopixel.h>
+#include <DHT.h>
 
 SYSTEM_MODE(AUTOMATIC);
 
@@ -17,6 +19,7 @@ String id;
 String newRoomStatus;
 String currentRoomStatus;
 bool statusUpdated = false;
+char eventJSON[200];
 const int MIN_TIME_BETWEEN_TRIGGERS = 500;
 const int PIXEL_MAX_B = 100;
 
@@ -165,17 +168,25 @@ void handleStatus(String status) {
 }
 
 void loop() {
+  StaticJsonBuffer<300> jsonBuffer;
+  JsonObject& event = jsonBuffer.createObject();
+
   handleStatus(currentRoomStatus);
 
   // Motion code must be run before temperatue code
   if (digitalRead(MOTION_SENSOR_PIN)) {
-    Particle.publish("MOTION_DETECTED", id);
+    event["type"] = "MOTION_DETECTED";
+    event["id"] = String(id);
+    event.printTo((char*)eventJSON, event.measureLength() + 1);
+
+    Particle.publish("ROOM_EVENT", eventJSON);
 
     unsigned long motionTime = millis();
 
     while (millis() - motionTime < MIN_TIME_BETWEEN_TRIGGERS) {
-      if (digitalRead(MOTION_SENSOR_PIN))
+      if (digitalRead(MOTION_SENSOR_PIN)) {
         motionTime = millis();
+      }
     }
   }
 
@@ -185,11 +196,23 @@ void loop() {
 
   if (isnan(h) || isnan(t) || isnan(f)) {
     Serial.println("Failed to read from DHT sensor!");
-    return;
+  } else {
+    float hif = dht.computeHeatIndex(f, h);
+    float hic = dht.computeHeatIndex(t, h, false);
+
+    event.set("type", "TEMPERATURE_READINGS");
+    event.set("id", id);
+
+    // Set temperature data on JSON
+    JsonObject& readings = event.createNestedObject("readings");
+    readings.set("HUM", h);
+    readings.set("c", t);
+    readings.set("f", f);
+    readings.set("hic", hic);
+    readings.set("hif", hif);
+
+    event.printTo((char*)eventJSON, event.measureLength() + 1);
+
+    Particle.publish("ROOM_EVENT", eventJSON);
   }
-
-  float hif = dht.computeHeatIndex(f, h);
-  float hic = dht.computeHeatIndex(t, h, false);
-
-  Particle.publish("TEMPERATURE_READINGS", String::format("{\"Hum(\%)\": %4.2f, \"Temp(°C)\": %4.2f, \"Temp(°F)\": %4.2f, \"HI(°C)\": %4.2f, \"HI(°F)\": %4.2f}", h, t, f, hic, hif));
 }

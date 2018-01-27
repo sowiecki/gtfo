@@ -13,26 +13,58 @@ import colors from 'colors';
 import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
-import { shouldOverrideMotion,
+import {
+  shouldOverrideMotion,
   registerBoard,
   registerLed,
   registerPiezo,
   registerThermo,
   registerMotion,
   secureRooms,
-  logUnhandledMotionUpdate } from '../utils';
+  logUnhandledMotionUpdate
+} from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
-import { FETCH_ROOM_RESERVATIONS,
+import {
+  FETCH_ROOM_RESERVATIONS,
   FETCH_ROOM_TEMPERATURE,
   FETCH_ROOM_MOTION,
   EMIT_SET_ROOM_ACCESSORIES,
   EMIT_ROOM_MODULE_FAILURE,
-  EMIT_ROOM_MOTION_UPDATE } from '../ducks/rooms';
-import { RESERVATIONS_CHECK_INTERVAL, RUN_DIRECT } from '../constants';
+  EMIT_ROOM_MOTION_UPDATE,
+  EMIT_ROOM_TEMPERATURE_UPDATE
+} from '../ducks/rooms';
+import {
+  RESERVATIONS_CHECK_INTERVAL,
+  RUN_DIRECT,
+  UNDEFINED_EVENT,
+  MOTION_DETECTED,
+  TEMPERATURE_READINGS
+} from '../constants';
 
 const particle = new Particle();
 
 const devicesController = {
+  handleRoomEvent(payload) {
+    const event = JSON.parse(payload.body.data);
+
+    const ROOM_EVENT_HANDLERS_MAP = {
+      [MOTION_DETECTED]() {
+        devicesController.handleIndirectMotion(payload);
+      },
+
+      [TEMPERATURE_READINGS]() {
+        devicesController.handleIndirectTemperatureReadings(payload);
+      },
+
+      [UNDEFINED_EVENT]: () =>
+        consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
+    };
+
+    const eventType = ROOM_EVENT_HANDLERS_MAP[event.type] ? event.type : UNDEFINED_EVENT;
+
+    return ROOM_EVENT_HANDLERS_MAP[eventType]();
+  },
+
   getRooms: () => store.getState().roomsReducer.toJS().rooms,
 
   getSecureRooms: () => secureRooms(devicesController.getRooms()),
@@ -92,36 +124,40 @@ const devicesController = {
   },
 
   updateIndirect(room) {
-    particle.callFunction({
-      deviceId: room.get('deviceId'),
-      auth: room.get('deviceAuthToken'),
-      name: 'status',
-      argument: room.get('alert')
-    }).then((data) => {
-      const deviceName = colors.green.bold(room.get('name'));
-      consoleController.log(`Successfully updated status of ${deviceName}`);
+    particle
+      .callFunction({
+        deviceId: room.get('deviceId'),
+        auth: room.get('deviceAuthToken'),
+        name: 'status',
+        argument: room.get('alert')
+      })
+      .then(
+        (data) => {
+          const deviceName = colors.green.bold(room.get('name'));
+          consoleController.log(`Successfully updated status of ${deviceName}`);
 
-      store.dispatch({
-        type: EMIT_SET_ROOM_ACCESSORIES,
-        room,
-        connectionStatus: data.body.connected
-      });
-    }, (err) => {
-      const bodyError = colors.red.bold(err.body.error);
-      const deviceName = colors.magenta.bold(room.get('name'));
-      consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
+          store.dispatch({
+            type: EMIT_SET_ROOM_ACCESSORIES,
+            room,
+            connectionStatus: data.body.connected
+          });
+        },
+        (err) => {
+          const bodyError = colors.red.bold(err.body.error);
+          const deviceName = colors.magenta.bold(room.get('name'));
+          consoleController.log(`${err.errorDescription} @${deviceName} ${bodyError}`);
 
-      store.dispatch({
-        type: EMIT_ROOM_MODULE_FAILURE,
-        room,
-        connectionStatus: false
-      });
-    });
+          store.dispatch({
+            type: EMIT_ROOM_MODULE_FAILURE,
+            room,
+            connectionStatus: false
+          });
+        }
+      );
   },
 
-  handleIndirectMotion(payload) {
-    const deviceId = payload.particleInfo.coreid;
-    const room = find(devicesController.getRooms(), { deviceId });
+  handleIndirectMotion({ body }) {
+    const room = find(devicesController.getRooms(), { deviceId: body.coreid });
 
     if (room) {
       store.dispatch({
@@ -129,8 +165,22 @@ const devicesController = {
         room
       });
     } else {
-      logUnhandledMotionUpdate(payload.particleInfo);
+      logUnhandledMotionUpdate(body.coreid);
     }
+  },
+
+  handleIndirectTemperatureReadings({ body }) {
+    const room = find(devicesController.getRooms(), { deviceId: body.coreid });
+    const { readings } = JSON.parse(body.data);
+
+    store.dispatch({
+      type: EMIT_ROOM_TEMPERATURE_UPDATE,
+      room,
+      thermo: {
+        f: readings.f,
+        c: readings.c
+      }
+    });
   },
 
   /**
@@ -176,11 +226,12 @@ const devicesController = {
     }
   },
 
-  boardFail: (room) => store.dispatch({
-    type: EMIT_ROOM_MODULE_FAILURE,
-    room,
-    connectionStatus: false
-  })
+  boardFail: (room) =>
+    store.dispatch({
+      type: EMIT_ROOM_MODULE_FAILURE,
+      room,
+      connectionStatus: false
+    })
 };
 
 export default devicesController;
