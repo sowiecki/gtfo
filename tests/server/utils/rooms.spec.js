@@ -291,7 +291,6 @@ describe('Room utilities (server)', () => {
         rooms: [
           {
             id: 'foo',
-            accessories: undefined,
             connectionStatus: undefined
           }
         ]
@@ -301,7 +300,6 @@ describe('Room utilities (server)', () => {
         room: immutable.fromJS({
           id: 'foo'
         }),
-        accessories: 'bizzbazz',
         connectionStatus: true
       };
 
@@ -314,13 +312,11 @@ describe('Room utilities (server)', () => {
 
       expect(initialState[0]).toEqual({
         id: 'foo',
-        accessories: undefined,
         connectionStatus: undefined
       });
 
       expect(result[0]).toEqual({
         id: 'foo',
-        accessories: 'bizzbazz',
         connectionStatus: true
       });
     });

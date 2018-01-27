@@ -2,40 +2,27 @@
 /* globals console, setInterval, clearInterval */
 
 /**
- * Initializes x number of devices
- * Registers accessories for each device
+ * Initializes each room module device
  */
 
 import Particle from 'particle-api-js';
-import { find, isEmpty } from 'lodash';
+import { find } from 'lodash';
 import colors from 'colors';
 
 import consoleController from './console';
 import store from '../store';
 import { config } from '../environment';
-import {
-  shouldOverrideMotion,
-  registerBoard,
-  registerLed,
-  registerPiezo,
-  registerThermo,
-  registerMotion,
-  secureRooms,
-  logUnhandledMotionUpdate
-} from '../utils';
+import { shouldOverrideMotion, secureRooms, logUnhandledMotionUpdate } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import {
   FETCH_ROOM_RESERVATIONS,
-  FETCH_ROOM_TEMPERATURE,
-  FETCH_ROOM_MOTION,
-  EMIT_SET_ROOM_ACCESSORIES,
+  EMIT_SET_ROOM_MODULE_STATUS,
   EMIT_ROOM_MODULE_FAILURE,
   EMIT_ROOM_MOTION_UPDATE,
   EMIT_ROOM_TEMPERATURE_UPDATE
 } from '../ducks/rooms';
 import {
   RESERVATIONS_CHECK_INTERVAL,
-  RUN_DIRECT,
   UNDEFINED_EVENT,
   MOTION_DETECTED,
   TEMPERATURE_READINGS
@@ -49,11 +36,11 @@ const devicesController = {
 
     const ROOM_EVENT_HANDLERS_MAP = {
       [MOTION_DETECTED]() {
-        devicesController.handleIndirectMotion(payload);
+        devicesController.handleMotionUpdate(payload);
       },
 
       [TEMPERATURE_READINGS]() {
-        devicesController.handleIndirectTemperatureReadings(payload);
+        devicesController.handleTemperatureReadingsUpdate(payload);
       },
 
       [UNDEFINED_EVENT]: () =>
@@ -77,8 +64,6 @@ const devicesController = {
    * @returns {undefined}
    */
   initialize() {
-    const devicesEnabled = !process.env.DISABLE_DEVICES;
-    const runningDirect = process.env.RUN_MODE === RUN_DIRECT;
     const overrides = {
       enableMotion: shouldOverrideMotion(devicesController.getRooms())
     };
@@ -96,34 +81,9 @@ const devicesController = {
     setInterval(() => {
       fetchRoomReservations();
     }, RESERVATIONS_CHECK_INTERVAL);
-
-    if (devicesEnabled && runningDirect) {
-      devicesController.updateDirect();
-    }
   },
 
-  updateDirect() {
-    devicesController.getRooms().map((room) => {
-      if (!isEmpty(room.deviceAuthToken)) {
-        const board = registerBoard(room);
-
-        board.on('ready', () => devicesController.boardReady(board, room));
-        board.on('warn', consoleController.logBoardWarn);
-        board.on('fail', (event) => {
-          consoleController.logBoardFail(event);
-          devicesController.boardFail(room);
-        });
-      }
-    });
-
-    // Catches exceptions caused by individual modules, keeping system online
-    process.on('uncaughtException', (error) => {
-      consoleController.log('Exception caught');
-      consoleController.log(error.stack);
-    });
-  },
-
-  updateIndirect(room) {
+  updateRoomModule(room) {
     particle
       .callFunction({
         deviceId: room.get('deviceId'),
@@ -137,7 +97,7 @@ const devicesController = {
           consoleController.log(`Successfully updated status of ${deviceName}`);
 
           store.dispatch({
-            type: EMIT_SET_ROOM_ACCESSORIES,
+            type: EMIT_SET_ROOM_MODULE_STATUS,
             room,
             connectionStatus: data.body.connected
           });
@@ -156,7 +116,7 @@ const devicesController = {
       );
   },
 
-  handleIndirectMotion({ body }) {
+  handleMotionUpdate({ body }) {
     const room = find(devicesController.getRooms(), { deviceId: body.coreid });
 
     if (room) {
@@ -169,7 +129,7 @@ const devicesController = {
     }
   },
 
-  handleIndirectTemperatureReadings({ body }) {
+  handleTemperatureReadingsUpdate({ body }) {
     const room = find(devicesController.getRooms(), { deviceId: body.coreid });
     const { readings } = JSON.parse(body.data);
 
@@ -181,57 +141,7 @@ const devicesController = {
         c: readings.c
       }
     });
-  },
-
-  /**
-   * Handle an individual room's board accessories and reservations.
-   * Kicks off actions to monitor accessory states, updating server state as necessary.
-   * @param {object} board JohnnyFive board object.
-   * @param {object} room Corresponding room object.
-   * @returns {undefined}
-   */
-  boardReady(board, room) {
-    board.samplingInterval(2000);
-    consoleController.logBoardReady(board, room);
-
-    // Register all possible accessories
-    const accessories = {
-      led: registerLed(board),
-      piezo: registerPiezo(board),
-      thermo: registerThermo(board),
-      motion: registerMotion(board)
-    };
-
-    store.dispatch({
-      type: EMIT_SET_ROOM_ACCESSORIES,
-      room,
-      accessories,
-      connectionStatus: true
-    });
-
-    if (config.public.enableTemperature) {
-      store.dispatch({
-        type: FETCH_ROOM_TEMPERATURE,
-        room,
-        accessories
-      });
-    }
-
-    if (config.public.enableMotion) {
-      store.dispatch({
-        type: FETCH_ROOM_MOTION,
-        room,
-        accessories
-      });
-    }
-  },
-
-  boardFail: (room) =>
-    store.dispatch({
-      type: EMIT_ROOM_MODULE_FAILURE,
-      room,
-      connectionStatus: false
-    })
+  }
 };
 
 export default devicesController;

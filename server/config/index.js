@@ -20,7 +20,6 @@ const normalizePort = (val) => {
   return false;
 };
 
-
 if (argv.mocks) {
   process.env.MOCKS = true;
   console.log(colors.gray.italic('Using mock data'));
@@ -36,16 +35,8 @@ if (argv.dd) {
   console.log(colors.gray.italic('Devices disabled'));
 }
 
-if (config.indirect || argv.indirect) {
-  process.env.RUN_MODE = 'runIndirect';
-  console.log(colors.gray.italic('Running in indirect mode\n'));
-} else {
-  process.env.RUN_MODE = 'runDirect';
-}
-
 export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 export const IS_TEST_ENV = process.env.NODE_ENV === 'test';
-export const IS_INDIRECT_MODE = config.indirect;
 export const DEVICES_ENABLED = !process.env.DISABLE_DEVICES;
 export const PROXY_ENABLED = !!config.proxyHost;
 
@@ -94,7 +85,8 @@ export const tableOptions = {
   columnSpacing: 4,
   fg: 'white',
   border: {
-    type: 'line', fg: 'cyan'
+    type: 'line',
+    fg: 'cyan'
   }
 };
 

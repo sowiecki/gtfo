@@ -144,9 +144,7 @@ export const getFutureAlerts = (rooms, time) =>
  */
 export const initializeRoomModuleState = (action, room) => {
   if (room.get('id') === action.room.get('id')) {
-    room = room
-      .set('accessories', action.accessories)
-      .set('connectionStatus', action.connectionStatus);
+    room = room.set('connectionStatus', action.connectionStatus);
   }
 
   return room;

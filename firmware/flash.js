@@ -10,7 +10,7 @@ const { devices } = require('../server/environment');
 
 const particle = new Particle();
 
-const FIRMATA_PATH = path.join(__dirname, './gtfo-indirect.ino');
+const FIRMATA_PATH = path.join(__dirname, './firmware.ino');
 
 devices.forEach((device) => {
   const flash = particle.flashDevice({

@@ -12,15 +12,15 @@ export default {
           enableMotion: { type: 'bool' },
           enableConfig: { type: 'bool' },
           defaultTempScale: {
-            type: 'string', enum: ['fahrenheit', 'celcius']
+            type: 'string',
+            enum: ['fahrenheit', 'celcius']
           },
           note: { type: 'string' }
         }
       },
       prodReservationsHost: { type: 'string' },
       prodStallsHost: { type: 'string' },
-      proxyHost: { type: 'string' },
-      indirect: { type: 'bool' }
+      proxyHost: { type: 'string' }
     },
     required: ['public', 'prodReservationsHost']
   },
