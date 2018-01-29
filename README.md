@@ -49,7 +49,7 @@ The host server will serve a map of the office on `http://[host-ip-or-name]:3000
 with programmatically-generate tiles for each remote module declared in `environment/devices.json`.
 
 For this map to be usable, you must provide your own background image(s) and the size and position of each room tile.
-See [environment configuration documentation](./environment/README.md).
+See [environment configuration documentation](environment/README.md).
 
 Minimum required hardware **per each remote module**:
 
@@ -58,7 +58,7 @@ Minimum required hardware **per each remote module**:
 
 ## Hardware Setup
 
-[![Photograph of hardware wiring](./schematic.png)](./schematic.fzz)
+[![Photograph of hardware wiring](schematic.png)](schematic.fzz)
 
 #### Photon Boards
 
@@ -70,7 +70,7 @@ Flash each module with `firmware/firmware.cpp`.
 (`npm run flash` is a WIP script to flash every device listed in `devices.json`.)
 
 Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
-See [environment configuration documentation](./environment/README.md).
+See [environment configuration documentation](environment/README.md).
 
 Wire a set of NeoPixels to each Photon board. Optionally, wire a motion and temperature sensor.
 
@@ -86,7 +86,7 @@ Hardware: NeoPixel Ring (or equivalent WS2812 LEDs)
 |   PWR   |   3v   |
 |   GRN   | Ground |
 
-###### Temperature and humidity sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
+###### Temperature and humidity sensor pin configuration (optional, must be enabled in [environment configuration](environment/README.md))
 
 Hardware: [DHT11 (with breakout board)](https://smile.amazon.com/gp/product/B06XHJ1BPC)
 
@@ -96,7 +96,7 @@ Hardware: [DHT11 (with breakout board)](https://smile.amazon.com/gp/product/B06X
 |  +   |   3v   |
 |  -   | Ground |
 
-###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](./environment/README.md))
+###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](environment/README.md))
 
 Motion sensors enable detecting presence of room occupants in unreserved rooms,
 and setting the room status to "squatted" on the office map.
@@ -114,20 +114,20 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 git clone https://github.com/Nase00/gtfo.git && cd gtfo && npm install
 ```
 
-Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
+Before the application can be run, [read how to configure it to your specific office](environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
 
 ```
 # After environment files have been configured
 npm run hot --mocks
 ```
 
-This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
+This will start the application in development mode with [mock data](server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
 To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
 _Note that any service could be used in place of ems-wrapper, so long as the API is identical. Documentation on API contract coming soon._
 
 In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `environment/config.json`.
-See [environment configuration documentation](./environment/README.md).
+See [environment configuration documentation](environment/README.md).
 
 ##### Production build and deploy
 
@@ -164,7 +164,7 @@ The result of this ping is that Kerbin lights up on the client anchored to the e
 
 Some internal office networks restrict exposing ports for making HTTP requests. This would make it impossible, for instance, for an Echo lamdba service hosted on AWS to send a ping request to a GTFO server hosted on the office intranet. For these restricted networks, _[Acheron](https://github.com/Nase00/acheron)_ was created to be hosted externally (e.g., on a cloud service) to accept and forward pings to GTFO via a WebSocket connection.
 
-To avoid confusion, note that there are two distinct WebSocket services within GTFO. The [socket controller]('./server/controllers/socket') exists to _host_ a WebSocket server to which browser applications connect to as _clients_. The [proxy controller]('./server/controllers/proxy') controller exists to connect to the proxy _host_ where GTFO itself is considered the sole _client_.
+To avoid confusion, note that there are two distinct WebSocket services within GTFO. The [socket controller]('server/controllers/socket') exists to _host_ a WebSocket server to which browser applications connect to as _clients_. The [proxy controller]('server/controllers/proxy') controller exists to connect to the proxy _host_ where GTFO itself is considered the sole _client_.
 
 ## Development
 
