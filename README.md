@@ -70,7 +70,7 @@ Flash each module with `firmware/firmware.cpp`.
 (`npm run flash` is a WIP script to flash every device listed in `devices.json`.)
 
 Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
-See [environment configuration documentation](./environment/README.md).
+See [environment configuration documentation](https://github.com/Nase00/gtfo/blob/master/environment/README.md).
 
 Wire a set of NeoPixels to each Photon board. Optionally, wire a motion and temperature sensor.
 
@@ -114,14 +114,14 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 git clone https://github.com/Nase00/gtfo.git && cd gtfo && npm install
 ```
 
-Before the application can be run, [read how to configure it to your specific office](./environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
+Before the application can be run, [read how to configure it to your specific office](https://github.com/Nase00/gtfo/blob/master/environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
 
 ```
 # After environment files have been configured
 npm run hot --mocks
 ```
 
-This will start the application in development mode with [mock data](./server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
+This will start the application in development mode with [mock data](/server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
 To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
 _Note that any service could be used in place of ems-wrapper, so long as the API is identical. Documentation on API contract coming soon._
