@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Environment](/environment/README.md)
-  * [Environment Assets](/environment/assets/README.md "Environment Assets")
+  * [Assets](/environment/assets/README.md "Environment Assets")
 
 
 
