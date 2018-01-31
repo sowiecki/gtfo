@@ -10,14 +10,14 @@ const { devices } = require('../server/environment');
 
 const particle = new Particle();
 
-const FIRMATA_PATH = path.join(__dirname, './firmware.ino');
+const FIRMWARE_PATH = path.join(__dirname, './firmware.cpp');
 
 devices.forEach((device) => {
   const flash = particle.flashDevice({
     deviceId: device.deviceId,
     auth: device.deviceAuthToken,
     files: {
-      file1: FIRMATA_PATH
+      file1: FIRMWARE_PATH
     }
   });
 
