@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppContainer } from 'react-hot-loader';
 
+import AppContainer from 'components/common/app-container';
 import Routes from './routes';
 
 const Application = (

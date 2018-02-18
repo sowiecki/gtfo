@@ -122,7 +122,7 @@ export const rules = {
         },
 
         '.map-legend': {
-          margin: '0 auto 0 30%'
+          margin: '0 auto 0 45%'
         }
       },
 
@@ -132,7 +132,7 @@ export const rules = {
         },
 
         'text.room-text': {
-          fontSize: '14px',
+          fontSize: '14px'
         },
 
         'text.marker-text, text.restroom-marker': {
@@ -192,7 +192,7 @@ export const rules = {
       [devices.ipad]: {
         [layoutSelectors]: {
           top: '20px',
-          ...genWidthAndHeight(690),
+          ...genWidthAndHeight(690)
         },
 
         '.office-layout-container': {
