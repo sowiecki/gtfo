@@ -8,16 +8,15 @@ import { uniq } from 'lodash';
 import moment from 'moment';
 
 import { CONTRIB_TABLE_HEADERS } from '../constants';
-import { IS_TEST_ENV,
+import {
+  IS_TEST_ENV,
   titleOptions,
   guageOptions,
   logOptions,
   tableOptions,
-  markdownOptions } from '../config';
-import { getRoomStatusMessage,
-  genGuagePercentage,
-  logBoardReady,
-  formatDurationForDisplay } from '../utils';
+  markdownOptions
+} from '../config';
+import { getRoomStatusMessage, genGuagePercentage, formatDurationForDisplay } from '../utils';
 
 const screen = blessed.screen({ dockBorders: true });
 
@@ -62,9 +61,7 @@ const consoleController = {
 
       const alerts = uniq(rooms.map((room) => room.alert)).sort();
 
-      const meetingRoomsUtilization = alerts.map((alert) => (
-        genGuagePercentage(rooms, alert)
-      ));
+      const meetingRoomsUtilization = alerts.map((alert) => genGuagePercentage(rooms, alert));
 
       guage.setStack(meetingRoomsUtilization);
     }
@@ -90,37 +87,8 @@ const consoleController = {
     } else {
       log.log(colors[color](text), error);
     }
-  },
-
-  /**
-   * Logs board ready state.
-   * @param {object} board Board object.
-   * @param {object} room Room object.
-   * @returns {undefined}
-   */
-  logBoardReady(board, room) {
-    logBoardReady(board, room);
-  },
-
-  /**
-   * Logs board warnings.
-   * @params {object} data Warning object.
-   * @returns {undefined}
-   */
-  logBoardWarn({ message }) {
-    log.log(colors.bgYellow(message));
-  },
-
-  /**
-    * Logs board failures.
-    * @params {object} data Failure object.
-    * @returns {undefined}
-    */
-  logBoardFail({ message }) {
-    log.log(colors.bgRed(message));
   }
 };
-
 
 if (process.env.DONT_HOOK_CONSOLE || IS_TEST_ENV) {
   screen.destroy();

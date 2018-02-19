@@ -4,12 +4,14 @@ import colors from 'colors/safe';
 import { filter } from 'lodash';
 
 import { IS_TEST_ENV } from '../config';
-import { OFFLINE,
+import {
+  OFFLINE,
   STATUS_MESSAGES,
   GUAGE_COLORS,
   LOG_COLORS,
   ONLINE,
-  DISCONNECTED } from '../constants';
+  DISCONNECTED
+} from '../constants';
 
 /**
  * Logs individual room status.
@@ -24,14 +26,6 @@ export const getRoomStatusMessage = ({ name, alert, connectionStatus }) => {
 
   return [moduleStatus, name, colors[logColor].bold(message)];
 };
-
-/**
- * Logs board ready state.
- * @params {object} board Board object.
- * @returns {undefined}
- */
-export const logBoardReady = (board, room) =>
-  console.log(colors.grey.bgBlue(`Connected to ${board.id} for ${room.name}`));
 
 /**
  * Logs room reservation fetch failures.
@@ -64,9 +58,7 @@ export const logUnhandledMotionUpdate = ({ coreid }) => {
  * @returns {object}
  */
 export const genGuagePercentage = (rooms, alert) => {
-  const rawPercentage = filter(rooms, (room) => (
-    room.alert === alert
-  )).length / rooms.length;
+  const rawPercentage = filter(rooms, (room) => room.alert === alert).length / rooms.length;
 
   return {
     percent: Math.floor(rawPercentage * 100),
@@ -74,11 +66,12 @@ export const genGuagePercentage = (rooms, alert) => {
   };
 };
 
-export const formatDurationForDisplay = (duration) => [
-  `${duration.years()} years`,
-  `${duration.months()} months`,
-  `${duration.days()} days`,
-  `${duration.hours()} hours`,
-  `${duration.minutes()} minutes`,
-  `${duration.seconds()} seconds`
-].join(' ');
+export const formatDurationForDisplay = (duration) =>
+  [
+    `${duration.years()} years`,
+    `${duration.months()} months`,
+    `${duration.days()} days`,
+    `${duration.hours()} hours`,
+    `${duration.minutes()} minutes`,
+    `${duration.seconds()} seconds`
+  ].join(' ');

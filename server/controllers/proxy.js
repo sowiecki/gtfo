@@ -64,7 +64,7 @@ const proxyController = {
       },
 
       [UNDEFINED_EVENT]() {
-        consoleController.log(JSON.parse(data));
+        consoleController.log(`Undefined event ${eventHandler}`, JSON.parse(data));
       }
     };
 
