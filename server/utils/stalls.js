@@ -1,4 +1,4 @@
-import { SQUATTED, VACANT } from '../constants';
+import { STALL_TYPES, SQUATTED, VACANT } from '../constants';
 
 /**
  * Formats response from stalls API. Returns response if given as array.
@@ -35,7 +35,7 @@ export const formatStallsResponse = (stalls) => {
     const location = floor.Location;
 
     Object.keys(floor).forEach((prop) => {
-      if (prop === 'Location') {
+      if (!STALL_TYPES.includes(prop)) {
         return;
       }
 
