@@ -7,7 +7,6 @@ import { formatReservations, logfetchRoomReservationError } from '../utils';
 const fetchRoomReservation = (next) => {
   let body = '';
 
-  // Retrieve room reservation statuses from external service
   http
     .get(RESERVATIONS_URL, (response) => {
       response.on('data', (data) => {

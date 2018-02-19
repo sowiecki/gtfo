@@ -7,12 +7,17 @@ import * as urls from '../constants';
 import { formatStallsResponse, logFetchStallOccupanciesError } from '../utils';
 
 const fetchStallOccupancies = (next) => {
-  // Retrieve stall occupancies from external service
+  let body = '';
+
   http
     .get(urls.STALLS_URL, (response) => {
       response.on('data', (data) => {
+        body += data;
+      });
+
+      response.on('end', () => {
         try {
-          const stalls = JSON.parse(data.toString('utf8'));
+          const stalls = JSON.parse(body.toString('utf8'));
 
           next({
             type: EMIT_STALL_OCCUPANCIES_UPDATE,
