@@ -1,5 +1,5 @@
 /* globals window */
-const WEBSOCKET_PORT = 4001;
+import { WEBSOCKET_PORT } from './index';
 
 export const getSocketPort = () => {
   const { hostname } = window.location;

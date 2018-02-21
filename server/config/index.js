@@ -6,6 +6,8 @@ import { argv } from 'yargs';
 
 import { config } from '../environment';
 
+export * from '../../universal/config';
+
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -41,7 +43,6 @@ export const DEVICES_ENABLED = !process.env.DISABLE_DEVICES;
 export const PROXY_ENABLED = !!config.proxyHost;
 
 export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
-export const WEB_SOCKET_PORT = 4001;
 
 const ROOT = '../';
 export const PUBLIC_PATH = path.join(__dirname, ROOT, 'public');

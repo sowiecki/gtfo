@@ -5,7 +5,7 @@ import { get, filter, forEach } from 'lodash';
 import store from '../store';
 
 import { send, getFutureAlerts } from '../utils';
-import { WEB_SOCKET_PORT } from '../config';
+import { WEBSOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import {
   HANDSHAKE,
@@ -18,7 +18,7 @@ import {
   TIME_FORMAT
 } from '../constants';
 
-const wss = new WebSocket.Server({ port: WEB_SOCKET_PORT });
+const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
 
 /**
  * Host setup for web application WebSocket server.
