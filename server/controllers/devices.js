@@ -84,10 +84,14 @@ const devicesController = {
   },
 
   updateRoomModule(room) {
+    const deviceAuthToken = room.get('deviceAuthToken');
+
+    if (!deviceAuthToken) return;
+
     particle
       .callFunction({
         deviceId: room.get('deviceId'),
-        auth: room.get('deviceAuthToken'),
+        auth: deviceAuthToken,
         name: 'status',
         argument: room.get('alert')
       })

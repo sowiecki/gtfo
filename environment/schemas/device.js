@@ -15,5 +15,5 @@ export default {
       }
     }
   },
-  required: ['name', 'location', 'deviceId', 'deviceAuthToken']
+  required: ['name', 'location']
 };

@@ -194,3 +194,9 @@ npm run test # Lints and tests client, server, and universal code.
 --dhc # Disables consoleController's fancy terminal output, sometimes needed for debugging.
 --dd # Disables devices, useful for client testing without room module hardware.
 ```
+
+# Troubleshooting
+
+> Meeting room reservations aren't accurate
+
+Make sure your server's system timezone is set correctly. Reservation times are compared against the system time to determine room reservation statuses. Raspberry Pi defaults to GMT+0.
