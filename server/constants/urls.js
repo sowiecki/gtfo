@@ -1,6 +1,8 @@
 import { IS_PROD_ENV, SERVER_PORT } from '../config';
 
-const { prodReservationsHost, prodStallsHost, proxyHost } = require('../environment').config;
+import { config } from '../../environment';
+
+const { prodReservationsHost, prodStallsHost, proxyHost } = config;
 
 /**
  * Used when services are running locally, but as separate services.

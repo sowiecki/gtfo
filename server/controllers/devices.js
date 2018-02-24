@@ -11,7 +11,7 @@ import colors from 'colors';
 
 import consoleController from './console';
 import store from '../store';
-import { config } from '../environment';
+import { config } from '../../environment';
 import { shouldOverrideMotion, secureRooms, logUnhandledMotionUpdate } from '../utils';
 import { EMIT_INIT_SOCKETS } from '../ducks/clients';
 import {

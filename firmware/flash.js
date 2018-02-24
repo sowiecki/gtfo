@@ -6,7 +6,7 @@ require('babel-core/register');
 const Particle = require('particle-api-js');
 const path = require('path');
 const colors = require('colors');
-const { devices } = require('../server/environment');
+const { devices } = require('../environment');
 
 const particle = new Particle();
 

@@ -5,13 +5,9 @@ import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
 import { every, map, flatten } from 'lodash';
 
-import { devices } from '../environment';
-import { MOCK_DATA_FILE,
-  RESERVATIONS_PER_DAY,
-  START_OF_DAY } from './constants';
-import { randomMeetingDuration,
-  randomReservationGap,
-  generateMockReservation } from './utils';
+import { devices } from '../../environment';
+import { MOCK_DATA_FILE, RESERVATIONS_PER_DAY, START_OF_DAY } from './constants';
+import { randomMeetingDuration, randomReservationGap, generateMockReservation } from './utils';
 
 const roomNames = map(devices, (device) => device.name);
 
@@ -51,7 +47,9 @@ const getMockReservations = () => {
 
     if (lstatSync(MOCK_DATA_FILE).isFile()) {
       // Validate that each reservation is for today
-      const allReservations = flatten(map(mockReservations, (room) => map(room.schedule, 'startDate')));
+      const allReservations = flatten(
+        map(mockReservations, (room) => map(room.schedule, 'startDate'))
+      );
       const current = every(allReservations, (startDate) => {
         const isCurrent = moment().calendar(startDate, { sameDay: '[Today]' }) === 'Today';
 

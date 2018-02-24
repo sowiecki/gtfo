@@ -17,7 +17,7 @@ export const formatStallsResponse = (stalls) => {
   }
 
   // Will be used if stalls have no location key.
-  const DEFAULT_LOCATION = require('../environment').devices[0].location;
+  const DEFAULT_LOCATION = require('../../environment').devices[0].location;
 
   const formatSpace = (space) => {
     const firstChar = space.charAt(0).toUpperCase();

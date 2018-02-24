@@ -16,7 +16,7 @@ import {
   ROOM_EVENT,
   UNDEFINED_EVENT
 } from '../constants';
-import { config } from '../environment';
+import { config } from '../../environment';
 
 let interval;
 let webSocket;

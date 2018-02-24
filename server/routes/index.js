@@ -5,7 +5,7 @@ import pingsController from '../controllers/pings';
 import devicesController from '../controllers/devices';
 import applicationView from '../views/application';
 
-import { config } from '../environment';
+import { config } from '../../environment';
 import { IS_PROD_ENV } from '../config';
 import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
 

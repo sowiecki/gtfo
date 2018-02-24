@@ -8,7 +8,7 @@ import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
-import { devices, coordinates } from '../environment';
+import { devices, coordinates } from '../../environment';
 import {
   filterExpiredReservations,
   getRoomAlert,

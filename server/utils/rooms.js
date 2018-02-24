@@ -12,7 +12,7 @@ import {
   BOOKED,
   MOTION_GRACE_PERIOD
 } from '../constants';
-import { config } from '../environment';
+import { config } from '../../environment';
 
 /**
  * Gets alert based on reservation times.

@@ -2,9 +2,17 @@
 import path from 'path';
 import { readFileSync } from 'fs';
 
-import validator from '../environment/validation';
-import { FileValidationError } from './errors';
-import mockEnvironment from '../environment/mock';
+import validator from './validation';
+import mockEnvironment from './mock';
+
+class FileValidationError extends Error {
+  constructor(fileName) {
+    super(fileName);
+    this.name = this.constructor.name;
+    this.message = `Invalid ${fileName}.json!
+      \nCheck the documentation for how to create and correctly format ${fileName}.json.\n`;
+  }
+}
 
 const readFile = (fileName) => {
   const filePath = path.join('./environment', fileName);

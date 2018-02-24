@@ -4,7 +4,7 @@ import path from 'path';
 import colors from 'colors/safe';
 import { argv } from 'yargs';
 
-import { config } from '../environment';
+import { config } from '../../environment';
 
 export * from '../../universal/config';
 

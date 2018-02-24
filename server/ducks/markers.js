@@ -1,7 +1,7 @@
 /* eslint default-case:0 */
 import socketController from '../controllers/socket';
 
-import { markers } from '../environment';
+import { markers } from '../../environment';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 import { INITIALIZE_MARKERS } from '../constants';
 import { handleAction } from '../utils';
