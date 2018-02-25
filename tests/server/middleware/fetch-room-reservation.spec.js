@@ -4,10 +4,11 @@ import expect from 'expect';
 import sinon from 'sinon';
 
 import fetchRoomReservation from 'server/middleware/fetch-room-reservation';
-import { RESERVATIONS_URL } from 'server/constants';
+import { config } from '../../../environment';
 
 describe('fetchRoomReservation', () => {
   let spy;
+  const reservationsURL = `${config.reservations.host}${config.reservations.path}`;
 
   const mockNext = () => {};
   const mockAction = {
@@ -26,11 +27,11 @@ describe('fetchRoomReservation', () => {
     spy.restore();
   });
 
-  it(`should make an HTTP request to ${RESERVATIONS_URL}.`, (done) => {
+  it(`should make an HTTP request to ${reservationsURL}.`, (done) => {
     fetchRoomReservation(mockNext, mockAction);
 
     const urlCalled = spy.getCall(0).args[0];
-    const expectedUrl = `${RESERVATIONS_URL}`;
+    const expectedUrl = `${reservationsURL}`;
 
     expect(spy.called).toBe(true);
     expect(urlCalled).toBe(expectedUrl);

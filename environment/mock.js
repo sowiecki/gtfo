@@ -3,21 +3,24 @@
  * of trying to read JSON files while running tests.
  */
 
+import { SERVER_PORT } from '../server/config';
+
 export default {
   config: {
     public: {
-      enableMotion: true
+      enableMotion: true,
+      enableStalls: true
     },
-    prodReservationsHost: ''
-  },
-  devices: [
-    {
-      name: 'Odin',
-      location: 'Laythe'
+    reservations: {
+      host: `http://localhost:${SERVER_PORT}`,
+      path: '/mocks/meetingRoom/all'
+    },
+    stalls: {
+      host: `http://localhost:${SERVER_PORT}`,
+      path: '/mocks/stalls'
     }
-  ],
+  },
+  devices: [],
   markers: [],
-  coordinates: {
-    laythe: {}
-  }
+  coordinates: {}
 };

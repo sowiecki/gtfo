@@ -6,7 +6,7 @@ module.exports = {
         enableTemperature: false,
         enableStalls: false
       },
-      prodReservationsHost: 'http://localhost:8080'
+      reservationsHost: 'http://localhost:8080'
     }
   },
   'devices.json': {

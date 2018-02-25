@@ -18,11 +18,29 @@ export default {
           note: { type: 'string' }
         }
       },
-      prodReservationsHost: { type: 'string' },
-      prodStallsHost: { type: 'string' },
-      proxyHost: { type: 'string' }
+      proxy: {
+        properties: {
+          host: { type: 'string' },
+          path: { type: 'string' },
+          required: ['host']
+        }
+      },
+      reservations: {
+        properties: {
+          host: { type: 'string' },
+          path: { type: 'string' },
+          required: ['host', 'path']
+        }
+      },
+      stalls: {
+        properties: {
+          host: { type: 'string' },
+          path: { type: 'string' },
+          required: ['host', 'path']
+        }
+      }
     },
-    required: ['public', 'prodReservationsHost']
+    required: ['public', 'reservations']
   },
   devices: {
     title: 'Devices Schema',

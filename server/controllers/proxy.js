@@ -7,7 +7,6 @@ import pingsController from './pings';
 import consoleController from './console';
 import { send } from '../utils';
 import {
-  PROXY_HOST,
   WEBSOCKET_PROTOCOL,
   WEBSOCKET_RECONNECT_INTERVAL,
   HANDSHAKE,
@@ -26,8 +25,10 @@ let webSocket;
  */
 const proxyController = {
   initialize() {
+    if (!config.proxy) return;
+
     clearInterval(interval);
-    webSocket = new WebSocket(PROXY_HOST, WEBSOCKET_PROTOCOL);
+    webSocket = new WebSocket(config.proxy.host, WEBSOCKET_PROTOCOL);
 
     webSocket.onopen = this.handleSocketOpen;
     webSocket.onmessage = this.parseEvent;
