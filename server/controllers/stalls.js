@@ -6,7 +6,7 @@ import { STALLS_CHECK_INTERVAL } from '../constants';
 
 const stallsController = {
   initialize() {
-    if (!config.public.enableStalls) {
+    if (!config.public.enableStalls || !config.stalls) {
       return;
     }
 

@@ -4,11 +4,12 @@ import expect from 'expect';
 import sinon from 'sinon';
 
 import fetchRoomReservation from 'server/middleware/fetch-room-reservation';
+import { genURL } from 'server/utils';
 import { config } from '../../../environment';
 
 describe('fetchRoomReservation', () => {
   let spy;
-  const reservationsURL = `${config.reservations.host}${config.reservations.path}`;
+  const reservationsURL = genURL(config.reservations);
 
   const mockNext = () => {};
   const mockAction = {

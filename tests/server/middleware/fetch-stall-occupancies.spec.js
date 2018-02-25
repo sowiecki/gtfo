@@ -4,11 +4,12 @@ import expect from 'expect';
 import sinon from 'sinon';
 
 import fetchStallOccupancies from 'server/middleware/fetch-stall-occupancies';
+import { genURL } from 'server/utils';
 import { config } from '../../../environment';
 
 describe('fetchStallOccupancies', () => {
   let spy;
-  const stallsURL = `${config.stalls.host}${config.stalls.path}`;
+  const stallsURL = genURL(config.stalls);
 
   const mockNext = () => {};
 

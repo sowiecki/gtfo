@@ -6,7 +6,14 @@ module.exports = {
         enableTemperature: false,
         enableStalls: false
       },
-      reservationsHost: 'http://localhost:8080'
+      reservations: {
+        host: 'http://localhost:3000',
+        path: '/mocks/meetingRoom/all'
+      },
+      stalls: {
+        host: 'http://localhost:3000',
+        path: '/mocks/stalls'
+      }
     }
   },
   'devices.json': {

@@ -5,8 +5,6 @@ import { config } from '../../environment';
 import { formatStallsResponse, logFetchStallAPIError, genURL } from '../utils';
 
 const fetchStallOccupancies = (next) => {
-  if (!config.stalls) return;
-
   let body = '';
 
   http.get(genURL(config.stalls), (response) => {
