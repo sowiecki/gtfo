@@ -44,7 +44,7 @@ Example of a `config.json`:
     },
     "reservations": {
       "host": "http://heroku-app.com",
-      "path": "/your-hosted-ems-wrapper"
+      "path": "/your-hosted-ews-wrapper"
     },
     "stalls": {
       "host": "http://digitalocean.com",
