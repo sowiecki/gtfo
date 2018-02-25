@@ -29,14 +29,14 @@ export default {
         properties: {
           host: { type: 'string' },
           path: { type: 'string' },
-          required: ['host', 'path']
+          required: ['host']
         }
       },
       stalls: {
         properties: {
           host: { type: 'string' },
           path: { type: 'string' },
-          required: ['host', 'path']
+          required: ['host']
         }
       }
     },

@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import devicesController from './devices';
 import pingsController from './pings';
 import consoleController from './console';
-import { send } from '../utils';
+import { send, genURL } from '../utils';
 import {
   WEBSOCKET_PROTOCOL,
   WEBSOCKET_RECONNECT_INTERVAL,
@@ -28,7 +28,8 @@ const proxyController = {
     if (!config.proxy) return;
 
     clearInterval(interval);
-    webSocket = new WebSocket(config.proxy.host, WEBSOCKET_PROTOCOL);
+
+    webSocket = new WebSocket(genURL(config.proxy), WEBSOCKET_PROTOCOL);
 
     webSocket.onopen = this.handleSocketOpen;
     webSocket.onmessage = this.parseEvent;

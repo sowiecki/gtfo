@@ -42,9 +42,18 @@ Example of a `config.json`:
       "enableTemperature": true,
       "defaultTempScale": "fahrenheit"
     },
-    "reservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper",
-    "prodStallsHost": "http://digitalocean.com/your-hosted-stalls-service",
-    "proxyHost": "ws://digitalocean.com/your-hosted-proxy-instance"
+    "reservations": {
+      "host": "http://heroku-app.com",
+      "path": "/your-hosted-ems-wrapper"
+    },
+    "stalls": {
+      "host": "http://digitalocean.com",
+      "path": "/your-hosted-stalls-service"
+    },
+    "proxy": {
+      "host": "ws://digitalocean.com",
+      "path": "/your-hosted-proxy-instance"
+    }
   }
 }
 ```

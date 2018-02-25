@@ -2,15 +2,14 @@ import http from 'http';
 
 import { EMIT_STALL_OCCUPANCIES_UPDATE } from '../ducks/stalls';
 import { config } from '../../environment';
-import { formatStallsResponse, logFetchStallAPIError } from '../utils';
+import { formatStallsResponse, logFetchStallAPIError, genURL } from '../utils';
 
 const fetchStallOccupancies = (next) => {
   if (!config.stalls) return;
 
   let body = '';
-  const stallsURL = `${config.stalls.host}${config.stalls.path}`;
 
-  http.get(stallsURL, (response) => {
+  http.get(genURL(config.stalls), (response) => {
     response.on('data', (data) => {
       body += data;
     });

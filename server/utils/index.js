@@ -1,4 +1,5 @@
 export * from '../../universal/utils';
+export * from './api';
 export * from './logging';
 export * from './reservations';
 export * from './rooms';

@@ -2,13 +2,12 @@ import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import { config } from '../../environment';
-import { formatReservations, logFetchReservationsAPIError } from '../utils';
+import { formatReservations, logFetchReservationsAPIError, genURL } from '../utils';
 
 const fetchRoomReservation = (next) => {
   let body = '';
-  const reservationsURL = `${config.reservations.host}${config.reservations.path}`;
 
-  http.get(reservationsURL, (response) => {
+  http.get(genURL(config.reservations), (response) => {
     response.on('data', (data) => {
       body += data;
     });
