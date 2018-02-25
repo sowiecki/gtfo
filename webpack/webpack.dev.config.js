@@ -9,6 +9,6 @@ module.exports = {
   resolve: base.resolve,
   plugins: [new webpack.optimize.OccurenceOrderPlugin(), new webpack.NoErrorsPlugin()],
   module: base.module,
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   debug: true
 };

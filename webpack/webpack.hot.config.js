@@ -21,6 +21,6 @@ module.exports = {
     })
   ],
   module: base.module,
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   externals: base.externals
 };

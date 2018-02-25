@@ -1,12 +1,8 @@
 import React from 'react';
 
-import AppContainer from 'components/common/app-container';
+import { hot } from 'react-hot-loader';
 import Routes from './routes';
 
-const Application = (
-  <AppContainer>
-    <Routes/>
-  </AppContainer>
-);
+const Application = () => <Routes/>;
 
-export default Application;
+export default hot(module)(Application);
