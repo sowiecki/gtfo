@@ -37,7 +37,6 @@ export const rules = {
 
     'text.room-text, text.temperature-text': {
       zIndex: 200,
-      fontSize: '6px',
       fontFamily: fonts.quaternary,
       fontWeight: 400,
       textShadow: `${colors.GREY} 0px 0px 0px`,
@@ -46,10 +45,10 @@ export const rules = {
     },
 
     'text.temperature-text': {
-      fontSize: '4px',
+      fontSize: '10px',
       fontFamily: fonts.secondary,
       opacity: 0.85,
-      transform: `${svgLabelBaseTransform} translate(10px, -34px)`
+      transform: `${svgLabelBaseTransform} translate(18px, -28px)`
     },
 
     'text.marker-text': {
@@ -184,7 +183,7 @@ export const rules = {
         },
 
         'text.temperature-text': {
-          fontSize: '6px',
+          // fontSize: '6px',
           transform: `${svgLabelBaseTransform} translate(8px, -34px)`
         }
       },
