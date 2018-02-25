@@ -90,11 +90,7 @@ class LayoutController extends Component {
   }
 
   render() {
-    const { meetingRooms,
-      displayLegend,
-      location,
-      enableMotion,
-      enableStalls } = this.props;
+    const { meetingRooms, displayLegend, location, enableMotion, enableStalls } = this.props;
     const locationKeys = pluckLocations(meetingRooms);
 
     const renderLocation = (locationKey, index) => (

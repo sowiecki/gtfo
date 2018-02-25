@@ -8,14 +8,16 @@ import Stall from './stall';
 import Marker from './marker';
 
 const Location = (props) => {
-  const { meetingRooms,
+  const {
+    meetingRooms,
     stalls,
     markers,
     ping,
     displayTemp,
     unitOfTemp,
     location,
-    locationKey } = props;
+    locationKey
+  } = props;
 
   const filteredMeetingRooms = filterByLocation(meetingRooms, locationKey);
   const filteredStalls = filterByLocation(stalls, locationKey);
@@ -37,9 +39,7 @@ const Location = (props) => {
       youAreHere={youAreHere(marker, location)}/>
   );
 
-  const renderStall = (stall, index) => (
-    <Stall key={index} {...stall}/>
-  );
+  const renderStall = (stall, index) => <Stall key={index} {...stall}/>;
 
   return (
     <div key={locationKey} className='office-layout-container'>
