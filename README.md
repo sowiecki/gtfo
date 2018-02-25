@@ -123,17 +123,17 @@ npm run hot --mocks
 
 This will start the application in development mode with [mock data](server/mocks/README.md), [hot-reloading](https://github.com/gaearon/react-transform-boilerplate), and [Redux DevTools](https://github.com/gaearon/redux-devtools). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
-To develop with live data, set up and run [ems-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
-_Note that any service could be used in place of ems-wrapper, so long as the API is identical. Documentation on API contract coming soon._
+To develop with live data, set up and run [ews-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
+_Note that any service could be used in place of ews-wrapper, so long as the API is identical. Documentation on API contract coming soon._
 
-In production mode, it assumed `ems-wrapper` is deployed on another domain, defined in `environment/config.json`.
+In production mode, it assumed `ews-wrapper` is deployed on another domain, defined in `environment/config.json`.
 See [environment configuration documentation](environment/README.md).
 
 ##### Production build and deploy
 
 ```bash
 npm install --production # Several dev dependencies are not Raspberry Pi compatible.
-npm run prod # Production mode with live data. ems-wrapper or an equivalent service must be deployed and defined in environment/config.json!
+npm run prod # Production mode with live data. ews-wrapper or an equivalent service must be deployed and defined in environment/config.json!
 ```
 
 ### Ping API

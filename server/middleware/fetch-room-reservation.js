@@ -1,19 +1,19 @@
 import http from 'http';
 
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
-import { RESERVATIONS_URL } from '../constants';
-import { formatReservations, logfetchRoomReservationError } from '../utils';
+import { config } from '../../environment';
+import { formatReservations, logFetchReservationsAPIError, genURL } from '../utils';
 
 const fetchRoomReservation = (next) => {
   let body = '';
 
-  http
-    .get(RESERVATIONS_URL, (response) => {
-      response.on('data', (data) => {
-        body += data;
-      });
+  http.get(genURL(config.reservations), (response) => {
+    response.on('data', (data) => {
+      body += data;
+    });
 
-      response.on('end', () => {
+    response.on('end', () => {
+      try {
         const parsedData = JSON.parse(body.toString('utf8'));
         const reservations = formatReservations(parsedData);
 
@@ -21,9 +21,12 @@ const fetchRoomReservation = (next) => {
           type: EMIT_RESERVATIONS_UPDATE,
           reservations
         });
-      });
-    })
-    .on('error', logfetchRoomReservationError);
+      } catch (e) {
+        // Most likely cause of failure is error parsing response
+        logFetchReservationsAPIError(e);
+      }
+    });
+  });
 };
 
 export default fetchRoomReservation;

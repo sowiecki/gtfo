@@ -38,11 +38,21 @@ export const logfetchRoomReservationError = ({ code, message }) => {
 };
 
 /**
+ * Logs reservations fetch failures.
+ * @params {object} data Failure object.
+ * @returns {undefined}
+ */
+export const logFetchReservationsAPIError = ({ code, message }) => {
+  if (IS_TEST_ENV) return;
+  console.error('Error fetching or parsing reservations.', code, message);
+};
+
+/**
  * Logs stall occupancy fetch failures.
  * @params {object} data Failure object.
  * @returns {undefined}
  */
-export const logFetchStallOccupanciesError = ({ code, message }) => {
+export const logFetchStallAPIError = ({ code, message }) => {
   if (IS_TEST_ENV) return;
   console.error('Error fetching or parsing stall occupancies.', code, message);
 };

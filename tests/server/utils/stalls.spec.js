@@ -46,11 +46,11 @@ describe('Stalls utilities (server)', () => {
   };
 
   describe('formatStallsResponse', () => {
-    it('should format a stalls response object into desired format.', () => {
+    it('should format a stalls response object into desired format', () => {
       expect(formatStallsResponse(mockStallsObject)).toEqual(mockStallsArray);
     });
 
-    it('should pass through a stalls response array with no modification.', () => {
+    it('should pass through a stalls response array with no modification', () => {
       expect(formatStallsResponse(mockStallsArray)).toEqual(mockStallsArray);
     });
   });

@@ -14,6 +14,8 @@ const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
  * @returns {string} Path of location backdrop asset.
  */
 export const getLocationBackdrop = (location) => {
+  // if (!location) return;
+
   const backdrops = require.context('../../environment/assets/', true, /^\.\/.*\.png$/);
 
   try {
@@ -60,14 +62,16 @@ export const filterByLocation = (collection, location) => {
  * @param {string} name Name in hyphenated slug form.
  * @returns {string} Formatted name.
  */
-export const formatForDisplay = (name) => (
-  name.split(/-/).map((word) => {
-    const firstCharacter = word.charAt(0).toUpperCase();
-    const restOfWord = word.slice(1);
+export const formatForDisplay = (name) =>
+  name
+    .split(/-/)
+    .map((word) => {
+      const firstCharacter = word.charAt(0).toUpperCase();
+      const restOfWord = word.slice(1);
 
-    return `${firstCharacter}${restOfWord}`;
-  }).join(' ')
-);
+      return `${firstCharacter}${restOfWord}`;
+    })
+    .join(' ');
 
 /**
  * Plucks locations from a collection of rooms.

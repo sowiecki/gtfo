@@ -3,7 +3,7 @@ import immutable from 'immutable';
 
 import socketController from '../controllers/socket';
 
-import { coordinates } from '../environment';
+import { coordinates } from '../../environment';
 import { EMIT_CLIENT_CONNECTED } from './clients';
 import { INITIALIZE_STALLS, STALL_OCCUPANCIES_UPDATE } from '../constants';
 import { handleAction } from '../utils';
@@ -40,7 +40,7 @@ const clientsReducer = (state = initialState, action) => {
       socketController.handle(STALL_OCCUPANCIES_UPDATE, stalls);
 
       return state.set('stalls', stalls);
-    },
+    }
   };
 
   return handleAction(state, action, reducers);

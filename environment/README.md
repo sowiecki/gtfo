@@ -13,18 +13,23 @@ All user-configurated files are (and should remain) gitignored to prevent privat
 
 General configuration.
 
-| Parameter            | Description                                 | Required? | Default |
-| -------------------- | ------------------------------------------- | --------- | ------- |
-| id                   | Identifier for pings proxy                  | No        |         |
-| public               | Configurations passed to client (insecure!) | Yes       |         |
-| - title              | Page title to display on client             | No        |         |
-| - enableTemperature  | Enables (experimental) temperature readings | No        |         |
-| - enableMotion       | Enables (experimental) motion readings      | No        |         |
-| - defaultTempScale   | Must be either 'celcius' or 'fahrenheit'    | No        |         |
-| - note               | Note to be displayed in sidebar             | No        |         |
-| prodReservationsHost | URL of hosted ems_wrapper instance          | Yes       |         |
-| prodStallsHost       | URL of hosted stalls service instance       | Yes       |         |
-| proxyHost            | URL of hosted proxy instance                | no        |         |
+| Parameter           | Description                                 | Required? | Default |
+| ------------------- | ------------------------------------------- | --------- | ------- |
+| id                  | Identifier for pings proxy                  | No        |         |
+| public              | Configurations passed to client (insecure!) | Yes       |         |
+| - title             | Page title to display on client             | No        |         |
+| - enableTemperature | Enables (experimental) temperature readings | No        |         |
+| - enableMotion      | Enables (experimental) motion readings      | No        |         |
+| - defaultTempScale  | Must be either 'celcius' or 'fahrenheit'    | No        |         |
+| - note              | Note to be displayed in sidebar             | No        |         |
+| reservations        | Reservations API properties                 | Yes       |         |
+| - host              | Reservations service host                   | Yes       |         |
+| - path              | Reservations service API path               | Yes       |         |
+| stalls              | Stalls API properties                       | No        |         |
+| - host              | Stalls service host                         | Yes       |         |
+| - path              | Stalls service API path                     | Yes       |         |
+| proxy               | Proxy API properties                        | No        |         |
+| - host              | Proxy service host                          | Yes       |         |
 
 Example of a `config.json`:
 
@@ -37,9 +42,18 @@ Example of a `config.json`:
       "enableTemperature": true,
       "defaultTempScale": "fahrenheit"
     },
-    "prodReservationsHost": "http://heroku-app.com/your-hosted-ems-wrapper",
-    "prodStallsHost": "http://digitalocean.com/your-hosted-stalls-service",
-    "proxyHost": "ws://digitalocean.com/your-hosted-proxy-instance"
+    "reservations": {
+      "host": "http://heroku-app.com",
+      "path": "/your-hosted-ews-wrapper"
+    },
+    "stalls": {
+      "host": "http://digitalocean.com",
+      "path": "/your-hosted-stalls-service"
+    },
+    "proxy": {
+      "host": "ws://digitalocean.com",
+      "path": "/your-hosted-proxy-instance"
+    }
   }
 }
 ```

@@ -5,9 +5,8 @@ import { get } from 'lodash';
 import devicesController from './devices';
 import pingsController from './pings';
 import consoleController from './console';
-import { send } from '../utils';
+import { send, genURL } from '../utils';
 import {
-  PROXY_HOST,
   WEBSOCKET_PROTOCOL,
   WEBSOCKET_RECONNECT_INTERVAL,
   HANDSHAKE,
@@ -16,7 +15,7 @@ import {
   ROOM_EVENT,
   UNDEFINED_EVENT
 } from '../constants';
-import { config } from '../environment';
+import { config } from '../../environment';
 
 let interval;
 let webSocket;
@@ -26,8 +25,11 @@ let webSocket;
  */
 const proxyController = {
   initialize() {
+    if (!config.proxy) return;
+
     clearInterval(interval);
-    webSocket = new WebSocket(PROXY_HOST, WEBSOCKET_PROTOCOL);
+
+    webSocket = new WebSocket(genURL(config.proxy), WEBSOCKET_PROTOCOL);
 
     webSocket.onopen = this.handleSocketOpen;
     webSocket.onmessage = this.parseEvent;

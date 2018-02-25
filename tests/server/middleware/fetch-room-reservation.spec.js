@@ -4,36 +4,32 @@ import expect from 'expect';
 import sinon from 'sinon';
 
 import fetchRoomReservation from 'server/middleware/fetch-room-reservation';
-import { RESERVATIONS_URL } from 'server/constants';
+import { genURL } from 'server/utils';
+import { config } from '../../../environment';
 
 describe('fetchRoomReservation', () => {
-  let spy;
+  let stub;
+  const reservationsURL = genURL(config.reservations);
 
   const mockNext = () => {};
-  const mockAction = {
-    room: {
-      id: 'Castle Black'
-    }
-  };
 
   beforeEach((done) => {
-    spy = sinon.spy(http, 'get');
+    stub = sinon.stub(http, 'get');
 
     done();
   });
 
   afterEach(() => {
-    spy.restore();
+    stub.restore();
   });
 
-  it(`should make an HTTP request to ${RESERVATIONS_URL}.`, (done) => {
-    fetchRoomReservation(mockNext, mockAction);
+  it(`should make an HTTP request to ${reservationsURL}.`, (done) => {
+    fetchRoomReservation(mockNext);
 
-    const urlCalled = spy.getCall(0).args[0];
-    const expectedUrl = `${RESERVATIONS_URL}`;
+    const urlCalled = stub.getCall(0).args[0];
 
-    expect(spy.called).toBe(true);
-    expect(urlCalled).toBe(expectedUrl);
+    expect(stub.called).toBe(true);
+    expect(urlCalled).toBe(reservationsURL);
 
     done();
   });

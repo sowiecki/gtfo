@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
 
-import { PROXY_ENABLED, SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
+import { SERVER_PORT, PUBLIC_PATH, VIEWS_PATH } from './config';
 import routes from './routes';
 import proxyController from './controllers/proxy';
 import devicesController from './controllers/devices';
@@ -61,9 +61,7 @@ const app = server.listen(SERVER_PORT, (err) => {
 
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
-  if (PROXY_ENABLED) {
-    proxyController.initialize();
-  }
+  proxyController.initialize();
   consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();

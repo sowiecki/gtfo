@@ -1,10 +1,19 @@
 /* eslint array-callback-return:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
+import { merge } from 'lodash';
 
-import validator from '../environment/validation';
-import { FileValidationError } from './errors';
-import mockEnvironment from '../environment/mock';
+import validator from './validation';
+import mockEnvironment from './mock';
+
+class FileValidationError extends Error {
+  constructor(fileName) {
+    super(fileName);
+    this.name = this.constructor.name;
+    this.message = `Invalid ${fileName}.json!
+      \nCheck the documentation for how to create and correctly format ${fileName}.json.\n`;
+  }
+}
 
 const readFile = (fileName) => {
   const filePath = path.join('./environment', fileName);
@@ -46,7 +55,13 @@ const getEnvironment = () => {
     throw new FileValidationError('coordinates');
   }
 
-  return { config, devices, markers, coordinates };
+  const environment = { config, devices, markers, coordinates };
+
+  if (process.env.MOCKS) {
+    return merge(environment, mockEnvironment);
+  }
+
+  return environment;
 };
 
 export const { config, devices, markers, coordinates } = getEnvironment();

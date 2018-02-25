@@ -5,24 +5,18 @@ import pingsController from '../controllers/pings';
 import devicesController from '../controllers/devices';
 import applicationView from '../views/application';
 
-import { config } from '../environment';
-import { IS_PROD_ENV } from '../config';
-import { MOCK_RESERVATIONS_API, MOCK_STALLS_API } from '../constants';
+import { config } from '../../environment';
 
 const router = express.Router();
 
-if (config.public.enableStalls || !IS_PROD_ENV) {
+if (process.env.MOCKS) {
   const mockServices = require('../controllers/mocks').default;
 
   const respondWithMockedStalls = (res, req) => mockServices.stalls(req, res);
+  const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
 
-  router.get(MOCK_STALLS_API, respondWithMockedStalls);
-
-  if (process.env.MOCKS) {
-    const respondWithMockedRoom = (res, req) => mockServices.reservationsByRoom(req, res);
-
-    router.get(MOCK_RESERVATIONS_API, respondWithMockedRoom);
-  }
+  router.get(config.reservations.path, respondWithMockedRoom);
+  router.get(config.stalls.path, respondWithMockedStalls);
 }
 
 router.get('/api/reservations', (req, res) => devicesController.getReservations(req, res));
