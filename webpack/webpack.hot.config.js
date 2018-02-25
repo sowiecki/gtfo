@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 
 module.exports = {
+  mode: 'development',
   context: base.context,
   entry: {
     app: [

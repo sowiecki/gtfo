@@ -3,25 +3,20 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 
 module.exports = {
+  mode: 'production',
   context: base.context,
   entry: base.entry,
   output: base.output,
   resolve: base.resolve,
   module: base.module,
+  optimization: {
+    minimize: true
+  },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      output: {
-        comments: false
-      },
-      compressor: {
-        warnings: false
       }
     })
   ],
