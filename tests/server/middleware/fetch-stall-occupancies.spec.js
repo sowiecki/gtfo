@@ -14,7 +14,7 @@ describe('fetchStallOccupancies', () => {
   const mockNext = () => {};
 
   beforeEach((done) => {
-    spy = sinon.spy(http, 'get');
+    spy = sinon.stub(http, 'get');
 
     done();
   });

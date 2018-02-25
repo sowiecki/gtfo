@@ -12,14 +12,9 @@ describe('fetchRoomReservation', () => {
   const reservationsURL = genURL(config.reservations);
 
   const mockNext = () => {};
-  const mockAction = {
-    room: {
-      id: 'Castle Black'
-    }
-  };
 
   beforeEach((done) => {
-    spy = sinon.spy(http, 'get');
+    spy = sinon.stub(http, 'get');
 
     done();
   });
@@ -29,13 +24,12 @@ describe('fetchRoomReservation', () => {
   });
 
   it(`should make an HTTP request to ${reservationsURL}.`, (done) => {
-    fetchRoomReservation(mockNext, mockAction);
+    fetchRoomReservation(mockNext);
 
     const urlCalled = spy.getCall(0).args[0];
-    const expectedUrl = `${reservationsURL}`;
 
     expect(spy.called).toBe(true);
-    expect(urlCalled).toBe(expectedUrl);
+    expect(urlCalled).toBe(reservationsURL);
 
     done();
   });

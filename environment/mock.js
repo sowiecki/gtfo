@@ -20,7 +20,12 @@ export default {
       path: '/mocks/stalls'
     }
   },
-  devices: [],
+  devices: [
+    {
+      name: '',
+      location: ''
+    }
+  ],
   markers: [],
   coordinates: {}
 };
