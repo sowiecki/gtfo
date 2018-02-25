@@ -39,15 +39,18 @@ const socketController = {
     wss.on('connection', (client) => {
       socketController.send(event, payload, client); // Initialize with config
 
+      const handleClientDisconnect = () => {
+        store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
+      };
+
       client.on('message', (data) => {
         const message = JSON.parse(data);
 
         socketController.handle(message.event, message.payload, client);
       });
 
-      client.on('close', () => {
-        store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
-      });
+      client.on('close', handleClientDisconnect);
+      client.on('error', handleClientDisconnect);
     });
   },
 
