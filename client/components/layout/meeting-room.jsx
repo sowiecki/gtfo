@@ -7,22 +7,20 @@ import { applyStyles } from 'config/composition';
 import { parsePosition, parseShape } from 'utils';
 
 import Temperature from './temperature';
-import { STATUS_COLORS,
-  PING_ANIMATION_LOOPS,
-  PING_ANIMATION_TIMEOUT } from '../../constants';
-import { styles,
-  ROOM_NAME_TEXT_DX,
-  ROOM_NAME_TEXT_DY } from './styles';
+import { STATUS_COLORS, PING_ANIMATION_LOOPS, PING_ANIMATION_TIMEOUT } from '../../constants';
+import { styles, ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from './styles';
 
 const MeetingRoom = (props) => {
-  const { name,
+  const {
+    name,
     coordinates,
     alert,
     thermo,
     unitOfTemp,
     displayTemp,
     pinged,
-    connectionStatus } = props;
+    connectionStatus
+  } = props;
 
   const pingAnimation = {
     fill: STATUS_COLORS.PINGED,
@@ -32,19 +30,13 @@ const MeetingRoom = (props) => {
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
 
   const temperature = displayTemp ? (
-    <Temperature
-      thermo={thermo}
-      unitOfTemp={unitOfTemp}
-      coordinates={coordinates}/>
+    <Temperature thermo={thermo} unitOfTemp={unitOfTemp} coordinates={coordinates}/>
   ) : null;
 
   return (
     <svg {...parsePosition(coordinates)}>
-      <VelocityComponent
-        animation={{ fill: STATUS_COLORS[alert] }}>
-        <rect
-          style={styles.svgRect}
-          {...parseShape(coordinates)}/>
+      <VelocityComponent animation={{ fill: STATUS_COLORS[alert] }}>
+        <rect style={styles.svgRect} {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}

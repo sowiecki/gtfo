@@ -31,10 +31,7 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion, enableStalls }) => {
   ) : null;
 
   const getIcon = (style) => (
-    <Avatar
-      className='map-legend-icon'
-      style={styles.mapLegendIcon}
-      backgroundColor={style}/>
+    <Avatar className='map-legend-icon' style={styles.mapLegendIcon} backgroundColor={style}/>
   );
 
   return (
@@ -45,47 +42,49 @@ const MapLegend = ({ showYouAreHere, enabled, enableMotion, enableStalls }) => {
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.OFFLINE)}>
-            Offline
+          Offline
         </ListItem>
         <ListItem
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.BOOKED)}>
-            Booked
+          Booked
         </ListItem>
-        {enableMotion || enableStalls ? [
-          <ListItem
-            key='squatted'
-            style={styles.mapLegendItem}
-            disabled={true}
-            leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
-              Squatted
-          </ListItem>,
-          <ListItem
-            key='abandonded'
-            style={styles.mapLegendItem}
-            disabled={true}
-            leftAvatar={getIcon(STATUS_COLORS.ABANDONED)}>
-              Abandoned
-          </ListItem>
-        ] : null}
+        {enableMotion || enableStalls
+          ? [
+            <ListItem
+              key='squatted'
+              style={styles.mapLegendItem}
+              disabled={true}
+              leftAvatar={getIcon(STATUS_COLORS.SQUATTED)}>
+                Squatted
+            </ListItem>,
+            <ListItem
+              key='abandonded'
+              style={styles.mapLegendItem}
+              disabled={true}
+              leftAvatar={getIcon(STATUS_COLORS.ABANDONED)}>
+                Abandoned
+            </ListItem>
+          ]
+          : null}
         <ListItem
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.VACANT)}>
-            Vacant
+          Vacant
         </ListItem>
         <ListItem
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)}>
-            Five minute warning
+          Five minute warning
         </ListItem>
         <ListItem
           style={styles.mapLegendItem}
           disabled={true}
           leftAvatar={getIcon(STATUS_COLORS.ONE_MINUTE_WARNING)}>
-            One minute warning
+          One minute warning
         </ListItem>
       </List>
     </div>

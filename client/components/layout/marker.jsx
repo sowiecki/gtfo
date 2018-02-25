@@ -10,11 +10,12 @@ import { styles, ROOM_NAME_TEXT_DX, MARKER_ROOM_NAME_TEXT_DY } from './styles';
 
 const Marker = ({ marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
-  const locationHighlight = youAreHere && isAnchor ? (
-    <svg className='you-are-here' {...styles.locationHighlight}>
-      <Place style={styles.placeMarker}/>
-    </svg>
-  ) : null;
+  const locationHighlight =
+    youAreHere && isAnchor ? (
+      <svg className='you-are-here' {...styles.locationHighlight}>
+        <Place style={styles.placeMarker}/>
+      </svg>
+    ) : null;
 
   return (
     <svg {...parsePosition(marker.coordinates)}>
@@ -36,7 +37,7 @@ Marker.propTypes = {
     coordinates: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired
-    }).isRequired,
+    }).isRequired
   }).isRequired,
   youAreHere: PropTypes.bool
 };
