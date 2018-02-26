@@ -17,7 +17,7 @@ const clientsReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_INIT_SOCKETS]() {
       const { config, overrides } = action;
-      const configWithOverrides = { ...config.publicConfig, ...overrides };
+      const configWithOverrides = { ...config.public, ...overrides };
 
       socketController.open(HANDSHAKE, configWithOverrides);
 
