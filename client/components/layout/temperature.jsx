@@ -33,8 +33,8 @@ const Temperature = (props) => {
 Temperature.propTypes = {
   coordinates: PropTypes.object.isRequired,
   thermo: PropTypes.shape({
-    f: PropTypes.string,
-    c: PropTypes.string
+    f: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    c: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }),
   unitOfTemp: PropTypes.string.isRequired
 };

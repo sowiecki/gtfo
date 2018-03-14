@@ -3,7 +3,9 @@ import { formatStallsResponse } from '../utils';
 const mockStallOccupancies = {
   statuses: {
     51: {
-      Location: 'two-prudential-51',
+      Location: {
+        name: 'two-prudential-51'
+      },
       Men: {
         spaces: {
           'stall 1': {

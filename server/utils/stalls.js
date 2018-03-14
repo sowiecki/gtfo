@@ -29,7 +29,7 @@ export const formatStallsResponse = (stalls) => {
 
   Object.keys(statuses).forEach((status) => {
     const floor = statuses[status];
-    const location = floor.Location;
+    const location = floor.Location.name;
 
     Object.keys(floor).forEach((prop) => {
       if (!STALL_TYPES.includes(prop)) {
