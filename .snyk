@@ -1,4 +1,6 @@
-version: v1.5.2
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:unicode:20161219':
     - slug > unicode:
@@ -8,6 +10,7 @@ ignore:
     - blessed-contrib > marked:
         reason: None given
         expires: '2017-03-02T02:19:58.429Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - johnny-five > serialport > node-pre-gyp > tar-pack > fstream > rimraf > glob > minimatch:
@@ -62,3 +65,28 @@ patch:
   'npm:marked:20170112':
     - blessed-contrib > marked:
         patched: '2017-04-06T18:00:59.457Z'
+  'npm:hoek:20180212':
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > sntp > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > hawk > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > request > hawk > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > hawk > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > request > hawk > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > hawk > boom > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > request > hawk > sntp > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
+    - node-pre-gyp > hawk > sntp > hoek:
+        patched: '2018-07-19T20:35:04.299Z'
