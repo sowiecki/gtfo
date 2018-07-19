@@ -7,7 +7,7 @@ import { FETCH_ROOM_RESERVATIONS, EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms
 import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';
 import { NEW_ROOM_PING } from '../constants';
 
-export default () => (next) => (action) => {
+export default (state) => (next) => (action) => {
   const handlers = {
     [FETCH_ROOM_RESERVATIONS]() {
       fetchRoomReservation(next, action);
@@ -18,7 +18,7 @@ export default () => (next) => (action) => {
     },
 
     [EMIT_ROOM_PING_RECEIVED]() {
-      socketController.handle(NEW_ROOM_PING, action.ping);
+      socketController.handle(NEW_ROOM_PING, { clients: state.clients, ping: action.ping });
     }
   };
 

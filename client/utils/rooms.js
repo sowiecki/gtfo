@@ -81,19 +81,6 @@ export const formatForDisplay = (name) =>
 export const pluckLocations = (rooms) => uniq(map(rooms, 'location'));
 
 /**
- * DEPRECATED
- * Gets anchor from state store.
- * @param {object} store State store.
- * @returns {string} Parsed anchor parameter.
- */
-export const getAnchorFromStore = (store) => {
-  const search = get(store.getState(), 'routeReducer.location.search');
-  const { anchor } = queryString.parse(search);
-
-  return anchor || '';
-};
-
-/**
  * Checks if anchor query parameter exists.
  * @param {object} Query params.
  * @returns {bool} True is query anchor is defined.

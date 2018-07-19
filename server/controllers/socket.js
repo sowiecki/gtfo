@@ -24,12 +24,6 @@ const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
  * Host setup for web application WebSocket server.
  */
 const socketController = {
-  getClients() {
-    const { clients } = store.getState().clientsReducer.toJS();
-
-    return clients;
-  },
-
   /**
    * Sets up and initializes socket connection with client.
    * @params{string} event Event constant for initial communication with client.
@@ -92,8 +86,7 @@ const socketController = {
 
       [NEW_ROOM_PING]() {
         // Send ping to clients with matching anchor parameter.
-        const clients = socketController.getClients();
-        const clientsWithAnchor = filter(clients, { anchor: payload.anchor });
+        const clientsWithAnchor = filter(payload.clients, { anchor: payload.anchor });
 
         forEach(clientsWithAnchor, (clientWithAnchor) => {
           socketController.send(event, payload, clientWithAnchor);
@@ -108,9 +101,7 @@ const socketController = {
       },
 
       sendToAll() {
-        const clients = socketController.getClients();
-
-        forEach(clients, (ws) => {
+        forEach(payload.clients, (ws) => {
           socketController.send(event, payload, ws);
         });
       }

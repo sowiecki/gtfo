@@ -15,7 +15,10 @@ describe('Stalls utilities (server)', () => {
   const mockStallsObject = {
     statuses: {
       51: {
-        Location: 'duna-3',
+        Location: {
+          meta: true,
+          name: 'duna-3'
+        },
         Men: {
           spaces: {
             'stall 1': {

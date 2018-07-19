@@ -3,15 +3,16 @@
 import expect from 'expect';
 import { forEach } from 'lodash';
 
-import { getPathname,
+import {
+  getPathname,
   filterByLocation,
   formatForDisplay,
   pluckLocations,
-  getAnchorFromStore,
   youAreHere,
   hasAnchor,
   genWidthAndHeight,
-  getLocationIndex } from 'utils';
+  getLocationIndex
+} from 'utils';
 
 describe('Room utilities (client)', () => {
   const meetingRooms = [
@@ -69,40 +70,9 @@ describe('Room utilities (client)', () => {
 
   describe('pluckLocations', () => {
     it('should return a set of locations from a collection of rooms.', () => {
-      const result = [
-        'Winterfell',
-        'King\'s Landing',
-        'Mole\'s Town',
-        'Asshai'
-      ];
+      const result = ['Winterfell', 'King\'s Landing', 'Mole\'s Town', 'Asshai'];
 
       expect(pluckLocations(meetingRooms)).toEqual(result);
-    });
-  });
-
-  describe('getAnchorFromStore', () => {
-    const mockReducers = {
-      routeReducer: {
-        location: {
-          search: '?anchor=example-anchor'
-        }
-      }
-    };
-
-    const mockStore = {
-      getState() {
-        return mockReducers;
-      }
-    };
-
-    it('should return the anchor from a Redux store.', () => {
-      expect(getAnchorFromStore(mockStore)).toEqual('example-anchor');
-    });
-
-    it('should return an empty string if it can\'t find an anchor.', () => {
-      mockReducers.routeReducer.location.search = null;
-
-      expect(getAnchorFromStore(mockStore)).toEqual('');
     });
   });
 
