@@ -1,6 +1,6 @@
 import WebSocket from 'ws';
 import moment from 'moment';
-import { get, filter, forEach } from 'lodash';
+import { get, forEach } from 'lodash';
 
 import store from '../store';
 
@@ -85,11 +85,8 @@ const socketController = {
       },
 
       [NEW_ROOM_PING]() {
-        // Send ping to clients with matching anchor parameter.
-        const clientsWithAnchor = filter(payload.clients, { anchor: payload.anchor });
-
-        forEach(clientsWithAnchor, (clientWithAnchor) => {
-          socketController.send(event, payload, clientWithAnchor);
+        forEach(payload.clientsWithAnchor, (clientWithAnchor) => {
+          socketController.send(event, payload.ping, clientWithAnchor);
         });
       },
 

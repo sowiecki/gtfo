@@ -1,3 +1,5 @@
+import { filter } from 'lodash';
+
 import socketController from '../controllers/socket';
 import fetchRoomReservation from './fetch-room-reservation';
 import fetchStallOccupancies from './fetch-stall-occupancies';
@@ -18,7 +20,14 @@ export default (state) => (next) => (action) => {
     },
 
     [EMIT_ROOM_PING_RECEIVED]() {
-      socketController.handle(NEW_ROOM_PING, { clients: state.clients, ping: action.ping });
+      const clients = state
+        .getState()
+        .clientsReducer.get('clients')
+        .toJS();
+
+      // Send ping to clients with matching anchor parameter.
+      const clientsWithAnchor = filter(clients, { anchor: action.ping.anchor });
+      socketController.handle(NEW_ROOM_PING, { clientsWithAnchor, ping: action.ping });
     }
   };
 
