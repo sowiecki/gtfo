@@ -35,7 +35,9 @@ const pingsController = {
    * Handles pings received via WebSocket connection to proxy.
    */
   handlePingOverWS(payload) {
-    const { targetId } = payload;
+    const { targetid } = payload.headers;
+    // Request headers are always lower-case. This is camelCased for consistency.
+    const targetId = targetid;
     const room = pingsController.getRoom(targetId);
 
     if (room) {
@@ -44,7 +46,7 @@ const pingsController = {
         ping: {
           location: room.location,
           id: targetId,
-          anchor: payload.anchor
+          anchor: payload.headers.anchor
         }
       });
     }
