@@ -10,15 +10,17 @@ const pingsController = {
    * Handles pings received via HTTP POST requests.
    */
   handlePingOverHTTP(req, res) {
-    const { targetId, anchor } = req.headers;
-    const room = this.getRoom(targetId);
+    const { targetid, anchor } = req.headers;
+    // Request headers are always lower-case. This is camelCased for consistency.
+    const targetId = targetid;
+    const room = pingsController.getRoom(targetId);
 
     if (this.getRoom(targetId)) {
       store.dispatch({
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           location: room.location,
-          targetId,
+          id: targetId,
           anchor
         }
       });
@@ -33,7 +35,9 @@ const pingsController = {
    * Handles pings received via WebSocket connection to proxy.
    */
   handlePingOverWS(payload) {
-    const { targetId } = payload;
+    const { targetid } = payload.headers;
+    // Request headers are always lower-case. This is camelCased for consistency.
+    const targetId = targetid;
     const room = pingsController.getRoom(targetId);
 
     if (room) {
@@ -41,8 +45,8 @@ const pingsController = {
         type: EMIT_ROOM_PING_RECEIVED,
         ping: {
           location: room.location,
-          ...payload,
-          id: targetId
+          id: targetId,
+          anchor: payload.headers.anchor
         }
       });
     }

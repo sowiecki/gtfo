@@ -79,9 +79,7 @@ const layoutReducer = (state = initialState, action) => {
     [EMIT_ROOM_STATUSES_UPDATE]() {
       const locations = pluckLocations(action.meetingRooms);
 
-      return state
-        .set('meetingRooms', action.meetingRooms)
-        .set('locations', locations);
+      return state.set('meetingRooms', action.meetingRooms).set('locations', locations);
     },
 
     [EMIT_FETCH_ROOM_STATUSES_ERROR]() {
