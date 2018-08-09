@@ -75,7 +75,7 @@
     "query-string": "^5.0.1",
     "radium": "0.22.0",
     "react": "16.4.1",
-    "react-dom": "16.4.1",
+    "react-dom": "16.4.2",
     "react-motion": "0.5.2",
     "react-redux": "5.0.7",
     "react-router": "4.2.0",
