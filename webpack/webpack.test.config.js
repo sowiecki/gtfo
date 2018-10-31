@@ -1,6 +1,4 @@
 /* globals __dirname */
-const fs = require('fs');
-
 const webpack = require('webpack');
 
 const base = require('./webpack.config');
@@ -16,7 +14,6 @@ module.exports = {
         test: /\.js(x|)?$/,
         use: {
           loader: 'babel-loader'
-          // options: JSON.parse(fs.readFileSync('./.babelrc'))
         },
         exclude: /node_modules/
       },
