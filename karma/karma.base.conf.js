@@ -3,7 +3,7 @@ module.exports = {
   frameworks: ['mocha'],
   reporters: ['dots'],
   files: [
-    // { pattern: '../node_modules/babel-polyfill/browser.js', instrument: false }, // core-js/shim ?
+    { pattern: '../node_modules/babel-polyfill/browser.js', instrument: false },
     '../tests/config.client.js'
   ],
   preprocessors: {
@@ -13,7 +13,7 @@ module.exports = {
   port: 9876,
   colors: true,
   autoWatch: true,
-  browsers: ['Chrome', 'PhantomJS'],
+  browsers: ['Chrome'],
   customLaunchers: {
     ChromeTravisCi: {
       base: 'Chrome',

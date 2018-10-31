@@ -7,7 +7,7 @@ module.exports = (config) => {
     plugins: [
       'karma-mocha',
       'karma-chrome-launcher',
-      'karma-phantomjs-launcher',
+      // 'karma-phantomjs-launcher',
       'karma-coverage-istanbul-reporter',
       'karma-webpack',
       'karma-sourcemap-loader'
@@ -26,7 +26,7 @@ module.exports = (config) => {
     //     istanbul: { noCompact: true, embedSource: true }
     //   }
     // },
-    webpack: require('../webpack/webpack.cov.config'),
+    // webpack: require('../webpack/webpack.cov.config'),
     logLevel: config.LOG_INFO
   });
 

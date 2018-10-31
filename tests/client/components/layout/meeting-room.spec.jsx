@@ -5,8 +5,8 @@ import expect from 'expect';
 
 import { VelocityComponent } from 'velocity-react';
 
-import MeetingRoom from 'components/layout/meeting-room';
-import Temperature from 'components/layout/temperature';
+import MeetingRoom from 'components/layout-location/meeting-room';
+import Temperature from 'components/layout-location/temperature';
 import { provideMuiTheme } from 'config/composition';
 import { VACANT, PING_ANIMATION_LOOPS } from 'constants/index';
 

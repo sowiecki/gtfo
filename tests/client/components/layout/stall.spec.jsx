@@ -5,7 +5,7 @@ import expect from 'expect';
 
 import { VelocityComponent } from 'velocity-react';
 
-import Stall from 'components/layout/stall';
+import Stall from 'components/layout-location/stall';
 import { provideMuiTheme } from 'config/composition';
 
 describe('<Stall/>', () => {
