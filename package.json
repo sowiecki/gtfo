@@ -26,7 +26,7 @@
     "test-client-cov": "karma start karma/karma.cov.conf.js",
     "test-cov": "npm run test-client-cov && npm run test-node-cov && npm run upload-cov && rm -rf ./karma/coverage",
     "test-node": "NODE_ENV=test mocha --exit $npm_package_node_test_paths --require @babel/register --require tests/config.node.js --reporter=dot",
-    "test-node-cov": "nyc --report lcovonly --require babel-core/register --require ./tests/config.node.js npm run test-node",
+    "test-node-cov": "nyc --report lcovonly --require @babel/register --require ./tests/config.node.js npm run test-node",
     "upload-cov": "cat ./coverage/*/lcov.info ./coverage/lcov.info | coveralls",
     "yolo": "rimraf environment/mock-data.json",
     "snyk-protect": "snyk protect",
