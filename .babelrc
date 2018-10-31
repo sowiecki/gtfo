@@ -1,10 +1,14 @@
 {
-  "presets": [
-    "env",
-    "react"
-  ],
+  "presets": ["@babel/env", "@babel/react"],
   "plugins": [
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ]
   ],
   "env": {
     "production": {
@@ -14,9 +18,7 @@
       ]
     },
     "development": {
-      "plugins": [
-        "react-hot-loader/babel"
-      ]
+      "plugins": ["react-hot-loader/babel"]
     }
   }
 }

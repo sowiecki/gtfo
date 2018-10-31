@@ -33,7 +33,7 @@ module.exports = {
           // while (mostly) maintaining one source for Babel configuration
           options: merge(JSON.parse(fs.readFileSync('./.babelrc')), {
             babelrc: false,
-            presets: [['env', { modules: false }], 'react']
+            presets: [['@babel/env', { modules: false }], '@babel/react']
           })
         },
         include: [baseContext, universalContext],

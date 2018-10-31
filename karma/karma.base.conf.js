@@ -3,7 +3,7 @@ module.exports = {
   frameworks: ['mocha'],
   reporters: ['dots'],
   files: [
-    { pattern: '../node_modules/babel-polyfill/browser.js', instrument: false },
+    // { pattern: '../node_modules/babel-polyfill/browser.js', instrument: false }, // core-js/shim ?
     '../tests/config.client.js'
   ],
   preprocessors: {
