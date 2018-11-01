@@ -1,4 +1,4 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';

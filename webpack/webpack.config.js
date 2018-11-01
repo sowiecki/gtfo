@@ -1,6 +1,5 @@
 /* globals __dirname */
 const path = require('path');
-const fs = require('fs');
 const merge = require('lodash/merge');
 
 const baseContext = path.join(__dirname, '../client');
@@ -31,7 +30,7 @@ module.exports = {
 
           // Work-around to enable commonjs on server and native modules on client,
           // while (mostly) maintaining one source for Babel configuration
-          options: merge(JSON.parse(fs.readFileSync('./.babelrc')), {
+          options: merge(require('../babel.config'), {
             babelrc: false,
             presets: ['@babel/env', '@babel/react']
           })

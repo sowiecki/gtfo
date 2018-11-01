@@ -1,4 +1,4 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 import { forEach } from 'lodash';

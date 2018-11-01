@@ -1,4 +1,4 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 /* eslint no-magic-numbers:0 max-nested-callbacks:0 */
 import expect from 'expect';
 
@@ -65,7 +65,7 @@ describe('Reservation utilities (server)', () => {
     ]
   };
 
-  describe('formatReservations', () => {
+  test('formatReservations', () => {
     expect(formatReservations(mockRawReservations)).toEqual(mockFormattedReservations);
   });
 });
