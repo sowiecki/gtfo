@@ -78,9 +78,9 @@ void setRingColor(uint32_t color, uint32_t altColor = COLOR_WHITE, int8_t set = 
     } else {
       strip.setPixelColor(i, invert ? color : altColor);
     }
-
-    strip.show();
   }
+
+  strip.show();
 }
 
 void pulseColor(

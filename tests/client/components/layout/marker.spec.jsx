@@ -1,11 +1,11 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 
 import Place from 'material-ui/svg-icons/maps/place';
 
-import Marker from 'components/layout/marker';
+import Marker from 'components/layout-location/marker';
 import { provideMuiTheme } from 'config/composition';
 
 describe('<Marker/>', () => {

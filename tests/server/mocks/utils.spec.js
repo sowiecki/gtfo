@@ -1,9 +1,8 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 import expect from 'expect';
 import moment from 'moment';
 
-import { randomReservationGap,
-  generateMockReservation } from 'server/mocks/utils';
+import { randomReservationGap, generateMockReservation } from 'server/mocks/utils';
 
 describe('Mock utilities', () => {
   describe('randomReservationGap', () => {

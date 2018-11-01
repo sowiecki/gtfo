@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const base = require('./webpack.config');
 
 module.exports = {
+  mode: 'development',
   cache: true,
   devtool: 'inline-source-map',
   context: base.context,
@@ -12,7 +13,7 @@ module.exports = {
       {
         test: /\.js(x|)?$/,
         use: {
-          loader: 'babel-loader?plugins[]=transform-object-rest-spread'
+          loader: 'babel-loader'
         },
         exclude: /node_modules/
       },

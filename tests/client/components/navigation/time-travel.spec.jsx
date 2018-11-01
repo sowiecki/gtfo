@@ -1,4 +1,4 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
@@ -9,21 +9,22 @@ import { VelocityComponent } from 'velocity-react';
 import Card from 'material-ui/Card/Card';
 import Slider from 'material-ui/Slider';
 
-import TimeTravel from 'components/navigation/time-travel';
+import TimeTravel from 'client/components/navigation/time-travel.jsx';
 import { provideMuiTheme } from 'config/composition';
 import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
 describe('<TimeTravel/>', () => {
-  const clock = (time) => sinon.useFakeTimers({
-    now: Date.parse(time),
-    toFake: ['Date']
-  });
+  const clock = (time) =>
+    sinon.useFakeTimers({
+      now: Date.parse(time),
+      toFake: ['Date']
+    });
 
   const props = {
     actions: {
       emitTimeTravelUpdate: () => {},
       emitTimeTravelControlsToggle: () => {},
-      emitTimeSliderValueUpdate: () => {},
+      emitTimeSliderValueUpdate: () => {}
     },
     onTimeTravelDismissClick: () => {},
     timeTravelledTo: null,
@@ -42,13 +43,23 @@ describe('<TimeTravel/>', () => {
     clock(moment('8:00AM', TIME_FORMAT));
     const component = mount(provideMuiTheme(<TimeTravel {...props}/>));
 
-    expect(component.find(VelocityComponent).find(Card).find(Slider).length).toEqual(1);
+    expect(
+      component
+        .find(VelocityComponent)
+        .find(Card)
+        .find(Slider).length
+    ).toEqual(1);
   });
 
   it(`renders no <Slider/> component after ${MAX_TIME}.`, () => {
     clock(moment(MAX_TIME, TIME_FORMAT));
     const component = mount(provideMuiTheme(<TimeTravel {...props}/>));
 
-    expect(component.find(VelocityComponent).find(Card).find(Slider).length).toEqual(0);
+    expect(
+      component
+        .find(VelocityComponent)
+        .find(Card)
+        .find(Slider).length
+    ).toEqual(0);
   });
 });

@@ -7,14 +7,16 @@ import history from './config/history';
 import store from './store';
 
 import Body from './components/body';
-import LayoutContainer from './components/layout/container';
+// import LayoutRoomContainer from './components/room-location/container';
+import LayoutLocationContainer from './components/layout-location/container';
 
 const Routes = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Body location={history.location}>
-        <Route component={LayoutContainer}/>
-        <Route path=':location' component={LayoutContainer}/>
+        <Route component={LayoutLocationContainer}/>
+        {/* <Route path=':location/:room' component={LayoutRoomContainer}/> */}
+        <Route path=':location' component={LayoutLocationContainer}/>
       </Body>
     </ConnectedRouter>
   </Provider>

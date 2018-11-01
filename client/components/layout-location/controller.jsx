@@ -24,7 +24,29 @@ import { styles, rules } from './styles';
 let originalLocation;
 let noPingInProgress = true;
 
-class LayoutController extends Component {
+class LocationLayoutController extends Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired,
+    meetingRooms: PropTypes.array,
+    stalls: PropTypes.array,
+    markers: PropTypes.array,
+    displayLegend: PropTypes.bool.isRequired,
+    displayTemp: PropTypes.bool.isRequired,
+    enableMotion: PropTypes.bool.isRequired,
+    enableStalls: PropTypes.bool.isRequired,
+    unitOfTemp: PropTypes.string.isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        location: PropTypes.string
+      }).isRequired
+    }),
+    ping: PropTypes.object,
+    actions: PropTypes.shape({
+      emitClearPing: PropTypes.func.isRequired,
+      push: PropTypes.func.isRequired
+    }).isRequired
+  };
+
   componentWillMount() {
     const { actions, location } = this.props;
     const { anchor } = queryString.parse(location.search);
@@ -121,26 +143,4 @@ class LayoutController extends Component {
   }
 }
 
-LayoutController.propTypes = {
-  location: PropTypes.object.isRequired,
-  meetingRooms: PropTypes.array,
-  stalls: PropTypes.array,
-  markers: PropTypes.array,
-  displayLegend: PropTypes.bool.isRequired,
-  displayTemp: PropTypes.bool.isRequired,
-  enableMotion: PropTypes.bool.isRequired,
-  enableStalls: PropTypes.bool.isRequired,
-  unitOfTemp: PropTypes.string.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      location: PropTypes.string
-    }).isRequired
-  }),
-  ping: PropTypes.object,
-  actions: PropTypes.shape({
-    emitClearPing: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired
-  }).isRequired
-};
-
-export default applyStyles(LayoutController);
+export default applyStyles(LocationLayoutController);

@@ -1,4 +1,4 @@
-/* eslint-env node, mocha */
+/* eslint-env node, jest */
 import http from 'http';
 import expect from 'expect';
 import sinon from 'sinon';
