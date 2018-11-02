@@ -90,14 +90,14 @@ class LocationLayoutController extends Component {
     originalLocation = originalLocation || location.pathname;
 
     if (location.pathname !== ping.location) {
-      actions.push({ ...location, pathname: ping.location });
+      actions.push({ ...location, pathname: `/${ping.location}` });
     }
 
     const setPingTimeout = setInterval(() => {
       actions.emitClearPing();
 
       // Revert to original location and re-save.
-      actions.push({ ...location, pathname: originalLocation });
+      actions.push({ ...location, pathname: `/${originalLocation}` });
 
       originalLocation = location.pathname;
       noPingInProgress = true;
@@ -110,7 +110,7 @@ class LocationLayoutController extends Component {
     const { actions, meetingRooms, location } = this.props;
     const locations = pluckLocations(meetingRooms);
 
-    actions.push({ ...location, pathname: locations[newIndex] });
+    actions.push({ ...location, pathname: `/${locations[newIndex]}` });
   }
 
   render() {

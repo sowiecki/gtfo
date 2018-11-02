@@ -16,7 +16,7 @@ const Routes = () => (
       <Body location={history.location}>
         <Route component={LayoutLocationContainer}/>
         {/* <Route path=':location/:room' component={LayoutRoomContainer}/> */}
-        <Route path=':location' component={LayoutLocationContainer}/>
+        <Route path='/:location' component={LayoutLocationContainer}/>
       </Body>
     </ConnectedRouter>
   </Provider>

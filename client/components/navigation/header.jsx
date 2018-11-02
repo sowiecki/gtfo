@@ -23,8 +23,7 @@ const Header = (props) => {
   const toggleSiteNav = actions.emitToggleSiteNav.bind(null, !siteNavOpen);
 
   const renderLocationTab = (tabLocation, index) => {
-    console.log(location);
-    const onActive = () => actions.replace({ ...location, pathname: tabLocation });
+    const onActive = () => actions.push({ ...location, pathname: `/${tabLocation}` });
 
     return (
       <Tab
