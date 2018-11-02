@@ -7,13 +7,12 @@ import NavigationContainer from '../navigation/container';
 import { provideMuiTheme } from '../../config/composition';
 import './styles';
 
-const Body = (props) =>
-  provideMuiTheme(
-    <StyleRoot>
-      <NavigationContainer {...props}/>
-      {props.children}
-    </StyleRoot>
-  );
+const Body = (props) => provideMuiTheme(
+  <StyleRoot>
+    <NavigationContainer {...props}/>
+    {props.children}
+  </StyleRoot>
+);
 
 Body.propTypes = {
   children: PropTypes.node.isRequired
