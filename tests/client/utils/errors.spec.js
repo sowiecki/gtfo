@@ -8,8 +8,7 @@ describe('Logging utilities', () => {
   describe('getBackdropErrorMessage', () => {
     const mockLocation = 'Hill Valley';
     const errorMessage = `Failed to render backdrop for ${mockLocation}.`;
-    const expected =
-      `Make sure it's correctly saved in /environment/assets/ as ${mockLocation}.png`;
+    const expected = `Make sure it's correctly saved in /environment/assets/ as ${mockLocation}.png`;
 
     it('should return a helpful error message.', () => {
       expect(getBackdropErrorMessage(mockLocation)).toBe(`${errorMessage} ${expected}`);

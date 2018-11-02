@@ -17,8 +17,8 @@ const Application = ({ bundle }) => {
         <meta name='viewport' content='width=device-width, initial-scale=1'/>
       </head>
       <body>
-        <div id='modal'/>
         <div id='root'/>
+        <div id='modal'/>
         <script src={bundle}/>
       </body>
     </html>

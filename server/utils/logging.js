@@ -76,12 +76,11 @@ export const genGuagePercentage = (rooms, alert) => {
   };
 };
 
-export const formatDurationForDisplay = (duration) =>
-  [
-    `${duration.years()} years`,
-    `${duration.months()} months`,
-    `${duration.days()} days`,
-    `${duration.hours()} hours`,
-    `${duration.minutes()} minutes`,
-    `${duration.seconds()} seconds`
-  ].join(' ');
+export const formatDurationForDisplay = (duration) => [
+  `${duration.years()} years`,
+  `${duration.months()} months`,
+  `${duration.days()} days`,
+  `${duration.hours()} hours`,
+  `${duration.minutes()} minutes`,
+  `${duration.seconds()} seconds`
+].join(' ');
