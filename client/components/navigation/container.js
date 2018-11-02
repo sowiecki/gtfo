@@ -21,7 +21,8 @@ const mapStateToProps = ({ navigationReducer, layoutReducer, routerReducer }) =>
   displayLegend: layoutReducer.get('displayLegend'),
   displayTemp: layoutReducer.get('displayTemp'),
   enableTemp: layoutReducer.get('enableTemp'),
-  unitOfTemp: layoutReducer.get('unitOfTemp')
+  unitOfTemp: layoutReducer.get('unitOfTemp'),
+  modalContent: navigationReducer.get('modalContent')
 });
 
 const mapDispatchToProps = (dispatch) => {

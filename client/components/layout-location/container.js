@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 
 import { formatLocationProps } from 'utils';
 import * as LayoutActions from 'ducks/layout';
+import * as NavigationActions from 'ducks/navigation';
 
 import RoomsController from './controller';
 
@@ -24,6 +25,7 @@ const mapStateToProps = ({ layoutReducer, routerReducer }) => ({
 const mapDispatchToProps = (dispatch) => {
   const actions = {
     ...LayoutActions,
+    ...NavigationActions,
     push
   };
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Style } from 'radium';
 import queryString from 'query-string';
@@ -10,9 +10,31 @@ import { base } from 'config/composition';
 import Header from './header';
 import DrawerContent from './drawer-content';
 import TimeTravel from './time-travel';
+import Modal from './modal';
 import { styles, rules, LEFT_HAND_NAV_WIDTH } from './styles';
 
-class NavigationController extends Component {
+class NavigationController extends PureComponent {
+  static propTypes = {
+    documentTitle: PropTypes.string.isRequired,
+    deviceWidth: PropTypes.number.isRequired,
+    siteNavOpen: PropTypes.bool.isRequired,
+    timeTravelControlsOpen: PropTypes.bool.isRequired,
+    timeTravelTime: PropTypes.string,
+    timeSliderValue: PropTypes.number,
+    actions: PropTypes.shape({
+      emitDeviceWidthUpdate: PropTypes.func.isRequired,
+      emitTimeTravelUpdate: PropTypes.func.isRequired,
+      emitTimeTravelControlsToggle: PropTypes.func.isRequired,
+      emitTimeSliderValueUpdate: PropTypes.func.isRequired,
+      emitToggleSiteNav: PropTypes.func.isRequired,
+      emitToggleDisplayLegend: PropTypes.func.isRequired,
+      emitToggleDisplayTemp: PropTypes.func.isRequired,
+      emitToggleTempScale: PropTypes.func.isRequired
+    }).isRequired,
+    locations: PropTypes.array,
+    modalContent: PropTypes.node
+  };
+
   componentWillMount() {
     window.addEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
   }
@@ -26,10 +48,7 @@ class NavigationController extends Component {
   }
 
   render() {
-    const { actions,
-      locations,
-      timeTravelControlsOpen,
-      siteNavOpen } = this.props;
+    const { actions, locations, timeTravelControlsOpen, siteNavOpen, modalContent } = this.props;
     const fullScreenParams = {
       ...location,
       search: queryString.stringify({
@@ -52,11 +71,9 @@ class NavigationController extends Component {
     const onSelectFieldChange = () => {};
 
     return !locations ? null : (
-      <div>
+      <Fragment>
         <Style rules={rules.navigation}/>
-        <Header
-          onSelectFieldChange={onSelectFieldChange}
-          {...this.props}/>
+        <Header onSelectFieldChange={onSelectFieldChange} {...this.props}/>
         <Drawer
           containerStyle={styles.drawerContainer}
           open={siteNavOpen}
@@ -68,32 +85,11 @@ class NavigationController extends Component {
             onOpenFullscreenClick={onOpenFullscreenClick}
             {...this.props}/>
         </Drawer>
-        <TimeTravel
-          onTimeTravelDismissClick={onTimeTravelDismissClick}
-          {...this.props}/>
-      </div>
+        <TimeTravel onTimeTravelDismissClick={onTimeTravelDismissClick} {...this.props}/>
+        <Modal modalContent={modalContent}/>
+      </Fragment>
     );
   }
 }
-
-NavigationController.propTypes = {
-  documentTitle: PropTypes.string.isRequired,
-  deviceWidth: PropTypes.number.isRequired,
-  siteNavOpen: PropTypes.bool.isRequired,
-  timeTravelControlsOpen: PropTypes.bool.isRequired,
-  timeTravelTime: PropTypes.string,
-  timeSliderValue: PropTypes.number,
-  actions: PropTypes.shape({
-    emitDeviceWidthUpdate: PropTypes.func.isRequired,
-    emitTimeTravelUpdate: PropTypes.func.isRequired,
-    emitTimeTravelControlsToggle: PropTypes.func.isRequired,
-    emitTimeSliderValueUpdate: PropTypes.func.isRequired,
-    emitToggleSiteNav: PropTypes.func.isRequired,
-    emitToggleDisplayLegend: PropTypes.func.isRequired,
-    emitToggleDisplayTemp: PropTypes.func.isRequired,
-    emitToggleTempScale: PropTypes.func.isRequired
-  }).isRequired,
-  locations: PropTypes.array
-};
 
 export default base(NavigationController);

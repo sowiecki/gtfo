@@ -1,6 +1,7 @@
 /* globals setInterval, clearInterval */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import { Style } from 'radium';
 import queryString from 'query-string';
 
@@ -12,6 +13,7 @@ import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
 
 import { PING_TIMEOUT } from '../../constants';
 import DisplayError from '../common/display-error';
+import RoomModalEnable from './room-modal/enable';
 import MapLegend from './map-legend';
 import Location from './location';
 import { styles, rules } from './styles';
@@ -120,7 +122,7 @@ class LocationLayoutController extends Component {
     );
 
     return (
-      <span>
+      <Fragment>
         <Style rules={rules.officeLayout}/>
         <Paper style={styles.paperOverride} zDepth={1}>
           <SwipeableViews
@@ -137,8 +139,9 @@ class LocationLayoutController extends Component {
             enableStalls={enableStalls}
             showYouAreHere={hasAnchor(location)}/>
         </Paper>
+        <Route exact path='/:location/:room' render={() => <RoomModalEnable {...this.props}/>}/>
         <DisplayError {...this.props}/>
-      </span>
+      </Fragment>
     );
   }
 }
