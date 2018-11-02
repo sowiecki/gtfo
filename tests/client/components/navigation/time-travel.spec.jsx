@@ -6,8 +6,8 @@ import sinon from 'sinon';
 import moment from 'moment';
 
 import { VelocityComponent } from 'velocity-react';
-import Card from 'material-ui/Card/Card';
-import Slider from 'material-ui/Slider';
+import Card from 'material-ui/Card';
+import Slider from 'material-ui/svg-icons/maps/place';
 
 import TimeTravel from 'client/components/navigation/time-travel.jsx';
 import { provideMuiTheme } from 'config/composition';

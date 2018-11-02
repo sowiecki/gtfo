@@ -1,44 +1,6 @@
 import { colors, fonts } from '../../common/styles';
 
 export const styles = {
-  drawerContainer: {
-    top: 'auto'
-  },
-
-  toolbar: {
-    justifyContent: 'initial',
-    backgroundColor: colors.primary,
-    height: '48px',
-    overflow: 'hidden'
-  },
-
-  toolbarTitle: {
-    margin: 0,
-    color: colors.WHITE,
-    fontSize: '35px',
-    lineHeight: '48px',
-    fontWeight: 8,
-    fontFamily: fonts.primary
-  },
-
-  toolbarTabs: {
-    fontFamily: fonts.tertiary,
-    padding: 0,
-    lineHeight: 1.5,
-    overflowY: 'visible'
-  },
-
-  toolbarTab: {
-    fontSize: '16px',
-    minWidth: '200px',
-    backgroundColor: colors.primary
-  },
-
-  menuButton: {
-    color: colors.WHITE,
-    pointerEvents: 'all'
-  },
-
   mobileLocationSelectionLabel: {
     padding: '0 20px',
     left: '-14%',

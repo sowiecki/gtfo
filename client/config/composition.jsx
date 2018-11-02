@@ -10,20 +10,18 @@ import { colors } from '../components/common/styles';
 const muiTheme = getMuiTheme({
   palette: {
     pickerHeaderColor: colors.primary,
-    primary1Color: colors.secondary,
+    primary1Color: colors.secondary
   }
 });
 
 /**
- * Provides Material-UI theme to <Body/>,
- * also useful for testing elements containing Material-UI components.
+ * Provides material-ui theme to <Body/>,
+ * also useful for testing elements containing material-ui components.
  * @param {object} element React Element.
  * @returns {object} React Element.
  */
 export const provideMuiTheme = (element) => (
-  <MuiThemeProvider muiTheme={muiTheme}>
-    {element}
-  </MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>{element}</MuiThemeProvider>
 );
 
 export const base = (component) => pure(component);

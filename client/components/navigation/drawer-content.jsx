@@ -13,7 +13,8 @@ import { base } from 'config/composition';
 import { styles } from './styles';
 
 const DrawerContent = (props) => {
-  const { note,
+  const {
+    note,
     onViewFutureAvailabilitiesClick,
     onOpenFullscreenClick,
     siteNavOpen,
@@ -21,10 +22,13 @@ const DrawerContent = (props) => {
     displayLegend,
     displayTemp,
     enableTemp,
-    unitOfTemp } = props;
+    unitOfTemp
+  } = props;
 
   const generateIcon = (icon, style) => (
-    <FontIcon className='material-icons' style={style}>{icon}</FontIcon>
+    <FontIcon className='material-icons' style={style}>
+      {icon}
+    </FontIcon>
   );
 
   const temperatureOptions = [

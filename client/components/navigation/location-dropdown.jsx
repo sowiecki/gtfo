@@ -10,10 +10,7 @@ import { formatForDisplay } from 'utils';
 import { styles } from './styles';
 
 const LocationDropdown = (props) => {
-  const { onSelectFieldChange,
-    actions,
-    locations,
-    location } = props;
+  const { onSelectFieldChange, actions, locations, location } = props;
 
   const renderLocationSelection = (renderedLocation, index) => {
     const onClick = () => actions.push({ ...location, pathname: renderedLocation });
@@ -38,9 +35,7 @@ const LocationDropdown = (props) => {
       {locations.map(renderLocationSelection)}
     </SelectField>
   ) : (
-    <span>
-      There are no locations to select.
-    </span>
+    <span>There are no locations to select.</span>
   );
 };
 
