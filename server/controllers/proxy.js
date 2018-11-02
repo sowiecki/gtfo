@@ -46,10 +46,9 @@ const proxyController = {
   parseEvent({ data }) {
     const { payload } = JSON.parse(data);
     // TODO update Acheron to forward event types adjecent to body and headers
-    const eventHandler =
-      get(payload, 'event') ||
-      get(payload.headers, 'event') ||
-      get(payload, 'body.event', UNDEFINED_EVENT);
+    const eventHandler = get(payload, 'event')
+      || get(payload.headers, 'event')
+      || get(payload, 'body.event', UNDEFINED_EVENT);
 
     const HANDLERS_MAP = {
       [HANDSHAKE]() {

@@ -35,10 +35,9 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const noReservations = !reservations.length;
   const moduleIsMotionEquipped = config.public.enableMotion === true || capabilities.motion;
   const shouldConsiderMotion = moduleIsMotionEquipped && isNotFutureQuery;
-  const hasRecentMotion =
-    shouldConsiderMotion && recentMotion
-      ? recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds'))
-      : false;
+  const hasRecentMotion = shouldConsiderMotion && recentMotion
+    ? recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds'))
+    : false;
 
   if (noReservations && !hasRecentMotion) {
     return VACANT;
@@ -125,16 +124,15 @@ export const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
  * @param {object} time - Moment object.
  * @returns {array} Meeting rooms as they would be in future time.
  */
-export const getFutureAlerts = (rooms, time) =>
-  rooms.map((room) => {
-    room.reservations = filterExpiredReservations(room.reservations, time);
-    const roomProperties = { reservations: room.reservations, recentMotion: false };
+export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
+  room.reservations = filterExpiredReservations(room.reservations, time);
+  const roomProperties = { reservations: room.reservations, recentMotion: false };
 
-    return {
-      ...secureRoom(room),
-      alert: getRoomAlert(roomProperties, room.capabilities, time)
-    };
-  });
+  return {
+    ...secureRoom(room),
+    alert: getRoomAlert(roomProperties, room.capabilities, time)
+  };
+});
 
 /**
  * Sets up

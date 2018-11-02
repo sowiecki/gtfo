@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-const stylesGenerator = (props) => ({
+const stylesGenerator = () => ({
   base: css`
     position: 'absolute';
     height: '100%';

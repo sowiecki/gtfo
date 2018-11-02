@@ -7,7 +7,10 @@ import stylesGenerator from './styles';
 
 class Modal extends PureComponent {
   static propTypes = {
-    modalContent: PropTypes.node.isRequired
+    modalContent: PropTypes.node.isRequired,
+    computedStyles: PropTypes.shape({
+      base: PropTypes.object.isRequired
+    }).isRequired
   };
 
   render() {

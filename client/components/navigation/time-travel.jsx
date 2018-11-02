@@ -13,9 +13,7 @@ import { styles } from './styles';
 import { TIME_FORMAT } from '../../constants';
 
 const TimeTravel = (props) => {
-  const { timeTravelTime,
-    timeTravelControlsOpen,
-    onTimeTravelDismissClick } = props;
+  const { timeTravelTime, timeTravelControlsOpen, onTimeTravelDismissClick } = props;
 
   return (
     <VelocityComponent>
@@ -26,10 +24,8 @@ const TimeTravel = (props) => {
             tooltip='Dismiss and reset to present'
             tooltipPosition='top-right'
             onClick={onTimeTravelDismissClick}>
-            <FontIcon
-              color={styles.timeTravelDismissColor}
-              className='material-icons'>
-                  clear
+            <FontIcon color={styles.timeTravelDismissColor} className='material-icons'>
+              clear
             </FontIcon>
           </IconButton>
           Viewing at {timeTravelTime || moment().format(TIME_FORMAT)}

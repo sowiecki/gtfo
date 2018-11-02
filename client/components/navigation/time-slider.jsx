@@ -11,7 +11,9 @@ const TimeSlider = ({ actions, timeSliderValue }) => {
   const max = moment(MAX_TIME, TIME_FORMAT).diff(moment(), 'minutes');
   const isDaytime = max > 0;
   const onTimeChange = (e, value) => {
-    const time = moment().add(value, 'm').format(TIME_FORMAT);
+    const time = moment()
+      .add(value, 'm')
+      .format(TIME_FORMAT);
 
     actions.emitTimeTravelUpdate(time);
     actions.emitTimeSliderValueUpdate(value);
@@ -32,8 +34,7 @@ const TimeSlider = ({ actions, timeSliderValue }) => {
     </div>
   ) : (
     <div style={styles.timeUnavailable}>
-      This feature is not available after {MAX_TIME}.
-      <br/>
+      This feature is not available after {MAX_TIME}.<br/>
       Please try again tomorrow.
     </div>
   );

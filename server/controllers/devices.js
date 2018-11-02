@@ -43,8 +43,7 @@ const devicesController = {
         devicesController.handleTemperatureReadingsUpdate(payload);
       },
 
-      [UNDEFINED_EVENT]: () =>
-        consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
+      [UNDEFINED_EVENT]: () => consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
     };
 
     const eventType = ROOM_EVENT_HANDLERS_MAP[event.type] ? event.type : UNDEFINED_EVENT;
