@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { formatLocationProps } from 'utils';
 import * as LayoutActions from 'ducks/layout';
@@ -8,8 +8,8 @@ import * as NavigationActions from 'ducks/navigation';
 
 import RoomsController from './controller';
 
-const mapStateToProps = ({ layoutReducer, routerReducer }) => ({
-  location: formatLocationProps(routerReducer.location),
+const mapStateToProps = ({ layoutReducer, router }) => ({
+  location: formatLocationProps(router.location),
   error: layoutReducer.get('error'),
   meetingRooms: layoutReducer.get('meetingRooms'),
   ping: layoutReducer.get('ping'),
