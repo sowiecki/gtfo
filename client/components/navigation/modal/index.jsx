@@ -1,6 +1,9 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import withStyles from 'withstyles';
+
+import stylesGenerator from './styles';
 
 class Modal extends PureComponent {
   static propTypes = {
@@ -8,10 +11,13 @@ class Modal extends PureComponent {
   };
 
   render() {
-    const { modalContent } = this.props;
+    const { modalContent, computedStyles } = this.props;
 
-    return ReactDOM.createPortal(modalContent, document.getElementById('modal'));
+    return ReactDOM.createPortal(
+      <div className={computedStyles.base}>{modalContent}</div>,
+      document.getElementById('modal')
+    );
   }
 }
 
-export default Modal;
+export default withStyles(stylesGenerator)(Modal);
