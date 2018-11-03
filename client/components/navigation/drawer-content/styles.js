@@ -25,7 +25,7 @@ const stylesGenerator = () => ({
   `,
 
   tempIconAdjust: css`
-    margin: 0 0 8px 6px;
+    margin: 0 0 0 6px;
     span {
       font-family: Arial;
     }

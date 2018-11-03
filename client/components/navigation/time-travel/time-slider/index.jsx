@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import withStyles from 'withstyles';
 
-import Slider from 'material-ui/Slider';
+import Slider from '@material-ui/lab/Slider';
 
-import { styles } from './styles';
-import { MAX_TIME, TIME_FORMAT } from '../../constants';
+import { MAX_TIME, TIME_FORMAT } from 'client/constants';
+import stylesGenerator from './styles';
 
-const TimeSlider = ({ actions, timeSliderValue }) => {
+const TimeSlider = ({ computedStyles, actions, timeSliderValue }) => {
   const max = moment(MAX_TIME, TIME_FORMAT).diff(moment(), 'minutes');
   const isDaytime = max > 0;
   const onTimeChange = (e, value) => {
@@ -20,27 +21,29 @@ const TimeSlider = ({ actions, timeSliderValue }) => {
   };
 
   return isDaytime ? (
-    <div>
+    <Fragment>
       <Slider
         step={1}
         min={0}
         max={max}
         onChange={onTimeChange}
-        style={styles.timeSlider}
+        className={computedStyles.base}
         value={timeSliderValue}/>
-      <span style={styles.timeHintText}>
+      <div className={computedStyles.timeHintText}>
         Use the slider to view availabilities between now and {MAX_TIME}
-      </span>
-    </div>
+      </div>
+    </Fragment>
   ) : (
-    <div style={styles.timeUnavailable}>
-      This feature is not available after {MAX_TIME}.<br/>
-      Please try again tomorrow.
+    <div className={computedStyles.timeUnavailable}>
+      This feature is not available after {MAX_TIME}. Please try again tomorrow.
     </div>
   );
 };
 
 TimeSlider.propTypes = {
+  computedStyles: PropTypes.shape({
+    base: PropTypes.object.isRequired
+  }).isRequired,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({
     emitTimeTravelUpdate: PropTypes.func.isRequired,
@@ -49,4 +52,4 @@ TimeSlider.propTypes = {
   }).isRequired
 };
 
-export default TimeSlider;
+export default withStyles(stylesGenerator)(TimeSlider);

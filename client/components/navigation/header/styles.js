@@ -35,6 +35,7 @@ const stylesGenerator = () => ({
       color: ${colors.WHITE};
       font-size: 18px;
     }
+    ,pointer: cursor;
   `
 });
 
