@@ -6,17 +6,17 @@ import IconButton from '@material-ui/core/IconButton';
 
 import stylesGenerator from './styles';
 
-const MenuButton = ({ toggleSiteNav, computedStyles }) => (
+const HamburgerMenu = ({ toggleSiteNav, computedStyles }) => (
   <IconButton className={computedStyles.base} onClick={toggleSiteNav}>
     <i className='material-icons'>menu</i>
   </IconButton>
 );
 
-MenuButton.propTypes = {
+HamburgerMenu.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.string.isRequired
   }).isRequired,
   toggleSiteNav: PropTypes.func.isRequired
 };
 
-export default withStyles(stylesGenerator)(MenuButton);
+export default withStyles(stylesGenerator)(HamburgerMenu);

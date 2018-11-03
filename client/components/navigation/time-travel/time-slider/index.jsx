@@ -34,7 +34,7 @@ const TimeSlider = ({ computedStyles, actions, timeSliderValue }) => {
       </div>
     </Fragment>
   ) : (
-    <div className={computedStyles.timeUnavailable}>
+    <div className={computedStyles.timeUnavailableText}>
       This feature is not available after {MAX_TIME}. Please try again tomorrow.
     </div>
   );
@@ -42,7 +42,9 @@ const TimeSlider = ({ computedStyles, actions, timeSliderValue }) => {
 
 TimeSlider.propTypes = {
   computedStyles: PropTypes.shape({
-    base: PropTypes.object.isRequired
+    base: PropTypes.object.isRequired,
+    timeHintText: PropTypes.object.isRequired,
+    timeUnavailableText: PropTypes.object.isRequired
   }).isRequired,
   timeSliderValue: PropTypes.number,
   actions: PropTypes.shape({

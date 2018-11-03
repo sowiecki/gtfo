@@ -47,7 +47,6 @@
     "arrow-parens": [2, "always"],
     "no-restricted-globals": 0,
     "function-paren-newline": [2, "consistent"],
-    "react/no-unused-prop-types": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-tag-spacing": 0,
     "react/require-default-props": 0,

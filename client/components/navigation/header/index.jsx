@@ -8,11 +8,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import { formatForDisplay } from 'utils';
-
 import { MOBILE_WIDTH_BREAKPOINT } from 'components/common/styles';
 import Responsive from 'components/common/responsive';
-import MenuButton from './menu-button';
-import LocationDropDown from '../location-dropdown';
+import HamburgerMenu from './hamburger-menu';
+import LocationDropDown from './location-dropdown';
 import stylesGenerator from './styles';
 
 const Header = (props) => {
@@ -36,7 +35,7 @@ const Header = (props) => {
   return fullscreen === 'true' ? null : (
     <div className={computedStyles.base}>
       <Toolbar>
-        <MenuButton className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav}/>
+        <HamburgerMenu className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav}/>
         <div className={computedStyles.title}>Office Insights</div>
         <Responsive
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
@@ -59,6 +58,7 @@ Header.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
     title: PropTypes.object.isRequired,
+    menuButton: PropTypes.object.isRequired,
     tab: PropTypes.object.isRequired
   }).isRequired,
   siteNavOpen: PropTypes.bool.isRequired,

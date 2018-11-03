@@ -22,7 +22,7 @@ const stylesGenerator = () => ({
     color: ${colors.WHITE};
   `,
 
-  timeUnavailable: css`
+  timeUnavailableText: css`
     font: 12px ${fonts.secondary}, sans-serif;
     lineheight: 1.25;
     color: ${colors.WHITE};

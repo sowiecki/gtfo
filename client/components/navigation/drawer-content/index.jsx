@@ -80,7 +80,7 @@ const DrawerContent = (props) => {
         primary='Close'/>
 
       <ListItem>
-        <CardText style={computedStyles.note}>
+        <CardText className={computedStyles.note}>
           <span dangerouslySetInnerHTML={{ __html: note }}/>
         </CardText>
       </ListItem>
@@ -89,7 +89,11 @@ const DrawerContent = (props) => {
 };
 
 DrawerContent.propTypes = {
-  computedStyles: PropTypes.shape({}).isRequired,
+  computedStyles: PropTypes.shape({
+    base: PropTypes.object.isRequired,
+    tempIconAdjust: PropTypes.object.isRequired,
+    note: PropTypes.object.isRequired
+  }).isRequired,
   note: PropTypes.string.isRequired,
   onViewFutureAvailabilitiesClick: PropTypes.func.isRequired,
   onOpenFullscreenClick: PropTypes.func.isRequired,

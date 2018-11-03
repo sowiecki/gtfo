@@ -28,7 +28,11 @@ const NavigationLayout = (props) => (
 );
 
 NavigationLayout.propTypes = {
+  computedStyles: PropTypes.shape({
+    drawer: PropTypes.object.isRequired
+  }).isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
+  onTimeTravelDismissClick: PropTypes.func.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired
   }).isRequired,

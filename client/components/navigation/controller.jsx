@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import { base } from 'config/composition';
-
 import NavigationLayout from './layout';
 
 class NavigationController extends PureComponent {
@@ -72,4 +70,4 @@ class NavigationController extends PureComponent {
   }
 }
 
-export default base(NavigationController);
+export default NavigationController;
