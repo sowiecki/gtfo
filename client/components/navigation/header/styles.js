@@ -1,22 +1,30 @@
 import { css } from 'emotion';
 
-import { colors, fonts } from '../../common/styles';
+import { colors, fonts, MOBILE_WIDTH_BREAKPOINT } from 'components/common/styles';
 
 const stylesGenerator = () => ({
   base: css`
-    justify-content: initial;
-    background-color: ${colors.primary};
-    height: 48px;
-    overflow: hidden;
+    > div {
+      justify-content: initial;
+      background-color: ${colors.primary};
+      height: 30px;
+      min-height: 48px !important;
+      overflow: hidden;
+    }
   `,
 
   title: css`
     margin: 0 20px 0 0;
     color: ${colors.WHITE};
     font-size: 35px;
-    line-height: 48px;
     font-family: ${fonts.primary};
     font-weight: 8;
+
+    @media (max-width: ${MOBILE_WIDTH_BREAKPOINT}px) {
+      min-width: 100px;
+      font-size: 30px;
+      font-weight: 600;
+    }
   `,
 
   tab: css`

@@ -1,17 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Style } from 'radium';
 import queryString from 'query-string';
-
-import Drawer from 'material-ui/Drawer';
 
 import { base } from 'config/composition';
 
-import Header from './header';
-import DrawerContent from './drawer-content';
-import TimeTravel from './time-travel';
-import Modal from './modal';
-import { styles, rules, LEFT_HAND_NAV_WIDTH } from './styles';
+import NavigationLayout from './layout';
 
 class NavigationController extends PureComponent {
   static propTypes = {
@@ -48,7 +41,7 @@ class NavigationController extends PureComponent {
   }
 
   render() {
-    const { actions, locations, timeTravelControlsOpen, siteNavOpen, modalContent } = this.props;
+    const { actions, locations, timeTravelControlsOpen } = this.props;
     const fullScreenParams = {
       ...location,
       search: queryString.stringify({
@@ -68,26 +61,13 @@ class NavigationController extends PureComponent {
       actions.emitTimeTravelUpdate(null);
       actions.emitTimeSliderValueUpdate(0);
     };
-    const onSelectFieldChange = () => {};
 
     return !locations ? null : (
-      <Fragment>
-        <Style rules={rules.navigation}/>
-        <Header onSelectFieldChange={onSelectFieldChange} {...this.props}/>
-        <Drawer
-          containerStyle={styles.drawerContainer}
-          open={siteNavOpen}
-          onRequestChange={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
-          width={LEFT_HAND_NAV_WIDTH}
-          {...this.props}>
-          <DrawerContent
-            onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
-            onOpenFullscreenClick={onOpenFullscreenClick}
-            {...this.props}/>
-        </Drawer>
-        <TimeTravel onTimeTravelDismissClick={onTimeTravelDismissClick} {...this.props}/>
-        <Modal modalContent={modalContent}/>
-      </Fragment>
+      <NavigationLayout
+        {...this.props}
+        onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
+        onOpenFullscreenClick={onOpenFullscreenClick}
+        onTimeTravelDismissClick={onTimeTravelDismissClick}/>
     );
   }
 }

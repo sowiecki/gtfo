@@ -1,5 +1,6 @@
 import { injectGlobal } from 'emotion';
-import { colors } from '../common/styles/base';
+
+import { colors } from 'components/common/styles/base';
 
 injectGlobal`
   html, body, #root, #root > div, #modal {

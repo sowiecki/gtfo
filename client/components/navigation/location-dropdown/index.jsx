@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'withstyles';
 
 import MenuItem from 'material-ui/MenuItem';
 import SelectField from 'material-ui/SelectField';
 
-import { base } from 'config/composition';
 import { formatForDisplay } from 'utils';
 
-import { styles } from './styles';
+import stylesGenerator from './styles';
+import { styles } from '../styles';
 
 const LocationDropdown = (props) => {
-  const { onSelectFieldChange, actions, locations, location } = props;
+  const { actions, locations, location } = props;
 
   const renderLocationSelection = (renderedLocation, index) => {
     const onClick = () => actions.push({ ...location, pathname: renderedLocation });
@@ -31,7 +32,7 @@ const LocationDropdown = (props) => {
       labelStyle={styles.mobileLocationSelectionLabel}
       underlineStyle={styles.mobileLocationSelectionUnderline}
       value={locations.indexOf(location.pathname)}
-      onChange={onSelectFieldChange}>
+      onChange={() => {}}>
       {locations.map(renderLocationSelection)}
     </SelectField>
   ) : (
@@ -40,7 +41,6 @@ const LocationDropdown = (props) => {
 };
 
 LocationDropdown.propTypes = {
-  onSelectFieldChange: PropTypes.func.isRequired,
   actions: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
@@ -50,4 +50,4 @@ LocationDropdown.propTypes = {
   locations: PropTypes.array
 };
 
-export default base(LocationDropdown);
+export default withStyles(stylesGenerator)(LocationDropdown);

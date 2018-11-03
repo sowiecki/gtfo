@@ -21,19 +21,6 @@ export const styles = {
     display: 'none'
   },
 
-  navIcons: {
-    marginLeft: '24px'
-  },
-
-  tempScaleNavIcon: {
-    margin: '6px 6px 6px 29px',
-    fontFamily: fonts.secondary
-  },
-
-  fadedIcon: {
-    opacity: 0.5
-  },
-
   timeTravelControls: {
     position: 'absolute',
     height: '80px',
@@ -86,5 +73,3 @@ export const styles = {
     bottom: '50px'
   }
 };
-
-export const LEFT_HAND_NAV_WIDTH = 300;

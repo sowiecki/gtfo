@@ -12,14 +12,14 @@ export const colors = {
   GREY: '#5A5A66',
   DARK_GREY: '#333333',
   DARK_RED: '#770000',
-  DARK_BLUE: '#002277',
+  DARK_BLUE: '#002277'
 };
 
 export const fonts = {
   primary: '\'Wire One\', sans-serif',
   secondary: '\'Titillium Web\', sans-serif',
   tertiary: '\'Roboto\', Arial, sans-serif',
-  quaternary: '\'Yanone Kaffeesatz\', sans-serif',
+  quaternary: '\'Yanone Kaffeesatz\', sans-serif'
 };
 
 export const MOBILE_WIDTH_BREAKPOINT = 500;
@@ -33,7 +33,7 @@ export const breakpoints = {
   afterLarge: 'screen and (min-width: 1500px)',
   afterExtraLarge: 'screen and (min-width: 2048px)',
   widescreen: 'screen and (min-aspect-ratio: 16/10)',
-  portrait: 'screen and (orientation: portrait)',
+  portrait: 'screen and (orientation: portrait)'
 };
 
 export const devices = {
@@ -42,5 +42,5 @@ export const devices = {
            and (-webkit-min-device-pixel-ratio: 2)`,
   ipad: `screen and (min-device-width: 768px)
          and (max-device-width: 1024px)
-         and (-webkit-min-device-pixel-ratio: 2)`,
+         and (-webkit-min-device-pixel-ratio: 2)`
 };

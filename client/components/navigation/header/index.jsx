@@ -34,16 +34,20 @@ const Header = (props) => {
   };
 
   return fullscreen === 'true' ? null : (
-    <Toolbar className={computedStyles.base}>
-      <MenuButton className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav}/>
-      <div className={computedStyles.title}>Office Insights</div>
-      <Responsive
-        mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
-        mobileAlt={<LocationDropDown {...props}/>}
-        {...props}>
-        <Tabs value={locations.indexOf(location.pathname)}>{locations.map(renderLocationTab)}</Tabs>
-      </Responsive>
-    </Toolbar>
+    <div className={computedStyles.base}>
+      <Toolbar>
+        <MenuButton className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav}/>
+        <div className={computedStyles.title}>Office Insights</div>
+        <Responsive
+          mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
+          mobileAlt={<LocationDropDown {...props}/>}
+          {...props}>
+          <Tabs value={locations.indexOf(location.pathname)}>
+            {locations.map(renderLocationTab)}
+          </Tabs>
+        </Responsive>
+      </Toolbar>
+    </div>
   );
 };
 
