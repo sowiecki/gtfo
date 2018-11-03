@@ -1,22 +1,12 @@
 /* globals setInterval, clearInterval */
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
-import { Style } from 'radium';
 import queryString from 'query-string';
 
-import Paper from 'material-ui/Paper';
-import SwipeableViews from 'react-swipeable-views';
-
 import { applyStyles } from 'config/composition';
-import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
-
-import { PING_TIMEOUT } from '../../constants';
-import DisplayError from '../common/display-error';
-import RoomModalEnable from './room-modal/enable';
-import MapLegend from './map-legend';
-import Location from './location';
-import { styles, rules } from './styles';
+import { PING_TIMEOUT } from 'client/constants';
+import { pluckLocations } from 'utils';
+import FloorPlanLayout from './layout';
 
 /*
  * References and checks used to maintain the default location.
@@ -26,7 +16,7 @@ import { styles, rules } from './styles';
 let originalLocation;
 let noPingInProgress = true;
 
-class LocationLayoutController extends Component {
+class FloorPlanController extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     meetingRooms: PropTypes.array,
@@ -114,36 +104,8 @@ class LocationLayoutController extends Component {
   }
 
   render() {
-    const { meetingRooms, displayLegend, location, enableMotion, enableStalls } = this.props;
-    const locationKeys = pluckLocations(meetingRooms);
-
-    const renderLocation = (locationKey, index) => (
-      <Location key={index} locationKey={locationKey} {...this.props}/>
-    );
-
-    return (
-      <Fragment>
-        <Style rules={rules.officeLayout}/>
-        <Paper style={styles.paperOverride} zDepth={1}>
-          <SwipeableViews
-            className='swipeable-viewport'
-            style={styles.swipableOverride}
-            index={getLocationIndex(locationKeys, location)}
-            onChangeIndex={this.handleChangeLocation.bind(this)}
-            resistance={true}>
-            {locationKeys.map(renderLocation)}
-          </SwipeableViews>
-          <MapLegend
-            enabled={displayLegend}
-            enableMotion={enableMotion}
-            enableStalls={enableStalls}
-            showYouAreHere={hasAnchor(location)}/>
-        </Paper>
-        <Route exact path='/:location/:room' render={() => <RoomModalEnable {...this.props}/>}/>
-        <DisplayError {...this.props}/>
-      </Fragment>
-    );
+    return <FloorPlanLayout onChangeIndex={this.handleChangeLocation.bind(this)} {...this.props}/>;
   }
 }
 
-export default applyStyles(LocationLayoutController);
+export default applyStyles(FloorPlanController);

@@ -51,12 +51,6 @@ export const rules = {
       transform: `${svgLabelBaseTransform} translate(18px, -28px)`
     },
 
-    'text.marker-text': {
-      fontSize: '12px',
-      fontWeight: 'bold',
-      transform: 'translateY(-24px)'
-    },
-
     'text.restroom-marker': {
       transform: 'translateY(-20px)'
     },
@@ -107,11 +101,6 @@ export const rules = {
 
         'svg.you-are-here > svg > path': {
           transform: 'translateX(0)'
-        },
-
-        'text.marker-text': {
-          fontSize: '24px',
-          transform: 'translateY(0)'
         },
 
         '.map-legend-container': {

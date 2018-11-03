@@ -6,7 +6,6 @@ import withStyles from 'withstyles';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import CardText from 'material-ui/Card/CardText';
 
 import { FAHRENHEIT, CELCIUS } from 'client/constants';
 import DrawerContentItem from './drawer-content-item';
@@ -80,9 +79,9 @@ const DrawerContent = (props) => {
         primary='Close'/>
 
       <ListItem>
-        <CardText className={computedStyles.note}>
+        <div className={computedStyles.note}>
           <span dangerouslySetInnerHTML={{ __html: note }}/>
-        </CardText>
+        </div>
       </ListItem>
     </List>
   );

@@ -5,12 +5,12 @@ import withStyles from 'withstyles';
 
 import { VelocityComponent } from 'velocity-react';
 import Card from '@material-ui/core/Card';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
+import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 
 import { TIME_FORMAT } from 'client/constants';
 import TimeSlider from './time-slider';
-import stylesGenerator, { TIME_TRAVEL_DISMISS_COLOR } from './styles';
+import stylesGenerator from './styles';
 
 const TimeTravel = (props) => {
   const { computedStyles, timeTravelTime, onTimeTravelDismissClick } = props;
@@ -21,12 +21,8 @@ const TimeTravel = (props) => {
         <span className={computedStyles.timeDisplay}>
           <IconButton
             className={computedStyles.timeTravelDismiss}
-            tooltip='Dismiss and reset to present'
-            tooltipPosition='top-right'
             onClick={onTimeTravelDismissClick}>
-            <FontIcon color={TIME_TRAVEL_DISMISS_COLOR} className='material-icons'>
-              clear
-            </FontIcon>
+            <Icon>clear</Icon>
           </IconButton>
           Viewing at {timeTravelTime || moment().format(TIME_FORMAT)}
         </span>

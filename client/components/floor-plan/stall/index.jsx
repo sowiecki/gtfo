@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { VelocityComponent } from 'velocity-react';
 
 import { parsePosition, parseShape } from 'utils';
-
-import { STATUS_COLORS, OFFLINE } from '../../constants';
-import { styles } from './styles';
+import { STATUS_COLORS, OFFLINE } from 'client/constants';
+import { styles } from '../styles';
 
 const Stall = ({ active, alert, coordinates }) => (
   <svg {...parsePosition(coordinates)}>

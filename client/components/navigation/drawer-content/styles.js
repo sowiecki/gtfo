@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { colors } from 'components/common/styles/base';
+import { colors, fonts } from 'components/common/styles/base';
 
 const stylesGenerator = () => ({
   base: css`
@@ -29,6 +29,10 @@ const stylesGenerator = () => ({
     span {
       font-family: Arial;
     }
+  `,
+
+  note: css`
+    font: 14px ${fonts.secondary}, sans-serif;
   `
 });
 

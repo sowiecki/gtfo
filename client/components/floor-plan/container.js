@@ -6,7 +6,7 @@ import { formatLocationProps } from 'utils';
 import * as LayoutActions from 'ducks/layout';
 import * as NavigationActions from 'ducks/navigation';
 
-import RoomsController from './controller';
+import FloorPlanController from './controller';
 
 const mapStateToProps = ({ layoutReducer, router }) => ({
   location: formatLocationProps(router.location),
@@ -37,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RoomsController);
+)(FloorPlanController);

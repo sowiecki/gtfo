@@ -24,9 +24,11 @@ const stylesGenerator = ({ timeTravelControlsOpen }) => ({
   timeTravelDismiss: css`
     position: absolute;
     left: 0;
+
+    span {
+      color: ${colors.WHITE};
+    }
   `
 });
-
-export const TIME_TRAVEL_DISMISS_COLOR = colors.WHITE;
 
 export default stylesGenerator;
