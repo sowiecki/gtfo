@@ -5,7 +5,7 @@ import expect from 'expect';
 import sinon from 'sinon';
 import moment from 'moment';
 
-import { VelocityComponent } from 'velocity-react';
+import Drawer from '@material-ui/core/Drawer';
 import Card from '@material-ui/core/Card';
 import Slider from '@material-ui/lab/Slider';
 
@@ -27,7 +27,7 @@ describe('<TimeTravel/>', () => {
     },
     onTimeTravelDismissClick: () => {},
     timeTravelledTo: null,
-    timeTravelControlsOpen: false,
+    timeTravelControlsOpen: true,
     timeSliderValue: 0
   };
 
@@ -39,13 +39,13 @@ describe('<TimeTravel/>', () => {
     sinon.useFakeTimers().restore();
   });
 
-  it(`renders a <Slider/> inside of a <VelocityComponent/> before ${MAX_TIME}.`, () => {
+  it(`renders a <Slider/> inside of a <Drawer/> before ${MAX_TIME}.`, () => {
     clock(moment('8:00AM', TIME_FORMAT));
     const component = mount(<TimeTravel {...props} />);
 
     expect(
       component
-        .find(VelocityComponent)
+        .find(Drawer)
         .find(Card)
         .find(Slider).length
     ).toEqual(1);
@@ -57,7 +57,7 @@ describe('<TimeTravel/>', () => {
 
     expect(
       component
-        .find(VelocityComponent)
+        .find(Drawer)
         .find(Card)
         .find(Slider).length
     ).toEqual(0);

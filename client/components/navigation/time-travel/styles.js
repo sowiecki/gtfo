@@ -2,17 +2,23 @@ import { css } from 'emotion';
 
 import { colors, fonts } from 'components/common/styles';
 
-const stylesGenerator = ({ timeTravelControlsOpen }) => ({
+const stylesGenerator = () => ({
   base: css`
-    position: absolute;
     height: 80px;
-    bottom: 0;
     width: 100%;
     text-align: center;
-    background-color: ${colors.DARK_GREY};
-    opacity: ${timeTravelControlsOpen ? 1 : 0};
     border-radius: 0;
-    z-index: 1;
+    background-color: ${colors.DARK_GREY};
+  `,
+
+  drawer: css`
+    pointer-events: none;
+    background: none;
+
+    > div {
+      pointer-events: none;
+      background: none;
+    }
   `,
 
   timeDisplay: css`
@@ -23,7 +29,9 @@ const stylesGenerator = ({ timeTravelControlsOpen }) => ({
 
   timeTravelDismiss: css`
     position: absolute;
-    left: 0;
+    right: 0;
+    pointer: cursor;
+    pointer-events: all;
 
     span {
       color: ${colors.WHITE};

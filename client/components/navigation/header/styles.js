@@ -5,6 +5,7 @@ import { colors, fonts, MOBILE_WIDTH_BREAKPOINT } from 'components/common/styles
 const stylesGenerator = () => ({
   base: css`
     > div {
+      padding: 0;
       justify-content: initial;
       background-color: ${colors.primary};
       height: 30px;
@@ -15,7 +16,10 @@ const stylesGenerator = () => ({
 
   title: css`
     margin: 0 20px 0 0;
+    padding: 6px 10px 0 10px;
+    height: 100%;
     color: ${colors.WHITE};
+    background-color: ${colors.BLACK};
     font-size: 35px;
     font-family: ${fonts.primary};
     font-weight: 8;
@@ -32,7 +36,7 @@ const stylesGenerator = () => ({
     min-width: 200px;
     background-color: ${colors.primary};
     span {
-      color: ${colors.WHITE};
+      color: ${colors.BLACK};
       font-size: 18px;
     }
     ,pointer: cursor;

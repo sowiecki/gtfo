@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { breakpoints } from 'components/common/styles';
+import { colors, breakpoints } from 'components/common/styles';
 import { genWidthAndHeight } from 'utils';
 
 const generateLayoutSVGWidthAndHeight = (width) => `
@@ -22,6 +22,7 @@ const stylesGenerator = () => ({
     right: 0;
     left: 0;
     margin: auto auto;
+    background-color: ${colors.BLACK};
 
     text.anchor-marker {
       opacity: 0.5;

@@ -11,7 +11,6 @@ const stylesGenerator = () => ({
     div:nth-child(2) {
       pointer-events: all;
       top: 48px;
-      width: 360px;
     }
   `
 });
