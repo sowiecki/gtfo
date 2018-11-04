@@ -22,7 +22,7 @@
     ],
     "import/extensions": 0,
     "func-names": 2,
-    "react/jsx-space-before-closing": [2, "never"],
+    "react/jsx-tag-spacing": 0,
     "react/prefer-es6-class": 2,
     "jsx-quotes": [2, "prefer-single"],
     "indent": [2, 2, { "SwitchCase": 1 }],
@@ -48,7 +48,6 @@
     "no-restricted-globals": 0,
     "function-paren-newline": [2, "consistent"],
     "react/forbid-prop-types": 0,
-    "react/jsx-tag-spacing": 0,
     "react/require-default-props": 0,
     "no-unused-expressions": [
       "error",

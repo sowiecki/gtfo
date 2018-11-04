@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'withstyles';
 
 import { filterByLocation, youAreHere, getLocationBackdrop } from 'utils';
 
 import MeetingRoom from './meeting-room';
 import Stall from './stall';
 import Marker from './marker';
+import stylesGenerator from './styles';
 
 const Location = (props) => {
   const {
+    computedStyles,
     meetingRooms,
     stalls,
     markers,
@@ -42,12 +45,9 @@ const Location = (props) => {
   const renderStall = (stall, index) => <Stall key={index} {...stall}/>;
 
   return (
-    <div key={locationKey} className='office-layout-container'>
-      <img
-        className='office-background'
-        src={getLocationBackdrop(locationKey)}
-        alt={`Backdrop for ${locationKey}`}/>
-      <svg className='office-layout'>
+    <div key={locationKey} className={computedStyles.base}>
+      <img src={getLocationBackdrop(locationKey)} alt={`Backdrop for ${locationKey}`}/>
+      <svg>
         {filteredMeetingRooms.map(renderMeetingRoom)}
         {filteredStalls.map(renderStall)}
         {filteredMarkers.map(renderMarker)}
@@ -57,6 +57,10 @@ const Location = (props) => {
 };
 
 Location.propTypes = {
+  computedStyles: PropTypes.shape({
+    base: PropTypes.object.isRequired,
+    background: PropTypes.object.isRequired
+  }).isRequired,
   meetingRooms: PropTypes.array,
   markers: PropTypes.array,
   stalls: PropTypes.array,
@@ -67,4 +71,4 @@ Location.propTypes = {
   unitOfTemp: PropTypes.string.isRequired
 };
 
-export default Location;
+export default withStyles(stylesGenerator)(Location);

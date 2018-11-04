@@ -35,11 +35,11 @@ const Header = (props) => {
   return fullscreen === 'true' ? null : (
     <div className={computedStyles.base}>
       <Toolbar>
-        <HamburgerMenu className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav}/>
+        <HamburgerMenu className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav} />
         <div className={computedStyles.title}>Office Insights</div>
         <Responsive
           mobileBreakpoint={MOBILE_WIDTH_BREAKPOINT}
-          mobileAlt={<LocationDropDown {...props}/>}
+          mobileAlt={<LocationDropDown {...props} />}
           {...props}>
           <Tabs value={locations.indexOf(location.pathname)}>
             {locations.map(renderLocationTab)}

@@ -3,20 +3,20 @@ import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 
-import IconButton from 'material-ui/IconButton';
+import IconButton from '@material-ui/core/IconButton';
 
-import MenuButton from 'components/navigation/menu-button';
+import HamburgerMenu from 'components/navigation/header/hamburger-menu';
 import { provideMuiTheme } from 'config/composition';
 
-describe('<MenuButton/>', () => {
+describe('<HamburgerMenu/>', () => {
   const props = {
     toggleSiteNav: () => {}
   };
 
-  const component = mount(provideMuiTheme(<MenuButton {...props}/>));
+  const component = mount(provideMuiTheme(<HamburgerMenu {...props}/>));
 
   it('renders an icon', () => {
     expect(component.find(IconButton).length).toEqual(1);
-    expect(component.find('div').find('i.material-icons').length).toEqual(1);
+    expect(component.find('button').find('i.material-icons').length).toEqual(1);
   });
 });

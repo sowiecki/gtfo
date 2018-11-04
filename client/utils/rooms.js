@@ -106,12 +106,12 @@ export const youAreHere = (marker, location) => {
 /**
  * Generates relative width and height CSS parameters.
  * @param {integer} width - Width value
- * @returns {object} Object with width and relative height properties.
+ * @returns {object} Template string with width and relative height properties.
  */
-export const genWidthAndHeight = (width) => ({
-  height: `${Math.max(Math.ceil(width * 11.52) / 10, 2.8)}px`,
-  width: `${width}px`
-});
+export const genWidthAndHeight = (width) => `
+  height: ${Math.max(Math.ceil(width * 11.52) / 10, 2.8)}px;
+  width: ${width}px;
+`;
 
 /**
  * Safety against initial location index being -1,

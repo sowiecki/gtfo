@@ -22,25 +22,48 @@ export const fonts = {
   quaternary: '\'Yanone Kaffeesatz\', sans-serif'
 };
 
+export const fontStyles = {
+  primary: `
+    font-family: ${fonts.tertiary};
+    color: ${colors.DARK_GREY};
+  `,
+  secondary: `
+    font-family: ${fonts.secondary};
+    color: ${colors.DARK_GREY};
+  `,
+  tertiary: `
+    font-family: ${fonts.tertiary};
+    color: ${colors.DARK_GREY};
+  `,
+  quaternary: `
+    font-family: ${fonts.quaternary};
+    color: ${colors.DARK_GREY};
+  `
+};
+
 export const MOBILE_WIDTH_BREAKPOINT = 500;
 
 export const breakpoints = {
-  beforeSmall: 'screen and (max-width: 719px)',
-  beforeMedium: 'screen and (max-width: 1023px)',
-  afterExtraSmall: 'screen and (min-width: 512px)',
-  afterSmall: 'screen and (min-width: 720px)',
-  afterMedium: 'screen and (min-width: 1024px)',
-  afterLarge: 'screen and (min-width: 1500px)',
-  afterExtraLarge: 'screen and (min-width: 2048px)',
-  widescreen: 'screen and (min-aspect-ratio: 16/10)',
-  portrait: 'screen and (orientation: portrait)'
+  mobile_iphone5: `
+    @media (screen and (min-device-width: 320px)
+      and (max-device-width: 568px)
+      and (-webkit-min-device-pixel-ratio: 2))
+  `,
+  mobile_ipad: `
+    @media (screen and (min-device-width: 768px)
+      and (max-device-width: 1024px)
+      and (-webkit-min-device-pixel-ratio: 2)
+  `,
+  mobile: `@media (max-width: ${MOBILE_WIDTH_BREAKPOINT}px)`,
+  tablet: '@media (max-width: 1023px) and (orientation: portrait)'
 };
 
-export const devices = {
-  iphone5: `screen and (min-device-width: 320px)
-           and (max-device-width: 568px)
-           and (-webkit-min-device-pixel-ratio: 2)`,
-  ipad: `screen and (min-device-width: 768px)
-         and (max-device-width: 1024px)
-         and (-webkit-min-device-pixel-ratio: 2)`
-};
+// beforeSmall: 'screen and (max-width: 719px)',
+// beforeMedium: 'screen and (max-width: 1023px)',
+// afterExtraSmall: 'screen and (min-width: 512px)',
+// afterSmall: 'screen and (min-width: 720px)',
+// afterMedium: 'screen and (min-width: 1024px)',
+// afterLarge: 'screen and (min-width: 1500px)',
+// afterExtraLarge: 'screen and (min-width: 2048px)',
+// widescreen: 'screen and (min-aspect-ratio: 16/10)',
+// portrait: 'screen and (orientation: portrait)'

@@ -1,17 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'withstyles';
 
 import { VelocityComponent } from 'velocity-react';
 
-import { applyStyles } from 'config/composition';
 import { parsePosition, parseShape } from 'utils';
 
+import {
+  STATUS_COLORS,
+  PING_ANIMATION_LOOPS,
+  PING_ANIMATION_TIMEOUT,
+  ROOM_NAME_TEXT_DX,
+  ROOM_NAME_TEXT_DY
+} from 'client/constants';
 import Temperature from './temperature';
-import { STATUS_COLORS, PING_ANIMATION_LOOPS, PING_ANIMATION_TIMEOUT } from '../../constants';
-import { styles, ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from './styles';
+import stylesGenerator from './styles';
 
 const MeetingRoom = (props) => {
   const {
+    computedStyles,
     name,
     coordinates,
     alert,
@@ -36,30 +43,40 @@ const MeetingRoom = (props) => {
   return (
     <svg {...parsePosition(coordinates)}>
       <VelocityComponent animation={{ fill: STATUS_COLORS[alert] }}>
-        <rect style={styles.svgRect} {...parseShape(coordinates)}/>
+        <rect className={computedStyles.svgRect} {...parseShape(coordinates)}/>
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
-        style={styles.svgRect}>
+        className={computedStyles.svgRect}>
         <rect {...parseShape(coordinates)}/>
       </VelocityComponent>
-      <text
-        className='room-text'
-        fill={connectionStatus ? styles.svgRoomTextConnected : styles.svgRoomTextDisconnected}
-        dx={ROOM_NAME_TEXT_DX}
-        dy={ROOM_NAME_TEXT_DY}
-        transform='translate(18, -6) rotate(45)' // Only applies to Microsoft Edge
-        {...parseShape(coordinates)}>
-        {name}
-      </text>
+      <svg className={computedStyles.base}>
+        <text
+          fill={
+            connectionStatus
+              ? computedStyles.svgRoomTextConnected
+              : computedStyles.svgRoomTextDisconnected
+          }
+          dx={ROOM_NAME_TEXT_DX}
+          dy={ROOM_NAME_TEXT_DY}
+          transform='translate(18, -6) rotate(45)' // Only applies to Microsoft Edge
+          {...parseShape(coordinates)}>
+          {name}
+        </text>
+      </svg>
       {temperature}
     </svg>
   );
 };
 
 MeetingRoom.propTypes = {
+  computedStyles: PropTypes.shape({
+    svgReact: PropTypes.object.isRequired,
+    svgRoomTextConnected: PropTypes.object.isRequired,
+    svgRoomTextDisconnected: PropTypes.object.isRequired
+  }).isRequired,
   name: PropTypes.string.isRequired,
   coordinates: PropTypes.shape({
     x: PropTypes.number.isRequired,
@@ -75,4 +92,4 @@ MeetingRoom.propTypes = {
   connectionStatus: PropTypes.bool.isRequired
 };
 
-export default applyStyles(MeetingRoom);
+export default withStyles(stylesGenerator)(MeetingRoom);

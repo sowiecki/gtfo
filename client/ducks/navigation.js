@@ -2,7 +2,7 @@ import immutable from 'immutable';
 
 import { handleAction } from '../utils';
 import { DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
-import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
+// import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
 
@@ -55,7 +55,7 @@ const initialState = immutable.fromJS({
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   note: DEFAULT_NOTE,
   deviceWidth: document.body.clientWidth,
-  siteNavOpen: document.body.clientWidth > MOBILE_WIDTH_BREAKPOINT,
+  siteNavOpen: false, // document.body.clientWidth > MOBILE_WIDTH_BREAKPOINT,
   timeTravelControlsOpen: false,
   timeTravelTime: null,
   timeSliderValue: 0,

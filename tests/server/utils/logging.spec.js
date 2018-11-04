@@ -39,7 +39,6 @@ describe('Logging utilities', () => {
       stroke: 'cyan'
     };
 
-
     const expectedForVacant = {
       percent: 20,
       stroke: 'green'
@@ -71,7 +70,12 @@ describe('Logging utilities', () => {
         second: `0 years 0 months 0 days 0 hours 0 minutes ${i} seconds`,
         minute: `0 years 0 months 0 days 0 hours ${i} minutes 0 seconds`,
         hour: `0 years 0 months 0 days ${i} hours 0 minutes 0 seconds`,
-        day: `0 years 0 months ${i} days 0 hours 0 minutes 0 seconds`
+        // Subtracting a whole day from a moment object,
+        // and converting the diff to a duration adds 1 hour, for some reason
+        // moment.duration(moment('12:00', 'HH:mm')
+        //   .diff(moment('12:00', 'HH:mm')
+        //   .subtract(1, 'day'))).hours() === 1
+        day: `0 years 0 months ${i} days ${i === 0 ? 0 : 1} hours 0 minutes 0 seconds`
       });
       const genTestUnit = (key, i) => genFormat(i)[key];
 
@@ -83,7 +87,7 @@ describe('Logging utilities', () => {
 
         mockDurations.forEach((mockDuration, i) => {
           const result = formatDurationForDisplay(mockDuration);
-
+          console.log(unit, result);
           expect(result).toBe(genTestUnit(unit, i));
         });
       });

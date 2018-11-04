@@ -6,10 +6,10 @@ import sinon from 'sinon';
 import moment from 'moment';
 
 import { VelocityComponent } from 'velocity-react';
-import Card from 'material-ui/Card';
-import Slider from 'material-ui/svg-icons/maps/place';
+import Card from '@material-ui/core/Card';
+import Slider from '@material-ui/lab/Slider';
 
-import TimeTravel from 'client/components/navigation/time-travel.jsx';
+import TimeTravel from 'components/navigation/time-travel';
 import { provideMuiTheme } from 'config/composition';
 import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
@@ -27,7 +27,8 @@ describe('<TimeTravel/>', () => {
     },
     onTimeTravelDismissClick: () => {},
     timeTravelledTo: null,
-    timeTravelControlsOpen: false
+    timeTravelControlsOpen: false,
+    timeSliderValue: 0
   };
 
   beforeEach(() => {
@@ -40,7 +41,7 @@ describe('<TimeTravel/>', () => {
 
   it(`renders a <Slider/> inside of a <VelocityComponent/> before ${MAX_TIME}.`, () => {
     clock(moment('8:00AM', TIME_FORMAT));
-    const component = mount(provideMuiTheme(<TimeTravel {...props}/>));
+    const component = mount(provideMuiTheme(<TimeTravel {...props} />));
 
     expect(
       component
@@ -52,7 +53,7 @@ describe('<TimeTravel/>', () => {
 
   it(`renders no <Slider/> component after ${MAX_TIME}.`, () => {
     clock(moment(MAX_TIME, TIME_FORMAT));
-    const component = mount(provideMuiTheme(<TimeTravel {...props}/>));
+    const component = mount(provideMuiTheme(<TimeTravel {...props} />));
 
     expect(
       component

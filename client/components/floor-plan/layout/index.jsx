@@ -2,7 +2,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { Style } from 'radium';
 import withStyles from 'withstyles';
 
 import Paper from '@material-ui/core/Paper';
@@ -12,9 +11,8 @@ import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
 
 import DisplayError from 'components/common/display-error';
 import RoomModalEnable from 'components/floor-plan/room-modal/enable';
-import MapLegend from 'components/floor-plan/map-legend';
-import Location from 'components/floor-plan/location';
-import { rules } from '../styles';
+import Location from './location';
+import MapLegend from './map-legend';
 import stylesGenerator from './styles';
 
 const FloorPlanLayout = (props) => {
@@ -35,8 +33,7 @@ const FloorPlanLayout = (props) => {
 
   return (
     <Fragment>
-      <Style rules={rules.officeLayout}/>
-      <Paper zDepth={1}>
+      <Paper>
         <SwipeableViews
           className={computedStyles.swipableOverride}
           index={getLocationIndex(locationKeys, location)}
@@ -57,6 +54,9 @@ const FloorPlanLayout = (props) => {
 };
 
 FloorPlanLayout.propTypes = {
+  computedStyles: PropTypes.shape({
+    swipableOverride: PropTypes.object.isRequired
+  }).isRequired,
   location: PropTypes.object.isRequired,
   meetingRooms: PropTypes.array,
   displayLegend: PropTypes.bool.isRequired,

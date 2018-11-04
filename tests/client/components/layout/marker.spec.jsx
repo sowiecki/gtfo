@@ -3,9 +3,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import expect from 'expect';
 
-import Place from 'material-ui/svg-icons/maps/place';
+import Place from '@material-ui/icons/Place';
 
-import Marker from 'components/layout-location/marker';
+import Marker from 'components/floor-plan/layout/location/marker';
 import { provideMuiTheme } from 'config/composition';
 
 describe('<Marker/>', () => {
