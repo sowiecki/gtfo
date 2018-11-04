@@ -2,18 +2,29 @@ import { css } from 'emotion';
 
 import { colors, fontStyles } from 'components/common/styles';
 
-const stylesGenerator = () => ({
+const stylesGenerator = ({ displayLegend }) => ({
   base: css`
+    opacity: ${displayLegend ? 100 : 0};
+    transition: opacity 300ms ease-in;
     position: absolute;
     right: 200px;
     bottom: 20px;
+    width: 0;
+
+    > ul {
+      background-color: ${colors.DARK_GREY};
+    }
 
     li {
+      padding: 10px;
+
       > div {
+        background-color: ${colors.BLACK};
         margin: 0 10px 0 0;
       }
 
       ${fontStyles.primary};
+      background-color: ${colors.BLACK};
       font-size: 22px;
     }
   `,
@@ -26,15 +37,16 @@ const stylesGenerator = () => ({
     position: absolute;
     top: 0;
     right: 0;
+    color: ${colors.WHITE};
+    background-color: ${colors.DARK_GREY};
   `,
 
   mapLegend: css`
-    padding: 30px 0 0 0;
+    padding: 44px 0 0 0;
     margin: 0 auto 0 28%;
     zoom: 0.6;
     width: 280px;
-    background-color: ${colors.WHITE};
-    border: 1px solid ${colors.GREY};
+    border: 3px solid ${colors.DARK_GREY};
 
     > div > div {
       textshadow: 1px 1px 0 ${colors.WHITE};

@@ -4,18 +4,24 @@ import { colors, fonts } from 'components/common/styles/base';
 
 const stylesGenerator = () => ({
   base: css`
+    height: 100%;
+    width: 300px;
     cursor: pointer;
+    background-color: ${colors.DARK_GREY};
 
     > li {
-      background-color: ${colors.WHITE};
+      background-color: ${colors.DARK_GREY};
       transition: all 120ms ease-in-out;
 
       :hover {
-        background-color: ${colors.secondary};
+        background-color: ${colors.primary};
       }
 
       div {
-        z-index: 1;
+        span {
+          color: ${colors.WHITE};
+        }
+        background: none;
       }
     }
   `,

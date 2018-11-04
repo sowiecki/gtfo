@@ -13,7 +13,7 @@ const stylesGenerator = () => ({
     text-transform: uppercase;
 
     text {
-      transform: ${svgLabelBaseTransform} translate(3px, -17px);
+      transform: ${svgLabelBaseTransform} translate(8px, -20px);
 
       ${breakpoints.mobile} {
         font-size: 6px;
@@ -23,7 +23,6 @@ const stylesGenerator = () => ({
   `,
 
   svgRect: css`
-    stroke: ${colors.GHOST_WHITE};
     strokewidth: 1;
   `,
 

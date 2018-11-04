@@ -5,10 +5,26 @@ import { colors, fonts } from 'components/common/styles';
 const stylesGenerator = () => ({
   base: css`
     margin: 2px auto;
-    position: relative;
+    position: absolute;
     right: 0;
     left: 0;
+    top: 0;
     max-width: 70%;
+    width: 400px;
+    height: 10px;
+
+    div {
+      pointer-events: all;
+      top: 22px;
+
+      div {
+        background-color: ${colors.primary};
+
+        button {
+          background-color: ${colors.primary};
+        }
+      }
+    }
   `,
 
   timeHintText: css`

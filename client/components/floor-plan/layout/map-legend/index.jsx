@@ -21,13 +21,13 @@ const MapLegend = ({
   enableMotion,
   enableStalls
 }) => {
-  if (!displayLegend) {
-    return null;
-  }
+  // if (!displayLegend) {
+  //   return null;
+  // }
 
   const genIcon = (color) => (
     <svg height='40' width='50'>
-      <circle cx='20' cy='20' r='20' fill={color} />
+      <rect x='0' y='0' width='40' height='40' fill={color} />
     </svg>
   );
 
@@ -71,6 +71,9 @@ MapLegend.propTypes = {
     base: PropTypes.object.isRequired,
     closeButton: PropTypes.object.isRequired,
     mapLegend: PropTypes.object.isRequired
+  }).isRequired,
+  actions: PropTypes.shape({
+    emitToggleDisplayLegend: PropTypes.func.isRequired
   }).isRequired,
   displayLegend: PropTypes.bool.isRequired,
   showYouAreHere: PropTypes.bool.isRequired,

@@ -13,7 +13,7 @@ const stylesGenerator = () => ({
   placeMarker: css`
     > path {
       color: ${colors.secondary};
-      transform: scale(0.05) translate(14px, -38px);
+      transform: scale(0.03) translate(20px, -54px);
     }
   `,
 
@@ -22,6 +22,7 @@ const stylesGenerator = () => ({
     font-weight: bold;
     font-ize: 24px;
     font-family: ${fonts.tertiary};
+    fill: ${colors.WHITE};
   `
 });
 

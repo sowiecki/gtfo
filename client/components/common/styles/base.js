@@ -3,13 +3,15 @@
  * please refer to universal/constants/status-colors
  */
 export const colors = {
-  primary: '#0072C8',
+  primary: '#01E0F3',
   secondary: '#2591E2',
   primaryOpposing: '#FFAE00',
   secondaryOpposing: '',
   WHITE: '#FFFFFF',
+  BLACK: '#000000',
   GHOST_WHITE: '#F8F8FF',
   GREY: '#5A5A66',
+  LIGHT_GREY: '#C3C3C3',
   DARK_GREY: '#333333',
   DARK_RED: '#770000',
   DARK_BLUE: '#002277'
@@ -25,19 +27,19 @@ export const fonts = {
 export const fontStyles = {
   primary: `
     font-family: ${fonts.tertiary};
-    color: ${colors.DARK_GREY};
+    color: ${colors.LIGHT_GREY};
   `,
   secondary: `
     font-family: ${fonts.secondary};
-    color: ${colors.DARK_GREY};
+    color: ${colors.LIGHT_GREY};
   `,
   tertiary: `
     font-family: ${fonts.tertiary};
-    color: ${colors.DARK_GREY};
+    color: ${colors.LIGHT_GREY};
   `,
   quaternary: `
     font-family: ${fonts.quaternary};
-    color: ${colors.DARK_GREY};
+    color: ${colors.LIGHT_GREY};
   `
 };
 
