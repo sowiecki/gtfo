@@ -78,7 +78,6 @@
     "particle-api-js": "^7.0.1",
     "prop-types": "15.6.0",
     "query-string": "^5.0.1",
-    "radium": "0.22.0",
     "react": "16.4.1",
     "react-dom": "16.4.1",
     "react-motion": "0.5.2",

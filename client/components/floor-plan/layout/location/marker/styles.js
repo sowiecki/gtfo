@@ -3,8 +3,6 @@ import { css } from 'emotion';
 import { colors, fonts } from 'components/common/styles';
 
 const stylesGenerator = () => ({
-  base: css``,
-
   locationHighlight: css`
     height: 24px;
     width: 24px;

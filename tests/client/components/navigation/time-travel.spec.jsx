@@ -10,14 +10,14 @@ import Card from '@material-ui/core/Card';
 import Slider from '@material-ui/lab/Slider';
 
 import TimeTravel from 'components/navigation/time-travel';
-import { provideMuiTheme } from 'config/composition';
 import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
 describe('<TimeTravel/>', () => {
-  const clock = (time) => sinon.useFakeTimers({
-    now: Date.parse(time),
-    toFake: ['Date']
-  });
+  const clock = (time) =>
+    sinon.useFakeTimers({
+      now: Date.parse(time),
+      toFake: ['Date']
+    });
 
   const props = {
     actions: {
@@ -41,7 +41,7 @@ describe('<TimeTravel/>', () => {
 
   it(`renders a <Slider/> inside of a <VelocityComponent/> before ${MAX_TIME}.`, () => {
     clock(moment('8:00AM', TIME_FORMAT));
-    const component = mount(provideMuiTheme(<TimeTravel {...props} />));
+    const component = mount(<TimeTravel {...props} />);
 
     expect(
       component
@@ -53,7 +53,7 @@ describe('<TimeTravel/>', () => {
 
   it(`renders no <Slider/> component after ${MAX_TIME}.`, () => {
     clock(moment(MAX_TIME, TIME_FORMAT));
-    const component = mount(provideMuiTheme(<TimeTravel {...props} />));
+    const component = mount(<TimeTravel {...props} />);
 
     expect(
       component

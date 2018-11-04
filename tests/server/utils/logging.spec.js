@@ -87,7 +87,7 @@ describe('Logging utilities', () => {
 
         mockDurations.forEach((mockDuration, i) => {
           const result = formatDurationForDisplay(mockDuration);
-          console.log(unit, result);
+
           expect(result).toBe(genTestUnit(unit, i));
         });
       });

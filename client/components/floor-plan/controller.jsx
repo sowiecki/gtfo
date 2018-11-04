@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-import { applyStyles } from 'config/composition';
 import { PING_TIMEOUT } from 'client/constants';
 import { pluckLocations } from 'utils';
 import FloorPlanLayout from './layout';
@@ -104,8 +103,8 @@ class FloorPlanController extends Component {
   }
 
   render() {
-    return <FloorPlanLayout onChangeIndex={this.handleChangeLocation.bind(this)} {...this.props}/>;
+    return <FloorPlanLayout onChangeIndex={this.handleChangeLocation.bind(this)} {...this.props} />;
   }
 }
 
-export default applyStyles(FloorPlanController);
+export default FloorPlanController;

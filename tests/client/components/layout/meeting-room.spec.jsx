@@ -7,7 +7,6 @@ import { VelocityComponent } from 'velocity-react';
 
 import MeetingRoom from 'components/floor-plan/layout/location/meeting-room';
 import Temperature from 'components/floor-plan/layout/location/meeting-room/temperature';
-import { provideMuiTheme } from 'config/composition';
 import { VACANT, PING_ANIMATION_LOOPS } from 'constants/index';
 
 describe('<MeetingRoom/>', () => {
@@ -27,7 +26,7 @@ describe('<MeetingRoom/>', () => {
   };
 
   it('renders.', () => {
-    const component = mount(provideMuiTheme(<MeetingRoom {...props}/>));
+    const component = mount(<MeetingRoom {...props} />);
 
     expect(component.find('svg').length).toEqual(2);
     expect(component.find(VelocityComponent).length).toEqual(2);
@@ -43,7 +42,7 @@ describe('<MeetingRoom/>', () => {
   it('animates when ping prop is true.', () => {
     props.pinged = true;
 
-    const component = mount(provideMuiTheme(<MeetingRoom {...props}/>));
+    const component = mount(<MeetingRoom {...props} />);
 
     expect(
       component
@@ -56,7 +55,7 @@ describe('<MeetingRoom/>', () => {
   it('renders temperature component when enabled through prop.', () => {
     props.displayTemp = true;
 
-    const component = mount(provideMuiTheme(<MeetingRoom {...props}/>));
+    const component = mount(<MeetingRoom {...props} />);
 
     expect(component.find(Temperature).length).toEqual(1);
   });

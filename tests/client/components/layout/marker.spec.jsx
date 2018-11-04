@@ -6,7 +6,6 @@ import expect from 'expect';
 import Place from '@material-ui/icons/Place';
 
 import Marker from 'components/floor-plan/layout/location/marker';
-import { provideMuiTheme } from 'config/composition';
 
 describe('<Marker/>', () => {
   const receptionMarker = {
@@ -28,15 +27,15 @@ describe('<Marker/>', () => {
   };
 
   it('contains a Place icon if set as anchor and youAreHere prop is true', () => {
-    const component = mount(provideMuiTheme(<Marker marker={receptionMarker} youAreHere={true}/>));
+    const component = mount(<Marker marker={receptionMarker} youAreHere={true} />);
 
     expect(component.find(Place).length).toEqual(1);
   });
 
   it('contains no Place icon if not set as anchor', () => {
     const components = [
-      mount(provideMuiTheme(<Marker marker={mensBathroomMarker} youAreHere={true}/>)),
-      mount(provideMuiTheme(<Marker marker={mensBathroomMarker} youAreHere={false}/>))
+      mount(<Marker marker={mensBathroomMarker} youAreHere={true} />),
+      mount(<Marker marker={mensBathroomMarker} youAreHere={false} />)
     ];
 
     components.forEach((component) => expect(component.find(Place).length).toEqual(0));

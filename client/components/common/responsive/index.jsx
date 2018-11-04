@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import { base } from '../../config/composition';
-
 /**
  * Convenience container to control rendering of
  * different components at different breakpoints.
@@ -10,10 +8,8 @@ import { base } from '../../config/composition';
  * @param {element} children - Default component to render.
  * @param {element} mobileAlt - Alternative component to render at mobile breakpoints.
  */
-
-const Responsive = ({ deviceWidth, mobileBreakpoint, children, mobileAlt }) => (
-  deviceWidth > mobileBreakpoint ? children : mobileAlt
-);
+const Responsive = ({ deviceWidth, mobileBreakpoint, children, mobileAlt }) =>
+  (deviceWidth > mobileBreakpoint ? children : mobileAlt);
 
 Responsive.propTypes = {
   deviceWidth: PropTypes.number.isRequired,
@@ -22,4 +18,4 @@ Responsive.propTypes = {
   mobileAlt: PropTypes.element.isRequired
 };
 
-export default base(Responsive);
+export default Responsive;

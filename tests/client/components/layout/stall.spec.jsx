@@ -6,7 +6,6 @@ import expect from 'expect';
 import { VelocityComponent } from 'velocity-react';
 
 import Stall from 'components/floor-plan/layout/location/stall';
-import { provideMuiTheme } from 'config/composition';
 
 describe('<Stall/>', () => {
   const props = {
@@ -22,7 +21,7 @@ describe('<Stall/>', () => {
   };
 
   it('renders.', () => {
-    const component = mount(provideMuiTheme(<Stall {...props}/>));
+    const component = mount(<Stall {...props} />);
 
     expect(component.find(VelocityComponent).length).toEqual(1);
   });
