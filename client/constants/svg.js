@@ -5,3 +5,9 @@ export const PING_ANIMATION_TIMEOUT = PING_TIMEOUT / 25;
 
 export const FAHRENHEIT = 'fahrenheit';
 export const CELCIUS = 'celcius';
+
+export const ROOM_NAME_TEXT_DX = 2;
+export const ROOM_NAME_TEXT_DY = 22;
+export const ROOM_TEMPERATURE_TEXT_DX = 2;
+export const ROOM_TEMPERATURE_TEXT_DY = 42;
+export const MARKER_ROOM_NAME_TEXT_DY = ROOM_NAME_TEXT_DY + 16;

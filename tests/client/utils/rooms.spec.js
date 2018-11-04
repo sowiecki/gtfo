@@ -109,9 +109,9 @@ describe('Room utilities (client)', () => {
 
   describe('genWidthAndHeight', () => {
     it('should generate width and height parameters with correct proportions.', () => {
-      expect(genWidthAndHeight(300)).toEqual({ width: '300px', height: '345.6px' });
-      expect(genWidthAndHeight(350)).toEqual({ width: '350px', height: '403.2px' });
-      expect(genWidthAndHeight(800)).toEqual({ width: '800px', height: '921.6px' });
+      expect(genWidthAndHeight(300).trim()).toEqual('height: 345.6px;\n  width: 300px;');
+      expect(genWidthAndHeight(350).trim()).toEqual('height: 403.2px;\n  width: 350px;');
+      expect(genWidthAndHeight(800).trim()).toEqual('height: 921.6px;\n  width: 800px;');
     });
   });
 

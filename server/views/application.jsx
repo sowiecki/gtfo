@@ -18,6 +18,7 @@ const Application = ({ bundle }) => {
       </head>
       <body>
         <div id='root'/>
+        <div id='modal'/>
         <script src={bundle}/>
       </body>
     </html>

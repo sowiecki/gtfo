@@ -22,8 +22,9 @@
     ],
     "import/extensions": 0,
     "func-names": 2,
-    "react/jsx-space-before-closing": [2, "never"],
+    "implicit-arrow-linebreak": 0,
     "react/prefer-es6-class": 2,
+    "react/jsx-tag-spacing": 0,
     "jsx-quotes": [2, "prefer-single"],
     "indent": [2, 2, { "SwitchCase": 1 }],
     "no-invalid-this": 0,
@@ -47,10 +48,18 @@
     "arrow-parens": [2, "always"],
     "no-restricted-globals": 0,
     "function-paren-newline": [2, "consistent"],
-    "react/no-unused-prop-types": 0,
     "react/forbid-prop-types": 0,
-    "react/jsx-tag-spacing": 0,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowTaggedTemplates": true
+      }
+    ],
+    "import/named": 0,
+    "react/destructuring-assignment": 0,
+    "no-else-return": 0,
+    "react/jsx-one-expression-per-line": 0
   },
   "globals": {
     "require": true
