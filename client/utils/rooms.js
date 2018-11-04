@@ -62,16 +62,15 @@ export const filterByLocation = (collection, location) => {
  * @param {string} name Name in hyphenated slug form.
  * @returns {string} Formatted name.
  */
-export const formatForDisplay = (name) =>
-  name
-    .split(/-/)
-    .map((word) => {
-      const firstCharacter = word.charAt(0).toUpperCase();
-      const restOfWord = word.slice(1);
+export const formatForDisplay = (name) => name
+  .split(/-/)
+  .map((word) => {
+    const firstCharacter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1);
 
-      return `${firstCharacter}${restOfWord}`;
-    })
-    .join(' ');
+    return `${firstCharacter}${restOfWord}`;
+  })
+  .join(' ');
 
 /**
  * Plucks locations from a collection of rooms.
@@ -107,12 +106,12 @@ export const youAreHere = (marker, location) => {
 /**
  * Generates relative width and height CSS parameters.
  * @param {integer} width - Width value
- * @returns {object} Object with width and relative height properties.
+ * @returns {object} Template string with width and relative height properties.
  */
-export const genWidthAndHeight = (width) => ({
-  height: `${Math.max(Math.ceil(width * 11.52) / 10, 2.8)}px`,
-  width: `${width}px`
-});
+export const genWidthAndHeight = (width) => `
+  height: ${Math.max(Math.ceil(width * 11.52) / 10, 2.8)}px;
+  width: ${width}px;
+`;
 
 /**
  * Safety against initial location index being -1,

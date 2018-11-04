@@ -26,11 +26,10 @@ import {
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
-  const clock = (time) =>
-    sinon.useFakeTimers({
-      now: Date.parse(time),
-      toFake: ['Date']
-    });
+  const clock = (time) => sinon.useFakeTimers({
+    now: Date.parse(time),
+    toFake: ['Date']
+  });
   const mockCapabilities = { motion: true };
 
   const baseMockReservations = [

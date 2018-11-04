@@ -66,7 +66,7 @@ const initialState = immutable.fromJS({
 
 const layoutReducer = (state = initialState, action) => {
   const reducers = {
-    [EMIT_HANDSHAKE_RECEIVED]() {
+    [EMIT_HANDSHAKE_RECEIVED]: () => {
       const { enableTemperature, enableMotion, enableStalls, defaultTempScale } = action.config;
 
       return state
@@ -76,51 +76,35 @@ const layoutReducer = (state = initialState, action) => {
         .set('enableStalls', enableStalls || false);
     },
 
-    [EMIT_ROOM_STATUSES_UPDATE]() {
+    [EMIT_ROOM_STATUSES_UPDATE]: () => {
       const locations = pluckLocations(action.meetingRooms);
 
       return state.set('meetingRooms', action.meetingRooms).set('locations', locations);
     },
 
-    [EMIT_FETCH_ROOM_STATUSES_ERROR]() {
-      return state.set('error', action.error);
-    },
+    [EMIT_FETCH_ROOM_STATUSES_ERROR]: () => state.set('error', action.error),
 
-    [EMIT_STALL_OCCUPANCIES_UPDATE]() {
-      return state.set('stalls', action.stalls);
-    },
+    [EMIT_STALL_OCCUPANCIES_UPDATE]: () => state.set('stalls', action.stalls),
 
-    [EMIT_CLEAR_CONNECTION_ERRORS]() {
-      return state.delete('error');
-    },
+    [EMIT_CLEAR_CONNECTION_ERRORS]: () => state.delete('error'),
 
-    [EMIT_SET_ROOM_PING]() {
-      return state.set('ping', action.ping);
-    },
+    [EMIT_SET_ROOM_PING]: () => state.set('ping', action.ping),
 
-    [EMIT_CLEAR_PING]() {
-      return state.set('ping', null);
-    },
+    [EMIT_CLEAR_PING]: () => state.set('ping', null),
 
-    [EMIT_TOGGLE_DISPLAY_LEGEND]() {
-      return state.set('displayLegend', !action.displayLegend);
-    },
+    [EMIT_TOGGLE_DISPLAY_LEGEND]: () => state.set('displayLegend', !action.displayLegend),
 
-    [EMIT_TOGGLE_DISPLAY_TEMPERATURE]() {
-      return state.set('displayTemp', !action.displayTemp);
-    },
+    [EMIT_TOGGLE_DISPLAY_TEMPERATURE]: () => state.set('displayTemp', !action.displayTemp),
 
-    [EMIT_TOGGLE_TEMP_SCALE]() {
+    [EMIT_TOGGLE_TEMP_SCALE]: () => {
       const unitOfTemp = action.unitOfTemp === FAHRENHEIT ? CELCIUS : FAHRENHEIT;
 
       return state.set('unitOfTemp', unitOfTemp);
     },
 
-    [EMIT_MARKERS_UPDATE]() {
-      return state.set('markers', action.markers);
-    },
+    [EMIT_MARKERS_UPDATE]: () => state.set('markers', action.markers),
 
-    [EMIT_ROOM_TEMPERATURE_UPDATE]() {
+    [EMIT_ROOM_TEMPERATURE_UPDATE]: () => {
       const meetingRooms = state.get('meetingRooms').map((room) => {
         if (action.room.id === room.id) {
           room.thermo = action.room.thermo;
@@ -132,9 +116,7 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('meetingRooms', meetingRooms);
     },
 
-    [EMIT_ROOM_MOTION_UPDATE]() {
-      return state;
-    }
+    [EMIT_ROOM_MOTION_UPDATE]: () => state
   };
 
   return handleAction(state, action, reducers);
