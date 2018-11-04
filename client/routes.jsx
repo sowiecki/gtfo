@@ -12,8 +12,8 @@ const Routes = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Body location={history.location}>
-        <Route component={FloorPlanController}/>
-        <Route path='/:location' component={FloorPlanController}/>
+        <Route component={FloorPlanController} />
+        <Route path='/:location' component={FloorPlanController} />
       </Body>
     </ConnectedRouter>
   </Provider>
