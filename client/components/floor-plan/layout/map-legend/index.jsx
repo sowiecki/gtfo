@@ -6,19 +6,28 @@ import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Icon from '@material-ui/core/Icon';
-import { colors } from 'components/common/styles';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
+import { colors } from 'components/common/styles';
 import { STATUS_COLORS } from 'client/constants';
 import stylesGenerator from './styles';
 
-const MapLegend = ({ computedStyles, showYouAreHere, enabled, enableMotion, enableStalls }) => {
-  if (!enabled) {
+const MapLegend = ({
+  computedStyles,
+  actions,
+  showYouAreHere,
+  displayLegend,
+  enableMotion,
+  enableStalls
+}) => {
+  if (!displayLegend) {
     return null;
   }
 
   const genIcon = (color) => (
     <svg height='40' width='50'>
-      <circle cx='20' cy='20' r='20' fill={color}/>
+      <circle cx='20' cy='20' r='20' fill={color} />
     </svg>
   );
 
@@ -34,6 +43,12 @@ const MapLegend = ({ computedStyles, showYouAreHere, enabled, enableMotion, enab
   return (
     <div id='map-legend' className={computedStyles.base}>
       <List className={computedStyles.mapLegend}>
+        <IconButton
+          className={computedStyles.closeButton}
+          aria-label='Close'
+          onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
+          <CloseIcon fontSize='small' />
+        </IconButton>
         {youAreHereListItem}
         <ListItem>{genIcon(STATUS_COLORS.OFFLINE)} Offline</ListItem>
         <ListItem>{genIcon(STATUS_COLORS.BOOKED)} Booked</ListItem>
@@ -54,9 +69,10 @@ const MapLegend = ({ computedStyles, showYouAreHere, enabled, enableMotion, enab
 MapLegend.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
+    closeButton: PropTypes.object.isRequired,
     mapLegend: PropTypes.object.isRequired
   }).isRequired,
-  enabled: PropTypes.bool,
+  displayLegend: PropTypes.bool.isRequired,
   showYouAreHere: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,
   enableStalls: PropTypes.bool.isRequired

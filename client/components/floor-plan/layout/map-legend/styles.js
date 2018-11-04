@@ -14,7 +14,7 @@ const stylesGenerator = () => ({
       }
 
       ${fontStyles.primary};
-      font-size: 18px;
+      font-size: 22px;
     }
   `,
 
@@ -22,7 +22,14 @@ const stylesGenerator = () => ({
     color: ${color};
   `,
 
+  closeButton: css`
+    position: absolute;
+    top: 0;
+    right: 0;
+  `,
+
   mapLegend: css`
+    padding: 30px 0 0 0;
     margin: 0 auto 0 28%;
     zoom: 0.6;
     width: 280px;
