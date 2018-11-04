@@ -16,19 +16,11 @@ import MapLegend from './map-legend';
 import stylesGenerator from './styles';
 
 const FloorPlanLayout = (props) => {
-  const {
-    computedStyles,
-    meetingRooms,
-    displayLegend,
-    location,
-    enableMotion,
-    enableStalls,
-    onChangeIndex
-  } = props;
+  const { computedStyles, meetingRooms, displayLegend, location, onChangeIndex } = props;
   const locationKeys = pluckLocations(meetingRooms);
 
   const renderLocation = (locationKey, index) => (
-    <Location key={index} locationKey={locationKey} {...props}/>
+    <Location key={index} locationKey={locationKey} {...props} />
   );
 
   return (
@@ -41,14 +33,10 @@ const FloorPlanLayout = (props) => {
           resistance={true}>
           {locationKeys.map(renderLocation)}
         </SwipeableViews>
-        <MapLegend
-          enabled={displayLegend}
-          enableMotion={enableMotion}
-          enableStalls={enableStalls}
-          showYouAreHere={hasAnchor(location)}/>
+        <MapLegend enabled={displayLegend} showYouAreHere={hasAnchor(location)} {...props} />
       </Paper>
-      <Route exact path='/:location/:room' render={() => <RoomModalEnable {...props}/>}/>
-      <DisplayError {...props}/>
+      <Route exact path='/:location/:room' render={() => <RoomModalEnable {...props} />} />
+      <DisplayError {...props} />
     </Fragment>
   );
 };
