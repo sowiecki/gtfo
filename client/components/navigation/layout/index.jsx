@@ -12,7 +12,7 @@ import stylesGenerator from './styles';
 
 const NavigationLayout = (props) => (
   <Fragment>
-    <Header {...props}/>
+    <Header {...props} />
     <Drawer
       className={props.computedStyles.drawer}
       open={props.siteNavOpen}
@@ -22,8 +22,8 @@ const NavigationLayout = (props) => (
         onOpenFullscreenClick={props.onOpenFullscreenClick}
         {...props}/>
     </Drawer>
-    <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick}/>
-    <Modal modalContent={props.modalContent}/>
+    <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick} />
+    <Modal modalContent={props.modalContent} />
   </Fragment>
 );
 

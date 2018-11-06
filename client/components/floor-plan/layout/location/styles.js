@@ -43,12 +43,12 @@ const stylesGenerator = () => ({
 
     ${generateLayoutSVGWidthAndHeight(608)};
 
-    ${breakpoints.mobile_iphone5} {
-      ${generateLayoutSVGWidthAndHeight(200)};
+    ${breakpoints.mobile} {
+      ${generateLayoutSVGWidthAndHeight(400)};
     }
 
-    ${breakpoints.mobile} {
-      ${generateLayoutSVGWidthAndHeight(370)};
+    ${breakpoints.mobile_iphone5} {
+      ${generateLayoutSVGWidthAndHeight(300)};
     }
 
     ${breakpoints.tablet} {

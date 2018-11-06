@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { colors, fonts, MOBILE_WIDTH_BREAKPOINT } from 'components/common/styles';
+import { colors, fonts, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = () => ({
   base: css`
@@ -24,10 +24,15 @@ const stylesGenerator = () => ({
     font-family: ${fonts.primary};
     font-weight: 8;
 
-    @media (max-width: ${MOBILE_WIDTH_BREAKPOINT}px) {
+    ${breakpoints.mobile} {
       min-width: 100px;
       font-size: 30px;
       font-weight: 600;
+    }
+
+    ${breakpoints.mobile_iphone5} {
+      padding: 12px 10px 0 10px;
+      font-size: 24px;
     }
   `,
 
@@ -35,11 +40,13 @@ const stylesGenerator = () => ({
     font-size: 16px;
     min-width: 200px;
     background-color: ${colors.primary};
+
     span {
       color: ${colors.BLACK};
       font-size: 18px;
     }
-    ,pointer: cursor;
+
+    pointer: cursor;
   `
 });
 

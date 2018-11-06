@@ -43,21 +43,22 @@ export const fontStyles = {
   `
 };
 
-export const MOBILE_WIDTH_BREAKPOINT = 500;
+export const MOBILE_WIDTH_BREAKPOINT = 411;
 
 export const breakpoints = {
-  mobile_iphone5: `
-    @media (screen and (min-device-width: 320px)
-      and (max-device-width: 568px)
-      and (-webkit-min-device-pixel-ratio: 2))
-  `,
-  mobile_ipad: `
-    @media (screen and (min-device-width: 768px)
-      and (max-device-width: 1024px)
-      and (-webkit-min-device-pixel-ratio: 2)
-  `,
-  mobile: `@media (max-width: ${MOBILE_WIDTH_BREAKPOINT}px)`,
-  tablet: '@media (max-width: 1023px) and (orientation: portrait)'
+  // mobile_iphone5: `
+  //   @media (screen and (min-device-width: 320px)
+  //     and (max-device-width: 568px)
+  //     and (-webkit-min-device-pixel-ratio: 2))
+  // `,
+  // mobile_ipad: `
+  //   @media (screen and (min-device-width: 768px)
+  //     and (max-device-width: 1024px)
+  //     and (-webkit-min-device-pixel-ratio: 2)
+  // `,
+  mobile_iphone5: '@media screen and (max-width: 320px)',
+  mobile: '@media screen and (max-width: 411px)',
+  tablet: '@media screen and (min-width: 1023px) and (orientation: portrait)'
 };
 
 // beforeSmall: 'screen and (max-width: 719px)',

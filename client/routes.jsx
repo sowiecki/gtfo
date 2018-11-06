@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import history from 'config/history';
 import Body from 'components/body';
 import FloorPlanController from 'components/floor-plan/container';
+import { FLOOR_PLAN_ROUTE } from 'client/constants';
 import store from './store';
 
 const Routes = () => (
@@ -13,7 +14,7 @@ const Routes = () => (
     <ConnectedRouter history={history}>
       <Body location={history.location}>
         <Route component={FloorPlanController} />
-        <Route path='/:location' component={FloorPlanController} />
+        <Route path={FLOOR_PLAN_ROUTE} component={FloorPlanController} />
       </Body>
     </ConnectedRouter>
   </Provider>

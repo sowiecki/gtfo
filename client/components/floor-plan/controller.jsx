@@ -1,5 +1,5 @@
 /* globals setInterval, clearInterval */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
@@ -15,7 +15,7 @@ import FloorPlanLayout from './layout';
 let originalLocation;
 let noPingInProgress = true;
 
-class FloorPlanController extends Component {
+class FloorPlanController extends PureComponent {
   static propTypes = {
     location: PropTypes.object.isRequired,
     meetingRooms: PropTypes.array,

@@ -10,7 +10,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
 
 import DisplayError from 'components/common/display-error';
-import RoomModalEnable from 'components/floor-plan/room-modal/enable';
+import RoomModalEnable from './room-modal/enable';
 import Location from './location';
 import MapLegend from './map-legend';
 import stylesGenerator from './styles';

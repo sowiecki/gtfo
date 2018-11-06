@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { colors, fonts } from 'components/common/styles';
+import { colors, fonts, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = () => ({
   locationHighlight: css`
@@ -14,6 +14,14 @@ const stylesGenerator = () => ({
     > path {
       color: ${colors.secondary};
       transform: scale(0.03) translate(20px, -54px);
+
+      ${breakpoints.mobile} {
+        transform: scale(0.03) translate(30px, -60px);
+      }
+
+      ${breakpoints.mobile_iphone5} {
+        transform: scale(0.03) translate(20px, -54px);
+      }
     }
   `,
 
@@ -23,6 +31,15 @@ const stylesGenerator = () => ({
     font-ize: 24px;
     font-family: ${fonts.tertiary};
     fill: ${colors.WHITE};
+
+    ${breakpoints.mobile} {
+      transform: translate(0, -18px);
+
+    }
+
+    ${breakpoints.mobile_iphone5} {
+      transform: translate(0, -16px);
+    }
   `
 });
 
