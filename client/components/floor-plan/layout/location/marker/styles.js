@@ -22,6 +22,10 @@ const stylesGenerator = () => ({
       ${breakpoints.mobile_iphone5} {
         transform: scale(0.03) translate(20px, -54px);
       }
+
+      ${breakpoints.large} {
+        transform: scale(0.03) translate(20px, -60px);
+      }
     }
   `,
 

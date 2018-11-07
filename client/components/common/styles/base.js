@@ -58,7 +58,8 @@ export const breakpoints = {
   // `,
   mobile_iphone5: '@media screen and (max-width: 320px)',
   mobile: '@media screen and (max-width: 411px)',
-  tablet: '@media screen and (min-width: 1023px) and (orientation: portrait)'
+  tablet: '@media screen and (min-width: 1023px) and (orientation: portrait)',
+  large: '@media screen and (min-width: 2048px)'
 };
 
 // beforeSmall: 'screen and (max-width: 719px)',

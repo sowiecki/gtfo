@@ -10,17 +10,7 @@ import Marker from './marker';
 import stylesGenerator from './styles';
 
 const Location = (props) => {
-  const {
-    computedStyles,
-    meetingRooms,
-    stalls,
-    markers,
-    ping,
-    displayTemp,
-    unitOfTemp,
-    location,
-    locationKey
-  } = props;
+  const { computedStyles, meetingRooms, stalls, markers, ping, location, locationKey } = props;
 
   const filteredMeetingRooms = filterByLocation(meetingRooms, locationKey);
   const filteredStalls = filterByLocation(stalls, locationKey);
@@ -29,10 +19,9 @@ const Location = (props) => {
   const renderMeetingRoom = (meetingRoom, index) => (
     <MeetingRoom
       key={`${meetingRoom.name}-${index}`}
+      {...props}
       pinged={ping && ping.id === meetingRoom.id}
-      displayTemp={displayTemp}
-      unitOfTemp={unitOfTemp}
-      {...meetingRoom}/>
+      meetingRoom={meetingRoom}/>
   );
 
   const renderMarker = (marker, index) => (
@@ -42,11 +31,11 @@ const Location = (props) => {
       youAreHere={youAreHere(marker, location)}/>
   );
 
-  const renderStall = (stall, index) => <Stall key={index} {...stall}/>;
+  const renderStall = (stall, index) => <Stall key={index} {...stall} />;
 
   return (
     <div key={locationKey} className={computedStyles.base}>
-      <img src={getLocationBackdrop(locationKey)} alt={`Backdrop for ${locationKey}`}/>
+      <img src={getLocationBackdrop(locationKey)} alt={`Backdrop for ${locationKey}`} />
       <svg>
         {filteredMeetingRooms.map(renderMeetingRoom)}
         {filteredStalls.map(renderStall)}
@@ -66,9 +55,7 @@ Location.propTypes = {
   stalls: PropTypes.array,
   ping: PropTypes.object,
   location: PropTypes.object.isRequired,
-  locationKey: PropTypes.string.isRequired,
-  displayTemp: PropTypes.bool.isRequired,
-  unitOfTemp: PropTypes.string.isRequired
+  locationKey: PropTypes.string.isRequired
 };
 
 export default withStyles(stylesGenerator)(Location);

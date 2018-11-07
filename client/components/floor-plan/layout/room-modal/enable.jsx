@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { matchPath } from 'react-router';
 import { find, isEqual } from 'lodash';
 
-import { FLOOR_PLAN_ROUTE } from 'client/constants';
+import withModal from './with-modal';
 import RoomModal from './index';
 
 class RoomModalEnable extends Component {
@@ -55,29 +54,13 @@ class RoomModalEnable extends Component {
   }
 
   componentWillUnmount(nextProps) {
-    this.closeModal(nextProps);
+    this.props.closeModal(nextProps);
   }
 
-  getParams = () =>
-    matchPath(this.props.location.pathname, {
-      path: FLOOR_PLAN_ROUTE,
-      exact: true,
-      strict: false
-    }).params;
-
-  closeModal = () => {
-    const { actions } = this.props;
-    const params = this.getParams();
-
-    actions.emitModalContentUpdate(null);
-    actions.push(`/${params.location}`);
-  };
-
   getMeetingRoom = (nextProps = this.props) => {
-    const { meetingRooms } = nextProps;
-    const params = this.getParams();
+    const { meetingRooms, getLocationParams } = nextProps;
 
-    return find(meetingRooms, { id: params.room });
+    return find(meetingRooms, { id: getLocationParams().room });
   };
 
   modalUpdate = () => {
@@ -85,9 +68,7 @@ class RoomModalEnable extends Component {
     const meetingRoom = this.getMeetingRoom();
 
     if (meetingRoom) {
-      actions.emitModalContentUpdate(
-        <RoomModal {...this.props} meetingRoom={meetingRoom} closeModal={this.closeModal} />
-      );
+      actions.emitModalContentUpdate(<RoomModal {...this.props} meetingRoom={meetingRoom} />);
     }
   };
 
@@ -96,4 +77,4 @@ class RoomModalEnable extends Component {
   }
 }
 
-export default RoomModalEnable;
+export default withModal(RoomModalEnable);

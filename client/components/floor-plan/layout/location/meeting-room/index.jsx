@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
+import { compose } from 'recompose';
 
 import { VelocityComponent } from 'velocity-react';
 
+import RoomModal from 'components/floor-plan/layout/room-modal';
 import { parsePosition, parseShape } from 'utils';
+import withModal from 'components/floor-plan/layout/room-modal/with-modal';
 
 import {
   STATUS_COLORS,
@@ -19,38 +22,37 @@ import stylesGenerator from './styles';
 const MeetingRoom = (props) => {
   const {
     computedStyles,
-    name,
-    coordinates,
-    alert,
-    thermo,
+    actions,
     unitOfTemp,
     displayTemp,
-    pinged,
-    connectionStatus
+    connectionStatus,
+    meetingRoom,
+    getLocationParams
   } = props;
-
-  const pingAnimation = {
-    fill: STATUS_COLORS.PINGED,
-    opacity: pinged ? 1 : 0
-  };
-
+  const { id, name, coordinates, alert, thermo, pinged } = meetingRoom;
+  const pingAnimation = { fill: STATUS_COLORS.PINGED, opacity: pinged ? 1 : 0 };
   const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
 
   const temperature = displayTemp ? (
-    <Temperature thermo={thermo} unitOfTemp={unitOfTemp} coordinates={coordinates}/>
+    <Temperature thermo={thermo} unitOfTemp={unitOfTemp} coordinates={coordinates} />
   ) : null;
 
+  const onClick = () => {
+    actions.emitModalContentUpdate(<RoomModal {...props} meetingRoom={meetingRoom} />);
+    actions.push(`/${getLocationParams().location}/${id}`);
+  };
+
   return (
-    <svg {...parsePosition(coordinates)}>
+    <svg {...parsePosition(coordinates)} onClick={onClick}>
       <VelocityComponent animation={{ fill: STATUS_COLORS[alert] }}>
-        <rect className={computedStyles.svgRect} {...parseShape(coordinates)}/>
+        <rect className={computedStyles.svgRect} {...parseShape(coordinates)} />
       </VelocityComponent>
       <VelocityComponent
         animation={pingAnimation}
         loop={pingLoop}
         duration={PING_ANIMATION_TIMEOUT}
         className={computedStyles.svgRect}>
-        <rect {...parseShape(coordinates)}/>
+        <rect {...parseShape(coordinates)} />
       </VelocityComponent>
       <svg className={computedStyles.base}>
         <text
@@ -72,24 +74,35 @@ const MeetingRoom = (props) => {
 };
 
 MeetingRoom.propTypes = {
+  getLocationParams: PropTypes.func.isRequired,
+  actions: PropTypes.shape({
+    emitModalContentUpdate: PropTypes.func.isRequired
+  }).isRequired,
   computedStyles: PropTypes.shape({
     svgReact: PropTypes.object.isRequired,
     svgRoomTextConnected: PropTypes.object.isRequired,
     svgRoomTextDisconnected: PropTypes.object.isRequired
   }).isRequired,
-  name: PropTypes.string.isRequired,
-  coordinates: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired
+  meetingRoom: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    coordinates: PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      width: PropTypes.number.isRequired
+    }).isRequired,
+    alert: PropTypes.string,
+    thermo: PropTypes.object,
+    pinged: PropTypes.bool,
+    connectionStatus: PropTypes.bool.isRequired
   }).isRequired,
-  alert: PropTypes.string,
-  thermo: PropTypes.object,
   unitOfTemp: PropTypes.string.isRequired,
-  displayTemp: PropTypes.bool,
-  pinged: PropTypes.bool,
-  connectionStatus: PropTypes.bool.isRequired
+  displayTemp: PropTypes.bool
 };
 
-export default withStyles(stylesGenerator)(MeetingRoom);
+// export default withStyles(stylesGenerator)(MeetingRoom);
+export default compose(
+  withModal,
+  withStyles(stylesGenerator)
+)(MeetingRoom);

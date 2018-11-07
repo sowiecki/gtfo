@@ -54,6 +54,10 @@ const stylesGenerator = () => ({
     ${breakpoints.tablet} {
       ${generateLayoutSVGWidthAndHeight(740)};
     }
+
+    ${breakpoints.large} {
+      ${generateLayoutSVGWidthAndHeight(870)};
+    }
   `
 });
 

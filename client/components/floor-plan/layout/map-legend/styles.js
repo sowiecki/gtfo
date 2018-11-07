@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { colors, fontStyles } from 'components/common/styles';
+import { colors, fontStyles, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = ({ displayLegend }) => ({
   base: css`
@@ -10,6 +10,10 @@ const stylesGenerator = ({ displayLegend }) => ({
     right: 200px;
     bottom: 20px;
     width: 0;
+
+    ${breakpoints.large} {
+      right: 300px;
+    }
 
     > ul {
       background-color: ${colors.DARK_GREY};

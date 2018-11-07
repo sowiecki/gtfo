@@ -7,7 +7,7 @@ import stylesGenerator from './styles';
 const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => (
   <div className={computedStyles.base}>
     <button type='button' onClick={closeModal}>
-      Close
+        Close
     </button>
     <ul>
       <li>{meetingRoom.name}</li>
