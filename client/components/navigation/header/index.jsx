@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { matchPath } from 'react-router';
 import withStyles from 'withstyles';
+import { get } from 'lodash';
 
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -20,11 +21,16 @@ const Header = (props) => {
   const { computedStyles, location, locations, actions, siteNavOpen } = props;
   const { fullscreen } = queryString.parse(location.search);
   const toggleSiteNav = () => actions.emitToggleSiteNav(!siteNavOpen);
-  const { params } = matchPath(location.pathname, {
-    path: FLOOR_PLAN_ROUTE,
-    exact: true,
-    strict: false
-  });
+  const params = get(
+    matchPath(location.pathname, {
+      path: FLOOR_PLAN_ROUTE,
+      exact: true,
+      strict: false
+    }),
+    'params'
+  );
+
+  if (!params) return null; // Controller will handle redirecting to a route with valid params
 
   const renderLocationTab = (tabLocation, index) => {
     const onClick = () => actions.push({ ...location, pathname: `/${tabLocation}` });
@@ -55,10 +61,6 @@ const Header = (props) => {
   );
 };
 
-Header.defaultProps = {
-  location: {}
-};
-
 Header.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
@@ -75,7 +77,7 @@ Header.propTypes = {
     query: PropTypes.shape({
       fullscreen: PropTypes.string
     })
-  }),
+  }).isRequired,
   locations: PropTypes.array
 };
 
