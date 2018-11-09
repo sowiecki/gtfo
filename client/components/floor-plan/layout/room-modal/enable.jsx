@@ -66,7 +66,7 @@ class RoomModalEnable extends Component {
   modalUpdate = () => {
     const { actions } = this.props;
     const meetingRoom = this.getMeetingRoom();
-
+    console.log(meetingRoom);
     if (meetingRoom) {
       actions.emitModalContentUpdate(<RoomModal {...this.props} meetingRoom={meetingRoom} />);
     }

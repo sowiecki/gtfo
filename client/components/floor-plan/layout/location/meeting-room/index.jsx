@@ -43,7 +43,7 @@ const MeetingRoom = (props) => {
   };
 
   return (
-    <svg {...parsePosition(coordinates)} onClick={onClick}>
+    <svg className={computedStyles.base} {...parsePosition(coordinates)} onClick={onClick}>
       <VelocityComponent animation={{ fill: STATUS_COLORS[alert] }}>
         <rect className={computedStyles.svgRect} {...parseShape(coordinates)} />
       </VelocityComponent>
@@ -54,7 +54,7 @@ const MeetingRoom = (props) => {
         className={computedStyles.svgRect}>
         <rect {...parseShape(coordinates)} />
       </VelocityComponent>
-      <svg className={computedStyles.base}>
+      <svg className={computedStyles.textContainer}>
         <text
           fill={
             connectionStatus
@@ -79,6 +79,8 @@ MeetingRoom.propTypes = {
     emitModalContentUpdate: PropTypes.func.isRequired
   }).isRequired,
   computedStyles: PropTypes.shape({
+    base: PropTypes.object.isRequired,
+    textContainer: PropTypes.object.isRequired,
     svgReact: PropTypes.object.isRequired,
     svgRoomTextConnected: PropTypes.object.isRequired,
     svgRoomTextDisconnected: PropTypes.object.isRequired

@@ -25,7 +25,7 @@ const FloorPlanLayout = (props) => {
 
   return (
     <Fragment>
-      <Paper>
+      <Paper id='floor-plan-root'>
         <SwipeableViews
           className={computedStyles.swipableOverride}
           index={getLocationIndex(locationKeys, location)}

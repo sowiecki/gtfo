@@ -6,6 +6,10 @@ const svgLabelBaseTransform = 'rotate(45deg)';
 
 const stylesGenerator = () => ({
   base: css`
+    cursor: pointer;
+  `,
+
+  textContainer: css`
     font-family: ${fonts.quaternary};
     font-weight: 400;
     font-size: 12px;
