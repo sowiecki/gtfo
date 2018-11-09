@@ -43,7 +43,7 @@ export const fontStyles = {
   `
 };
 
-export const MOBILE_WIDTH_BREAKPOINT = 411;
+export const MOBILE_WIDTH_BREAKPOINT = 511;
 
 export const breakpoints = {
   // mobile_iphone5: `
@@ -57,7 +57,7 @@ export const breakpoints = {
   //     and (-webkit-min-device-pixel-ratio: 2)
   // `,
   mobile_iphone5: '@media screen and (max-width: 320px)',
-  mobile: '@media screen and (max-width: 411px)',
+  mobile: '@media screen and (max-width: 511px)',
   tablet: '@media screen and (min-width: 1023px) and (orientation: portrait)',
   large: '@media screen and (min-width: 2048px)'
 };
