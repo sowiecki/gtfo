@@ -1,3 +1,4 @@
+/* globals window, document */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -39,7 +40,7 @@ class NavigationController extends PureComponent {
   }
 
   render() {
-    const { actions, locations, timeTravelControlsOpen } = this.props;
+    const { actions, locations, location, timeTravelControlsOpen } = this.props;
     const fullScreenParams = {
       ...location,
       search: queryString.stringify({

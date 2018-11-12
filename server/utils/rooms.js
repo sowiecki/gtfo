@@ -97,6 +97,9 @@ export const secureRoom = (room) => {
     }
     : null;
 
+  const currentReservation = room.reservations.find((reservation) =>
+    moment().isBetween(moment(reservation.startDate), moment(reservation.endDate)));
+
   return {
     id: room.id,
     alert: room.alert,
@@ -104,7 +107,8 @@ export const secureRoom = (room) => {
     location: room.location,
     name: room.name,
     connectionStatus: room.connectionStatus,
-    currentReservation: room.reservations ? room.reservations[0] : {},
+    currentReservation,
+    reservations: room.reservations,
     thermo
   };
 };
@@ -124,15 +128,16 @@ export const getSecureRooms = (state) => secureRooms(state.toJS().rooms);
  * @param {object} time - Moment object.
  * @returns {array} Meeting rooms as they would be in future time.
  */
-export const getFutureAlerts = (rooms, time) => rooms.map((room) => {
-  room.reservations = filterExpiredReservations(room.reservations, time);
-  const roomProperties = { reservations: room.reservations, recentMotion: false };
+export const getFutureAlerts = (rooms, time) =>
+  rooms.map((room) => {
+    room.reservations = filterExpiredReservations(room.reservations, time);
+    const roomProperties = { reservations: room.reservations, recentMotion: false };
 
-  return {
-    ...secureRoom(room),
-    alert: getRoomAlert(roomProperties, room.capabilities, time)
-  };
-});
+    return {
+      ...secureRoom(room),
+      alert: getRoomAlert(roomProperties, room.capabilities, time)
+    };
+  });
 
 /**
  * Sets up

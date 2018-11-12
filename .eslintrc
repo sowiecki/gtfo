@@ -2,9 +2,7 @@
   "plugins": ["react", "filenames"],
   "extends": "airbnb",
   "parser": "babel-eslint",
-  "env": {
-    "es6": true
-  },
+
   "rules": {
     "strict": 0,
     "global-require": 0,
@@ -42,7 +40,7 @@
     "no-extra-parens": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
-    "no-undef": 0,
+    "no-undef": 2,
     "no-plusplus": 0,
     "object-curly-newline": 0,
     "arrow-parens": [2, "always"],

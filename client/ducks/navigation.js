@@ -1,3 +1,4 @@
+/* globals document */
 import immutable from 'immutable';
 
 import { handleAction } from '../utils';
@@ -76,7 +77,8 @@ const navigationReducer = (state = initialState, action) => {
 
     [EMIT_SITE_NAV_TOGGLE]: () => state.set('siteNavOpen', action.siteNavOpen),
 
-    [EMIT_TIME_TRAVEL_MODAL_TOGGLE]: () => state.set('timeTravelControlsOpen', action.timeTravelControlsOpen),
+    [EMIT_TIME_TRAVEL_MODAL_TOGGLE]: () =>
+      state.set('timeTravelControlsOpen', action.timeTravelControlsOpen),
 
     [EMIT_TIME_TRAVEL_UPDATE]: () => state.set('timeTravelTime', action.timeTravelTime),
 
