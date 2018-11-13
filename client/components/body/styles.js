@@ -23,4 +23,9 @@ injectGlobal`
   * {
     box-sizing: border-box;
   }
+
+  .blur > * > :not(.dont-blur) {
+    filter: blur(2px);
+    pointer-events: none;
+  }
 `;

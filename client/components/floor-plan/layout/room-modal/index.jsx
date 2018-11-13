@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 import moment from 'moment';
+import { isEmpty } from 'lodash';
 
 import { TIME_FORMAT, BOOKED, ABANDONED } from 'client/constants';
 import { formatForDisplay } from 'utils';
@@ -10,7 +11,7 @@ import stylesGenerator from './styles';
 
 const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
   const renderCurrentReservation = () =>
-    ([BOOKED, ABANDONED].includes(meetingRoom.alert) ? (
+    (!isEmpty(meetingRoom.currentReservation) && [BOOKED, ABANDONED].includes(meetingRoom.alert) ? (
       <div className={computedStyles.currentReservation}>
         {moment(meetingRoom.currentReservation.startDate).format(TIME_FORMAT)} to{' '}
         {moment(meetingRoom.currentReservation.endDate).format(TIME_FORMAT)}

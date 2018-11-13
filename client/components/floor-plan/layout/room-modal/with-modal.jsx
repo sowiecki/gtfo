@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { matchPath } from 'react-router';
+import { find } from 'lodash';
 
 import { FLOOR_PLAN_ROUTE } from 'client/constants';
 

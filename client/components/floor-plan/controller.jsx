@@ -2,8 +2,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import moment from 'moment';
 
-import { PING_TIMEOUT } from 'client/constants';
+import { PING_TIMEOUT, TIME_FORMAT } from 'client/constants';
 import { pluckLocations } from 'utils';
 import FloorPlanLayout from './layout';
 
@@ -68,6 +69,20 @@ class FloorPlanController extends PureComponent {
     }
   }
 
+  handleLayoutReset = () => {
+    const { actions } = this.props;
+
+    actions.emitTimeTravelControlsToggle(false);
+    actions.emitTimeTravelUpdate(moment().format(TIME_FORMAT));
+  };
+
+  handleChangeLocation(newIndex) {
+    const { actions, meetingRooms, location } = this.props;
+    const locations = pluckLocations(meetingRooms);
+
+    actions.push({ ...location, pathname: `/${locations[newIndex]}` });
+  }
+
   /**
    * Checks that view is on correct location for ping.
    * Automatically clears pings after defined amount of time.
@@ -95,15 +110,13 @@ class FloorPlanController extends PureComponent {
     }, PING_TIMEOUT);
   }
 
-  handleChangeLocation(newIndex) {
-    const { actions, meetingRooms, location } = this.props;
-    const locations = pluckLocations(meetingRooms);
-
-    actions.push({ ...location, pathname: `/${locations[newIndex]}` });
-  }
-
   render() {
-    return <FloorPlanLayout onChangeIndex={this.handleChangeLocation.bind(this)} {...this.props} />;
+    return (
+      <FloorPlanLayout
+        onLayoutReset={this.handleLayoutReset}
+        onChangeIndex={this.handleChangeLocation.bind(this)}
+        {...this.props}/>
+    );
   }
 }
 

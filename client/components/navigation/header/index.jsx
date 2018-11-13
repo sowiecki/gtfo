@@ -81,4 +81,8 @@ Header.propTypes = {
   locations: PropTypes.array
 };
 
+Header.defaultProps = {
+  locations: []
+};
+
 export default withStyles(stylesGenerator)(Header);

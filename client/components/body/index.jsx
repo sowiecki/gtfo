@@ -5,12 +5,7 @@ import NavigationContainer from '../navigation/container';
 
 import './styles';
 
-const Body = (props) => (
-  <div>
-    <NavigationContainer {...props} />
-    {props.children}
-  </div>
-);
+const Body = (props) => <NavigationContainer {...props}>{props.children}</NavigationContainer>;
 
 Body.propTypes = {
   children: PropTypes.node.isRequired

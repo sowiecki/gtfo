@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
@@ -11,7 +11,12 @@ import TimeTravel from 'components/navigation/time-travel';
 import stylesGenerator from './styles';
 
 const NavigationLayout = (props) => (
-  <Fragment>
+  <div
+    className={props.shouldBlur ? 'blur' : ''}
+    onClick={props.onCloseEverything}
+    onKeyPress={props.onCloseEverything}
+    role='button'
+    tabIndex='0'>
     <Header {...props} />
     <Drawer
       className={props.computedStyles.drawer}
@@ -23,14 +28,17 @@ const NavigationLayout = (props) => (
         {...props}/>
     </Drawer>
     <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick} />
-    <Modal modalContent={props.modalContent} />
-  </Fragment>
+    <Modal {...props} modalContent={props.modalContent} />
+    {props.children}
+  </div>
 );
 
 NavigationLayout.propTypes = {
   computedStyles: PropTypes.shape({
     drawer: PropTypes.object.isRequired
   }).isRequired,
+  shouldBlur: PropTypes.bool.isRequired,
+  onCloseEverything: PropTypes.func.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
   onTimeTravelDismissClick: PropTypes.func.isRequired,
   actions: PropTypes.shape({

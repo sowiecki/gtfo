@@ -27,7 +27,8 @@ const MeetingRoom = (props) => {
     displayTemp,
     connectionStatus,
     meetingRoom,
-    getLocationParams
+    getLocationParams,
+    onLayoutReset
   } = props;
   const { id, name, coordinates, alert, thermo, pinged } = meetingRoom;
   const pingAnimation = { fill: STATUS_COLORS.PINGED, opacity: pinged ? 1 : 0 };
@@ -38,6 +39,7 @@ const MeetingRoom = (props) => {
   ) : null;
 
   const onClick = () => {
+    onLayoutReset();
     actions.emitModalContentUpdate(<RoomModal {...props} meetingRoom={meetingRoom} />);
     actions.push(`/${getLocationParams().location}/${id}`);
   };
@@ -100,7 +102,8 @@ MeetingRoom.propTypes = {
     connectionStatus: PropTypes.bool.isRequired
   }).isRequired,
   unitOfTemp: PropTypes.string.isRequired,
-  displayTemp: PropTypes.bool
+  displayTemp: PropTypes.bool,
+  onLayoutReset: PropTypes.func.isRequired
 };
 
 // export default withStyles(stylesGenerator)(MeetingRoom);
