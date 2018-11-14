@@ -18,9 +18,19 @@ import LocationDropDown from './location-dropdown';
 import stylesGenerator from './styles';
 
 const Header = (props) => {
-  const { computedStyles, location, locations, actions, siteNavOpen } = props;
+  const {
+    computedStyles,
+    location,
+    locations,
+    actions,
+    siteNavOpen,
+    onTimeTravelDismissClick
+  } = props;
   const { fullscreen } = queryString.parse(location.search);
-  const toggleSiteNav = () => actions.emitToggleSiteNav(!siteNavOpen);
+  const toggleSiteNav = () => {
+    onTimeTravelDismissClick();
+    actions.emitToggleSiteNav(!siteNavOpen);
+  };
   const params = get(
     matchPath(location.pathname, {
       path: FLOOR_PLAN_ROUTE,
@@ -78,6 +88,7 @@ Header.propTypes = {
       fullscreen: PropTypes.string
     })
   }).isRequired,
+  onTimeTravelDismissClick: PropTypes.func.isRequired,
   locations: PropTypes.array
 };
 

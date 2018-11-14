@@ -5,16 +5,21 @@ import withStyles from 'withstyles';
 import moment from 'moment';
 import { get, isEmpty } from 'lodash';
 import scrollIntoView from 'scroll-into-view';
+import scroll from 'scroll';
+
+import Icon from '@material-ui/core/Icon';
 
 import { TIME_FORMAT } from 'client/constants';
 import stylesGenerator from './styles';
+
+let scrollTimeout;
 
 class FutureReservations extends PureComponent {
   static propTypes = {
     computedStyles: PropTypes.shape({
       base: PropTypes.object.isRequired,
-      title: PropTypes.object.isRequired,
-      status: PropTypes.func.isRequired
+      status: PropTypes.func.isRequired,
+      scrollIcon: PropTypes.object.isRequired
     }).isRequired,
     reservations: PropTypes.arrayOf(
       PropTypes.shape(
@@ -29,7 +34,7 @@ class FutureReservations extends PureComponent {
 
   CURRENT_TIME_SELECTOR = 'current-time';
 
-  SCROLL_DELAY = 750;
+  SCROLL_DELAY = 1500;
 
   componentDidMount() {
     this.scrollToCurrentTime();
@@ -40,7 +45,7 @@ class FutureReservations extends PureComponent {
   }
 
   scrollToCurrentTime = () => {
-    setTimeout(
+    scrollTimeout = setTimeout(
       () =>
         scrollIntoView(document.getElementById(this.CURRENT_TIME_SELECTOR), {
           align: {
@@ -49,6 +54,24 @@ class FutureReservations extends PureComponent {
         }),
       this.SCROLL_DELAY
     );
+  };
+
+  scroll = (direction) => {
+    this.clearScrollTimeout();
+
+    const reservationsEl = document.getElementById('reservations');
+
+    if (direction === 'up') {
+      scroll.top(reservationsEl, reservationsEl.scrollTop - 300);
+    } else if (direction === 'down') {
+      scroll.top(reservationsEl, reservationsEl.scrollTop + 300);
+    }
+
+    this.scrollToCurrentTime();
+  };
+
+  clearScrollTimeout = () => {
+    clearTimeout(scrollTimeout);
   };
 
   genTimeBlocks = () =>
@@ -122,23 +145,25 @@ class FutureReservations extends PureComponent {
 
   render() {
     const { computedStyles } = this.props;
-    // console.log(
-    //   this.props.reservations.map((e) => ({
-    //     ...e,
-    //     startDate: moment(e.startDate).format(TIME_FORMAT),
-    //     endDate: moment(e.endDate).format(TIME_FORMAT)
-    //   }))
-    // );
 
     return (
       <Fragment>
-        <h2 className={computedStyles.title}>Reservations</h2>
-        <div className={computedStyles.base} onTouchEnd={this.scrollToCurrentTime}>
+        <Icon className={computedStyles.scrollIcon} onClick={() => this.scroll('up')}>
+          keyboard_arrow_up
+        </Icon>
+        <div
+          id='reservations'
+          className={computedStyles.base}
+          onTouchEnd={this.scrollToCurrentTime}
+          onTouchStart={this.clearScrollTimeout}>
           {this.genTimeBlocks()
             .map(this.mapReservations)
             .reduce(this.reduceTimeBlocks, [])
             .map(this.renderTime)}
         </div>
+        <Icon className={computedStyles.scrollIcon} onClick={() => this.scroll('down')}>
+          keyboard_arrow_down
+        </Icon>
       </Fragment>
     );
   }

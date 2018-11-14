@@ -79,7 +79,7 @@ class NavigationController extends PureComponent {
   handleTimeTravelDismissClick = () => {
     const { actions } = this.props;
 
-    actions.emitTimeTravelControlsToggle();
+    actions.emitTimeTravelControlsToggle(false);
     actions.emitTimeTravelUpdate(null);
     actions.emitTimeSliderValueUpdate(0);
   };

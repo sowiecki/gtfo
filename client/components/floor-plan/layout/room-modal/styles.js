@@ -15,16 +15,6 @@ const stylesGenerator = ({ meetingRoom }) => ({
     width: 100%;
     color: ${colors.WHITE};
     background: ${colors.DARK_GREY};
-
-    > h1 {
-      margin: 0;
-      font-family: ${fonts.secondary};
-      font-size: 40px;
-
-      ${breakpoints.tablet} {
-        font-size: 80px;
-      }
-    }
   `,
 
   footer: css`
@@ -32,25 +22,26 @@ const stylesGenerator = ({ meetingRoom }) => ({
     bottom: 0;
     width: 100%;
     text-align: center;
-    background-color: ${colors.GREY};
 
     > button {
       margin: auto;
       font-size: 20px;
-      color: ${colors.DARK_GREY};
-      background-color: ${colors.LIGHT_GREY};
-      border: 1px solid ${colors.DARK_GREY};
+      color: ${colors.LIGHT_GREY};
       outline: none;
       pointer-events: all;
       transition: all 100ms ease-in;
       font-family: ${fonts.secondary};
+      background: none;
+      border: none;
 
       :hover,
       :active {
         cursor: pointer;
-        color: ${colors.LIGHT_GREY};
-        background-color: ${colors.DARK_GREY};
-        border: 1px solid ${colors.LIGHT_GREY};
+        color: ${colors.WHITE};
+      }
+
+      .material-icons {
+        vertical-align: middle;
       }
     }
   `,
@@ -64,6 +55,51 @@ const stylesGenerator = ({ meetingRoom }) => ({
       @keyframes backgroundColor {
         from {
           background-color: ${colors.DARK_GREY};
+        }
+      }
+
+      > div:nth-child(1) {
+        position: relative;
+        margin: auto;
+        text-align: left;
+        max-width: 500px;
+        font-size: 40px;
+
+        .left {
+          font-size: 24px;
+
+          .material-icons {
+            vertical-align: bottom;
+          }
+
+          ${breakpoints.mobile} {
+            font-size: 18px;
+          }
+
+          .reservation-details {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+
+            ${breakpoints.mobile} {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .right {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          font-size: 16px;
+
+          ${breakpoints.mobile} {
+            font-size: 14px;
+          }
+        }
+
+        .left,
+        .right {
+          line-height: 1;
         }
       }
 
@@ -81,24 +117,7 @@ const stylesGenerator = ({ meetingRoom }) => ({
         font-size: 90px;
       }
     `;
-  },
-
-  currentReservation: css`
-    font-size: 18px;
-    font-family: ${fonts.secondary};
-
-    ${breakpoints.tablet} {
-      font-size: 60px;
-    }
-
-    > div:nth-child(1) {
-      font-size: 14px;
-      // padding: 20px;
-      margin: auto;
-      width: auto;
-      font-family: ${fonts.tertiary};
-    }
-  `
+  }
 });
 
 export default stylesGenerator;

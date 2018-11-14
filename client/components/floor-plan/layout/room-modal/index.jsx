@@ -4,34 +4,66 @@ import withStyles from 'withstyles';
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 
-import { TIME_FORMAT, BOOKED, ABANDONED } from 'client/constants';
+import Icon from '@material-ui/core/Icon';
+
+import {
+  TIME_FORMAT,
+  BOOKED,
+  ABANDONED,
+  VACANT,
+  SQUATTED,
+  ONE_MINUTE_WARNING,
+  FIVE_MINUTE_WARNING
+} from 'client/constants';
 import { formatForDisplay } from 'utils';
+import CurrentTime from './current-time';
+import StatusIconMap from './status-icon-map';
 import FutureReservations from './future-reservations';
 import stylesGenerator from './styles';
 
 const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
   const renderCurrentReservation = () =>
     (!isEmpty(meetingRoom.currentReservation) && [BOOKED, ABANDONED].includes(meetingRoom.alert) ? (
-      <div className={computedStyles.currentReservation}>
-        {moment(meetingRoom.currentReservation.startDate).format(TIME_FORMAT)} to{' '}
-        {moment(meetingRoom.currentReservation.endDate).format(TIME_FORMAT)}
-        <div>RESERVED BY: {meetingRoom.currentReservation.email}</div>
+      <div className='reservation-details'>
+        <div>
+          Reserved by {meetingRoom.currentReservation.email}
+          <div>
+            {moment(meetingRoom.currentReservation.startDate).format(TIME_FORMAT)} to{' '}
+            {moment(meetingRoom.currentReservation.endDate).format(TIME_FORMAT)}
+          </div>
+        </div>
       </div>
     ) : null);
+
+  const ALERT_MESSAGE_MAP = {
+    [BOOKED]: 'Booked',
+    [ABANDONED]: 'Booked, but no occupants detected',
+    [VACANT]: 'Vacant',
+    [SQUATTED]: 'Not booked, but occupants detected',
+    [ONE_MINUTE_WARNING]: 'Booked, less than one minute remaining',
+    [FIVE_MINUTE_WARNING]: 'Booked, less than five minutes remaining'
+  };
 
   return (
     <Fragment>
       <div className={computedStyles.base}>
-        <h1>{meetingRoom.name}</h1>
         <div className={computedStyles.status(meetingRoom.alert)}>
-          {meetingRoom.alert.replace(/_/g, ' ')}
-          {renderCurrentReservation()}
+          <div>
+            {meetingRoom.name}
+            <div className='left'>
+              <StatusIconMap alert={meetingRoom.alert} /> {ALERT_MESSAGE_MAP[meetingRoom.alert]}
+              {renderCurrentReservation()}
+            </div>
+            <div className='right'>
+              <CurrentTime />
+            </div>
+          </div>
         </div>
         <FutureReservations reservations={meetingRoom.reservations} />
       </div>
       <div className={computedStyles.footer}>
         <button type='button' onClick={closeModal}>
-          View {formatForDisplay(meetingRoom.location)}
+          <Icon>subdirectory_arrow_left</Icon> Return to {formatForDisplay(meetingRoom.location)}
         </button>
       </div>
     </Fragment>

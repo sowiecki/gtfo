@@ -3,24 +3,20 @@ import { css } from 'emotion';
 import { isEmpty } from 'lodash';
 
 import { STATUS_COLORS } from 'client/constants';
-import { colors, fonts } from 'components/common/styles';
+import { colors, fonts, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = () => ({
   base: css`
     overflow-y: scroll;
     overflow-x: hidden;
     margin: auto;
-    width: 500px;
-    max-height: ${document.body.clientHeight - 340};
-    border: 6px solid ${colors.GREY};
+    max-width: 500px;
+    max-height: ${document.body.clientHeight - 320};
+    border: 1px solid ${colors.GREY};
   `,
 
-  title: css`
-    font-family: ${fonts.secondary};
-    font-size: 30px;
-    margin: 0;
-    color: ${colors.LIGHT_GREY};
-    text-transform: uppercase;
+  scrollIcon: css`
+    cursor: pointer;
   `,
 
   status: (value) => {
@@ -44,9 +40,14 @@ const stylesGenerator = () => ({
   },
 
   right: css`
-    padding: 4px;
     position: absolute;
+    padding: 4px;
+    top: 0;
     right: 0;
+
+    ${breakpoints.mobile} {
+      font-size: 12px;
+    }
   `
 });
 
