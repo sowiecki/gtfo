@@ -7,6 +7,7 @@ export default {
       public: {
         properties: {
           title: { type: 'string' },
+          timezone: { type: 'number' },
           enableTemperature: { type: 'bool' },
           enableStalls: { type: 'bool' },
           enableMotion: { type: 'bool' },
@@ -16,7 +17,8 @@ export default {
             enum: ['fahrenheit', 'celcius']
           },
           note: { type: 'string' }
-        }
+        },
+        required: ['timezone']
       },
       proxy: {
         properties: {
