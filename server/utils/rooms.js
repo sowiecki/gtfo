@@ -1,6 +1,6 @@
 /* eslint max-statements:0, no-magic-numbers:0 */
 import moment from 'moment';
-import { some, isEmpty } from 'lodash';
+import { get, some, isEmpty } from 'lodash';
 
 import { filterExpiredReservations } from '../../universal/utils';
 import {
@@ -33,7 +33,7 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
   const firstMeeting = reservations[0];
   const secondMeeting = reservations[1];
   const noReservations = !reservations.length;
-  const moduleIsMotionEquipped = config.public.enableMotion === true || capabilities.motion;
+  const moduleIsMotionEquipped = config.public.enableMotion === true || get(capabilities, 'motion');
   const shouldConsiderMotion = moduleIsMotionEquipped && isNotFutureQuery;
   const hasRecentMotion = shouldConsiderMotion && recentMotion
     ? recentMotion.isAfter(getTime().subtract(MOTION_GRACE_PERIOD, 'seconds'))
