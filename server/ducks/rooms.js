@@ -83,7 +83,15 @@ const roomsReducer = (state = initialState, action) => {
 
       state = state.set(
         'rooms',
-        rooms.map((room) => room.set('reservations', action.reservations[room.get('name')]))
+        rooms.map((room) => {
+          const reservations = action.reservations[room.get('name')];
+          const currentReservation = reservations.find((reservation) =>
+            moment().isBetween(moment(reservation.startDate), moment(reservation.endDate)));
+
+          return room
+            .set('currentReservation', currentReservation)
+            .set('reservations', reservations);
+        })
       );
 
       return reducers.EMIT_ROOM_STATUSES_UPDATE();

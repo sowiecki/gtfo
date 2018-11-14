@@ -48,13 +48,13 @@ const DrawerContent = (props) => {
   );
 
   return (
-    <List className={computedStyles.base}>
+    <List className={`${computedStyles.base} dont-blur`}>
       <DrawerContentItem
         onClick={onViewFutureAvailabilitiesClick}
         icon='schedule'
         primary='View future availabilities'/>
 
-      <Divider/>
+      <Divider />
 
       <DrawerContentItem
         onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}
@@ -70,7 +70,7 @@ const DrawerContent = (props) => {
         icon='fullscreen'
         primary='Open fullscreen'/>
 
-      <Divider/>
+      <Divider />
 
       <DrawerContentItem
         onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
@@ -80,7 +80,7 @@ const DrawerContent = (props) => {
 
       <ListItem>
         <div className={computedStyles.note}>
-          <span dangerouslySetInnerHTML={{ __html: note }}/>
+          <span dangerouslySetInnerHTML={{ __html: note }} />
         </div>
       </ListItem>
     </List>

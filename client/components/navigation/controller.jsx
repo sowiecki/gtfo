@@ -1,3 +1,4 @@
+/* globals window, document */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -38,8 +39,32 @@ class NavigationController extends PureComponent {
     window.remoteEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
   }
 
-  render() {
-    const { actions, locations, timeTravelControlsOpen } = this.props;
+  shouldBlur = () => {
+    const { modalContent, siteNavOpen } = this.props;
+
+    return !!modalContent || siteNavOpen;
+  };
+
+  // Closes modals, drawers, etc.
+  handleCloseEverything = () => {
+    const { actions } = this.props;
+
+    if (this.shouldBlur()) {
+      actions.emitToggleSiteNav(false);
+      // actions.emitTimeTravelControlsToggle(false);
+      actions.emitTimeSliderValueUpdate(0);
+    }
+  };
+
+  handleViewFutureAvailabilitiesClick = () => {
+    const { actions, timeTravelControlsOpen } = this.props;
+
+    actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
+    actions.emitToggleSiteNav(false);
+  };
+
+  handleOpenFullscreenClick = () => {
+    const { actions, location } = this.props;
     const fullScreenParams = {
       ...location,
       search: queryString.stringify({
@@ -48,24 +73,28 @@ class NavigationController extends PureComponent {
       })
     };
 
-    // Grouped action props.
-    const onViewFutureAvailabilitiesClick = () => {
-      actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
-      actions.emitToggleSiteNav(false);
-    };
-    const onOpenFullscreenClick = () => actions.push(fullScreenParams);
-    const onTimeTravelDismissClick = () => {
-      actions.emitTimeTravelControlsToggle(!timeTravelControlsOpen);
-      actions.emitTimeTravelUpdate(null);
-      actions.emitTimeSliderValueUpdate(0);
-    };
+    actions.push(fullScreenParams);
+  };
 
-    return !locations ? null : (
+  handleTimeTravelDismissClick = () => {
+    const { actions } = this.props;
+
+    actions.emitTimeTravelControlsToggle(false);
+    actions.emitTimeTravelUpdate(null);
+    actions.emitTimeSliderValueUpdate(0);
+  };
+
+  render() {
+    return (
       <NavigationLayout
         {...this.props}
-        onViewFutureAvailabilitiesClick={onViewFutureAvailabilitiesClick}
-        onOpenFullscreenClick={onOpenFullscreenClick}
-        onTimeTravelDismissClick={onTimeTravelDismissClick}/>
+        shouldBlur={this.shouldBlur()}
+        onCloseEverything={this.handleCloseEverything}
+        onViewFutureAvailabilitiesClick={this.handleViewFutureAvailabilitiesClick}
+        onOpenFullscreenClick={this.handleOpenFullscreenClick}
+        onTimeTravelDismissClick={this.handleTimeTravelDismissClick}>
+        {this.props.children}
+      </NavigationLayout>
     );
   }
 }

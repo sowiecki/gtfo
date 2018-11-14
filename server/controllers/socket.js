@@ -4,7 +4,7 @@ import { get, forEach } from 'lodash';
 
 import store from '../store';
 
-import { send, getFutureAlerts } from '../utils';
+import { send, getFutureAlerts, secureRooms } from '../utils';
 import { WEBSOCKET_PORT } from '../config';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import {
@@ -92,7 +92,9 @@ const socketController = {
 
       [TIME_TRAVEL_UPDATE]() {
         const { rooms } = store.getState().roomsReducer.toJS();
-        const newPayload = payload ? getFutureAlerts(rooms, moment(payload, TIME_FORMAT)) : rooms;
+        const newPayload = payload
+          ? getFutureAlerts(secureRooms(rooms), moment(payload, TIME_FORMAT))
+          : secureRooms(rooms);
 
         socketController.send(event, newPayload, client);
       },

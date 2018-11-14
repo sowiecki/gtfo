@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
+import Draggable from 'react-draggable';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -41,28 +42,33 @@ const MapLegend = ({
   ) : null;
 
   return (
-    <div id='map-legend' className={computedStyles.base}>
-      <List className={computedStyles.mapLegend}>
-        <IconButton
-          className={computedStyles.closeButton}
-          aria-label='Close'
-          onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
-          <CloseIcon fontSize='small' />
-        </IconButton>
-        {youAreHereListItem}
-        <ListItem>{genIcon(STATUS_COLORS.OFFLINE)} Offline</ListItem>
-        <ListItem>{genIcon(STATUS_COLORS.BOOKED)} Booked</ListItem>
-        {enableMotion || enableStalls ? (
-          <Fragment>
-            <ListItem key='squatted'>{genIcon(STATUS_COLORS.SQUATTED)} Squatted</ListItem>
-            <ListItem key='abandonded'>{genIcon(STATUS_COLORS.ABANDONED)} Abandoned</ListItem>
-          </Fragment>
-        ) : null}
-        <ListItem>{genIcon(STATUS_COLORS.VACANT)} Vacant</ListItem>
-        <ListItem>{genIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)} Five minute warning</ListItem>
-        <ListItem>{genIcon(STATUS_COLORS.ONE_MINUTE_WARNING)} One minute warning</ListItem>
-      </List>
-    </div>
+    <Draggable bounds='#floor-plan-root' handle='.map-legend-handle'>
+      <div id='map-legend' className={computedStyles.base}>
+        <List className={computedStyles.mapLegend}>
+          <div className='map-legend-handle'>
+            <span className='grippy' />
+            <IconButton
+              className={computedStyles.closeButton}
+              aria-label='Close'
+              onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          </div>
+          {youAreHereListItem}
+          <ListItem>{genIcon(STATUS_COLORS.OFFLINE)} Offline</ListItem>
+          <ListItem>{genIcon(STATUS_COLORS.BOOKED)} Booked</ListItem>
+          {enableMotion || enableStalls ? (
+            <Fragment>
+              <ListItem key='squatted'>{genIcon(STATUS_COLORS.SQUATTED)} Squatted</ListItem>
+              <ListItem key='abandonded'>{genIcon(STATUS_COLORS.ABANDONED)} Abandoned</ListItem>
+            </Fragment>
+          ) : null}
+          <ListItem>{genIcon(STATUS_COLORS.VACANT)} Vacant</ListItem>
+          <ListItem>{genIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)} Five minute warning</ListItem>
+          <ListItem>{genIcon(STATUS_COLORS.ONE_MINUTE_WARNING)} One minute warning</ListItem>
+        </List>
+      </div>
+    </Draggable>
   );
 };
 

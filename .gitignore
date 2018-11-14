@@ -15,6 +15,8 @@ reports
 # Environment variables
 environment/*.json
 environment/assets/*.png
+environment/assets/*.psd
+environment/assets/*.xcf
 env
 
 # Runtime data

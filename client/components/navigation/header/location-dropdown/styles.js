@@ -7,7 +7,6 @@ const stylesGenerator = () => ({
     height: 40px;
     padding: 0 20px;
     width: 200px;
-    font-size: 12px;
     text-align: right;
     text-transform: uppercase;
     color: ${colors.BLACK};
@@ -15,7 +14,7 @@ const stylesGenerator = () => ({
   `,
 
   select: css`
-    font-size: 20px;
+    font-size: 14px;
     color: ${colors.WHITE};
 
     svg {

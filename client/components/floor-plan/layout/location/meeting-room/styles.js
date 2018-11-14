@@ -6,6 +6,14 @@ const svgLabelBaseTransform = 'rotate(45deg)';
 
 const stylesGenerator = () => ({
   base: css`
+    cursor: pointer;
+
+    :hover {
+      stroke: ${colors.LIGHT_GREY};
+    }
+  `,
+
+  textContainer: css`
     font-family: ${fonts.quaternary};
     font-weight: 400;
     font-size: 12px;
@@ -13,6 +21,7 @@ const stylesGenerator = () => ({
     text-transform: uppercase;
 
     text {
+      stroke: none;
       transform: ${svgLabelBaseTransform} translate(8px, -20px);
 
       ${breakpoints.mobile} {

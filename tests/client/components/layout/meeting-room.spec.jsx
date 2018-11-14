@@ -11,18 +11,31 @@ import { VACANT, PING_ANIMATION_LOOPS } from 'constants/index';
 
 describe('<MeetingRoom/>', () => {
   const props = {
-    name: 'Winterfell',
-    coordinates: {
-      x: 1,
-      y: 1,
-      height: 1,
-      width: 1
-    },
-    alert: VACANT,
-    unitOfTemp: 'F',
-    displayTemp: false,
-    pinged: null,
-    connectionStatus: true
+    meetingRoom: {
+      name: 'Winterfell',
+      coordinates: {
+        x: 1,
+        y: 1,
+        height: 1,
+        width: 1
+      },
+      alert: VACANT,
+      unitOfTemp: 'F',
+      displayTemp: false,
+      pinged: null,
+      connectionStatus: true,
+      currentReservation: {
+        email: 'foo@bar.com'
+      },
+      reservations: [
+        {
+          email: 'foo@bar.com'
+        },
+        {
+          email: 'bizz@bazz.com'
+        }
+      ]
+    }
   };
 
   it('renders.', () => {
@@ -40,7 +53,7 @@ describe('<MeetingRoom/>', () => {
   });
 
   it('animates when ping prop is true.', () => {
-    props.pinged = true;
+    props.meetingRoom.pinged = true;
 
     const component = mount(<MeetingRoom {...props} />);
 

@@ -1,5 +1,5 @@
 /* globals setInterval, clearInterval */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
@@ -15,7 +15,7 @@ import FloorPlanLayout from './layout';
 let originalLocation;
 let noPingInProgress = true;
 
-class FloorPlanController extends Component {
+class FloorPlanController extends PureComponent {
   static propTypes = {
     location: PropTypes.object.isRequired,
     meetingRooms: PropTypes.array,
@@ -68,6 +68,22 @@ class FloorPlanController extends Component {
     }
   }
 
+  // Similar to NavigationController.handleTimeTravelDismissClick
+  handleLayoutReset = () => {
+    const { actions } = this.props;
+
+    actions.emitTimeTravelControlsToggle(false);
+    actions.emitTimeTravelUpdate(null);
+    actions.emitTimeSliderValueUpdate(0);
+  };
+
+  handleChangeLocation(newIndex) {
+    const { actions, meetingRooms, location } = this.props;
+    const locations = pluckLocations(meetingRooms);
+
+    actions.push({ ...location, pathname: `/${locations[newIndex]}` });
+  }
+
   /**
    * Checks that view is on correct location for ping.
    * Automatically clears pings after defined amount of time.
@@ -95,15 +111,13 @@ class FloorPlanController extends Component {
     }, PING_TIMEOUT);
   }
 
-  handleChangeLocation(newIndex) {
-    const { actions, meetingRooms, location } = this.props;
-    const locations = pluckLocations(meetingRooms);
-
-    actions.push({ ...location, pathname: `/${locations[newIndex]}` });
-  }
-
   render() {
-    return <FloorPlanLayout onChangeIndex={this.handleChangeLocation.bind(this)} {...this.props} />;
+    return (
+      <FloorPlanLayout
+        onLayoutReset={this.handleLayoutReset}
+        onChangeIndex={this.handleChangeLocation.bind(this)}
+        {...this.props}/>
+    );
   }
 }
 
