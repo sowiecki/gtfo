@@ -24,6 +24,7 @@ describe('<FutureReservations />', () => {
   });
 
   const props = {
+    timezone: -360,
     reservations: [
       {
         email: 'AliceMurphy@example.domain',
