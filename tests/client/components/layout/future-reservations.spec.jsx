@@ -49,8 +49,7 @@ describe('<FutureReservations />', () => {
     expect(component.find(Icon).length).toEqual(2);
   });
 
-  // TODO fix timezone shit
-  it.skip('Renders reservations within their correct time blocks.', () => {
+  it('Renders reservations within their correct time blocks.', () => {
     clock('Wednesday, November 14, 2018 8:00 AM +00:00');
 
     const component = mount(<FutureReservations {...props} />);
