@@ -51,7 +51,7 @@ describe('<FutureReservations />', () => {
   });
 
   it('Renders reservations within their correct time blocks.', () => {
-    clock('Wednesday, November 14, 2018 8:00 AM +00:00');
+    clock('2018-11-14T14:00:00.000Z');
 
     const component = mount(<FutureReservations {...props} />);
     const firstReservation = component.find('#_9-00AM');
