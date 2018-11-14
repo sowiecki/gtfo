@@ -130,6 +130,9 @@ class FutureReservations extends PureComponent {
     };
   };
 
+  // Enzyme tests are weirdly picky about selectors
+  safeSelector = (value) => `_${value.replace(':', '-')}`;
+
   renderTime = (value) => {
     const { reservation = {}, time, isCurrentTime } = value;
     const { computedStyles } = this.props;
@@ -144,7 +147,7 @@ class FutureReservations extends PureComponent {
     return (
       <span
         key={formattedTime}
-        id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : formattedTime}
+        id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(formattedTime)}
         className={computedStyles.status(value)}>
         {startTime} {endTime}
         <span className={computedStyles.right}>{reservation.email}</span>
