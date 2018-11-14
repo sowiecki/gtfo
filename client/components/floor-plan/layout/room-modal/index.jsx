@@ -23,15 +23,20 @@ import stylesGenerator from './styles';
 
 const RESERVED_STATUSES = [BOOKED, ABANDONED, ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING];
 
-const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
+const RoomModal = ({ computedStyles, meetingRoom, closeModal, timezone }) => {
   const renderCurrentReservation = () =>
     (!isEmpty(meetingRoom.currentReservation) && RESERVED_STATUSES.includes(meetingRoom.alert) ? (
       <div className='reservation-details'>
         <div>
           Reserved by {meetingRoom.currentReservation.email}
           <div>
-            {moment(meetingRoom.currentReservation.startDate).format(TIME_FORMAT)} to{' '}
-            {moment(meetingRoom.currentReservation.endDate).format(TIME_FORMAT)}
+            {moment(meetingRoom.currentReservation.startDate)
+              .utcOffset(timezone)
+              .format(TIME_FORMAT)}{' '}
+            to{' '}
+            {moment(meetingRoom.currentReservation.endDate)
+              .utcOffset(timezone)
+              .format(TIME_FORMAT)}
           </div>
         </div>
       </div>
@@ -57,11 +62,11 @@ const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
               {renderCurrentReservation()}
             </div>
             <div className='right'>
-              <CurrentTime />
+              <CurrentTime timezone={timezone} />
             </div>
           </div>
         </div>
-        <FutureReservations reservations={meetingRoom.reservations} />
+        <FutureReservations timezone={timezone} reservations={meetingRoom.reservations} />
       </div>
       <div className={computedStyles.footer}>
         <button type='button' onClick={closeModal}>
@@ -73,6 +78,7 @@ const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
 };
 
 RoomModal.propTypes = {
+  timezone: PropTypes.number.isRequired,
   closeModal: PropTypes.func.isRequired,
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,

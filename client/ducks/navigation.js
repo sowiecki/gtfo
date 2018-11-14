@@ -2,8 +2,7 @@
 import immutable from 'immutable';
 
 import { handleAction } from '../utils';
-import { DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
-// import { MOBILE_WIDTH_BREAKPOINT } from '../components/common/styles';
+import { DEFAULT_TIMEZONE, DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
 
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
 
@@ -53,10 +52,11 @@ export const emitModalContentUpdate = (modalContent) => ({
 });
 
 const initialState = immutable.fromJS({
+  timezone: DEFAULT_TIMEZONE,
   documentTitle: DEFAULT_DOCUMENT_TITLE,
   note: DEFAULT_NOTE,
   deviceWidth: document.body.clientWidth,
-  siteNavOpen: false, // document.body.clientWidth > MOBILE_WIDTH_BREAKPOINT,
+  siteNavOpen: false,
   timeTravelControlsOpen: false,
   timeTravelTime: null,
   timeSliderValue: 0,
@@ -66,9 +66,10 @@ const initialState = immutable.fromJS({
 const navigationReducer = (state = initialState, action) => {
   const reducers = {
     [EMIT_HANDSHAKE_RECEIVED]: () => {
-      const { title, note } = action.config;
+      const { title, note, timezone } = action.config;
 
       return state
+        .set('timezone', timezone || DEFAULT_TIMEZONE)
         .set('documentTitle', title || DEFAULT_DOCUMENT_TITLE)
         .set('note', note || DEFAULT_NOTE);
     },

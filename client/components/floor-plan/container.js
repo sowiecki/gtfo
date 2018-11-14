@@ -8,7 +8,7 @@ import * as NavigationActions from 'ducks/navigation';
 
 import FloorPlanController from './controller';
 
-const mapStateToProps = ({ layoutReducer, router }) => ({
+const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
   location: formatLocationProps(router.location),
   error: layoutReducer.get('error'),
   meetingRooms: layoutReducer.get('meetingRooms'),
@@ -19,7 +19,8 @@ const mapStateToProps = ({ layoutReducer, router }) => ({
   displayTemp: layoutReducer.get('displayTemp'),
   enableMotion: layoutReducer.get('enableMotion'),
   enableStalls: layoutReducer.get('enableStalls'),
-  unitOfTemp: layoutReducer.get('unitOfTemp')
+  unitOfTemp: layoutReducer.get('unitOfTemp'),
+  timezone: navigationReducer.get('timezone')
 });
 
 const mapDispatchToProps = (dispatch) => {
