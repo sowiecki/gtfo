@@ -20,6 +20,7 @@ describe('<TimeTravel/>', () => {
     });
 
   const props = {
+    timezone: -360,
     actions: {
       emitTimeTravelUpdate: () => {},
       emitTimeTravelControlsToggle: () => {},

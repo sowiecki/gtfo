@@ -8,11 +8,12 @@ import Slider from '@material-ui/lab/Slider';
 import { MAX_TIME, TIME_FORMAT } from 'client/constants';
 import stylesGenerator from './styles';
 
-const TimeSlider = ({ computedStyles, actions, timeSliderValue }) => {
-  const max = moment(MAX_TIME, TIME_FORMAT).diff(moment(), 'minutes');
+const TimeSlider = ({ computedStyles, actions, timeSliderValue, timezone }) => {
+  const max = moment(MAX_TIME, TIME_FORMAT).diff(moment().utcOffset(timezone), 'minutes');
   const isDaytime = max > 0;
   const onTimeChange = (e, value) => {
     const time = moment()
+      .utcOffset(timezone)
       .add(value, 'm')
       .format(TIME_FORMAT);
 
@@ -51,7 +52,8 @@ TimeSlider.propTypes = {
     emitTimeTravelUpdate: PropTypes.func.isRequired,
     emitTimeTravelControlsToggle: PropTypes.func.isRequired,
     emitTimeSliderValueUpdate: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  timezone: PropTypes.number.isRequired
 };
 
 export default withStyles(stylesGenerator)(TimeSlider);

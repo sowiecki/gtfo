@@ -8,7 +8,7 @@ import devicesController from '../controllers/devices';
 import socketController from '../controllers/socket';
 import consoleController from '../controllers/console';
 
-import { devices, coordinates } from '../../environment';
+import { devices, coordinates, config } from '../../environment';
 import {
   filterExpiredReservations,
   getRoomAlert,
@@ -86,7 +86,9 @@ const roomsReducer = (state = initialState, action) => {
         rooms.map((room) => {
           const reservations = action.reservations[room.get('name')];
           const currentReservation = reservations.find((reservation) =>
-            moment().isBetween(moment(reservation.startDate), moment(reservation.endDate)));
+            moment()
+              .utcOffset(config.public.timezone)
+              .isBetween(moment(reservation.startDate), moment(reservation.endDate)));
 
           return room
             .set('currentReservation', currentReservation)

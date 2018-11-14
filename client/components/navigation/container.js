@@ -22,7 +22,8 @@ const mapStateToProps = ({ navigationReducer, layoutReducer, router }) => ({
   displayTemp: layoutReducer.get('displayTemp'),
   enableTemp: layoutReducer.get('enableTemp'),
   unitOfTemp: layoutReducer.get('unitOfTemp'),
-  modalContent: navigationReducer.get('modalContent')
+  modalContent: navigationReducer.get('modalContent'),
+  timezone: navigationReducer.get('timezone')
 });
 
 const mapDispatchToProps = (dispatch) => {

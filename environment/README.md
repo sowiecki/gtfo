@@ -13,23 +13,24 @@ All user-configurated files are (and should remain) gitignored to prevent privat
 
 General configuration.
 
-| Parameter           | Description                                 | Required? | Default |
-| ------------------- | ------------------------------------------- | --------- | ------- |
-| id                  | Identifier for pings proxy                  | No        |         |
-| public              | Configurations passed to client (insecure!) | Yes       |         |
-| - title             | Page title to display on client             | No        |         |
-| - enableTemperature | Enables (experimental) temperature readings | No        |         |
-| - enableMotion      | Enables (experimental) motion readings      | No        |         |
-| - defaultTempScale  | Must be either 'celcius' or 'fahrenheit'    | No        |         |
-| - note              | Note to be displayed in sidebar             | No        |         |
-| reservations        | Reservations API properties                 | Yes       |         |
-| - host              | Reservations service host                   | Yes       |         |
-| - path              | Reservations service API path               | Yes       |         |
-| stalls              | Stalls API properties                       | No        |         |
-| - host              | Stalls service host                         | Yes       |         |
-| - path              | Stalls service API path                     | Yes       |         |
-| proxy               | Proxy API properties                        | No        |         |
-| - host              | Proxy service host                          | Yes       |         |
+| Parameter           | Description                                      | Required? | Default      |
+| ------------------- | ------------------------------------------------ | --------- | ------------ |
+| id                  | Identifier for pings proxy                       | No        |              |
+| public              | Configurations passed to client (insecure!)      | Yes       |              |
+| - timezone          | The UTC offset of the physical building location | Yes       |              |
+| - title             | Page title to display on client                  | No        | "GTFO"       |
+| - enableTemperature | Enables (experimental) temperature readings      | No        |              |
+| - enableMotion      | Enables (experimental) motion readings           | No        |              |
+| - defaultTempScale  | Must be either "celcius" or "fahrenheit"         | No        | "fahrenheit" |
+| - note              | Note to be displayed in sidebar                  | No        |              |
+| reservations        | Reservations API properties                      | Yes       |              |
+| - host              | Reservations service host                        | Yes       |              |
+| - path              | Reservations service API path                    | Yes       |              |
+| stalls              | Stalls API properties                            | No        |              |
+| - host              | Stalls service host                              | Yes       |              |
+| - path              | Stalls service API path                          | Yes       |              |
+| proxy               | Proxy API properties                             | No        |              |
+| - host              | Proxy service host                               | Yes       |              |
 
 Example of a `config.json`:
 

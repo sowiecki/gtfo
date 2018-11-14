@@ -17,7 +17,8 @@ const TimeTravel = (props) => {
     computedStyles,
     timeTravelControlsOpen,
     timeTravelTime,
-    onTimeTravelDismissClick
+    onTimeTravelDismissClick,
+    timezone
   } = props;
 
   return (
@@ -34,7 +35,11 @@ const TimeTravel = (props) => {
             onClick={onTimeTravelDismissClick}>
             <Icon>clear</Icon>
           </IconButton>
-          Viewing at {timeTravelTime || moment().format(TIME_FORMAT)}
+          Viewing at{' '}
+          {timeTravelTime
+            || moment()
+              .utcOffset(timezone)
+              .format(TIME_FORMAT)}
         </span>
         <TimeSlider {...props} />
       </Card>
@@ -45,7 +50,8 @@ const TimeTravel = (props) => {
 TimeTravel.propTypes = {
   onTimeTravelDismissClick: PropTypes.func.isRequired,
   timeTravelTime: PropTypes.string,
-  timeTravelControlsOpen: PropTypes.bool.isRequired
+  timeTravelControlsOpen: PropTypes.bool.isRequired,
+  timezone: PropTypes.number.isRequired
 };
 
 export default withStyles(stylesGenerator)(TimeTravel);

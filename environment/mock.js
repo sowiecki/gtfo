@@ -8,7 +8,7 @@ import { SERVER_PORT } from '../server/config';
 export default {
   config: {
     public: {
-      enableMotion: true,
+      enableMotion: false,
       enableStalls: true
     },
     reservations: {

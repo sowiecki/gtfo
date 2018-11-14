@@ -34,7 +34,8 @@ class FutureReservations extends PureComponent {
           endDate: PropTypes.string.isRequired
         }).isRequired
       )
-    ).isRequired
+    ).isRequired,
+    timezone: PropTypes.number.isRequired
   };
 
   CURRENT_TIME_SELECTOR = 'current-time';
@@ -111,17 +112,25 @@ class FutureReservations extends PureComponent {
   };
 
   mapReservations = ({ time }) => {
-    const matchingReservation = this.props.reservations
+    const { reservations, timezone } = this.props;
+    const matchingReservation = reservations
       .map((reservation) => {
-        const isReserved = moment(time).isBetween(
-          moment(reservation.startDate),
-          moment(reservation.endDate)
-        );
+        const isReserved = moment(time)
+          .utcOffset(timezone)
+          .isBetween(moment(reservation.startDate), moment(reservation.endDate));
 
         return isReserved ? reservation : false;
       })
       .filter((e) => e)[0];
-    const isCurrentTime = moment().isBetween(moment(time), moment(time).add(15, 'm'));
+
+    const isCurrentTime = moment()
+      .utcOffset(timezone)
+      .isBetween(
+        moment(time).utcOffset(timezone),
+        moment(time)
+          .utcOffset(timezone)
+          .add(15, 'm')
+      );
 
     return {
       reservation: matchingReservation,
@@ -131,23 +140,31 @@ class FutureReservations extends PureComponent {
   };
 
   // Enzyme tests are weirdly picky about selectors
-  safeSelector = (value) => `_${value.replace(':', '-')}`;
+  safeSelector = (time) =>
+    `_${time
+      .utcOffset(this.props.timezone)
+      .format(TIME_FORMAT)
+      .replace(':', '-')}`;
 
   renderTime = (value) => {
     const { reservation = {}, time, isCurrentTime } = value;
-    const { computedStyles } = this.props;
+    const { computedStyles, timezone } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
     const startTime = reservation.startDate
-      ? moment(reservation.startDate).format(TIME_FORMAT)
+      ? moment(reservation.startDate)
+        .utcOffset(timezone)
+        .format(TIME_FORMAT)
       : formattedTime;
     const endTime = reservation.endDate
-      ? ` to ${moment(reservation.endDate).format(TIME_FORMAT)}`
+      ? ` to ${moment(reservation.endDate)
+        .utcOffset(timezone)
+        .format(TIME_FORMAT)}`
       : '';
 
     return (
       <span
         key={formattedTime}
-        id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(formattedTime)}
+        id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(time)}
         className={computedStyles.status(value)}>
         {startTime} {endTime}
         <span className={computedStyles.right}>{reservation.email}</span>
