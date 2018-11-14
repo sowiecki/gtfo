@@ -66,7 +66,7 @@ const stylesGenerator = ({ meetingRoom }) => ({
         font-size: 40px;
 
         .left {
-          font-size: 24px;
+          font-size: 22px;
 
           .material-icons {
             vertical-align: bottom;

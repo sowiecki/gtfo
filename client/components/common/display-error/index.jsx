@@ -12,12 +12,12 @@ const DisplayError = ({ computedStyles, error, onClose = () => {} }) => {
 
   return (
     <Snackbar
-      className={computedStyles.base}
+      className={`${computedStyles.base} dont-blur`}
       open={!!error}
       action='error'
       message={message}
       onClose={onClose}
-      autoHideDuration={timeout} />
+      autoHideDuration={timeout}/>
   );
 };
 

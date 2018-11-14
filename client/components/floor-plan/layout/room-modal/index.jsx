@@ -21,9 +21,11 @@ import StatusIconMap from './status-icon-map';
 import FutureReservations from './future-reservations';
 import stylesGenerator from './styles';
 
+const RESERVED_STATUSES = [BOOKED, ABANDONED, ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING];
+
 const RoomModal = ({ computedStyles, meetingRoom, closeModal }) => {
   const renderCurrentReservation = () =>
-    (!isEmpty(meetingRoom.currentReservation) && [BOOKED, ABANDONED].includes(meetingRoom.alert) ? (
+    (!isEmpty(meetingRoom.currentReservation) && RESERVED_STATUSES.includes(meetingRoom.alert) ? (
       <div className='reservation-details'>
         <div>
           Reserved by {meetingRoom.currentReservation.email}

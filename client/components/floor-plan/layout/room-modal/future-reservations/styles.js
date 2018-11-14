@@ -17,6 +17,12 @@ const stylesGenerator = () => ({
 
   scrollIcon: css`
     cursor: pointer;
+    color: ${colors.GREY};
+    transition: all 120ms ease-in-out;
+
+    :hover {
+      color: ${colors.LIGHT_GREY};
+    }
   `,
 
   status: (value) => {

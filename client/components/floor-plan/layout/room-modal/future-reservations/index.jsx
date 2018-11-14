@@ -14,6 +14,11 @@ import stylesGenerator from './styles';
 
 let scrollTimeout;
 
+/**
+ * Displays meeting rooms for the day.
+ * "Blocks" of 15-minutes are created for 7AM-7PM.
+ * Meeting reservations are mapped to each 15-minute block they occupy.
+ */
 class FutureReservations extends PureComponent {
   static propTypes = {
     computedStyles: PropTypes.shape({
@@ -125,19 +130,23 @@ class FutureReservations extends PureComponent {
     };
   };
 
-  renderEndTime = ({ endTime }) => (endTime ? ` to ${endTime.format(TIME_FORMAT)}` : '');
-
   renderTime = (value) => {
     const { reservation = {}, time, isCurrentTime } = value;
     const { computedStyles } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
+    const startTime = reservation.startDate
+      ? moment(reservation.startDate).format(TIME_FORMAT)
+      : formattedTime;
+    const endTime = reservation.endDate
+      ? ` to ${moment(reservation.endDate).format(TIME_FORMAT)}`
+      : '';
 
     return (
       <span
         key={formattedTime}
         id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : formattedTime}
         className={computedStyles.status(value)}>
-        {formattedTime} {this.renderEndTime(value)}
+        {startTime} {endTime}
         <span className={computedStyles.right}>{reservation.email}</span>
       </span>
     );
