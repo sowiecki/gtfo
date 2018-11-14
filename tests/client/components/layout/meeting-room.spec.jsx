@@ -23,7 +23,18 @@ describe('<MeetingRoom/>', () => {
       unitOfTemp: 'F',
       displayTemp: false,
       pinged: null,
-      connectionStatus: true
+      connectionStatus: true,
+      currentReservation: {
+        email: 'foo@bar.com'
+      },
+      reservations: [
+        {
+          email: 'foo@bar.com'
+        },
+        {
+          email: 'bizz@bazz.com'
+        }
+      ]
     }
   };
 

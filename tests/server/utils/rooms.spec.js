@@ -26,10 +26,11 @@ import {
 import { TIME_FORMAT } from 'universal/constants';
 
 describe('Room utilities (server)', () => {
-  const clock = (time) => sinon.useFakeTimers({
-    now: Date.parse(time),
-    toFake: ['Date']
-  });
+  const clock = (time) =>
+    sinon.useFakeTimers({
+      now: Date.parse(time),
+      toFake: ['Date']
+    });
   const mockCapabilities = { motion: true };
 
   const baseMockReservations = [
@@ -196,6 +197,7 @@ describe('Room utilities (server)', () => {
     coordinates: {},
     location: 'Hyrule',
     name: 'Hyrule Castle',
+    mac: '11:11:11:11',
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
     deviceAuthToken: 'hunter2',
@@ -203,6 +205,9 @@ describe('Room utilities (server)', () => {
     thermo: {
       f: '65',
       c: '18'
+    },
+    currentReservation: {
+      email: 'foo@bar.com'
     },
     reservations: [
       {
@@ -227,7 +232,15 @@ describe('Room utilities (server)', () => {
     },
     currentReservation: {
       email: 'foo@bar.com'
-    }
+    },
+    reservations: [
+      {
+        email: 'foo@bar.com'
+      },
+      {
+        email: 'bizz@bazz.com'
+      }
+    ]
   };
 
   describe('secureRoom', () => {

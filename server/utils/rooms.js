@@ -97,9 +97,6 @@ export const secureRoom = (room) => {
     }
     : null;
 
-  const currentReservation = room.reservations.find((reservation) =>
-    moment().isBetween(moment(reservation.startDate), moment(reservation.endDate)));
-
   return {
     id: room.id,
     alert: room.alert,
@@ -107,7 +104,7 @@ export const secureRoom = (room) => {
     location: room.location,
     name: room.name,
     connectionStatus: room.connectionStatus,
-    currentReservation,
+    currentReservation: room.currentReservation,
     reservations: room.reservations,
     thermo
   };
