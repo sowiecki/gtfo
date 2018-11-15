@@ -43,7 +43,8 @@ const devicesController = {
         devicesController.handleTemperatureReadingsUpdate(payload);
       },
 
-      [UNDEFINED_EVENT]: () => consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
+      [UNDEFINED_EVENT]: () =>
+        consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
     };
 
     const eventType = ROOM_EVENT_HANDLERS_MAP[event.type] ? event.type : UNDEFINED_EVENT;
@@ -102,7 +103,11 @@ const devicesController = {
           store.dispatch({
             type: EMIT_SET_ROOM_MODULE_STATUS,
             room,
-            connectionStatus: data.body.connected
+            connectionStatus: data.body.connected,
+            clients: store
+              .getState()
+              .clientsReducer.get('clients')
+              .toJS()
           });
         },
         (err) => {
@@ -125,7 +130,11 @@ const devicesController = {
     if (room) {
       store.dispatch({
         type: EMIT_ROOM_MOTION_UPDATE,
-        room
+        room,
+        clients: store
+          .getState()
+          .clientsReducer.get('clients')
+          .toJS()
       });
     } else {
       logUnhandledMotionUpdate(body.coreid);

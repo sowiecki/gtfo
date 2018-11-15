@@ -1,9 +1,10 @@
 import immutable from 'immutable';
+import { uniqueId } from 'lodash';
 
 import socketController from '../controllers/socket';
 
 import { HANDSHAKE } from '../constants';
-import { getWebSocketKey, handleAction } from '../utils';
+import { handleAction } from '../utils';
 
 export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
@@ -26,15 +27,16 @@ const clientsReducer = (state = initialState, action) => {
 
     [EMIT_CLIENT_CONNECTED]() {
       const { client, anchor } = action;
-      const clientWithAnchor = Object.assign(client, { anchor });
+      const clientId = uniqueId('client_');
+      const clientWithAnchor = Object.assign(client, { anchor, clientId });
 
-      return state.mergeIn(['clients'], { [getWebSocketKey(client)]: clientWithAnchor });
+      return state.mergeIn(['clients'], { [clientId]: clientWithAnchor });
     },
 
     [EMIT_FLUSH_CLIENT]() {
       const { client } = action;
 
-      return state.deleteIn(['clients', getWebSocketKey(client)]);
+      return state.deleteIn(['clients', client.clientId]);
     }
   };
 
