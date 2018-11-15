@@ -3,7 +3,7 @@ import immutable from 'immutable';
 import { pluckLocations, handleAction } from '../utils';
 
 import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
-import { FAHRENHEIT, CELCIUS } from '../constants';
+import { FAHRENHEIT, CELSIUS } from '../constants';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
@@ -97,7 +97,7 @@ const layoutReducer = (state = initialState, action) => {
     [EMIT_TOGGLE_DISPLAY_TEMPERATURE]: () => state.set('displayTemp', !action.displayTemp),
 
     [EMIT_TOGGLE_TEMP_SCALE]: () => {
-      const unitOfTemp = action.unitOfTemp === FAHRENHEIT ? CELCIUS : FAHRENHEIT;
+      const unitOfTemp = action.unitOfTemp === FAHRENHEIT ? CELSIUS : FAHRENHEIT;
 
       return state.set('unitOfTemp', unitOfTemp);
     },

@@ -14,7 +14,7 @@ export default {
           enableConfig: { type: 'bool' },
           defaultTempScale: {
             type: 'string',
-            enum: ['fahrenheit', 'celcius']
+            enum: ['fahrenheit', 'celsius']
           },
           note: { type: 'string' }
         },

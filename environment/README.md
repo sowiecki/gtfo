@@ -21,7 +21,7 @@ General configuration.
 | - title             | Page title to display on client                  | No        | "GTFO"       |
 | - enableTemperature | Enables (experimental) temperature readings      | No        |              |
 | - enableMotion      | Enables (experimental) motion readings           | No        |              |
-| - defaultTempScale  | Must be either "celcius" or "fahrenheit"         | No        | "fahrenheit" |
+| - defaultTempScale  | Must be either "celsius" or "fahrenheit"         | No        | "fahrenheit" |
 | - note              | Note to be displayed in sidebar                  | No        |              |
 | reservations        | Reservations API properties                      | Yes       |              |
 | - host              | Reservations service host                        | Yes       |              |

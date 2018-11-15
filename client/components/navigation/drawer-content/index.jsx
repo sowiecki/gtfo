@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-import { FAHRENHEIT, CELCIUS } from 'client/constants';
+import { FAHRENHEIT, CELSIUS } from 'client/constants';
 import DrawerContentItem from './drawer-content-item';
 import stylesGenerator from './styles';
 
@@ -26,8 +26,8 @@ const DrawerContent = (props) => {
   } = props;
 
   const inverseUnitOfTempText = {
-    [FAHRENHEIT]: 'Celcius',
-    [CELCIUS]: 'Fahrenheit'
+    [FAHRENHEIT]: 'Celsius',
+    [CELSIUS]: 'Fahrenheit'
   };
 
   const temperatureOptions = (
