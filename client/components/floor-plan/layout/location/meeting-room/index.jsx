@@ -3,19 +3,11 @@ import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 import { compose } from 'recompose';
 
-import { VelocityComponent } from 'velocity-react';
-
 import RoomModal from 'components/floor-plan/layout/room-modal';
 import { parsePosition, parseShape } from 'utils';
 import withModal from 'components/floor-plan/layout/room-modal/with-modal';
 
-import {
-  STATUS_COLORS,
-  PING_ANIMATION_LOOPS,
-  PING_ANIMATION_TIMEOUT,
-  ROOM_NAME_TEXT_DX,
-  ROOM_NAME_TEXT_DY
-} from 'client/constants';
+import { ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from 'client/constants';
 import Temperature from './temperature';
 import stylesGenerator from './styles';
 
@@ -30,9 +22,7 @@ const MeetingRoom = (props) => {
     getLocationParams,
     onLayoutReset
   } = props;
-  const { id, name, coordinates, alert, thermo, pinged } = meetingRoom;
-  const pingAnimation = { fill: STATUS_COLORS.PINGED, opacity: pinged ? 1 : 0 };
-  const pingLoop = pinged ? PING_ANIMATION_LOOPS : 0;
+  const { id, name, coordinates, thermo } = meetingRoom;
 
   const temperature = displayTemp ? (
     <Temperature thermo={thermo} unitOfTemp={unitOfTemp} coordinates={coordinates} />
@@ -46,16 +36,8 @@ const MeetingRoom = (props) => {
 
   return (
     <svg className={computedStyles.base} {...parsePosition(coordinates)} onClick={onClick}>
-      <VelocityComponent animation={{ fill: STATUS_COLORS[alert] }}>
-        <rect className={computedStyles.svgRect} {...parseShape(coordinates)} />
-      </VelocityComponent>
-      <VelocityComponent
-        animation={pingAnimation}
-        loop={pingLoop}
-        duration={PING_ANIMATION_TIMEOUT}
-        className={computedStyles.svgRect}>
-        <rect {...parseShape(coordinates)} />
-      </VelocityComponent>
+      <rect className={computedStyles.svgRect} {...parseShape(coordinates)} />
+      <rect {...parseShape(coordinates)} />
       <svg className={computedStyles.textContainer}>
         <text
           fill={
@@ -98,12 +80,14 @@ MeetingRoom.propTypes = {
     }).isRequired,
     alert: PropTypes.string,
     thermo: PropTypes.object,
-    pinged: PropTypes.bool,
     connectionStatus: PropTypes.bool.isRequired
   }).isRequired,
   unitOfTemp: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool,
-  onLayoutReset: PropTypes.func.isRequired
+  onLayoutReset: PropTypes.func.isRequired,
+  ping: PropTypes.shape({
+    id: PropTypes.string.isRequired
+  })
 };
 
 // export default withStyles(stylesGenerator)(MeetingRoom);

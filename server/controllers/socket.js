@@ -100,7 +100,7 @@ const socketController = {
       },
 
       sendToAll() {
-        forEach(payload.clients, (ws) => {
+        forEach(client, (ws) => {
           socketController.send(event, payload, ws);
         });
       }

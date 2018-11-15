@@ -3,6 +3,7 @@ import http from 'http';
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import { config } from '../../environment';
 import { formatReservations, logFetchReservationsAPIError, genURL } from '../utils';
+import store from '../store';
 
 const fetchRoomReservation = (next) => {
   let body = '';
@@ -19,7 +20,11 @@ const fetchRoomReservation = (next) => {
 
         next({
           type: EMIT_RESERVATIONS_UPDATE,
-          reservations
+          reservations,
+          clients: store
+            .getState()
+            .clientsReducer.get('clients')
+            .toJS()
         });
       } catch (e) {
         // Most likely cause of failure is error parsing response
