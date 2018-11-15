@@ -42,8 +42,11 @@ const stylesGenerator = ({ displayLegend }) => ({
     border-radius: 0;
     top: 0;
     right: 0;
-    color: ${colors.WHITE};
     background-color: ${colors.DARK_GREY};
+
+    > button {
+      color: ${colors.WHITE};
+    }
   `,
 
   mapLegend: css`

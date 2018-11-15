@@ -4,7 +4,6 @@ import moment from 'moment';
 import withStyles from 'withstyles';
 
 import Drawer from '@material-ui/core/Drawer';
-import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 
@@ -23,31 +22,32 @@ const TimeTravel = (props) => {
 
   return (
     <Drawer
-      className={computedStyles.drawer}
+      className={computedStyles.base}
       open={timeTravelControlsOpen}
       anchor='bottom'
       transitionDuration={300}
       onClose={onTimeTravelDismissClick.bind(null, !timeTravelControlsOpen)}>
-      <Card className={computedStyles.base}>
-        <span className={computedStyles.timeDisplay}>
-          <IconButton
-            className={computedStyles.timeTravelDismiss}
-            onClick={onTimeTravelDismissClick}>
-            <Icon>clear</Icon>
-          </IconButton>
-          Viewing at{' '}
-          {timeTravelTime
-            || moment()
-              .utcOffset(timezone)
-              .format(TIME_FORMAT)}
-        </span>
-        <TimeSlider {...props} />
-      </Card>
+      <span className={computedStyles.timeDisplay}>
+        <IconButton className={computedStyles.timeTravelDismiss} onClick={onTimeTravelDismissClick}>
+          <Icon>clear</Icon>
+        </IconButton>
+        Viewing at{' '}
+        {timeTravelTime
+          || moment()
+            .utcOffset(timezone)
+            .format(TIME_FORMAT)}
+      </span>
+      <TimeSlider {...props} />
     </Drawer>
   );
 };
 
 TimeTravel.propTypes = {
+  computedStyles: PropTypes.shape({
+    base: PropTypes.object.isRequired,
+    timeDisplay: PropTypes.object.isRequired,
+    timeTravelDismiss: PropTypes.object.isRequired
+  }).isRequired,
   onTimeTravelDismissClick: PropTypes.func.isRequired,
   timeTravelTime: PropTypes.string,
   timeTravelControlsOpen: PropTypes.bool.isRequired,

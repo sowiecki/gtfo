@@ -8,16 +8,15 @@ const stylesGenerator = () => ({
     width: 100%;
     text-align: center;
     border-radius: 0;
-    background-color: ${colors.DARK_GREY};
-  `,
 
-  drawer: css`
-    pointer-events: none;
-    background: none;
+    > div:nth-child(1) {
+      display: none;
+    }
 
-    > div {
-      pointer-events: none;
-      background: none;
+    > div:nth-child(2) {
+      height: 80px;
+      background-color: ${colors.DARK_GREY};
+      border-radius: 0;
     }
   `,
 

@@ -11,7 +11,7 @@ injectGlobal`
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
-    background-color: ${colors.GHOST_WHITE}
+    background-color: ${colors.GHOST_WHITE};
   }
 
   #modal {

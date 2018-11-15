@@ -47,12 +47,13 @@ const MapLegend = ({
         <List className={computedStyles.mapLegend}>
           <div className='map-legend-handle'>
             <span className='grippy' />
-            <IconButton
-              className={computedStyles.closeButton}
-              aria-label='Close'
-              onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
-              <CloseIcon fontSize='small' />
-            </IconButton>
+            <div className={computedStyles.closeButton}>
+              <IconButton
+                aria-label='Close'
+                onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
+                <CloseIcon fontSize='small' />
+              </IconButton>
+            </div>
           </div>
           {youAreHereListItem}
           <ListItem>{genIcon(STATUS_COLORS.OFFLINE)} Offline</ListItem>
