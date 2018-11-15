@@ -9,6 +9,7 @@ const stylesGenerator = () => ({
     font-family: ${fonts.secondary};
 
     > div {
+      filter: none !important;
       border-radius: 0;
     }
   `

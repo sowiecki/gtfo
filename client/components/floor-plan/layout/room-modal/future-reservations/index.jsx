@@ -115,6 +115,8 @@ class FutureReservations extends PureComponent {
   mapReservations = ({ time }) => {
     const { reservations, timezone } = this.props;
 
+    if (!reservations) return { time };
+
     const matchingReservation = reservations
       .map((reservation) => {
         const isReserved = moment(time)
