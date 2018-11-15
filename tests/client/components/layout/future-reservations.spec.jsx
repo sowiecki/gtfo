@@ -24,6 +24,7 @@ describe('<FutureReservations />', () => {
   });
 
   const props = {
+    isOnline: true,
     timezone: -360,
     reservations: [
       {

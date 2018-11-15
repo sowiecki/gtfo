@@ -9,7 +9,8 @@ import {
   VACANT,
   SQUATTED,
   ONE_MINUTE_WARNING,
-  FIVE_MINUTE_WARNING
+  FIVE_MINUTE_WARNING,
+  OFFLINE
 } from 'client/constants';
 
 const StatusIconMap = ({ alert }) =>
@@ -19,7 +20,8 @@ const StatusIconMap = ({ alert }) =>
     [VACANT]: <Icon>event_available</Icon>,
     [SQUATTED]: <Icon>event_available</Icon>,
     [ONE_MINUTE_WARNING]: <Icon>watch_later</Icon>,
-    [FIVE_MINUTE_WARNING]: <Icon>watch_later</Icon>
+    [FIVE_MINUTE_WARNING]: <Icon>watch_later</Icon>,
+    [OFFLINE]: <Icon>warning</Icon>
   }[alert]);
 
 StatusIconMap.propTypes = {

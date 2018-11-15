@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 import { STATUS_COLORS } from 'client/constants';
 import { colors, fonts, breakpoints } from 'components/common/styles';
 
-const stylesGenerator = () => ({
+const stylesGenerator = ({ isOnline }) => ({
   base: css`
     overflow-y: scroll;
     overflow-x: hidden;
@@ -37,7 +37,7 @@ const stylesGenerator = () => ({
       display: inline-block;
       font-family: ${fonts.tertiary};
       font-size: 18px;
-      background-color: ${STATUS_COLOR};
+      background-color: ${isOnline ? STATUS_COLOR : STATUS_COLORS.OFFLINE};
       border: 1px solid ${colors.GREY};
       width: 100%;
       height: ${34 * value.increments}px;

@@ -13,7 +13,8 @@ import {
   VACANT,
   SQUATTED,
   ONE_MINUTE_WARNING,
-  FIVE_MINUTE_WARNING
+  FIVE_MINUTE_WARNING,
+  OFFLINE
 } from 'client/constants';
 import { formatForDisplay } from 'utils';
 import CurrentTime from './current-time';
@@ -48,7 +49,8 @@ const RoomModal = ({ computedStyles, meetingRoom, closeModal, timezone }) => {
     [VACANT]: 'Vacant',
     [SQUATTED]: 'Not booked, but occupants detected',
     [ONE_MINUTE_WARNING]: 'Booked, less than one minute remaining',
-    [FIVE_MINUTE_WARNING]: 'Booked, less than five minutes remaining'
+    [FIVE_MINUTE_WARNING]: 'Booked, less than five minutes remaining',
+    [OFFLINE]: 'Error fetching room data'
   };
 
   return (
@@ -66,7 +68,10 @@ const RoomModal = ({ computedStyles, meetingRoom, closeModal, timezone }) => {
             </div>
           </div>
         </div>
-        <FutureReservations timezone={timezone} reservations={meetingRoom.reservations} />
+        <FutureReservations
+          timezone={timezone}
+          isOnline={meetingRoom.alert !== OFFLINE}
+          reservations={meetingRoom.reservations}/>
       </div>
       <div className={computedStyles.footer}>
         <button type='button' onClick={closeModal}>

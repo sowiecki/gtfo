@@ -19,6 +19,7 @@ import {
 } from '../utils';
 import { INITIALIZE_ROOMS, ROOM_TEMPERATURE_UPDATE, ROOM_STATUSES_UPDATE } from '../constants';
 import { EMIT_CLIENT_CONNECTED } from './clients';
+import { OFFLINE } from '../../universal/constants/statuses';
 
 export const EMIT_DEVICE_STATUS_UPDATE = 'EMIT_DEVICE_STATUS_UPDATE';
 export const MOCK_ROOM_RESERVATIONS = 'MOCK_ROOM_RESERVATIONS';
@@ -85,6 +86,11 @@ const roomsReducer = (state = initialState, action) => {
         'rooms',
         rooms.map((room) => {
           const reservations = action.reservations[room.get('name')];
+
+          if (reservations === undefined) {
+            return room.set('reservations', undefined);
+          }
+
           const currentReservation = reservations.find((reservation) =>
             moment()
               .utcOffset(config.public.timezone)
@@ -127,6 +133,9 @@ const roomsReducer = (state = initialState, action) => {
         'rooms',
         rooms.map((room) => {
           const { reservations, capabilities, recentMotion } = room.toJS();
+
+          if (reservations === undefined) return room.set('alert', OFFLINE);
+
           const roomProperties = {
             reservations: filterExpiredReservations(reservations),
             recentMotion: action.recentMotion || recentMotion

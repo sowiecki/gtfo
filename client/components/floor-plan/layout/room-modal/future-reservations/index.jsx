@@ -35,7 +35,8 @@ class FutureReservations extends PureComponent {
         }).isRequired
       )
     ).isRequired,
-    timezone: PropTypes.number.isRequired
+    timezone: PropTypes.number.isRequired,
+    isOnline: PropTypes.bool.isRequired
   };
 
   CURRENT_TIME_SELECTOR = 'current-time';
@@ -113,6 +114,7 @@ class FutureReservations extends PureComponent {
 
   mapReservations = ({ time }) => {
     const { reservations, timezone } = this.props;
+
     const matchingReservation = reservations
       .map((reservation) => {
         const isReserved = moment(time)
@@ -173,7 +175,7 @@ class FutureReservations extends PureComponent {
   };
 
   render() {
-    const { computedStyles } = this.props;
+    const { computedStyles, isOnline } = this.props;
 
     return (
       <Fragment>
@@ -185,10 +187,14 @@ class FutureReservations extends PureComponent {
           className={computedStyles.base}
           onTouchEnd={this.scrollToCurrentTime}
           onTouchStart={this.clearScrollTimeout}>
-          {this.genTimeBlocks()
-            .map(this.mapReservations)
-            .reduce(this.reduceTimeBlocks, [])
-            .map(this.renderTime)}
+          {isOnline
+            ? this.genTimeBlocks()
+              .map(this.mapReservations)
+              .reduce(this.reduceTimeBlocks, [])
+              .map(this.renderTime)
+            : this.genTimeBlocks()
+              .map(this.mapReservations)
+              .map(this.renderTime)}
         </div>
         <Icon className={computedStyles.scrollIcon} onClick={() => this.scroll('down')}>
           keyboard_arrow_down
