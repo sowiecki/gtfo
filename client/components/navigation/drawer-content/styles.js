@@ -39,6 +39,11 @@ const stylesGenerator = () => ({
 
   note: css`
     font: 14px ${fonts.secondary}, sans-serif;
+
+    span > a,
+    a:visited {
+      color: ${colors.primary};
+    }
   `
 });
 
