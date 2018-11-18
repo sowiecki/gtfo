@@ -1,7 +1,7 @@
 /* eslint array-callback-return:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
-import { merge } from 'lodash';
+import { merge, mapKeys } from 'lodash';
 
 import validator from './validation';
 import mockEnvironment from './mock';
@@ -55,7 +55,12 @@ const getEnvironment = () => {
     throw new FileValidationError('coordinates');
   }
 
-  const environment = { config, devices, markers, coordinates };
+  const environment = {
+    config,
+    devices,
+    markers,
+    coordinates: mapKeys(coordinates, (value, key) => key.toLowerCase())
+  };
 
   if (process.env.MOCKS) {
     return merge(environment, mockEnvironment);
