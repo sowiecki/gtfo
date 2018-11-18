@@ -36,8 +36,8 @@ const MeetingRoom = (props) => {
 
   return (
     <svg className={computedStyles.base} {...parsePosition(coordinates)} onClick={onClick}>
-      <rect className={computedStyles.svgRect} {...parseShape(coordinates)} />
       <rect {...parseShape(coordinates)} />
+      <rect className={computedStyles.pinged} {...parseShape(coordinates)} />
       <svg className={computedStyles.textContainer}>
         <text
           fill={
@@ -64,7 +64,7 @@ MeetingRoom.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
     textContainer: PropTypes.object.isRequired,
-    svgReact: PropTypes.object.isRequired,
+    pinged: PropTypes.object.isRequired,
     svgRoomTextConnected: PropTypes.object.isRequired,
     svgRoomTextDisconnected: PropTypes.object.isRequired
   }).isRequired,

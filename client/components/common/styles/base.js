@@ -19,7 +19,7 @@ export const colors = {
 
 export const fonts = {
   primary: '\'Wire One\', sans-serif',
-  secondary: '\'Titillium Web\', sans-serif',
+  secondary: '\'Open Sans Condensed\', sans-serif',
   tertiary: '\'Roboto\', Arial, sans-serif',
   quaternary: '\'Yanone Kaffeesatz\', sans-serif'
 };

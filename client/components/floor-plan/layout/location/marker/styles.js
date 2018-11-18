@@ -3,17 +3,11 @@ import { css } from 'emotion';
 import { colors, fonts, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = () => ({
-  locationHighlight: css`
-    height: 24px;
-    width: 24px;
-    x: 24px;
-    y: 0;
-  `,
-
   placeMarker: css`
     > path {
       color: ${colors.secondary};
-      transform: scale(0.03) translate(20px, -54px);
+      height: 140px;
+      transform: scale(0.02) translate(40px, 0);
 
       ${breakpoints.mobile} {
         transform: scale(0.03) translate(30px, -60px);
