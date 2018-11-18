@@ -4,8 +4,6 @@ import { get } from 'lodash';
 import { colors, fonts, breakpoints } from 'components/common/styles';
 import { STATUS_COLORS } from 'client/constants';
 
-const svgLabelBaseTransform = 'rotate(45deg)';
-
 const stylesGenerator = ({ meetingRoom, ping = {} }) => {
   const pinged = meetingRoom.name.toLowerCase() === get(ping, 'id', '').toLowerCase();
   const animation = pinged ? 'animation: backgroundColor 0.25s infinite alternate;' : '';
@@ -37,11 +35,13 @@ const stylesGenerator = ({ meetingRoom, ping = {} }) => {
 
       text {
         stroke: none;
-        transform: ${svgLabelBaseTransform} translate(8px, -20px);
+        font-family: ${fonts.primary};
+        font-weight: 800;
+        letter-spacing: 1;
+        text-transform: capitalize;
 
         ${breakpoints.mobile} {
           font-size: 6px;
-          transform: ${svgLabelBaseTransform} translate(3px, -20px);
         }
       }
     `,
