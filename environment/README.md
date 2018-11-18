@@ -109,11 +109,27 @@ Example of an `environment/coordinates.json` file configured to display a meetin
 
 ```json
 {
-  "duna": {
-    "height": 3.1,
-    "width": 5.6,
-    "x": 55,
-    "y": 40.2
+  "rooms": {
+    "duna": {
+      "height": 3.1,
+      "width": 5.6,
+      "x": 55,
+      "y": 40.2
+    }
+  },
+  "stalls": {
+    "menStall2": {
+      "height": 3,
+      "width": 2.9,
+      "x": 48.3,
+      "y": 26.6
+    },
+    "womenStall1": {
+      "height": 3,
+      "width": 2.5,
+      "x": 45.5,
+      "y": 69
+    }
   }
 }
 ```

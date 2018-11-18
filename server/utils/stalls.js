@@ -42,7 +42,7 @@ export const formatStallsResponse = (stalls) => {
         const { occupied, active } = spaces[space];
 
         formattedStalls.push({
-          id: `${prop.toLowerCase()}${formatSpace(space)}`,
+          id: `${prop.toLowerCase()}${formatSpace(space)}`.toLowerCase(),
           alert: occupied ? SQUATTED : VACANT,
           location,
           active

@@ -39,7 +39,7 @@ module.exports = {
     ]
   },
   'coordinates.json': {
-    coordinates: {
+    rooms: {
       'some room': {
         height: 13,
         width: 12.5,

@@ -3,10 +3,30 @@ export default {
   id: '/CoordinateSchema',
   type: 'object',
   properties: {
-    height: { type: 'number' },
-    width: { type: 'number' },
-    x: { type: 'number' },
-    y: { type: 'number' }
+    rooms: {
+      type: 'object',
+      additionalProperties: {
+        properties: {
+          height: { type: 'number' },
+          width: { type: 'number' },
+          x: { type: 'number' },
+          y: { type: 'number' }
+        },
+        required: ['height', 'width', 'x', 'y']
+      }
+    },
+    stalls: {
+      type: 'object',
+      additionalProperties: {
+        properties: {
+          height: { type: 'number' },
+          width: { type: 'number' },
+          x: { type: 'number' },
+          y: { type: 'number' }
+        },
+        required: ['height', 'width', 'x', 'y']
+      }
+    }
   },
-  required: ['height', 'width', 'x', 'y']
+  required: ['rooms']
 };

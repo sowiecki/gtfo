@@ -37,7 +37,7 @@ const getEnvironment = () => {
   const { config } = readFile('config.json');
   const { devices } = readFile('devices.json');
   const { markers } = readFile('markers.json');
-  const { coordinates } = readFile('coordinates.json');
+  const coordinates = readFile('coordinates.json');
 
   if (validator.validate(config, '/ConfigSchema').errors.length) {
     throw new FileValidationError('config');
@@ -51,15 +51,18 @@ const getEnvironment = () => {
     throw new FileValidationError('markers');
   }
 
-  if (validator.validate(coordinates, '/CoordinatesSchema').errors.length) {
+  if (validator.validate({ coordinates }, '/CoordinatesSchema').errors.length) {
     throw new FileValidationError('coordinates');
   }
+
+  coordinates.rooms = mapKeys(coordinates.rooms, (value, key) => key.toLowerCase());
+  coordinates.stalls = mapKeys(coordinates.stalls, (value, key) => key.toLowerCase());
 
   const environment = {
     config,
     devices,
     markers,
-    coordinates: mapKeys(coordinates, (value, key) => key.toLowerCase())
+    coordinates
   };
 
   if (process.env.MOCKS) {

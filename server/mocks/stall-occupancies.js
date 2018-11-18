@@ -1,10 +1,11 @@
 import { formatStallsResponse } from '../utils';
+import { devices } from '../../environment';
 
 const mockStallOccupancies = {
   statuses: {
-    51: {
+    [devices[0].location.match(/[0-9]/g).join('')]: {
       Location: {
-        name: 'two-prudential-51'
+        name: devices[0].location.toLowerCase().replace(/ /g, '-')
       },
       Men: {
         spaces: {
