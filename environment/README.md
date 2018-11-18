@@ -132,5 +132,7 @@ Each floor/section of an office map should have its own backgrund image.
 These background images are layouts for the room tiles to be displayed onto.
 Ideally, they may be scanned and copied or traced from actual building blueprints.
 
+**Backgrounds must have square dimensions.**
+
 Each background must be saved as a `.png` to `client/assets` with slugified (lower-cased and spaces replaced with hyphens) location names matching the location assigned to corresponding devices.
 E.g., if devices are assigned to "Sears Tower 108", the background asset should be saved as `environment/assets/sears-tower-108.png`.
