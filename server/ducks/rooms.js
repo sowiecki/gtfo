@@ -47,7 +47,7 @@ const initialState = immutable.fromJS({
       id,
       location,
       capabilities,
-      coordinates: coordinates[id],
+      coordinates: coordinates.rooms[id],
       connectionStatus: false
     };
   })

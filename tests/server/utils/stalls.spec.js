@@ -6,10 +6,10 @@ import { SQUATTED, VACANT } from 'server/constants';
 
 describe('Stalls utilities (server)', () => {
   const mockStallsArray = [
-    { id: 'menStall1', active: true, alert: SQUATTED, location: 'duna-3' },
-    { id: 'menStall2', active: false, alert: VACANT, location: 'duna-3' },
-    { id: 'womenStall1', active: false, alert: VACANT, location: 'duna-3' },
-    { id: 'womenStall2', active: true, alert: VACANT, location: 'duna-3' }
+    { id: 'menstall1', active: true, alert: SQUATTED, location: 'duna-3' },
+    { id: 'menstall2', active: false, alert: VACANT, location: 'duna-3' },
+    { id: 'womenstall1', active: false, alert: VACANT, location: 'duna-3' },
+    { id: 'womenstall2', active: true, alert: VACANT, location: 'duna-3' }
   ];
 
   const mockStallsObject = {

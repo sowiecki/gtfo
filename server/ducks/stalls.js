@@ -17,11 +17,11 @@ const initialState = immutable.fromJS({
 });
 
 const applyCoordinates = (stall) => {
-  if (!coordinates[stall.id]) {
+  if (!coordinates.stalls[stall.id]) {
     throw new MissingCoordinatesError(stall.id);
   }
 
-  return Object.assign(stall, { coordinates: coordinates[stall.id] });
+  return Object.assign(stall, { coordinates: coordinates.stalls[stall.id] });
 };
 
 const clientsReducer = (state = initialState, action) => {

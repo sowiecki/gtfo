@@ -109,11 +109,27 @@ Example of an `environment/coordinates.json` file configured to display a meetin
 
 ```json
 {
-  "duna": {
-    "height": 3.1,
-    "width": 5.6,
-    "x": 55,
-    "y": 40.2
+  "rooms": {
+    "duna": {
+      "height": 3.1,
+      "width": 5.6,
+      "x": 55,
+      "y": 40.2
+    }
+  },
+  "stalls": {
+    "menStall2": {
+      "height": 3,
+      "width": 2.9,
+      "x": 48.3,
+      "y": 26.6
+    },
+    "womenStall1": {
+      "height": 3,
+      "width": 2.5,
+      "x": 45.5,
+      "y": 69
+    }
   }
 }
 ```
@@ -131,6 +147,8 @@ Mock room reservation data, indentical in format to a response from Exchange ser
 Each floor/section of an office map should have its own backgrund image.
 These background images are layouts for the room tiles to be displayed onto.
 Ideally, they may be scanned and copied or traced from actual building blueprints.
+
+**Backgrounds must have square dimensions.**
 
 Each background must be saved as a `.png` to `client/assets` with slugified (lower-cased and spaces replaced with hyphens) location names matching the location assigned to corresponding devices.
 E.g., if devices are assigned to "Sears Tower 108", the background asset should be saved as `environment/assets/sears-tower-108.png`.

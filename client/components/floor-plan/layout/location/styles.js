@@ -1,18 +1,16 @@
 import { css } from 'emotion';
 
 import { colors, breakpoints } from 'components/common/styles';
-import { genWidthAndHeight } from 'utils';
 
-const generateLayoutSVGWidthAndHeight = (width) => `
-  ${genWidthAndHeight(width)};
+const generateLayoutSVGWidthAndHeight = (n) => `
+height: ${n};
+width: ${n};
 
-  > svg {
-    ${genWidthAndHeight(width)};
-  }
-
-  > img {
-    ${genWidthAndHeight(width)};
-  }
+> img,
+> svg {
+  height: ${n};
+  width: ${n};
+}
 `;
 
 const stylesGenerator = () => ({
@@ -41,22 +39,14 @@ const stylesGenerator = () => ({
       height: 100%;
     }
 
-    ${generateLayoutSVGWidthAndHeight(608)};
+    ${generateLayoutSVGWidthAndHeight(708)}
 
     ${breakpoints.mobile} {
-      ${generateLayoutSVGWidthAndHeight(400)};
+      ${generateLayoutSVGWidthAndHeight(400)}
     }
 
     ${breakpoints.mobile_iphone5} {
-      ${generateLayoutSVGWidthAndHeight(300)};
-    }
-
-    ${breakpoints.tablet} {
-      ${generateLayoutSVGWidthAndHeight(740)};
-    }
-
-    ${breakpoints.large} {
-      ${generateLayoutSVGWidthAndHeight(870)};
+      ${generateLayoutSVGWidthAndHeight(300)}
     }
   `
 });

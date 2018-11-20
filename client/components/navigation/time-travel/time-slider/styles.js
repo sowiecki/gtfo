@@ -5,7 +5,7 @@ import { colors, fonts } from 'components/common/styles';
 const stylesGenerator = () => ({
   base: css`
     margin: 2px auto;
-    position: fixed !important;
+    position: absolute;
     right: 0;
     left: 0;
     top: 0;
@@ -29,17 +29,16 @@ const stylesGenerator = () => ({
 
   timeHintText: css`
     position: absolute;
-    font: 12px ${fonts.secondary}, sans-serif;
+    font: 12px ${fonts.tertiary}, sans-serif;
     margin: auto;
-    fontsize: 12px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 2px;
     color: ${colors.WHITE};
   `,
 
   timeUnavailableText: css`
-    font: 12px ${fonts.secondary}, sans-serif;
+    font: 12px ${fonts.tertiary}, sans-serif;
     lineheight: 1.25;
     color: ${colors.WHITE};
   `

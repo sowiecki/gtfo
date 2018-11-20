@@ -10,11 +10,7 @@ import stylesGenerator from './styles';
 
 const Marker = ({ computedStyles, marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
-  const locationHighlight = youAreHere && isAnchor ? (
-    <svg className={computedStyles.locationHighlight}>
-      <Place className={computedStyles.placeMarker}/>
-    </svg>
-  ) : null;
+  const locationHighlight = youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null;
 
   return (
     <svg {...parsePosition(marker.coordinates)}>
@@ -31,7 +27,6 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
 
 Marker.propTypes = {
   computedStyles: PropTypes.shape({
-    locationHighlight: PropTypes.object.isRequired,
     placeMarker: PropTypes.object.isRequired,
     text: PropTypes.object.isRequired
   }).isRequired,

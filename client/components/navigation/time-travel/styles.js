@@ -22,7 +22,7 @@ const stylesGenerator = () => ({
 
   timeDisplay: css`
     padding: 2px;
-    font: 24px ${fonts.secondary}, sans-serif;
+    font: 24px ${fonts.tertiary}, sans-serif;
     color: ${colors.WHITE};
   `,
 

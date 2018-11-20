@@ -22,9 +22,9 @@ const MapLegend = ({
   enableMotion,
   enableStalls
 }) => {
-  // if (!displayLegend) {
-  //   return null;
-  // }
+  if (!displayLegend) {
+    return null;
+  }
 
   const genIcon = (color) => (
     <svg height='40' width='50'>
