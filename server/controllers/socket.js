@@ -85,7 +85,7 @@ const socketController = {
       },
 
       [NEW_ROOM_PING]() {
-        forEach(payload.clientsWithAnchor, (clientWithAnchor) => {
+        forEach(client, (clientWithAnchor) => {
           socketController.send(event, payload.ping, clientWithAnchor);
         });
       },
