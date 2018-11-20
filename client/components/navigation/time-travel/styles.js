@@ -19,6 +19,12 @@ const stylesGenerator = () => ({
       height: 80px;
       background-color: ${colors.DARK_GREY};
       border-radius: 0;
+
+      // Necessary to keep the slider visible in Firefox on the prod build
+      // Putting this position on the <Slider /> class itself isn't enough
+      > div {
+        position: absolute;
+      }
     }
   `,
 

@@ -5,7 +5,7 @@ import { colors, fonts } from 'components/common/styles';
 const stylesGenerator = () => ({
   base: css`
     margin: 2px auto;
-    position: absolute;
+    position: absolute important!;
     right: 0;
     left: 0;
     top: 0;
