@@ -19,12 +19,17 @@ const stylesGenerator = ({ meetingRoom, ping = {} }) => {
       text {
         stroke: none;
         font-family: ${fonts.secondary};
-        font-size: 10px;
+        font-size: ${meetingRoom.coordinates.width < 5 ? 8 : 10}px;
         letter-spacing: 0.2;
         text-transform: capitalize;
 
         ${breakpoints.mobile} {
           font-size: 6px;
+        }
+
+        ${breakpoints.mobile_iphone5} {
+          font-size: 4px;
+          transform: translate(0, -6px);
         }
       }
     `,

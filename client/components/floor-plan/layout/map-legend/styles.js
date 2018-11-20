@@ -15,6 +15,16 @@ const stylesGenerator = ({ displayLegend }) => ({
       right: 300px;
     }
 
+    ${breakpoints.mobile} {
+      right: 180px;
+      bottom: 0;
+    }
+
+    ${breakpoints.mobile_iphone5} {
+      right: 150px;
+      bottom: -40px;
+    }
+
     > ul {
       background-color: ${colors.DARK_GREY};
     }
@@ -55,6 +65,14 @@ const stylesGenerator = ({ displayLegend }) => ({
     zoom: 0.6;
     width: 280px;
     border: 3px solid ${colors.DARK_GREY};
+
+    ${breakpoints.mobile_iphone5} {
+      transform: scale(0.6);
+    }
+
+    ${breakpoints.mobile} {
+      transform: scale(0.8);
+    }
 
     > div > div {
       textshadow: 1px 1px 0 ${colors.WHITE};

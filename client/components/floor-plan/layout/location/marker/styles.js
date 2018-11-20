@@ -27,16 +27,16 @@ const stylesGenerator = () => ({
     font-size 12px;
     font-weight: bold;
     font-ize: 24px;
+    font-weight: 300;
     font-family: ${fonts.tertiary};
     fill: ${colors.WHITE};
 
     ${breakpoints.mobile} {
-      transform: translate(0, -18px);
-
+      transform: scale(0.6);
     }
 
     ${breakpoints.mobile_iphone5} {
-      transform: translate(0, -16px);
+      transform: scale(0.4);
     }
   `
 });
