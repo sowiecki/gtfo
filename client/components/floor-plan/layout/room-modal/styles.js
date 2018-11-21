@@ -3,7 +3,7 @@ import { css } from 'emotion';
 import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING, STATUS_COLORS } from 'client/constants';
 import { colors, fonts, breakpoints } from 'components/common/styles';
 
-const stylesGenerator = ({ meetingRoom }) => ({
+const stylesGenerator = () => ({
   base: css`
     text-align: center;
     pointer-events: all;
@@ -108,7 +108,7 @@ const stylesGenerator = ({ meetingRoom }) => ({
       width: 100%;
       font-size: 26px;
       font-family: ${fonts.secondary};
-      background-color: ${STATUS_COLORS[meetingRoom.alert]};
+      background-color: ${STATUS_COLORS[alert]};
       transition: all 120ms ease-in-out;
       ${animation}
 

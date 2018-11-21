@@ -1,11 +1,17 @@
 /* globals document */
-import React, { PureComponent } from 'react';
+import React, { PureComponent, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import withStyles from 'withstyles';
+import { isNil } from 'lodash';
+import { compose } from 'recompose';
 
 import { VelocityComponent } from 'velocity-react';
 
+import * as LayoutActions from 'ducks/layout';
+import * as NavigationActions from 'ducks/navigation';
 import stylesGenerator from './styles';
 
 class Modal extends PureComponent {
@@ -22,7 +28,7 @@ class Modal extends PureComponent {
     return ReactDOM.createPortal(
       <div className={computedStyles.base}>
         <VelocityComponent animation={{ opacity: modalContent ? 1 : 0 }} duration={250}>
-          <div>{modalContent}</div>
+          <div>{isNil(modalContent) ? null : cloneElement(modalContent, this.props)}</div>
         </VelocityComponent>
       </div>,
       document.getElementById('modal')
@@ -30,4 +36,27 @@ class Modal extends PureComponent {
   }
 }
 
-export default withStyles(stylesGenerator)(Modal);
+const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
+  ...layoutReducer.toJS(),
+  ...navigationReducer.toJS(),
+  router
+});
+
+const mapDispatchToProps = (dispatch) => {
+  const actions = {
+    ...LayoutActions,
+    ...NavigationActions
+  };
+
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+};
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  withStyles(stylesGenerator)
+)(Modal);
