@@ -8,9 +8,10 @@ import Paper from '@material-ui/core/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
+import { FLOOR_PLAN_ROOT_ID } from 'constants';
 
 import DisplayError from 'components/common/display-error';
-import RoomModalEnable from './room-modal/enable';
+import RoomModalTrigger from './room-modal/trigger';
 import Location from './location';
 import MapLegend from './map-legend';
 import stylesGenerator from './styles';
@@ -25,7 +26,7 @@ const FloorPlanLayout = (props) => {
 
   return (
     <Fragment>
-      <Paper id='floor-plan-root'>
+      <Paper id={FLOOR_PLAN_ROOT_ID}>
         <SwipeableViews
           className={computedStyles.swipableOverride}
           index={getLocationIndex(locationKeys, location)}
@@ -35,7 +36,7 @@ const FloorPlanLayout = (props) => {
         </SwipeableViews>
         <MapLegend enabled={displayLegend} showYouAreHere={hasAnchor(location)} {...props} />
       </Paper>
-      <Route exact path='/:location/:room' render={() => <RoomModalEnable {...props} />} />
+      <Route exact path='/:location/:room' render={() => <RoomModalTrigger {...props} />} />
       <DisplayError {...props} />
     </Fragment>
   );

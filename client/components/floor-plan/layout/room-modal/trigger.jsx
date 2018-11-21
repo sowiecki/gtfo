@@ -9,7 +9,7 @@ import RoomModal from './index';
 /**
  * Special component used to trigger the RoomModal component from a ReactRouter change.
  */
-class RoomModalEnable extends Component {
+class RoomModalTrigger extends Component {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired
@@ -46,15 +46,11 @@ class RoomModalEnable extends Component {
   };
 
   componentDidMount() {
-    this.modalUpdate();
+    this.triggerRoomModal();
   }
 
   shouldComponentUpdate(nextProps) {
     return !isEqual(this.getMeetingRoom(), this.getMeetingRoom(nextProps));
-  }
-
-  componentDidUpdate() {
-    this.modalUpdate();
   }
 
   componentWillUnmount() {
@@ -80,7 +76,7 @@ class RoomModalEnable extends Component {
     actions.push({ ...location, pathname: `/${params.location}` });
   };
 
-  modalUpdate = () => {
+  triggerRoomModal = () => {
     const { actions } = this.props;
     const meetingRoom = this.getMeetingRoom();
 
@@ -96,4 +92,4 @@ class RoomModalEnable extends Component {
   }
 }
 
-export default RoomModalEnable;
+export default RoomModalTrigger;

@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
+import { FLOOR_PLAN_ROOT_ID } from 'constants';
 import NavigationLayout from './layout';
 
 class NavigationController extends PureComponent {
@@ -46,13 +47,17 @@ class NavigationController extends PureComponent {
   };
 
   // Closes modals, drawers, etc.
-  handleCloseEverything = () => {
+  handleCloseEverything = ({ target }) => {
     const { actions } = this.props;
 
     if (this.shouldBlur()) {
       actions.emitToggleSiteNav(false);
-      // actions.emitTimeTravelControlsToggle(false);
       actions.emitTimeSliderValueUpdate(0);
+
+      if (target.id === FLOOR_PLAN_ROOT_ID) {
+        actions.emitModalContentUpdate(null);
+        actions.emitTimeTravelControlsToggle(false);
+      }
     }
   };
 
