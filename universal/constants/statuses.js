@@ -1,4 +1,3 @@
-export const OCCUPIED = 'OCCUPIED';
 export const SQUATTED = 'SQUATTED';
 export const ABANDONED = 'ABANDONED';
 export const VACANT = 'VACANT';

@@ -1,17 +1,16 @@
 import { css } from 'emotion';
 import { get } from 'lodash';
 
-import { colors, fonts, breakpoints } from 'components/common/styles';
-import { STATUS_COLORS } from 'client/constants';
+import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
 
-const stylesGenerator = ({ meetingRoom, ping = {} }) => {
+const stylesGenerator = ({ meetingRoom, ping = {}, statusesTheme }) => {
   const pinged = meetingRoom.name.toLowerCase() === get(ping, 'id', '').toLowerCase();
   const animation = pinged ? 'animation: backgroundColor 0.25s infinite alternate;' : '';
 
   return {
     base: css`
       cursor: pointer;
-      fill: ${STATUS_COLORS[meetingRoom.alert]};
+      fill: ${STATUS_COLOR_THEMES[statusesTheme][meetingRoom.alert]};
       transition: all 250ms ease-in-out;
     `,
 
@@ -37,7 +36,7 @@ const stylesGenerator = ({ meetingRoom, ping = {} }) => {
     pinged: css`
       @keyframes backgroundColor {
         from {
-          fill: ${STATUS_COLORS.PINGED};
+          fill: ${STATUS_COLOR_THEMES[statusesTheme].PINGED};
         }
       }
 

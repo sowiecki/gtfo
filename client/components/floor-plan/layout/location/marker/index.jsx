@@ -10,7 +10,6 @@ import stylesGenerator from './styles';
 
 const Marker = ({ computedStyles, marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
-  const locationHighlight = youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null;
 
   return (
     <svg {...parsePosition(marker.coordinates)}>
@@ -20,7 +19,7 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
         dy={MARKER_ROOM_NAME_TEXT_DY}>
         {marker.name}
       </text>
-      {locationHighlight}
+      {youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null}
     </svg>
   );
 };

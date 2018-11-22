@@ -17,13 +17,13 @@ const mapStateToProps = ({ navigationReducer, layoutReducer, router }) => ({
   timeTravelControlsOpen: navigationReducer.get('timeTravelControlsOpen'),
   timeTravelTime: navigationReducer.get('timeTravelTime'),
   timeSliderValue: navigationReducer.get('timeSliderValue'),
+  modalContent: navigationReducer.get('modalContent'),
+  timezone: navigationReducer.get('timezone'),
   locations: layoutReducer.get('locations'),
   displayLegend: layoutReducer.get('displayLegend'),
   displayTemp: layoutReducer.get('displayTemp'),
   enableTemp: layoutReducer.get('enableTemp'),
-  unitOfTemp: layoutReducer.get('unitOfTemp'),
-  modalContent: navigationReducer.get('modalContent'),
-  timezone: navigationReducer.get('timezone')
+  unitOfTemp: layoutReducer.get('unitOfTemp')
 });
 
 const mapDispatchToProps = (dispatch) => {

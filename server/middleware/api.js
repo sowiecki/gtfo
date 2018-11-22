@@ -9,7 +9,7 @@ import { FETCH_ROOM_RESERVATIONS, EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms
 import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';
 import { NEW_ROOM_PING } from '../constants';
 
-export default (state) => (next) => (action) => {
+export default (store) => (next) => (action) => {
   const handlers = {
     [FETCH_ROOM_RESERVATIONS]() {
       fetchRoomReservation(next, action);
@@ -20,14 +20,14 @@ export default (state) => (next) => (action) => {
     },
 
     [EMIT_ROOM_PING_RECEIVED]() {
-      const clients = state
+      const clients = store
         .getState()
         .clientsReducer.get('clients')
         .toJS();
 
       // Send ping to clients with matching anchor parameter.
       const clientsWithAnchor = filter(clients, { anchor: action.ping.anchor });
-      socketController.handle(NEW_ROOM_PING, { clientsWithAnchor, ping: action.ping });
+      socketController.handle(NEW_ROOM_PING, { ping: action.ping }, clientsWithAnchor);
     }
   };
 

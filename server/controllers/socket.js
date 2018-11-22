@@ -3,6 +3,7 @@ import moment from 'moment';
 import { get, forEach } from 'lodash';
 
 import store from '../store';
+import consoleController from './console';
 
 import { send, getFutureAlerts, secureRooms } from '../utils';
 import { WEBSOCKET_PORT } from '../config';
@@ -57,6 +58,8 @@ const socketController = {
    * @returns {undefined}
    */
   handle(event, payload, client) {
+    consoleController.log(`Received ${event} event`);
+
     const handlers = {
       [HANDSHAKE]() {
         // Register client socket with anchor parameter.
@@ -85,7 +88,7 @@ const socketController = {
       },
 
       [NEW_ROOM_PING]() {
-        forEach(payload.clientsWithAnchor, (clientWithAnchor) => {
+        forEach(client, (clientWithAnchor) => {
           socketController.send(event, payload.ping, clientWithAnchor);
         });
       },

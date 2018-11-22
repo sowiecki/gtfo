@@ -1,5 +1,6 @@
 /* globals setInterval, clearInterval */
 import React, { Fragment } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import withStyles from 'withstyles';
@@ -8,9 +9,10 @@ import Paper from '@material-ui/core/Paper';
 import SwipeableViews from 'react-swipeable-views';
 
 import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
+import { FLOOR_PLAN_ROOT_ID } from 'constants';
 
 import DisplayError from 'components/common/display-error';
-import RoomModalEnable from './room-modal/enable';
+import RoomModalTrigger from './room-modal/trigger';
 import Location from './location';
 import MapLegend from './map-legend';
 import stylesGenerator from './styles';
@@ -25,7 +27,7 @@ const FloorPlanLayout = (props) => {
 
   return (
     <Fragment>
-      <Paper id='floor-plan-root'>
+      <Paper id={FLOOR_PLAN_ROOT_ID}>
         <SwipeableViews
           className={computedStyles.swipableOverride}
           index={getLocationIndex(locationKeys, location)}
@@ -33,9 +35,14 @@ const FloorPlanLayout = (props) => {
           resistance={true}>
           {locationKeys.map(renderLocation)}
         </SwipeableViews>
-        <MapLegend enabled={displayLegend} showYouAreHere={hasAnchor(location)} {...props} />
+        <ReactCSSTransitionGroup
+          transitionName='map-legend'
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {displayLegend ? <MapLegend showYouAreHere={hasAnchor(location)} {...props} /> : null}
+        </ReactCSSTransitionGroup>
       </Paper>
-      <Route exact path='/:location/:room' render={() => <RoomModalEnable {...props} />} />
+      <Route exact path='/:location/:room' render={() => <RoomModalTrigger {...props} />} />
       <DisplayError {...props} />
     </Fragment>
   );

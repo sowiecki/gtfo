@@ -29,17 +29,11 @@ const stylesGenerator = () => ({
 
   timeHintText: css`
     position: absolute;
-    font: 12px ${fonts.tertiary}, sans-serif;
     margin: auto;
     left: 0;
     right: 0;
     bottom: 2px;
-    color: ${colors.WHITE};
-  `,
-
-  timeUnavailableText: css`
     font: 12px ${fonts.tertiary}, sans-serif;
-    lineheight: 1.25;
     color: ${colors.WHITE};
   `
 });
