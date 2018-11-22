@@ -115,6 +115,7 @@ class RoomModal extends PureComponent {
             </div>
           </div>
           <FutureReservations
+            {...this.props}
             timezone={timezone}
             isOnline={meetingRoom.alert !== OFFLINE}
             reservations={meetingRoom.reservations}/>

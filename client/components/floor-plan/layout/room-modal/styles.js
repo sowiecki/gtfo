@@ -1,9 +1,9 @@
 import { css } from 'emotion';
 
-import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING, STATUS_COLORS } from 'client/constants';
-import { colors, fonts, breakpoints } from 'components/common/styles';
+import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING } from 'client/constants';
+import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
 
-const stylesGenerator = () => ({
+const stylesGenerator = ({ statusesTheme }) => ({
   base: css`
     text-align: center;
     pointer-events: all;
@@ -108,7 +108,7 @@ const stylesGenerator = () => ({
       width: 100%;
       font-size: 26px;
       font-family: ${fonts.secondary};
-      background-color: ${STATUS_COLORS[alert]};
+      background-color: ${STATUS_COLOR_THEMES[statusesTheme][alert]};
       transition: all 120ms ease-in-out;
       ${animation}
 
