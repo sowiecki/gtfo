@@ -42,8 +42,8 @@ export const STATUS_COLOR_THEMES = {
   },
 
   [MONOCHROME]: {
-    [SQUATTED]: '#2B2B2B',
-    [ABANDONED]: '#D3D3D3',
+    [SQUATTED]: '#D3D3D3',
+    [ABANDONED]: '#2B2B2B',
     [VACANT]: '#D3D3D3',
     [FIVE_MINUTE_WARNING]: '#575757',
     [ONE_MINUTE_WARNING]: '#7B7B7B',

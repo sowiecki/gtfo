@@ -54,7 +54,7 @@ const MapLegend = ({
             </div>
             {youAreHereListItem}
             <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Offline</ListItem>
-            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
+            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
             {enableMotion || enableStalls ? (
               <Fragment>
                 <ListItem key='squatted'>
@@ -65,7 +65,7 @@ const MapLegend = ({
                 </ListItem>
               </Fragment>
             ) : null}
-            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
+            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
             <ListItem>
               {renderIcon(STATUS_COLOR_THEMES[statusesTheme].FIVE_MINUTE_WARNING)} Five minute
               warning

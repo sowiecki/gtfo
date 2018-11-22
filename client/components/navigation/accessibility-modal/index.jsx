@@ -36,10 +36,10 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
           <h3>{capitalize(key)}</h3>
         </ListItem>
         <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].OFFLINE)}</ListItem>
-        <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].BOOKED)}</ListItem>
+        <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].VACANT)}</ListItem>
         <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].SQUATTED)}</ListItem>
         <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].ABANDONED)}</ListItem>
-        <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].VACANT)}</ListItem>
+        <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].BOOKED)}</ListItem>
         <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].FIVE_MINUTE_WARNING)}</ListItem>
         <ListItem>{renderIcon(STATUS_COLOR_THEMES[key].ONE_MINUTE_WARNING)}</ListItem>
       </List>
@@ -69,10 +69,10 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
                   <h3>Label</h3>
                 </ListItem>
                 <ListItem>Offline</ListItem>
-                <ListItem>Booked</ListItem>
+                <ListItem>Vacant</ListItem>
                 <ListItem>Squatted</ListItem>
                 <ListItem>Abandoned</ListItem>
-                <ListItem>Vacant</ListItem>
+                <ListItem>Booked</ListItem>
                 <ListItem>Five minute warning</ListItem>
                 <ListItem>One minute warning</ListItem>
               </List>
