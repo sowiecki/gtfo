@@ -1,28 +1,8 @@
 import { css } from 'emotion';
 
-// import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING, STATUS_COLORS } from 'client/constants';
-import { colors, fonts, breakpoints } from 'components/common/styles';
+import { colors, breakpoints } from 'components/common/styles';
 
-const stylesGenerator = () => ({
-  base: css`
-    top: 25%;
-    right: 0;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    width: 500px;
-    height: auto;
-    background: ${colors.DARK_GREY};
-    pointer-events: all;
-    font-family: ${fonts.secondary};
-    letter-spacing: 0.7;
-    color: ${colors.WHITE};
-
-    ${breakpoints.mobile} {
-      width: 400px;
-    }
-  `,
-
+const stylesGenerator = ({ statusesTheme }) => ({
   header: css`
     height: 24px;
     margin: 12px;
@@ -46,11 +26,16 @@ const stylesGenerator = () => ({
     }
 
     td {
+      border: 1px solid ${colors.DARK_GREY};
       vertical-align: top;
-      min-width: 86px;
+      min-width: 70px;
       transition: all 120ms ease-in-out;
       cursor: pointer;
       font-size: 12px;
+
+      h3 {
+        font-size: 10px;
+      }
 
       ${breakpoints.mobile} {
         h3 {
@@ -82,7 +67,17 @@ const stylesGenerator = () => ({
         background-color: ${colors.DARK_GREY};
       }
     }
-  `
+  `,
+
+  list: (key) => {
+    const border = key === statusesTheme ? `border: 1px solid ${colors.GREY};` : null;
+
+    return css`
+      > ul {
+        ${border}
+      }
+    `;
+  }
 });
 
 export default stylesGenerator;

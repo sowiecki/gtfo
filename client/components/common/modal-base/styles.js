@@ -9,7 +9,7 @@ const stylesGenerator = () => ({
     left: 0;
     margin: auto;
     position: absolute;
-    width: 500px;
+    width: 440px;
     height: auto;
     background: ${colors.DARK_GREY};
     pointer-events: all;

@@ -16,8 +16,8 @@ import stylesGenerator from './styles';
 
 const AccessibilityModal = ({ computedStyles, actions }) => {
   const renderIcon = (color) => (
-    <svg height='20' width='44'>
-      <rect x='0' y='0' width='44' height='20' fill={color} />
+    <svg height='20' width='50'>
+      <rect x='0' y='0' width='50' height='20' fill={color} />
     </svg>
   );
 
@@ -30,7 +30,8 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
     <td
       role="button" // eslint-disable-line
       onClick={handleThemeUpdate.bind(null, key)}
-      onKeyDown={handleThemeUpdate.bind(null, key)}>
+      onKeyDown={handleThemeUpdate.bind(null, key)}
+      className={computedStyles.list(key)}>
       <List>
         <ListItem>
           <h3>{capitalize(key)}</h3>
@@ -99,7 +100,8 @@ AccessibilityModal.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.string.isRequired,
     header: PropTypes.string.isRequired,
-    table: PropTypes.string.isRequired
+    table: PropTypes.string.isRequired,
+    list: PropTypes.func.isRequired
   }).isRequired
 };
 

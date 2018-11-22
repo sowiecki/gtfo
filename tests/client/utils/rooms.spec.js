@@ -116,11 +116,14 @@ describe('Room utilities (client)', () => {
   });
 
   describe('getLocationIndex', () => {
-    const mockLocationParams = ['Winterfell', 'Storm\'s End'];
+    const mockLocationParams = ['Winterfell', 'Storm\'s End', 'king\'s landing'];
 
     it('should find the index of a provided location parameter.', () => {
       expect(getLocationIndex(mockLocationParams, { pathname: 'Winterfell' })).toEqual(0);
       expect(getLocationIndex(mockLocationParams, { pathname: 'Storm\'s End' })).toEqual(1);
+      expect(getLocationIndex(mockLocationParams, { pathname: 'king\'s landing/red keep' })).toEqual(
+        2
+      );
     });
 
     it('should fail gracefully, returning 0 when the parameter is not found.', () => {

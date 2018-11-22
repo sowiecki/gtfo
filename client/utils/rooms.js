@@ -1,9 +1,11 @@
 /* eslint no-console:0 */
 /* globals console */
+import { matchPath } from 'react-router';
 import { filter, map, uniq, get } from 'lodash';
 import slugify from 'slugify';
 import queryString from 'query-string';
 
+import { FLOOR_PLAN_ROUTE } from 'client/constants';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
@@ -123,7 +125,14 @@ export const genWidthAndHeight = (width) => `
  * @returns {integer}
  */
 export const getLocationIndex = (locationKeys, location) => {
-  const locationIndex = locationKeys.indexOf(location.pathname);
+  console.log(location);
+  const match = matchPath(location.pathname, {
+    path: FLOOR_PLAN_ROUTE,
+    exact: true,
+    strict: false
+  });
+  const pathname = get(match, 'params.location', location.pathname);
+  const locationIndex = locationKeys.indexOf(pathname);
 
   return locationIndex >= 0 ? locationIndex : 0;
 };
