@@ -1,5 +1,6 @@
 /* globals setInterval, clearInterval */
 import React, { Fragment } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import withStyles from 'withstyles';
@@ -34,7 +35,12 @@ const FloorPlanLayout = (props) => {
           resistance={true}>
           {locationKeys.map(renderLocation)}
         </SwipeableViews>
-        <MapLegend enabled={displayLegend} showYouAreHere={hasAnchor(location)} {...props} />
+        <ReactCSSTransitionGroup
+          transitionName='map-legend'
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {displayLegend ? <MapLegend showYouAreHere={hasAnchor(location)} {...props} /> : null}
+        </ReactCSSTransitionGroup>
       </Paper>
       <Route exact path='/:location/:room' render={() => <RoomModalTrigger {...props} />} />
       <DisplayError {...props} />

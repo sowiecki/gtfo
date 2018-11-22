@@ -18,15 +18,10 @@ const MapLegend = ({
   computedStyles,
   actions,
   showYouAreHere,
-  displayLegend,
   enableMotion,
   enableStalls,
   statusesTheme
 }) => {
-  if (!displayLegend) {
-    return null;
-  }
-
   const renderIcon = (color) => (
     <svg height='40' width='50'>
       <rect className={computedStyles.rect} x='0' y='0' width='40' height='40' fill={color} />
@@ -43,42 +38,45 @@ const MapLegend = ({
   ) : null;
 
   return (
-    <Draggable bounds='#floor-plan-root' handle='.map-legend-handle'>
-      <div id='map-legend' className={computedStyles.base}>
-        <List className={computedStyles.mapLegend}>
-          <div className='map-legend-handle'>
-            <span className='grippy' />
-            <div className={computedStyles.closeButton}>
-              <IconButton
-                aria-label='Close'
-                onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}>
-                <CloseIcon fontSize='small' />
-              </IconButton>
+    <div>
+      <Draggable bounds='#floor-plan-root' handle='.map-legend-handle'>
+        <div id='map-legend' className={computedStyles.base}>
+          <List className={computedStyles.mapLegend}>
+            <div className='map-legend-handle'>
+              <span className='grippy' />
+              <div className={computedStyles.closeButton}>
+                <IconButton
+                  aria-label='Close'
+                  onClick={actions.emitToggleDisplayLegend.bind(null, true)}>
+                  <CloseIcon fontSize='small' />
+                </IconButton>
+              </div>
             </div>
-          </div>
-          {youAreHereListItem}
-          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Offline</ListItem>
-          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
-          {enableMotion || enableStalls ? (
-            <Fragment>
-              <ListItem key='squatted'>
-                {renderIcon(STATUS_COLOR_THEMES[statusesTheme].SQUATTED)} Squatted
-              </ListItem>
-              <ListItem key='abandonded'>
-                {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ABANDONED)} Abandoned
-              </ListItem>
-            </Fragment>
-          ) : null}
-          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
-          <ListItem>
-            {renderIcon(STATUS_COLOR_THEMES[statusesTheme].FIVE_MINUTE_WARNING)} Five minute warning
-          </ListItem>
-          <ListItem>
-            {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ONE_MINUTE_WARNING)} One minute warning
-          </ListItem>
-        </List>
-      </div>
-    </Draggable>
+            {youAreHereListItem}
+            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Offline</ListItem>
+            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
+            {enableMotion || enableStalls ? (
+              <Fragment>
+                <ListItem key='squatted'>
+                  {renderIcon(STATUS_COLOR_THEMES[statusesTheme].SQUATTED)} Squatted
+                </ListItem>
+                <ListItem key='abandonded'>
+                  {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ABANDONED)} Abandoned
+                </ListItem>
+              </Fragment>
+            ) : null}
+            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
+            <ListItem>
+              {renderIcon(STATUS_COLOR_THEMES[statusesTheme].FIVE_MINUTE_WARNING)} Five minute
+              warning
+            </ListItem>
+            <ListItem>
+              {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ONE_MINUTE_WARNING)} One minute warning
+            </ListItem>
+          </List>
+        </div>
+      </Draggable>
+    </div>
   );
 };
 
@@ -93,7 +91,6 @@ MapLegend.propTypes = {
   actions: PropTypes.shape({
     emitToggleDisplayLegend: PropTypes.func.isRequired
   }).isRequired,
-  displayLegend: PropTypes.bool.isRequired,
   showYouAreHere: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,
   enableStalls: PropTypes.bool.isRequired,

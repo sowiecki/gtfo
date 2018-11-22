@@ -20,7 +20,6 @@ class NavigationController extends PureComponent {
       emitTimeTravelControlsToggle: PropTypes.func.isRequired,
       emitTimeSliderValueUpdate: PropTypes.func.isRequired,
       emitToggleSiteNav: PropTypes.func.isRequired,
-      emitToggleDisplayLegend: PropTypes.func.isRequired,
       emitToggleDisplayTemp: PropTypes.func.isRequired,
       emitToggleTempScale: PropTypes.func.isRequired
     }).isRequired,

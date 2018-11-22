@@ -5,9 +5,11 @@ import { capitalize } from 'lodash';
 
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
+import ModalBase from 'components/common/modal-base';
 import { DEFAULT, RED_GREEN, BLUE_YELLOW, MONOCHROME } from 'constants';
 import { STATUS_COLOR_THEMES } from 'components/common/styles';
 import stylesGenerator from './styles';
@@ -45,7 +47,7 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
   );
 
   return (
-    <div className={computedStyles.base}>
+    <ModalBase>
       <div className={computedStyles.header}>
         <div>Select a color theme</div>
         <IconButton
@@ -55,6 +57,8 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
           <CloseIcon fontSize='small' />
         </IconButton>
       </div>
+
+      <Divider />
 
       <table className={computedStyles.table}>
         <tbody>
@@ -84,7 +88,7 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
           </tr>
         </tbody>
       </table>
-    </div>
+    </ModalBase>
   );
 };
 

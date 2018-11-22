@@ -1,14 +1,13 @@
 /* globals document */
 import React, { PureComponent, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import withStyles from 'withstyles';
 import { isNil } from 'lodash';
 import { compose } from 'recompose';
-
-import { VelocityComponent } from 'velocity-react';
 
 import * as LayoutActions from 'ducks/layout';
 import * as NavigationActions from 'ducks/navigation';
@@ -27,9 +26,12 @@ class Modal extends PureComponent {
 
     return ReactDOM.createPortal(
       <div className={computedStyles.base}>
-        <VelocityComponent animation={{ opacity: modalContent ? 1 : 0 }} duration={250}>
-          <div>{isNil(modalContent) ? null : cloneElement(modalContent, this.props)}</div>
-        </VelocityComponent>
+        <ReactCSSTransitionGroup
+          transitionName='modal'
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {isNil(modalContent) ? null : cloneElement(modalContent, this.props)}
+        </ReactCSSTransitionGroup>
       </div>,
       document.getElementById('modal')
     );

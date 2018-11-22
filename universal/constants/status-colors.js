@@ -9,23 +9,14 @@ import {
   PINGED
 } from './statuses';
 
-const PURPLE = '#9800FF';
-const BLUE = '#3399FF';
-const PURPLE_LIGHT = '#7587FF';
-const RED = '#CC223E';
-const GREEN = '#00DB54';
-const ORANGE = '#FF6100';
-const YELLOW = '#F3B700';
-const GREY = '#D3D3D3';
-
 export const STATUS_COLORS = {
-  [SQUATTED]: PURPLE,
-  [ABANDONED]: PURPLE_LIGHT,
-  [VACANT]: GREEN,
-  [FIVE_MINUTE_WARNING]: ORANGE,
-  [ONE_MINUTE_WARNING]: RED,
-  [BOOKED]: BLUE,
-  [OFFLINE]: GREY,
-  [PINGED]: YELLOW,
-  [undefined]: GREY
+  [SQUATTED]: '#9800FF', // purple
+  [ABANDONED]: '#99CCFF',
+  [VACANT]: '#00DB54', // green
+  [FIVE_MINUTE_WARNING]: '#FF6100', // orange
+  [ONE_MINUTE_WARNING]: '#CC223E', // red
+  [BOOKED]: '#3399FF', // blue
+  [OFFLINE]: '#D3D3D3', // grey
+  [PINGED]: '#F3B700', // yellow
+  [undefined]: '#D3D3D3' // grey
 };

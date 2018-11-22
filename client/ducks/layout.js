@@ -1,7 +1,8 @@
 import immutable from 'immutable';
+import cookies from 'js-cookie';
 
 import { pluckLocations, handleAction } from 'utils';
-import { FAHRENHEIT, CELSIUS, DEFAULT } from 'constants';
+import { FAHRENHEIT, CELSIUS, DEFAULT, COOKIE_NAMESPACE } from 'constants';
 import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
@@ -68,7 +69,7 @@ const initialState = immutable.fromJS({
   enableMotion: false, // Server variable that governs display of motion features
   enableStalls: false, // Server variable that governs display of stall features
   unitOfTemp: FAHRENHEIT,
-  statusesTheme: DEFAULT
+  statusesTheme: cookies.get(`${COOKIE_NAMESPACE}/statusesTheme`) || DEFAULT
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -125,7 +126,11 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_ROOM_MOTION_UPDATE]: () => state,
 
-    [EMIT_STATUSES_THEME_UPDATE]: () => state.set('statusesTheme', action.statusesTheme)
+    [EMIT_STATUSES_THEME_UPDATE]: () => {
+      cookies.set(`${COOKIE_NAMESPACE}/statusesTheme`, action.statusesTheme);
+
+      return state.set('statusesTheme', action.statusesTheme);
+    }
   };
 
   return handleAction(state, action, reducers);

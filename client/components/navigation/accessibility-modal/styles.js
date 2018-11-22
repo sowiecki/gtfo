@@ -53,10 +53,14 @@ const stylesGenerator = () => ({
       font-size: 12px;
 
       ${breakpoints.mobile} {
-        font-size: 10px;
+        h3 {
+          font-size: 8px;
+        }
+        min-width: 70px;
       }
 
-      :hover {
+      :hover,
+      :active {
         background-color: ${colors.GREY};
       }
 
@@ -73,7 +77,8 @@ const stylesGenerator = () => ({
       width: 180px;
       cursor: inherit;
 
-      :hover {
+      :hover,
+      :active {
         background-color: ${colors.DARK_GREY};
       }
     }

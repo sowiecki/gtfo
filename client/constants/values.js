@@ -9,3 +9,5 @@ export const RED_GREEN = 'red-green';
 export const BLUE_YELLOW = 'blue-yellow';
 
 export const MONOCHROME = 'monochrome';
+
+export const COOKIE_NAMESPACE = 'OFFICE_INSIGHTS';
