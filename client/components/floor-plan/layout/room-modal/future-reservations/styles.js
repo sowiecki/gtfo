@@ -2,7 +2,6 @@
 import { css } from 'emotion';
 import { isEmpty } from 'lodash';
 
-import { STATUS_COLORS } from 'client/constants';
 import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
 
 const stylesGenerator = ({ isOnline, statusesTheme }) => ({
