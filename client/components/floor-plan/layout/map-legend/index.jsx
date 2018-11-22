@@ -10,8 +10,8 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { colors } from 'components/common/styles';
-import { STATUS_COLORS } from 'client/constants';
+import { colors, STATUS_COLOR_THEMES } from 'components/common/styles';
+import { PROP_TYPES } from 'constants';
 import stylesGenerator from './styles';
 
 const MapLegend = ({
@@ -20,15 +20,16 @@ const MapLegend = ({
   showYouAreHere,
   displayLegend,
   enableMotion,
-  enableStalls
+  enableStalls,
+  statusesTheme
 }) => {
   if (!displayLegend) {
     return null;
   }
 
-  const genIcon = (color) => (
+  const renderIcon = (color) => (
     <svg height='40' width='50'>
-      <rect x='0' y='0' width='40' height='40' fill={color} />
+      <rect className={computedStyles.rect} x='0' y='0' width='40' height='40' fill={color} />
     </svg>
   );
 
@@ -56,17 +57,25 @@ const MapLegend = ({
             </div>
           </div>
           {youAreHereListItem}
-          <ListItem>{genIcon(STATUS_COLORS.OFFLINE)} Offline</ListItem>
-          <ListItem>{genIcon(STATUS_COLORS.BOOKED)} Booked</ListItem>
+          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Offline</ListItem>
+          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
           {enableMotion || enableStalls ? (
             <Fragment>
-              <ListItem key='squatted'>{genIcon(STATUS_COLORS.SQUATTED)} Squatted</ListItem>
-              <ListItem key='abandonded'>{genIcon(STATUS_COLORS.ABANDONED)} Abandoned</ListItem>
+              <ListItem key='squatted'>
+                {renderIcon(STATUS_COLOR_THEMES[statusesTheme].SQUATTED)} Squatted
+              </ListItem>
+              <ListItem key='abandonded'>
+                {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ABANDONED)} Abandoned
+              </ListItem>
             </Fragment>
           ) : null}
-          <ListItem>{genIcon(STATUS_COLORS.VACANT)} Vacant</ListItem>
-          <ListItem>{genIcon(STATUS_COLORS.FIVE_MINUTE_WARNING)} Five minute warning</ListItem>
-          <ListItem>{genIcon(STATUS_COLORS.ONE_MINUTE_WARNING)} One minute warning</ListItem>
+          <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
+          <ListItem>
+            {renderIcon(STATUS_COLOR_THEMES[statusesTheme].FIVE_MINUTE_WARNING)} Five minute warning
+          </ListItem>
+          <ListItem>
+            {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ONE_MINUTE_WARNING)} One minute warning
+          </ListItem>
         </List>
       </div>
     </Draggable>
@@ -77,7 +86,9 @@ MapLegend.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
     closeButton: PropTypes.object.isRequired,
-    mapLegend: PropTypes.object.isRequired
+    mapLegend: PropTypes.object.isRequired,
+    rect: PropTypes.object.isRequired,
+    icon: PropTypes.func.isRequired
   }).isRequired,
   actions: PropTypes.shape({
     emitToggleDisplayLegend: PropTypes.func.isRequired
@@ -85,7 +96,8 @@ MapLegend.propTypes = {
   displayLegend: PropTypes.bool.isRequired,
   showYouAreHere: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,
-  enableStalls: PropTypes.bool.isRequired
+  enableStalls: PropTypes.bool.isRequired,
+  statusesTheme: PROP_TYPES.statusesTheme
 };
 
 export default withStyles(stylesGenerator)(MapLegend);

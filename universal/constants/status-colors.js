@@ -1,4 +1,4 @@
-import { OCCUPIED,
+import {
   SQUATTED,
   ABANDONED,
   VACANT,
@@ -6,7 +6,8 @@ import { OCCUPIED,
   ONE_MINUTE_WARNING,
   BOOKED,
   OFFLINE,
-  PINGED } from './statuses';
+  PINGED
+} from './statuses';
 
 const PURPLE = '#9800FF';
 const BLUE = '#3399FF';
@@ -18,7 +19,6 @@ const YELLOW = '#F3B700';
 const GREY = '#D3D3D3';
 
 export const STATUS_COLORS = {
-  [OCCUPIED]: BLUE,
   [SQUATTED]: PURPLE,
   [ABANDONED]: PURPLE_LIGHT,
   [VACANT]: GREEN,

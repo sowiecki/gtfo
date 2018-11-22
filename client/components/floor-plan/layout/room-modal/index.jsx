@@ -98,7 +98,7 @@ class RoomModal extends PureComponent {
       [FIVE_MINUTE_WARNING]: 'Booked, less than five minutes remaining',
       [OFFLINE]: 'Error fetching room data'
     };
-    console.log(this.props);
+
     return meetingRoom ? (
       <Fragment>
         <div className={computedStyles.base}>

@@ -1,9 +1,8 @@
 import immutable from 'immutable';
 
-import { pluckLocations, handleAction } from '../utils';
-
+import { pluckLocations, handleAction } from 'utils';
+import { FAHRENHEIT, CELSIUS, DEFAULT } from 'constants';
 import { EMIT_HANDSHAKE_RECEIVED } from './navigation';
-import { FAHRENHEIT, CELSIUS } from '../constants';
 
 export const CONNECT_SOCKET = 'CONNECT_SOCKET';
 export const EMIT_LAYOUT_SOCKET_ERROR = 'EMIT_LAYOUT_SOCKET_ERROR';
@@ -27,6 +26,8 @@ export const EMIT_STALL_OCCUPANCIES_UPDATE = 'EMIT_STALL_OCCUPANCIES_UPDATE';
 
 export const EMIT_FETCH_MARKERS_ERROR = 'EMIT_FETCH_MARKERS_ERROR';
 export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
+
+export const EMIT_STATUSES_THEME_UPDATE = 'EMIT_STATUSES_THEME_UPDATE';
 
 export const connectSocket = (payload) => ({
   type: CONNECT_SOCKET,
@@ -52,6 +53,11 @@ export const emitToggleTempScale = (unitOfTemp) => ({
   unitOfTemp
 });
 
+export const emitStatusesThemeUpdate = (statusesTheme) => ({
+  type: EMIT_STATUSES_THEME_UPDATE,
+  statusesTheme
+});
+
 const initialState = immutable.fromJS({
   meetingRooms: null,
   markers: null,
@@ -61,7 +67,8 @@ const initialState = immutable.fromJS({
   enableTemp: false, // Server variable that governs display of temperature features
   enableMotion: false, // Server variable that governs display of motion features
   enableStalls: false, // Server variable that governs display of stall features
-  unitOfTemp: FAHRENHEIT
+  unitOfTemp: FAHRENHEIT,
+  statusesTheme: DEFAULT
 });
 
 const layoutReducer = (state = initialState, action) => {
@@ -116,7 +123,9 @@ const layoutReducer = (state = initialState, action) => {
       return state.set('meetingRooms', meetingRooms);
     },
 
-    [EMIT_ROOM_MOTION_UPDATE]: () => state
+    [EMIT_ROOM_MOTION_UPDATE]: () => state,
+
+    [EMIT_STATUSES_THEME_UPDATE]: () => state.set('statusesTheme', action.statusesTheme)
   };
 
   return handleAction(state, action, reducers);

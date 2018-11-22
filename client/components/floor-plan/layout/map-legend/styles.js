@@ -47,6 +47,10 @@ const stylesGenerator = ({ displayLegend }) => ({
     color: ${color};
   `,
 
+  rect: css`
+    transition: all 500ms ease-in-out;
+  `,
+
   closeButton: css`
     position: absolute;
     border-radius: 0;

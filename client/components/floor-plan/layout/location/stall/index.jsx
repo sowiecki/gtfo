@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
 import { VelocityComponent } from 'velocity-react';
+import { PROP_TYPES } from 'constants';
+import { STATUS_COLOR_THEMES } from 'components/common/styles';
 
 import { parsePosition, parseShape } from 'utils';
-import { STATUS_COLORS, OFFLINE } from 'client/constants';
+import { OFFLINE } from 'client/constants';
 import stylesGenerator from './styles';
 
-const Stall = ({ computedStyles, active, alert, coordinates }) => (
+const Stall = ({ computedStyles, active, alert, coordinates, statusesTheme }) => (
   <svg {...parsePosition(coordinates)}>
-    <VelocityComponent animation={{ fill: active ? STATUS_COLORS[alert] : STATUS_COLORS[OFFLINE] }}>
-      <rect className={computedStyles.base} {...parseShape(coordinates)}/>
+    <VelocityComponent
+      animation={{
+        fill: active
+          ? STATUS_COLOR_THEMES[statusesTheme][alert]
+          : STATUS_COLOR_THEMES[statusesTheme][OFFLINE]
+      }}>
+      <rect className={computedStyles.base} {...parseShape(coordinates)} />
     </VelocityComponent>
   </svg>
 );
@@ -28,7 +35,8 @@ Stall.propTypes = {
     y: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired
-  }).isRequired
+  }).isRequired,
+  statusesTheme: PROP_TYPES.statusesTheme
 };
 
 export default withStyles(stylesGenerator)(Stall);

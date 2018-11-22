@@ -1,6 +1,6 @@
 /* eslint react/no-danger:0 */
 import React, { Fragment } from 'react';
-import PropTypes, { func } from 'prop-types';
+import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
 import Divider from '@material-ui/core/Divider';

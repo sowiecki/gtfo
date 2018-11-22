@@ -53,6 +53,10 @@ class RoomModalTrigger extends Component {
     return !isEqual(this.getMeetingRoom(), this.getMeetingRoom(nextProps));
   }
 
+  componentWillUpdate(nextProps) {
+    this.triggerRoomModal(nextProps);
+  }
+
   componentWillUnmount() {
     this.closeModal();
   }
@@ -76,9 +80,9 @@ class RoomModalTrigger extends Component {
     actions.push({ ...location, pathname: `/${params.location}` });
   };
 
-  triggerRoomModal = () => {
+  triggerRoomModal = (nextProps) => {
     const { actions } = this.props;
-    const meetingRoom = this.getMeetingRoom();
+    const meetingRoom = this.getMeetingRoom(nextProps);
 
     if (meetingRoom) {
       actions.emitModalContentUpdate(
