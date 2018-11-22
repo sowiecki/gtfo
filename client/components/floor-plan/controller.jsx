@@ -114,9 +114,9 @@ class FloorPlanController extends PureComponent {
   render() {
     return (
       <FloorPlanLayout
+        {...this.props}
         onLayoutReset={this.handleLayoutReset}
-        onChangeIndex={this.handleChangeLocation.bind(this)}
-        {...this.props}/>
+        onChangeIndex={this.handleChangeLocation}/>
     );
   }
 }

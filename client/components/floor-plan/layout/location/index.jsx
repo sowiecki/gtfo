@@ -31,7 +31,7 @@ const Location = (props) => {
       youAreHere={youAreHere(marker, location)}/>
   );
 
-  const renderStall = (stall, index) => <Stall key={index} {...stall} />;
+  const renderStall = (stall, index) => <Stall key={index} {...props} {...stall} />;
 
   return (
     <div key={locationKey} className={computedStyles.base}>

@@ -20,6 +20,7 @@ const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
   enableMotion: layoutReducer.get('enableMotion'),
   enableStalls: layoutReducer.get('enableStalls'),
   unitOfTemp: layoutReducer.get('unitOfTemp'),
+  statusesTheme: layoutReducer.get('statusesTheme'),
   timezone: navigationReducer.get('timezone')
 });
 

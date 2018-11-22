@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
 import { FAHRENHEIT, CELSIUS } from 'client/constants';
+import AccessibilityModal from 'components/navigation/accessibility-modal';
 import DrawerContentItem from './drawer-content-item';
 import stylesGenerator from './styles';
 
@@ -55,6 +56,12 @@ const DrawerContent = (props) => {
         primary='View future availabilities'/>
 
       <Divider />
+
+      <DrawerContentItem
+        onClick={actions.emitModalContentUpdate.bind(null, <AccessibilityModal {...props} />)}
+        enabled
+        icon='accessibility_new'
+        primary='Accessibility'/>
 
       <DrawerContentItem
         onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}

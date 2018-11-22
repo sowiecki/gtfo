@@ -2,10 +2,9 @@
 import { css } from 'emotion';
 import { isEmpty } from 'lodash';
 
-import { STATUS_COLORS } from 'client/constants';
-import { colors, fonts, breakpoints } from 'components/common/styles';
+import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
 
-const stylesGenerator = ({ isOnline }) => ({
+const stylesGenerator = ({ isOnline, statusesTheme }) => ({
   base: css`
     overflow-y: scroll;
     overflow-x: hidden;
@@ -26,7 +25,9 @@ const stylesGenerator = ({ isOnline }) => ({
   `,
 
   status: (value) => {
-    const STATUS_COLOR = !isEmpty(value.reservation) ? STATUS_COLORS.BOOKED : STATUS_COLORS.VACANT;
+    const STATUS_COLOR = !isEmpty(value.reservation)
+      ? STATUS_COLOR_THEMES[statusesTheme].BOOKED
+      : STATUS_COLOR_THEMES[statusesTheme].VACANT;
     const background = value.isCurrentTime ? '' : 'opacity: 0.55;';
 
     return css`
@@ -37,7 +38,7 @@ const stylesGenerator = ({ isOnline }) => ({
       display: inline-block;
       font-family: ${fonts.tertiary};
       font-size: 18px;
-      background-color: ${isOnline ? STATUS_COLOR : STATUS_COLORS.OFFLINE};
+      background-color: ${isOnline ? STATUS_COLOR : STATUS_COLOR_THEMES[statusesTheme].OFFLINE};
       border: 1px solid ${colors.GREY};
       width: 100%;
       height: ${34 * value.increments}px;

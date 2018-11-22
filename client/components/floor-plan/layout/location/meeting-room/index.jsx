@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
-import { compose } from 'recompose';
 
 import RoomModal from 'components/floor-plan/layout/room-modal';
 import { parsePosition, parseShape } from 'utils';
-import withModal from 'components/floor-plan/layout/room-modal/with-modal';
 
 import { ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from 'client/constants';
 import Temperature from './temperature';
@@ -15,11 +13,11 @@ const MeetingRoom = (props) => {
   const {
     computedStyles,
     actions,
+    location,
     unitOfTemp,
     displayTemp,
     connectionStatus,
     meetingRoom,
-    getLocationParams,
     onLayoutReset
   } = props;
   const { id, name, coordinates, thermo } = meetingRoom;
@@ -31,7 +29,7 @@ const MeetingRoom = (props) => {
   const onClick = () => {
     onLayoutReset();
     actions.emitModalContentUpdate(<RoomModal {...props} meetingRoom={meetingRoom} />);
-    actions.push(`/${getLocationParams().location}/${id}`);
+    actions.push({ ...location, pathname: `/${location.pathname}/${id}` });
   };
 
   return (
@@ -90,7 +88,4 @@ MeetingRoom.propTypes = {
 };
 
 // export default withStyles(stylesGenerator)(MeetingRoom);
-export default compose(
-  withModal,
-  withStyles(stylesGenerator)
-)(MeetingRoom);
+export default withStyles(stylesGenerator)(MeetingRoom);

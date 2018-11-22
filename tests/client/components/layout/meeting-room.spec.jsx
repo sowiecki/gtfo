@@ -7,7 +7,7 @@ import { VelocityComponent } from 'velocity-react';
 
 import MeetingRoom from 'components/floor-plan/layout/location/meeting-room';
 import Temperature from 'components/floor-plan/layout/location/meeting-room/temperature';
-import { VACANT, PING_ANIMATION_LOOPS } from 'constants/index';
+import { VACANT, PING_ANIMATION_LOOPS, DEFAULT } from 'constants';
 
 describe('<MeetingRoom/>', () => {
   const props = {
@@ -35,7 +35,8 @@ describe('<MeetingRoom/>', () => {
           email: 'bizz@bazz.com'
         }
       ]
-    }
+    },
+    statusesTheme: DEFAULT
   };
 
   it('renders.', () => {

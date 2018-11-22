@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import Icon from '@material-ui/core/Icon';
 
 import FutureReservations from 'components/floor-plan/layout/room-modal/future-reservations/index';
+import { DEFAULT } from 'constants';
 
 describe('<FutureReservations />', () => {
   const clock = (time) =>
@@ -42,7 +43,8 @@ describe('<FutureReservations />', () => {
         startDate: '2018-11-14T16:00:00.000Z',
         endDate: '2018-11-14T17:00:00.000Z'
       }
-    ]
+    ],
+    statusesTheme: DEFAULT
   };
 
   it('renders.', () => {

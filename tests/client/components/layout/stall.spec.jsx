@@ -6,6 +6,7 @@ import expect from 'expect';
 import { VelocityComponent } from 'velocity-react';
 
 import Stall from 'components/floor-plan/layout/location/stall';
+import { DEFAULT } from 'constants';
 
 describe('<Stall/>', () => {
   const props = {
@@ -17,7 +18,8 @@ describe('<Stall/>', () => {
       height: 1,
       width: 1
     },
-    active: true
+    active: true,
+    statusesTheme: DEFAULT
   };
 
   it('renders.', () => {

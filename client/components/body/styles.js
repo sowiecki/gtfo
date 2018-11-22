@@ -28,4 +28,44 @@ injectGlobal`
     filter: blur(2px);
     pointer-events: none;
   }
+
+  .modal-enter {
+    opacity: 0.01;
+    transform: translateY(100%);
+  }
+
+  .modal-enter.modal-enter-active {
+    opacity: 1;
+    transition: all 350ms ease-in;
+    transform: translateY(0%);
+  }
+
+  .modal-leave {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  .modal-leave.modal-leave-active {
+    opacity: 0.01;
+    transition: all 250ms ease-in;
+    transform: translateY(100%);
+  }
+
+  .map-legend-enter {
+    opacity: 0.01;
+  }
+
+  .map-legend-enter.map-legend-enter-active {
+    opacity: 1;
+    transition: all 350ms ease-in;
+  }
+
+  .map-legend-leave {
+    opacity: 1;
+  }
+
+  .map-legend-leave.map-legend-leave-active {
+    opacity: 0.01;
+    transition: all 250ms ease-in;
+  }
 `;
