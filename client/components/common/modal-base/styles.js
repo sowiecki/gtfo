@@ -1,6 +1,5 @@
 import { css } from 'emotion';
 
-// import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING, STATUS_COLORS } from 'client/constants';
 import { colors, fonts, breakpoints } from 'components/common/styles';
 
 const stylesGenerator = () => ({
