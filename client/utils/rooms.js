@@ -136,3 +136,14 @@ export const getLocationIndex = (locationKeys, location) => {
 
   return locationIndex >= 0 ? locationIndex : 0;
 };
+
+export const genReservationsHyperlink = ({ subject, location, startDate, endDate }) => {
+  const queryParams = queryString.stringify({
+    subject,
+    location,
+    startdt: startDate,
+    enddt: endDate
+  });
+
+  return `https://outlook.office.com/owa/?path=/calendar/action/compose${queryParams}`;
+};
