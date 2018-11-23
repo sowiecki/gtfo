@@ -87,8 +87,10 @@ class FutureReservations extends PureComponent {
       endTime: moment('12:15:00AM', 'h:mm:ssA').add((i + 1) * 15, 'm')
     }));
 
-  // How to handle 2 back-to-back reservations by same person?
-  // Probably leave alone, because they may be different meetings despite same creator
+  /**
+   * Concatenates reservations onto time blocks,
+   * compressing multiple time blocks that span the same reservation.
+   */
   reduceTimeBlocks = (acc, value) => {
     const { reservation = {} } = value;
     const prevValue = acc[acc.length - 1] || {};
@@ -106,7 +108,7 @@ class FutureReservations extends PureComponent {
         time: get(prevValue, 'time'),
         endTime: value.endTime,
         reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
-        isCurrentTime: (value.isCurrentTime || prevValue.isCurrentTime) && isBetweenReservation,
+        isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,
         increments: prevValue.increments ? prevValue.increments + 1 : 1
       };
 

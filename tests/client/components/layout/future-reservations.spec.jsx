@@ -30,18 +30,43 @@ describe('<FutureReservations />', () => {
     reservations: [
       {
         email: 'AliceMurphy@example.domain',
-        startDate: '2018-11-14T15:00:00.000Z',
-        endDate: '2018-11-14T15:30:00.000Z'
-      },
-      {
-        email: 'AliceMurphy@example.domain',
-        startDate: '2018-11-14T15:30:00.000Z',
-        endDate: '2018-11-14T16:00:00.000Z'
+        startDate: '2018-11-23T15:00:00.000Z',
+        endDate: '2018-11-23T15:30:00.000Z'
       },
       {
         email: 'AdamDeMamp@example.domain',
-        startDate: '2018-11-14T16:00:00.000Z',
-        endDate: '2018-11-14T17:00:00.000Z'
+        startDate: '2018-11-23T16:00:00.000Z',
+        endDate: '2018-11-23T16:30:00.000Z'
+      },
+      {
+        email: 'AndersHolmvik@example.domain',
+        startDate: '2018-11-23T16:30:00.000Z',
+        endDate: '2018-11-23T18:00:00.000Z'
+      },
+      {
+        email: 'AliceMurphy@example.domain',
+        startDate: '2018-11-23T18:00:00.000Z',
+        endDate: '2018-11-23T19:30:00.000Z'
+      },
+      {
+        email: 'BlakeHenderson@example.domain',
+        startDate: '2018-11-23T20:00:00.000Z',
+        endDate: '2018-11-23T21:30:00.000Z'
+      },
+      {
+        email: 'AndersHolmvik@example.domain',
+        startDate: '2018-11-23T22:00:00.000Z',
+        endDate: '2018-11-23T23:30:00.000Z'
+      },
+      {
+        email: 'JillianBelk@example.domain',
+        startDate: '2018-11-23T23:30:00.000Z',
+        endDate: '2018-11-24T00:00:00.000Z'
+      },
+      {
+        email: 'BlakeHenderson@example.domain',
+        startDate: '2018-11-24T00:30:00.000Z',
+        endDate: '2018-11-24T01:00:00.000Z'
       }
     ],
     statusesTheme: DEFAULT
@@ -53,8 +78,22 @@ describe('<FutureReservations />', () => {
     expect(component.find(Icon).length).toEqual(2);
   });
 
-  it('Renders reservations within their correct time blocks.', () => {
-    clock('2018-11-14T14:00:00.000Z');
+  it('renders 96 time blocks when rendered with zero reservations.', () => {
+    const component = mount(<FutureReservations {...props} reservations={[]} />);
+    const timeBlocks = component.find('#reservations');
+
+    expect(timeBlocks.props().children.length).toEqual(96);
+  });
+
+  it('concatenates multiple time blocks covered by the same meeting.', () => {
+    const component = mount(<FutureReservations {...props} />);
+    const timeBlocks = component.find('#reservations');
+
+    expect(timeBlocks.props().children.length).toEqual(72);
+  });
+
+  it('renders reservations within their correct time blocks.', () => {
+    clock('2018-11-23T14:00:00.000Z');
 
     const component = mount(<FutureReservations {...props} />);
     const firstReservation = component.find('#_9-00AM');
@@ -62,5 +101,16 @@ describe('<FutureReservations />', () => {
 
     expect(firstReservation.length).toEqual(1);
     expect(firstReservationEmail).toEqual('AliceMurphy@example.domain');
+  });
+
+  it('hightlights the time block for the current time.', () => {
+    clock('2018-11-23T15:05:00.000Z');
+
+    const component = mount(<FutureReservations {...props} />);
+    const currentReservation = component.find('#current-time > span');
+    const currentReservationEmail = currentReservation.props().children;
+
+    expect(currentReservation.length).toEqual(1);
+    expect(currentReservationEmail).toEqual('AliceMurphy@example.domain');
   });
 });
