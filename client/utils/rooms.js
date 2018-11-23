@@ -125,7 +125,6 @@ export const genWidthAndHeight = (width) => `
  * @returns {integer}
  */
 export const getLocationIndex = (locationKeys, location) => {
-  console.log(location);
   const match = matchPath(location.pathname, {
     path: FLOOR_PLAN_ROUTE,
     exact: true,

@@ -82,24 +82,31 @@ class FutureReservations extends PureComponent {
   };
 
   genTimeBlocks = () =>
-    new Array(48).fill(1).map((e, i) => ({
-      reserved: null,
-      time: moment('12:00AM', TIME_FORMAT).add((i + 1) * 15 + 405, 'm')
+    new Array(96).fill(1).map((e, i) => ({
+      time: moment('12:00:01AM', 'h:mm:ssA').add((i + 1) * 15, 'm'),
+      endTime: moment('12:15:00AM', 'h:mm:ssA').add((i + 1) * 15, 'm')
     }));
 
+  // How to handle 2 back-to-back reservations by same person?
+  // Probably leave alone, because they may be different meetings despite same creator
   reduceTimeBlocks = (acc, value) => {
     const { reservation = {} } = value;
     const prevValue = acc[acc.length - 1] || {};
-    const isSameReservation = reservation.startDate
-      && moment(reservation.startDate).format(TIME_FORMAT)
-        === moment(get(prevValue, 'time')).format(TIME_FORMAT);
 
-    if (isSameReservation) {
+    const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
+      moment(reservation.startDate),
+      moment(reservation.endDate),
+      null,
+      '[)'
+    );
+
+    if (isBetweenReservation) {
       const mergedReservation = {
         ...acc.pop(),
-        reservation,
-        isCurrentTime: (value.isCurrentTime || prevValue.isCurrentTime) && isSameReservation,
-        endTime: value.time.add(15, 'm'),
+        time: get(prevValue, 'time'),
+        endTime: value.endTime,
+        reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
+        isCurrentTime: (value.isCurrentTime || prevValue.isCurrentTime) && isBetweenReservation,
         increments: prevValue.increments ? prevValue.increments + 1 : 1
       };
 
@@ -108,11 +115,11 @@ class FutureReservations extends PureComponent {
 
     return acc.concat({
       ...value,
-      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : null
+      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : value.endTime
     });
   };
 
-  mapReservations = ({ time }) => {
+  mapReservations = ({ time, endTime }) => {
     const { reservations, timezone } = this.props;
 
     if (!reservations) return { time };
@@ -139,7 +146,8 @@ class FutureReservations extends PureComponent {
     return {
       reservation: matchingReservation,
       isCurrentTime,
-      time
+      time,
+      endTime
     };
   };
 
@@ -151,26 +159,26 @@ class FutureReservations extends PureComponent {
       .replace(':', '-')}`;
 
   renderTime = (value) => {
-    const { reservation = {}, time, isCurrentTime } = value;
+    const { reservation = {}, time, endTime, isCurrentTime } = value;
     const { computedStyles, timezone } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
-    const startTime = reservation.startDate
+    const formattedStartDate = reservation.startDate
       ? moment(reservation.startDate)
         .utcOffset(timezone)
         .format(TIME_FORMAT)
       : formattedTime;
-    const endTime = reservation.endDate
-      ? ` to ${moment(reservation.endDate)
+    const formattedEndDate = reservation.endDate
+      ? moment(reservation.endDate)
         .utcOffset(timezone)
-        .format(TIME_FORMAT)}`
-      : '';
+        .format(TIME_FORMAT)
+      : endTime.format(TIME_FORMAT);
 
     return (
       <span
         key={formattedTime}
         id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(time)}
         className={computedStyles.status(value)}>
-        {startTime} {endTime}
+        {formattedStartDate} to {formattedEndDate}
         <span className={computedStyles.right}>{reservation.email}</span>
       </span>
     );
