@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import { omit } from 'lodash';
 
 import { FLOOR_PLAN_ROOT_ID } from 'constants';
 import NavigationLayout from './layout';
@@ -67,7 +68,7 @@ class NavigationController extends PureComponent {
     actions.emitToggleSiteNav(false);
   };
 
-  handleOpenFullscreenClick = () => {
+  handleFullscreenOpenClick = () => {
     const { actions, location } = this.props;
     const fullScreenParams = {
       ...location,
@@ -78,6 +79,16 @@ class NavigationController extends PureComponent {
     };
 
     actions.push(fullScreenParams);
+  };
+
+  handleFullscreenCloseClick = () => {
+    const { actions, location } = this.props;
+    const params = {
+      ...location,
+      search: queryString.stringify(omit(queryString.parse(location.search), 'fullscreen'))
+    };
+
+    actions.push(params);
   };
 
   handleTimeTravelDismissClick = () => {
@@ -95,7 +106,8 @@ class NavigationController extends PureComponent {
         shouldBlur={this.shouldBlur()}
         onCloseEverything={this.handleCloseEverything}
         onViewFutureAvailabilitiesClick={this.handleViewFutureAvailabilitiesClick}
-        onOpenFullscreenClick={this.handleOpenFullscreenClick}
+        onFullscreenOpenClick={this.handleFullscreenOpenClick}
+        onFullscreenCloseClick={this.handleFullscreenCloseClick}
         onTimeTravelDismissClick={this.handleTimeTravelDismissClick}>
         {this.props.children}
       </NavigationLayout>

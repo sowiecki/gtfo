@@ -106,4 +106,26 @@ injectGlobal`
     opacity: 0.01;
     transition: all 250ms ease-in;
   }
+
+  .header-enter {
+    opacity: 0.01;
+    height: 0;
+  }
+
+  .header-enter.header-enter-active {
+    opacity: 1;
+    height: 30px;
+    transition: all 350ms ease-in;
+  }
+
+  .header-leave {
+    opacity: 1;
+    height: 30px;
+  }
+
+  .header-leave.header-leave-active {
+    opacity: 0.01;
+    height: 0;
+    transition: all 250ms ease-in;
+  }
 `;

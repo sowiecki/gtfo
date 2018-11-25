@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import queryString from 'query-string';
 import { matchPath } from 'react-router';
 import withStyles from 'withstyles';
@@ -8,6 +9,8 @@ import { get } from 'lodash';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
+import FullscreenExit from '@material-ui/icons/FullscreenExit';
+import IconButton from '@material-ui/core/IconButton';
 
 import { formatForDisplay } from 'utils';
 import { MOBILE_WIDTH_BREAKPOINT } from 'components/common/styles';
@@ -24,7 +27,8 @@ const Header = (props) => {
     locations,
     actions,
     siteNavOpen,
-    onTimeTravelDismissClick
+    onTimeTravelDismissClick,
+    onFullscreenCloseClick
   } = props;
   const { fullscreen } = queryString.parse(location.search);
   const toggleSiteNav = () => {
@@ -42,6 +46,14 @@ const Header = (props) => {
 
   if (!params) return null; // Controller will handle redirecting to a route with valid params
 
+  const renderFullscreenDismissButton = () => (
+    <div className={computedStyles.fullscreenDismiss}>
+      <IconButton aria-label='Exit fullscreen' onClick={onFullscreenCloseClick}>
+        <FullscreenExit />
+      </IconButton>
+    </div>
+  );
+
   const renderLocationTab = (tabLocation, index) => {
     const onClick = () => actions.push({ ...location, pathname: `/${tabLocation}` });
 
@@ -55,7 +67,7 @@ const Header = (props) => {
     );
   };
 
-  return fullscreen === 'true' ? null : (
+  const renderHeader = () => (
     <div className={computedStyles.base}>
       <Toolbar>
         <HamburgerMenu className={computedStyles.menuButton} toggleSiteNav={toggleSiteNav} />
@@ -68,6 +80,16 @@ const Header = (props) => {
         </Responsive>
       </Toolbar>
     </div>
+  );
+
+  return (
+    <ReactCSSTransitionGroup
+      transitionName='header'
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={300}>
+      {fullscreen === 'true' ? null : renderHeader()}
+      {fullscreen === 'true' ? renderFullscreenDismissButton() : null}
+    </ReactCSSTransitionGroup>
   );
 };
 
@@ -89,6 +111,7 @@ Header.propTypes = {
     })
   }).isRequired,
   onTimeTravelDismissClick: PropTypes.func.isRequired,
+  onFullscreenCloseClick: PropTypes.func.isRequired,
   locations: PropTypes.array
 };
 

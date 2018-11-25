@@ -47,6 +47,23 @@ const stylesGenerator = () => ({
     }
 
     pointer: cursor;
+  `,
+
+  fullscreenDismiss: css`
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    > button {
+      color: ${colors.LIGHT_GREY};
+      transition: all 250ms ease-in-out;
+
+      :hover,
+      :active {
+        color: ${colors.WHITE};
+      }
+    }
   `
 });
 

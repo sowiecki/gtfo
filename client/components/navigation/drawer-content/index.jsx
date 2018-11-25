@@ -17,7 +17,7 @@ const DrawerContent = (props) => {
     computedStyles,
     note,
     onViewFutureAvailabilitiesClick,
-    onOpenFullscreenClick,
+    onFullscreenOpenClick,
     siteNavOpen,
     actions,
     displayLegend,
@@ -73,7 +73,7 @@ const DrawerContent = (props) => {
       {enableTemp ? temperatureOptions : null}
 
       <DrawerContentItem
-        onClick={onOpenFullscreenClick}
+        onClick={onFullscreenOpenClick}
         enabled={displayLegend}
         icon='fullscreen'
         primary='Open fullscreen'/>
@@ -109,7 +109,7 @@ DrawerContent.propTypes = {
   }).isRequired,
   note: PropTypes.string.isRequired,
   onViewFutureAvailabilitiesClick: PropTypes.func.isRequired,
-  onOpenFullscreenClick: PropTypes.func.isRequired,
+  onFullscreenOpenClick: PropTypes.func.isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired,

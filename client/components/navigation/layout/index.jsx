@@ -24,7 +24,7 @@ const NavigationLayout = (props) => (
       onClose={props.actions.emitToggleSiteNav.bind(null, !props.siteNavOpen)}>
       <DrawerContent
         onViewFutureAvailabilitiesClick={props.onViewFutureAvailabilitiesClick}
-        onOpenFullscreenClick={props.onOpenFullscreenClick}
+        onFullscreenOpenClick={props.onFullscreenOpenClick}
         {...props}/>
     </Drawer>
     <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick} />
