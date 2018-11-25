@@ -57,6 +57,12 @@ const stylesGenerator = () => ({
 
     > button {
       color: ${colors.LIGHT_GREY};
+      transition: all 250ms ease-in-out;
+
+      :hover,
+      :active {
+        color: ${colors.WHITE};
+      }
     }
   `
 });
