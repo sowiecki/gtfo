@@ -23,11 +23,11 @@ const stylesGenerator = () => ({
     font-size: 35px;
     font-family: ${fonts.primary};
     font-weight: 8;
+    font-weight: 600;
 
     ${breakpoints.mobile} {
       min-width: 100px;
       font-size: 30px;
-      font-weight: 600;
     }
 
     ${breakpoints.mobile_iphone5} {

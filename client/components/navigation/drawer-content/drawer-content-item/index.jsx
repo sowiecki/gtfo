@@ -14,26 +14,27 @@ const DrawerContentItem = ({
   className = '',
   onClick,
   icon,
-  enabled = true,
-  primary
+  primary,
+  secondary
 }) => (
-  <ListItem onClick={onClick}>
+  <ListItem id='foo' className={computedStyles.base} onClick={onClick}>
     <Avatar onClick={onClick}>
       <span className={className}>
         <Icon>{icon}</Icon>
       </span>
     </Avatar>
-    <ListItemText className={enabled ? null : computedStyles.fadedIcon} primary={primary}/>
+    <ListItemText primary={primary} secondary={secondary} />
   </ListItem>
 );
 
 DrawerContentItem.propTypes = {
-  computedStyles: PropTypes.shape({ fadedIcon: PropTypes.object.isRequired }).isRequired,
+  computedStyles: PropTypes.shape({ base: PropTypes.object.isRequired }).isRequired,
   className: PropTypes.object,
   onClick: PropTypes.func.isRequired,
   icon: PropTypes.node.isRequired,
-  enabled: PropTypes.bool,
-  primary: PropTypes.string.isRequired
+  enabled: PropTypes.bool, // eslint-disable-line
+  primary: PropTypes.string.isRequired,
+  secondary: PropTypes.string.isRequired
 };
 
 export default withStyles(stylesGenerator)(DrawerContentItem);

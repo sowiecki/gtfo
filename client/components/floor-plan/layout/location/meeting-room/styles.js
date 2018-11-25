@@ -15,6 +15,12 @@ const stylesGenerator = ({
   const animation = pinged ? 'animation: backgroundColor 0.25s infinite alternate;' : '';
   const STATUS_COLOR = STATUS_COLOR_THEMES[statusesTheme][meetingRoom.alert];
   const statusColorLum = Color(STATUS_COLOR).luminosity();
+  const getFontSize = (widthModifier) =>
+    ({
+      3: 'font-size: 12px;',
+      2: 'font-size: 9px;',
+      1: 'font-size: 5px;'
+    }[widthModifier]);
 
   return {
     base: css`
@@ -26,13 +32,17 @@ const stylesGenerator = ({
         opacity: 0.1;
         fill: ${connectedStatus ? STATUS_COLOR : colors.DARK_RED};
       }
+
+      .tooltip {
+        color: red !important;
+      }
     `,
 
-    textContainer: css`
+    textContainer: (widthModifier) => css`
       text {
         stroke: none;
         font-family: ${fonts.secondary};
-        font-size: ${meetingRoom.coordinates.width < 5 ? 8 : 10}px;
+        ${getFontSize(widthModifier)}
         fill: ${statusColorLum < 0.5 ? colors.WHITE : colors.DARK_GREY};
         letter-spacing: 0.2;
         text-transform: capitalize;
@@ -66,6 +76,8 @@ const stylesGenerator = ({
     `,
 
     offlineMarker: css`
+      pointer-events: none;
+
       > path {
         opacity: ${displayAdditionalInfo ? 1 : 0};
         color: ${colors.DARK_RED};

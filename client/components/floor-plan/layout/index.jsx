@@ -10,7 +10,6 @@ import SwipeableViews from 'react-swipeable-views';
 
 import { pluckLocations, hasAnchor, getLocationIndex } from 'utils';
 import { FLOOR_PLAN_ROOT_ID } from 'constants';
-
 import DisplayError from 'components/common/display-error';
 import RoomModalTrigger from './room-modal/trigger';
 import Location from './location';

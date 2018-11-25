@@ -5,7 +5,7 @@ import withStyles from 'withstyles';
 import Place from '@material-ui/icons/Place';
 
 import { parsePosition } from 'utils';
-import { ROOM_NAME_TEXT_DX, MARKER_ROOM_NAME_TEXT_DY } from 'client/constants';
+import { ROOM_MARKER_TEXT_DX, ROOM_MARKER_TEXT_DY } from 'client/constants';
 import stylesGenerator from './styles';
 
 const Marker = ({ computedStyles, marker, youAreHere }) => {
@@ -15,8 +15,8 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
     <svg {...parsePosition(marker.coordinates)}>
       <text
         className={`${computedStyles.text} ${marker.type}-marker`}
-        dx={ROOM_NAME_TEXT_DX}
-        dy={MARKER_ROOM_NAME_TEXT_DY}>
+        dx={ROOM_MARKER_TEXT_DX}
+        dy={ROOM_MARKER_TEXT_DY}>
         {marker.name}
       </text>
       {youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null}

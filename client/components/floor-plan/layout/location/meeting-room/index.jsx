@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 import RoomModal from 'components/floor-plan/layout/room-modal';
-import { ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from 'client/constants';
-import { parsePosition, parseShape } from 'utils';
-import Temperature from './temperature';
+import { ROOM_NAME_TEXT_POSITIONS, PROP_TYPES } from 'client/constants';
+import { parsePosition, parseShape, getWidthModifier, formatTempText } from 'utils';
+// import Temperature from './temperature';
 import stylesGenerator from './styles';
 
 const MeetingRoom = (props) => {
-  const {
-    computedStyles,
-    actions,
-    location,
-    unitOfTemp,
-    displayTemp,
-    meetingRoom,
-    onLayoutReset
-  } = props;
-  const { id, name, coordinates, thermo } = meetingRoom;
-
-  const temperature = displayTemp ? (
-    <Temperature thermo={thermo} unitOfTemp={unitOfTemp} coordinates={coordinates} />
-  ) : null;
+  const { computedStyles, actions, location, meetingRoom, onLayoutReset } = props;
+  const { id, name, coordinates } = meetingRoom;
+  const parsedShape = parseShape(coordinates);
+  const widthModifier = getWidthModifier(coordinates.width);
 
   const onClick = () => {
     onLayoutReset();
@@ -33,25 +25,56 @@ const MeetingRoom = (props) => {
   };
 
   const renderAdditionInformation = () => {
-    const offlineMarkerPos = `${(parseShape(coordinates).height.replace('%', '') * 10 - 20) / 10}%`;
+    const yPosition = `${(parsedShape.height.replace('%', '') * 10 - 20) / 10}%`;
 
     return (
-      <svg y={offlineMarkerPos}>
+      <svg y={yPosition}>
         <OfflineBolt className={computedStyles.offlineMarker} />
       </svg>
     );
   };
 
+  // TODO https://github.com/Nase00/gtfo/issues/160
+  // const renderTemperature = () => {
+  //   const yPosition = `${(parsedShape.height.replace('%', '') * 10 - 60) / 10}%`;
+
+  //   return <Temperature {...props} yPosition={yPosition} widthModifier={widthModifier} />;
+  // };
+
+  const renderName = () =>
+    (name.length > coordinates.width * 1.4 ? (
+      name.split(' ').map((partial, i) => (
+        <text
+          key={partial}
+          dx={ROOM_NAME_TEXT_POSITIONS[widthModifier].dx}
+          dy={ROOM_NAME_TEXT_POSITIONS[widthModifier].dy + i * 14}
+          {...parsedShape}>
+          {partial}
+        </text>
+      ))
+    ) : (
+      <text {...ROOM_NAME_TEXT_POSITIONS[widthModifier]} {...parsedShape}>
+        {name}
+      </text>
+    ));
+
+  const renderToolTip = () => (
+    <Fragment>
+      <div>{name}</div>
+      <div>{formatTempText(meetingRoom)}</div>
+    </Fragment>
+  );
+
   return (
     <svg className={computedStyles.base} {...parsePosition(coordinates)} onClick={onClick}>
       <rect {...parseShape(coordinates)} />
-      <rect className={computedStyles.pinged} {...parseShape(coordinates)} />
-      <svg className={computedStyles.textContainer}>
-        <text dx={ROOM_NAME_TEXT_DX} dy={ROOM_NAME_TEXT_DY} {...parseShape(coordinates)}>
-          {name}
-        </text>
-      </svg>
-      {temperature}
+      <Tooltip title={renderToolTip()} TransitionComponent={Zoom} placement='top'>
+        <g>
+          <rect className={computedStyles.pinged} {...parsedShape} />
+          <svg className={computedStyles.textContainer(widthModifier)}>{renderName()}</svg>
+        </g>
+      </Tooltip>
+      {/* renderTemperature() */}
       {renderAdditionInformation()}
     </svg>
   );
@@ -69,19 +92,7 @@ MeetingRoom.propTypes = {
     pinged: PropTypes.object.isRequired,
     offlineMarker: PropTypes.object.isRequired
   }).isRequired,
-  meetingRoom: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    coordinates: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
-      width: PropTypes.number.isRequired
-    }).isRequired,
-    alert: PropTypes.string,
-    thermo: PropTypes.object,
-    connectionStatus: PropTypes.bool.isRequired
-  }).isRequired,
+  meetingRoom: PROP_TYPES.meetingRoom.isRequired,
   unitOfTemp: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool,
   onLayoutReset: PropTypes.func.isRequired,

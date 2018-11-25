@@ -1,11 +1,11 @@
 /* eslint no-console:0 */
 /* globals console */
 import { matchPath } from 'react-router';
-import { filter, map, uniq, get } from 'lodash';
+import { filter, map, uniq, get, isEmpty } from 'lodash';
 import slugify from 'slugify';
 import queryString from 'query-string';
 
-import { FLOOR_PLAN_ROUTE } from 'client/constants';
+import { FLOOR_PLAN_ROUTE, FAHRENHEIT } from 'client/constants';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
@@ -151,4 +151,28 @@ export const genReservationsHyperlink = ({ outlookWebAccessId }, time, endTime) 
   });
 
   return `https://outlook.office.com/owa/?path=/calendar/action/compose&${queryParams}`;
+};
+
+/**
+ * @param {integer} width
+ * @returns index of width modifier to be used for SVG adjustments
+ */
+export const getWidthModifier = (width) => {
+  if (width >= 5) {
+    return 3;
+  } else if (width < 5 && width >= 3) {
+    return 2;
+  }
+
+  return 1;
+};
+
+export const formatTempText = ({ unitOfTemp, thermo }) => {
+  if (isEmpty(thermo)) return '';
+
+  const isFarenheit = unitOfTemp === FAHRENHEIT;
+  const temperature = isFarenheit ? thermo.f : thermo.c;
+  const unitOfTempSuffix = isFarenheit ? '°F' : '°C';
+
+  return `foo ${Math.floor(temperature)} ${unitOfTempSuffix}`;
 };

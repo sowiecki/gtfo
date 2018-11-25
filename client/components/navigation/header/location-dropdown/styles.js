@@ -15,15 +15,15 @@ const stylesGenerator = () => ({
 
   select: css`
     font-size: 14px;
-    color: ${colors.WHITE};
+    color: ${colors.BLACK};
 
     svg {
-      fill: ${colors.WHITE};
+      fill: ${colors.BLACK};
     }
 
     :before,
     :after {
-      border-bottom: 2px solid ${colors.WHITE};
+      border-bottom: 2px solid ${colors.BLACK};
     }
   `
 });

@@ -34,11 +34,12 @@ const DrawerContent = (props) => {
 
   const temperatureOptions = (
     <Fragment>
+      {/* TODO https://github.com/Nase00/gtfo/issues/160
       <DrawerContentItem
         onClick={actions.emitDisplayTempToggle.bind(null, displayTemp)}
         icon='ac_unit'
         enabled={displayTemp}
-        primary={`${displayTemp ? 'Hide' : 'Display'} temperature`}/>
+        primary={`${displayTemp ? 'Hide' : 'Display'} temperature`}/> */}
 
       <DrawerContentItem
         onClick={actions.emitTempScaleToggle.bind(null, unitOfTemp)}
@@ -53,16 +54,23 @@ const DrawerContent = (props) => {
     <List className={`${computedStyles.base} dont-blur`}>
       <DrawerContentItem
         onClick={onViewFutureAvailabilitiesClick}
+        enabled
         icon='schedule'
-        primary='View future availabilities'/>
+        primary='Time travel'/>
 
-      <Divider />
+      <DrawerContentItem
+        onClick={onFullscreenOpenClick}
+        enabled={displayLegend}
+        icon='fullscreen'
+        primary='Fullscreen'/>
 
       <DrawerContentItem
         onClick={actions.emitModalContentUpdate.bind(null, <AccessibilityModal {...props} />)}
         enabled
         icon='accessibility_new'
-        primary='Accessibility'/>
+        primary='Accessibility options'/>
+
+      <Divider />
 
       <DrawerContentItem
         onClick={actions.emitDisplayLegendToggle.bind(null, displayLegend)}
@@ -71,12 +79,6 @@ const DrawerContent = (props) => {
         primary={`${displayLegend ? 'Hide' : 'Display'} map legend`}/>
 
       {enableTemp ? temperatureOptions : null}
-
-      <DrawerContentItem
-        onClick={onFullscreenOpenClick}
-        enabled={displayLegend}
-        icon='fullscreen'
-        primary='Open fullscreen'/>
 
       <DrawerContentItem
         onClick={actions.emitAdditionalInfoToggle.bind(null, displayAdditionalInfo)}

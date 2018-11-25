@@ -5,7 +5,7 @@ import { colors, fontStyles, breakpoints } from 'components/common/styles';
 const stylesGenerator = ({ displayLegend }) => ({
   base: css`
     opacity: ${displayLegend ? 100 : 0};
-    transition: all 300ms ease-in;
+    transition: opacity 300ms ease-in;
     position: absolute;
     right: 200px;
     bottom: 20px;
