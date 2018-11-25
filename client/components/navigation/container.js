@@ -22,6 +22,7 @@ const mapStateToProps = ({ navigationReducer, layoutReducer, router }) => ({
   locations: layoutReducer.get('locations'),
   displayLegend: layoutReducer.get('displayLegend'),
   displayTemp: layoutReducer.get('displayTemp'),
+  displayAdditionalInfo: layoutReducer.get('displayAdditionalInfo'),
   enableTemp: layoutReducer.get('enableTemp'),
   unitOfTemp: layoutReducer.get('unitOfTemp')
 });

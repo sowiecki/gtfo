@@ -9,7 +9,8 @@ import scroll from 'scroll';
 
 import Icon from '@material-ui/core/Icon';
 
-import { TIME_FORMAT } from 'client/constants';
+import { TIME_FORMAT, PROP_TYPES } from 'client/constants';
+import { genReservationsHyperlink } from 'utils';
 import stylesGenerator from './styles';
 
 let scrollTimeout;
@@ -26,17 +27,9 @@ class FutureReservations extends PureComponent {
       status: PropTypes.func.isRequired,
       scrollIcon: PropTypes.object.isRequired
     }).isRequired,
-    reservations: PropTypes.arrayOf(
-      PropTypes.shape(
-        PropTypes.shape({
-          email: PropTypes.string.isRequired,
-          startDate: PropTypes.string.isRequired,
-          endDate: PropTypes.string.isRequired
-        }).isRequired
-      )
-    ).isRequired,
     timezone: PropTypes.number.isRequired,
-    isOnline: PropTypes.bool.isRequired
+    isOnline: PropTypes.bool.isRequired,
+    meetingRoom: PROP_TYPES.meetingRoom.isRequired
   };
 
   CURRENT_TIME_SELECTOR = 'current-time';
@@ -81,25 +74,41 @@ class FutureReservations extends PureComponent {
     clearTimeout(scrollTimeout);
   };
 
-  genTimeBlocks = () =>
-    new Array(48).fill(1).map((e, i) => ({
-      reserved: null,
-      time: moment('12:00AM', TIME_FORMAT).add((i + 1) * 15 + 405, 'm')
-    }));
+  genTimeBlocks = () => {
+    const { timezone } = this.props;
 
+    return new Array(96).fill(1).map((e, i) => ({
+      time: moment('12:00:01AM', 'h:mm:ssA')
+        .add((i + 1) * 15, 'm')
+        .utcOffset(timezone),
+      endTime: moment('12:15:00AM', 'h:mm:ssA')
+        .add((i + 1) * 15, 'm')
+        .utcOffset(timezone)
+    }));
+  };
+
+  /**
+   * Concatenates reservations onto time blocks,
+   * compressing multiple time blocks that span the same reservation.
+   */
   reduceTimeBlocks = (acc, value) => {
     const { reservation = {} } = value;
     const prevValue = acc[acc.length - 1] || {};
-    const isSameReservation = reservation.startDate
-      && moment(reservation.startDate).format(TIME_FORMAT)
-        === moment(get(prevValue, 'time')).format(TIME_FORMAT);
 
-    if (isSameReservation) {
+    const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
+      moment(reservation.startDate),
+      moment(reservation.endDate),
+      null,
+      '[)'
+    );
+
+    if (isBetweenReservation) {
       const mergedReservation = {
         ...acc.pop(),
-        reservation,
-        isCurrentTime: (value.isCurrentTime || prevValue.isCurrentTime) && isSameReservation,
-        endTime: value.time.add(15, 'm'),
+        time: get(prevValue, 'time'),
+        endTime: value.endTime,
+        reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
+        isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,
         increments: prevValue.increments ? prevValue.increments + 1 : 1
       };
 
@@ -108,20 +117,23 @@ class FutureReservations extends PureComponent {
 
     return acc.concat({
       ...value,
-      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : null
+      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : value.endTime
     });
   };
 
-  mapReservations = ({ time }) => {
-    const { reservations, timezone } = this.props;
+  mapReservations = ({ time, endTime }) => {
+    const { meetingRoom, timezone } = this.props;
 
-    if (!reservations) return { time };
+    if (!meetingRoom.reservations) return { time };
 
-    const matchingReservation = reservations
+    const matchingReservation = meetingRoom.reservations
       .map((reservation) => {
         const isReserved = moment(time)
           .utcOffset(timezone)
-          .isBetween(moment(reservation.startDate), moment(reservation.endDate));
+          .isBetween(
+            moment(reservation.startDate).utcOffset(timezone),
+            moment(reservation.endDate).utcOffset(timezone)
+          );
 
         return isReserved ? reservation : false;
       })
@@ -139,7 +151,8 @@ class FutureReservations extends PureComponent {
     return {
       reservation: matchingReservation,
       isCurrentTime,
-      time
+      time,
+      endTime
     };
   };
 
@@ -151,28 +164,44 @@ class FutureReservations extends PureComponent {
       .replace(':', '-')}`;
 
   renderTime = (value) => {
-    const { reservation = {}, time, isCurrentTime } = value;
+    const { reservation = {}, time, endTime, isCurrentTime } = value;
     const { computedStyles, timezone } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
-    const startTime = reservation.startDate
+    const formattedStartDate = reservation.startDate
       ? moment(reservation.startDate)
         .utcOffset(timezone)
         .format(TIME_FORMAT)
       : formattedTime;
-    const endTime = reservation.endDate
-      ? ` to ${moment(reservation.endDate)
+    const formattedEndDate = reservation.endDate
+      ? moment(reservation.endDate)
         .utcOffset(timezone)
-        .format(TIME_FORMAT)}`
-      : '';
+        .format(TIME_FORMAT)
+      : endTime.format(TIME_FORMAT);
 
     return (
       <span
         key={formattedTime}
         id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(time)}
         className={computedStyles.status(value)}>
-        {startTime} {endTime}
-        <span className={computedStyles.right}>{reservation.email}</span>
+        {formattedStartDate} to {formattedEndDate}
+        <span className={computedStyles.right}>
+          {reservation.email || this.renderReservationLink(time, endTime)}
+        </span>
       </span>
+    );
+  };
+
+  renderReservationLink = (time, endTime) => {
+    const { meetingRoom } = this.props;
+
+    if (!meetingRoom.outlookWebAccessId) return null;
+
+    const reservationLink = genReservationsHyperlink(meetingRoom, time, endTime);
+
+    return (
+      <a alt='reserve' href={reservationLink} target='_blank' rel='noopener noreferrer'>
+        <Icon>open_in_new</Icon>
+      </a>
     );
   };
 

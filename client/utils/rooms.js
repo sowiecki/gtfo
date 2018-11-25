@@ -125,7 +125,6 @@ export const genWidthAndHeight = (width) => `
  * @returns {integer}
  */
 export const getLocationIndex = (locationKeys, location) => {
-  console.log(location);
   const match = matchPath(location.pathname, {
     path: FLOOR_PLAN_ROUTE,
     exact: true,
@@ -135,4 +134,21 @@ export const getLocationIndex = (locationKeys, location) => {
   const locationIndex = locationKeys.indexOf(pathname);
 
   return locationIndex >= 0 ? locationIndex : 0;
+};
+
+/**
+ * https://blogs.msdn.microsoft.com/carloshm/2016/01/16/how-to-compose-a-new-message-or-event-and-populate-fields-in-office365/
+ * Prefilled forms may not properly book rooms,
+ * if those rooms need to also be added as attendees.
+ * Recommended not to use this,
+ * until I find a way to also add the location as an attendee from URL params.
+ */
+export const genReservationsHyperlink = ({ outlookWebAccessId }, time, endTime) => {
+  const queryParams = queryString.stringify({
+    location: outlookWebAccessId,
+    startdt: time.toISOString(),
+    enddt: endTime.toISOString()
+  });
+
+  return `https://outlook.office.com/owa/?path=/calendar/action/compose&${queryParams}`;
 };

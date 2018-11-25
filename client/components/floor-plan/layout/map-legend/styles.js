@@ -5,7 +5,7 @@ import { colors, fontStyles, breakpoints } from 'components/common/styles';
 const stylesGenerator = ({ displayLegend }) => ({
   base: css`
     opacity: ${displayLegend ? 100 : 0};
-    transition: opacity 300ms ease-in;
+    transition: all 300ms ease-in;
     position: absolute;
     right: 200px;
     bottom: 20px;
@@ -67,8 +67,9 @@ const stylesGenerator = ({ displayLegend }) => ({
     padding: 0;
     margin: 0 auto 0 28%;
     zoom: 0.6;
-    width: 280px;
+    width: 290px;
     border: 3px solid ${colors.DARK_GREY};
+    transition: all 300ms ease-in;
 
     ${breakpoints.mobile_iphone5} {
       transform: scale(0.6);

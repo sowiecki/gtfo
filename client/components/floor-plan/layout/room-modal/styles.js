@@ -1,4 +1,5 @@
 import { css } from 'emotion';
+import Color from 'color';
 
 import { ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING } from 'client/constants';
 import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
@@ -50,6 +51,8 @@ const stylesGenerator = ({ statusesTheme }) => ({
     const animation = [ONE_MINUTE_WARNING, FIVE_MINUTE_WARNING].includes(alert)
       ? 'animation: backgroundColor 1s infinite alternate;'
       : '';
+    const STATUS_COLOR = STATUS_COLOR_THEMES[statusesTheme][alert];
+    const statusColorLum = Color(STATUS_COLOR).luminosity();
 
     return css`
       @keyframes backgroundColor {
@@ -99,7 +102,8 @@ const stylesGenerator = ({ statusesTheme }) => ({
 
         .left,
         .right {
-          line-height: 1;
+          line-height: 1.25;
+          font-family: ${fonts.tertiary};
         }
       }
 
@@ -108,7 +112,8 @@ const stylesGenerator = ({ statusesTheme }) => ({
       width: 100%;
       font-size: 26px;
       font-family: ${fonts.secondary};
-      background-color: ${STATUS_COLOR_THEMES[statusesTheme][alert]};
+      color: ${statusColorLum < 0.5 ? colors.WHITE : colors.DARK_GREY};
+      background-color: ${STATUS_COLOR};
       transition: all 120ms ease-in-out;
       ${animation}
 

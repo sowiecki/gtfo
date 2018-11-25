@@ -42,7 +42,7 @@ describe('<MeetingRoom/>', () => {
   it('renders.', () => {
     const component = mount(<MeetingRoom {...props} />);
 
-    expect(component.find('svg').length).toEqual(2);
+    expect(component.find('svg').length).toEqual(4);
     expect(component.find(Temperature).length).toEqual(0);
   });
 

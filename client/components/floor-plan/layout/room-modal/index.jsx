@@ -14,7 +14,8 @@ import {
   SQUATTED,
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
-  OFFLINE
+  OFFLINE,
+  PROP_TYPES
 } from 'client/constants';
 import { formatForDisplay } from 'utils';
 import CurrentTime from './current-time';
@@ -37,27 +38,7 @@ class RoomModal extends PureComponent {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired
     }).isRequired,
-    meetingRoom: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      alert: PropTypes.string.isRequired,
-      coordinates: PropTypes.shape({
-        height: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired
-      }).isRequired,
-      location: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      currenReservation: PropTypes.shape({
-        email: PropTypes.string.isRequired,
-        startDate: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired
-      }),
-      thermo: PropTypes.shape({
-        f: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        c: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      })
-    }).isRequired
+    meetingRoom: PROP_TYPES.meetingRoom.isRequired
   };
 
   hasCurrentReservation = ({ currentReservation, alert }) =>
@@ -117,8 +98,7 @@ class RoomModal extends PureComponent {
           <FutureReservations
             {...this.props}
             timezone={timezone}
-            isOnline={meetingRoom.alert !== OFFLINE}
-            reservations={meetingRoom.reservations}/>
+            isOnline={meetingRoom.alert !== OFFLINE}/>
         </div>
         <div className={computedStyles.footer}>
           <button type='button' onClick={closeModal}>

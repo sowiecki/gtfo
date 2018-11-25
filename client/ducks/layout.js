@@ -14,9 +14,9 @@ export const EMIT_FETCH_ROOM_STATUSES_ERROR = 'EMIT_FETCH_ROOM_STATUSES_ERROR';
 export const EMIT_SET_ROOM_PING = 'EMIT_SET_ROOM_PING';
 export const EMIT_CLEAR_PING = 'EMIT_CLEAR_PING';
 
-export const EMIT_TOGGLE_DISPLAY_LEGEND = 'EMIT_TOGGLE_DISPLAY_LEGEND';
-export const EMIT_TOGGLE_DISPLAY_TEMPERATURE = 'EMIT_TOGGLE_DISPLAY_TEMPERATURE';
-export const EMIT_TOGGLE_TEMP_SCALE = 'EMIT_TOGGLE_TEMP_SCALE';
+export const EMIT_DISPLAY_LEGEND_TOGGLE = 'EMIT_DISPLAY_LEGEND_TOGGLE';
+export const EMIT_DISPLAY_TEMPERATURE_TOGGLE = 'EMIT_DISPLAY_TEMPERATURE_TOGGLE';
+export const EMIT_TEMP_SCALE_TOGGLE = 'EMIT_TEMP_SCALE_TOGGLE';
 
 export const EMIT_MARKERS_UPDATE = 'EMIT_MARKERS_UPDATE';
 
@@ -30,27 +30,29 @@ export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 export const EMIT_STATUSES_THEME_UPDATE = 'EMIT_STATUSES_THEME_UPDATE';
 
+export const EMIT_ADDITIONAL_INFO_TOGGLE = 'EMIT_ADDITIONAL_INFO_TOGGLE';
+
 export const connectSocket = (payload) => ({
   type: CONNECT_SOCKET,
   payload
 });
 
-export const emitClearPing = () => ({
+export const emitPingClear = () => ({
   type: EMIT_CLEAR_PING
 });
 
-export const emitToggleDisplayLegend = (displayLegend) => ({
-  type: EMIT_TOGGLE_DISPLAY_LEGEND,
+export const emitDisplayLegendToggle = (displayLegend) => ({
+  type: EMIT_DISPLAY_LEGEND_TOGGLE,
   displayLegend
 });
 
-export const emitToggleDisplayTemp = (displayTemp) => ({
-  type: EMIT_TOGGLE_DISPLAY_TEMPERATURE,
+export const emitDisplayTempToggle = (displayTemp) => ({
+  type: EMIT_DISPLAY_TEMPERATURE_TOGGLE,
   displayTemp
 });
 
-export const emitToggleTempScale = (unitOfTemp) => ({
-  type: EMIT_TOGGLE_TEMP_SCALE,
+export const emitTempScaleToggle = (unitOfTemp) => ({
+  type: EMIT_TEMP_SCALE_TOGGLE,
   unitOfTemp
 });
 
@@ -59,7 +61,13 @@ export const emitStatusesThemeUpdate = (statusesTheme) => ({
   statusesTheme
 });
 
+export const emitAdditionalInfoToggle = (displayAdditionalInfo) => ({
+  type: EMIT_ADDITIONAL_INFO_TOGGLE,
+  displayAdditionalInfo
+});
+
 const initialState = immutable.fromJS({
+  displayAdditionalInfo: false,
   meetingRooms: null,
   markers: null,
   stalls: null,
@@ -100,11 +108,13 @@ const layoutReducer = (state = initialState, action) => {
 
     [EMIT_CLEAR_PING]: () => state.set('ping', null),
 
-    [EMIT_TOGGLE_DISPLAY_LEGEND]: () => state.set('displayLegend', !action.displayLegend),
+    [EMIT_DISPLAY_LEGEND_TOGGLE]: () => state.set('displayLegend', !action.displayLegend),
 
-    [EMIT_TOGGLE_DISPLAY_TEMPERATURE]: () => state.set('displayTemp', !action.displayTemp),
+    [EMIT_DISPLAY_TEMPERATURE_TOGGLE]: () => state.set('displayTemp', !action.displayTemp),
 
-    [EMIT_TOGGLE_TEMP_SCALE]: () => {
+    [EMIT_ADDITIONAL_INFO_TOGGLE]: () => state.set('displayAdditionalInfo', !action.displayAdditionalInfo),
+
+    [EMIT_TEMP_SCALE_TOGGLE]: () => {
       const unitOfTemp = action.unitOfTemp === FAHRENHEIT ? CELSIUS : FAHRENHEIT;
 
       return state.set('unitOfTemp', unitOfTemp);

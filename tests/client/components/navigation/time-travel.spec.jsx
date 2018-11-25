@@ -40,14 +40,14 @@ describe('<TimeTravel/>', () => {
   });
 
   it(`renders a <Slider/> inside of a <Drawer/> before ${MAX_TIME}.`, () => {
-    clock(moment('8:00AM', TIME_FORMAT));
+    clock(moment('2018-11-23T14:00:00.000Z').utcOffset(-360));
     const component = mount(<TimeTravel {...props} />);
 
     expect(component.find(Drawer).find(Slider).length).toEqual(1);
   });
 
   it(`renders no <Slider/> component after ${MAX_TIME}.`, () => {
-    clock(moment(MAX_TIME, TIME_FORMAT));
+    clock(moment(MAX_TIME, TIME_FORMAT).utcOffset(-360));
     const component = mount(<TimeTravel {...props} />);
 
     expect(component.find(Drawer).find(Slider).length).toEqual(0);

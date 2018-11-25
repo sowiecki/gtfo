@@ -1,6 +1,7 @@
 /* globals document */
 import { css } from 'emotion';
 import { isEmpty } from 'lodash';
+import Color from 'color';
 
 import { colors, fonts, breakpoints, STATUS_COLOR_THEMES } from 'components/common/styles';
 
@@ -29,6 +30,7 @@ const stylesGenerator = ({ isOnline, statusesTheme }) => ({
       ? STATUS_COLOR_THEMES[statusesTheme].BOOKED
       : STATUS_COLOR_THEMES[statusesTheme].VACANT;
     const background = value.isCurrentTime ? '' : 'opacity: 0.55;';
+    const statusColorLum = Color(STATUS_COLOR).luminosity();
 
     return css`
       position: relative;
@@ -37,12 +39,25 @@ const stylesGenerator = ({ isOnline, statusesTheme }) => ({
       text-align: left;
       display: inline-block;
       font-family: ${fonts.tertiary};
-      font-size: 18px;
+      font-size: 14px;
+      color: ${statusColorLum < 0.5 ? colors.WHITE : colors.DARK_GREY};
       background-color: ${isOnline ? STATUS_COLOR : STATUS_COLOR_THEMES[statusesTheme].OFFLINE};
       border: 1px solid ${colors.GREY};
       width: 100%;
       height: ${34 * value.increments}px;
       ${background}
+
+      a, a > span {
+        font-size: 14px;
+        color: ${statusColorLum < 0.5 ? colors.LIGHT_GREY : colors.GREY};
+        transition: all 120ms ease-in-out;
+
+        :hover,
+        :active {
+          font-size: 16px;
+          color: ${statusColorLum < 0.5 ? colors.WHITE : colors.DARK_GREY};
+        }
+      }
     `;
   },
 
