@@ -60,7 +60,8 @@ describe('<MeetingRoom/>', () => {
     ).toEqual(PING_ANIMATION_LOOPS);
   });
 
-  it('renders temperature component when enabled through prop.', () => {
+  // TODO https://github.com/Nase00/gtfo/issues/160
+  it.skip('renders temperature component when enabled through prop.', () => {
     props.displayTemp = true;
 
     const component = mount(<MeetingRoom {...props} />);
