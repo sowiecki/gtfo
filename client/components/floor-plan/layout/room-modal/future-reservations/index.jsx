@@ -27,15 +27,6 @@ class FutureReservations extends PureComponent {
       status: PropTypes.func.isRequired,
       scrollIcon: PropTypes.object.isRequired
     }).isRequired,
-    reservations: PropTypes.arrayOf(
-      PropTypes.shape(
-        PropTypes.shape({
-          email: PropTypes.string.isRequired,
-          startDate: PropTypes.string.isRequired,
-          endDate: PropTypes.string.isRequired
-        }).isRequired
-      )
-    ).isRequired,
     timezone: PropTypes.number.isRequired,
     isOnline: PropTypes.bool.isRequired,
     meetingRoom: PROP_TYPES.meetingRoom.isRequired
@@ -83,11 +74,18 @@ class FutureReservations extends PureComponent {
     clearTimeout(scrollTimeout);
   };
 
-  genTimeBlocks = () =>
-    new Array(96).fill(1).map((e, i) => ({
-      time: moment('12:00:01AM', 'h:mm:ssA').add((i + 1) * 15, 'm'),
-      endTime: moment('12:15:00AM', 'h:mm:ssA').add((i + 1) * 15, 'm')
+  genTimeBlocks = () => {
+    const { timezone } = this.props;
+
+    return new Array(96).fill(1).map((e, i) => ({
+      time: moment('12:00:01AM', 'h:mm:ssA')
+        .add((i + 1) * 15, 'm')
+        .utcOffset(timezone),
+      endTime: moment('12:15:00AM', 'h:mm:ssA')
+        .add((i + 1) * 15, 'm')
+        .utcOffset(timezone)
     }));
+  };
 
   /**
    * Concatenates reservations onto time blocks,
@@ -124,15 +122,18 @@ class FutureReservations extends PureComponent {
   };
 
   mapReservations = ({ time, endTime }) => {
-    const { reservations, timezone } = this.props;
+    const { meetingRoom, timezone } = this.props;
 
-    if (!reservations) return { time };
+    if (!meetingRoom.reservations) return { time };
 
-    const matchingReservation = reservations
+    const matchingReservation = meetingRoom.reservations
       .map((reservation) => {
         const isReserved = moment(time)
           .utcOffset(timezone)
-          .isBetween(moment(reservation.startDate), moment(reservation.endDate));
+          .isBetween(
+            moment(reservation.startDate).utcOffset(timezone),
+            moment(reservation.endDate).utcOffset(timezone)
+          );
 
         return isReserved ? reservation : false;
       })

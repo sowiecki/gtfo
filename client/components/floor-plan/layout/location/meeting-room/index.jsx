@@ -5,7 +5,6 @@ import withStyles from 'withstyles';
 import OfflineBolt from '@material-ui/icons/OfflineBolt';
 
 import RoomModal from 'components/floor-plan/layout/room-modal';
-import renderWithCSSTransitionGroup from 'components/common/with-css-transition-group';
 import { ROOM_NAME_TEXT_DX, ROOM_NAME_TEXT_DY } from 'client/constants';
 import { parsePosition, parseShape } from 'utils';
 import Temperature from './temperature';
@@ -19,8 +18,7 @@ const MeetingRoom = (props) => {
     unitOfTemp,
     displayTemp,
     meetingRoom,
-    onLayoutReset,
-    displayAdditionalInfo
+    onLayoutReset
   } = props;
   const { id, name, coordinates, thermo } = meetingRoom;
 
@@ -92,5 +90,4 @@ MeetingRoom.propTypes = {
   })
 };
 
-// export default withStyles(stylesGenerator)(MeetingRoom);
 export default withStyles(stylesGenerator)(MeetingRoom);

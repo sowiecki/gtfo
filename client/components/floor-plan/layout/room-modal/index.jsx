@@ -98,8 +98,7 @@ class RoomModal extends PureComponent {
           <FutureReservations
             {...this.props}
             timezone={timezone}
-            isOnline={meetingRoom.alert !== OFFLINE}
-            reservations={meetingRoom.reservations}/>
+            isOnline={meetingRoom.alert !== OFFLINE}/>
         </div>
         <div className={computedStyles.footer}>
           <button type='button' onClick={closeModal}>

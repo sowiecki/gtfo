@@ -6,7 +6,6 @@ import slugify from 'slugify';
 import queryString from 'query-string';
 
 import { FLOOR_PLAN_ROUTE } from 'client/constants';
-import { MeetingRoom } from '@material-ui/icons';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
