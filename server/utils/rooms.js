@@ -10,6 +10,7 @@ import {
   ONE_MINUTE_WARNING,
   FIVE_MINUTE_WARNING,
   BOOKED,
+  OFFLINE,
   MOTION_GRACE_PERIOD
 } from '../constants';
 import { config } from '../../environment';
@@ -26,6 +27,8 @@ import { config } from '../../environment';
  * @returns {string} Room reservation alert.
  */
 export const getRoomAlert = (properties, capabilities, time = moment()) => {
+  if (properties.reservations === undefined) return OFFLINE;
+
   const reservations = properties.reservations || [];
   const { recentMotion } = properties;
   const isNotFutureQuery = time.isSameOrBefore(moment());

@@ -92,7 +92,7 @@ class FutureReservations extends PureComponent {
    * compressing multiple time blocks that span the same reservation.
    */
   reduceTimeBlocks = (acc, value) => {
-    const { reservation = {} } = value;
+    const { reservation = {}, endTime } = value;
     const prevValue = acc[acc.length - 1] || {};
 
     const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
@@ -106,7 +106,7 @@ class FutureReservations extends PureComponent {
       const mergedReservation = {
         ...acc.pop(),
         time: get(prevValue, 'time'),
-        endTime: value.endTime,
+        endTime,
         reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
         isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,
         increments: prevValue.increments ? prevValue.increments + 1 : 1
@@ -124,7 +124,7 @@ class FutureReservations extends PureComponent {
   mapReservations = ({ time, endTime }) => {
     const { meetingRoom, timezone } = this.props;
 
-    if (!meetingRoom.reservations) return { time };
+    if (!meetingRoom.reservations) return { time, endTime };
 
     const matchingReservation = meetingRoom.reservations
       .map((reservation) => {

@@ -71,8 +71,8 @@ const stylesGenerator = ({ statusesTheme }) => ({
         .left {
           font-size: 22px;
 
-          .material-icons {
-            vertical-align: bottom;
+          span {
+            vertical-align: middle;
           }
 
           ${breakpoints.mobile} {
