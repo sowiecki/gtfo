@@ -9,7 +9,8 @@ import scroll from 'scroll';
 
 import Icon from '@material-ui/core/Icon';
 
-import { TIME_FORMAT } from 'client/constants';
+import { TIME_FORMAT, PROP_TYPES } from 'client/constants';
+import { genReservationsHyperlink } from 'utils';
 import stylesGenerator from './styles';
 
 let scrollTimeout;
@@ -36,7 +37,8 @@ class FutureReservations extends PureComponent {
       )
     ).isRequired,
     timezone: PropTypes.number.isRequired,
-    isOnline: PropTypes.bool.isRequired
+    isOnline: PropTypes.bool.isRequired,
+    meetingRoom: PROP_TYPES.meetingRoom.isRequired
   };
 
   CURRENT_TIME_SELECTOR = 'current-time';
@@ -181,8 +183,24 @@ class FutureReservations extends PureComponent {
         id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(time)}
         className={computedStyles.status(value)}>
         {formattedStartDate} to {formattedEndDate}
-        <span className={computedStyles.right}>{reservation.email}</span>
+        <span className={computedStyles.right}>
+          {reservation.email || this.renderReservationLink(time, endTime)}
+        </span>
       </span>
+    );
+  };
+
+  renderReservationLink = (time, endTime) => {
+    const { meetingRoom } = this.props;
+
+    if (!meetingRoom.outlookWebAccessId) return null;
+
+    const reservationLink = genReservationsHyperlink(meetingRoom, time, endTime);
+
+    return (
+      <a alt='reserve' href={reservationLink} target='_blank' rel='noopener noreferrer'>
+        <Icon>open_in_new</Icon>
+      </a>
     );
   };
 

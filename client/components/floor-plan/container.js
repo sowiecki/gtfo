@@ -11,6 +11,7 @@ import FloorPlanController from './controller';
 const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
   location: formatLocationProps(router.location),
   error: layoutReducer.get('error'),
+  displayAdditionalInfo: layoutReducer.get('displayAdditionalInfo'),
   meetingRooms: layoutReducer.get('meetingRooms'),
   ping: layoutReducer.get('ping'),
   stalls: layoutReducer.get('stalls'),

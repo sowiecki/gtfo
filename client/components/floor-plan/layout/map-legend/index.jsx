@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { colors, STATUS_COLOR_THEMES } from 'components/common/styles';
+import renderWithCSSTransitionGroup from 'components/common/with-css-transition-group';
 import { PROP_TYPES } from 'constants';
 import stylesGenerator from './styles';
 
@@ -20,12 +21,22 @@ const MapLegend = ({
   showYouAreHere,
   enableMotion,
   enableStalls,
-  statusesTheme
+  statusesTheme,
+  displayAdditionalInfo
 }) => {
   const renderIcon = (color) => (
     <svg height='40' width='50'>
       <rect className={computedStyles.rect} x='0' y='0' width='40' height='40' fill={color} />
     </svg>
+  );
+
+  const renderAdditionalInfoIcons = () => (
+    <ListItem>
+      <Avatar>
+        <Icon className={computedStyles.icon(colors.DARK_RED)}>offline_bolt</Icon>
+      </Avatar>
+      Module disconnected
+    </ListItem>
   );
 
   const youAreHereListItem = showYouAreHere ? (
@@ -47,13 +58,15 @@ const MapLegend = ({
               <div className={computedStyles.closeButton}>
                 <IconButton
                   aria-label='Close'
-                  onClick={actions.emitToggleDisplayLegend.bind(null, true)}>
+                  onClick={actions.emitDisplayLegendToggle.bind(null, true)}>
                   <CloseIcon fontSize='small' />
                 </IconButton>
               </div>
             </div>
             {youAreHereListItem}
-            <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Offline</ListItem>
+            <ListItem>
+              {renderIcon(STATUS_COLOR_THEMES[statusesTheme].OFFLINE)} Data unavailable
+            </ListItem>
             <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
             {enableMotion || enableStalls ? (
               <Fragment>
@@ -73,6 +86,11 @@ const MapLegend = ({
             <ListItem>
               {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ONE_MINUTE_WARNING)} One minute warning
             </ListItem>
+            {renderWithCSSTransitionGroup(
+              renderAdditionalInfoIcons,
+              displayAdditionalInfo,
+              'map-legend-item'
+            )}
           </List>
         </div>
       </Draggable>
@@ -89,11 +107,12 @@ MapLegend.propTypes = {
     icon: PropTypes.func.isRequired
   }).isRequired,
   actions: PropTypes.shape({
-    emitToggleDisplayLegend: PropTypes.func.isRequired
+    emitDisplayLegendToggle: PropTypes.func.isRequired
   }).isRequired,
   showYouAreHere: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,
   enableStalls: PropTypes.bool.isRequired,
+  displayAdditionalInfo: PropTypes.bool.isRequired,
   statusesTheme: PROP_TYPES.statusesTheme
 };
 

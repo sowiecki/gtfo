@@ -8,6 +8,7 @@ export default {
     deviceAlias: { type: 'string' },
     deviceId: { type: 'string' },
     deviceAuthToken: { type: 'string' },
+    outlookWebAccessId: { type: 'string' },
     capabilities: {
       type: 'object',
       properties: {

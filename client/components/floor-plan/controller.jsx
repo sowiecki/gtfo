@@ -33,7 +33,7 @@ class FloorPlanController extends PureComponent {
     }),
     ping: PropTypes.object,
     actions: PropTypes.shape({
-      emitClearPing: PropTypes.func.isRequired,
+      emitPingClear: PropTypes.func.isRequired,
       push: PropTypes.func.isRequired
     }).isRequired
   };
@@ -99,7 +99,7 @@ class FloorPlanController extends PureComponent {
     }
 
     const setPingTimeout = setInterval(() => {
-      actions.emitClearPing();
+      actions.emitPingClear();
 
       // Revert to original location and re-save.
       actions.push({ ...location, pathname: `/${originalLocation}` });

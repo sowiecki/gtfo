@@ -46,6 +46,18 @@ const stylesGenerator = ({ isOnline, statusesTheme }) => ({
       width: 100%;
       height: ${34 * value.increments}px;
       ${background}
+
+      a, a > span {
+        font-size: 14px;
+        color: ${statusColorLum < 0.5 ? colors.LIGHT_GREY : colors.GREY};
+        transition: all 120ms ease-in-out;
+
+        :hover,
+        :active {
+          font-size: 16px;
+          color: ${statusColorLum < 0.5 ? colors.WHITE : colors.DARK_GREY};
+        }
+      }
     `;
   },
 

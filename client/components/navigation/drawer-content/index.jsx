@@ -23,7 +23,8 @@ const DrawerContent = (props) => {
     displayLegend,
     displayTemp,
     enableTemp,
-    unitOfTemp
+    unitOfTemp,
+    displayAdditionalInfo
   } = props;
 
   const inverseUnitOfTempText = {
@@ -34,13 +35,13 @@ const DrawerContent = (props) => {
   const temperatureOptions = (
     <Fragment>
       <DrawerContentItem
-        onClick={actions.emitToggleDisplayTemp.bind(null, displayTemp)}
+        onClick={actions.emitDisplayTempToggle.bind(null, displayTemp)}
         icon='ac_unit'
         enabled={displayTemp}
-        primary={`${displayTemp ? 'Disable' : 'Enable'} temperature`}/>
+        primary={`${displayTemp ? 'Hide' : 'Display'} temperature`}/>
 
       <DrawerContentItem
-        onClick={actions.emitToggleTempScale.bind(null, unitOfTemp)}
+        onClick={actions.emitTempScaleToggle.bind(null, unitOfTemp)}
         icon={unitOfTemp[0].toUpperCase()}
         enabled={displayTemp}
         className={computedStyles.tempIconAdjust}
@@ -64,10 +65,10 @@ const DrawerContent = (props) => {
         primary='Accessibility'/>
 
       <DrawerContentItem
-        onClick={actions.emitToggleDisplayLegend.bind(null, displayLegend)}
+        onClick={actions.emitDisplayLegendToggle.bind(null, displayLegend)}
         enabled={displayLegend}
         icon='map'
-        primary={`${displayLegend ? 'Disable' : 'Enable'} map legend`}/>
+        primary={`${displayLegend ? 'Hide' : 'Display'} map legend`}/>
 
       {enableTemp ? temperatureOptions : null}
 
@@ -76,6 +77,12 @@ const DrawerContent = (props) => {
         enabled={displayLegend}
         icon='fullscreen'
         primary='Open fullscreen'/>
+
+      <DrawerContentItem
+        onClick={actions.emitAdditionalInfoToggle.bind(null, displayAdditionalInfo)}
+        enabled={displayAdditionalInfo}
+        icon='info'
+        primary={`${displayAdditionalInfo ? 'Hide' : 'Display'} additional info`}/>
 
       <Divider />
 
@@ -106,11 +113,12 @@ DrawerContent.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired,
-    emitToggleDisplayLegend: PropTypes.func.isRequired,
-    emitToggleTempScale: PropTypes.func.isRequired
+    emitDisplayLegendToggle: PropTypes.func.isRequired,
+    emitTempScaleToggle: PropTypes.func.isRequired
   }).isRequired,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,
+  displayAdditionalInfo: PropTypes.bool.isRequired,
   enableTemp: PropTypes.bool.isRequired,
   unitOfTemp: PropTypes.string.isRequired
 };

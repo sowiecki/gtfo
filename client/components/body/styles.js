@@ -48,7 +48,45 @@ injectGlobal`
   .modal-leave.modal-leave-active {
     opacity: 0.01;
     transition: all 250ms ease-in;
-    transform: translateY(100%);
+  }
+
+  .map-legend-item-enter {
+    opacity: 0.01;
+    transform: scaleY(0);
+  }
+
+  .map-legend-item-enter.map-legend-item-enter-active {
+    opacity: 1;
+    transform: scaleY(1);
+    transition: all 350ms ease-in;
+  }
+
+  .map-legend-item-leave {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .map-legend-item-leave.map-legend-item-leave-active {
+    opacity: 0.01;
+    transition: all 250ms ease-in;
+  }
+
+  .generic-enter {
+    opacity: 0.01;
+  }
+
+  .generic-enter.generic-enter-active {
+    opacity: 1;
+    transition: all 350ms ease-in;
+  }
+
+  .generic-leave {
+    opacity: 1;
+  }
+
+  .generic-leave.generic-leave-active {
+    opacity: 0.01;
+    transition: all 250ms ease-in;
   }
 
   .map-legend-enter {

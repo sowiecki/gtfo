@@ -6,6 +6,7 @@ import slugify from 'slugify';
 import queryString from 'query-string';
 
 import { FLOOR_PLAN_ROUTE } from 'client/constants';
+import { MeetingRoom } from '@material-ui/icons';
 import { getBackdropErrorMessage } from './errors';
 
 const DEFAULT_LOCATION = 'sears-tower-251'; // TODO better default handling
@@ -136,13 +137,19 @@ export const getLocationIndex = (locationKeys, location) => {
   return locationIndex >= 0 ? locationIndex : 0;
 };
 
-export const genReservationsHyperlink = ({ subject, location, startDate, endDate }) => {
+/**
+ * https://blogs.msdn.microsoft.com/carloshm/2016/01/16/how-to-compose-a-new-message-or-event-and-populate-fields-in-office365/
+ * Prefilled forms may not properly book rooms,
+ * if those rooms need to also be added as attendees.
+ * Recommended not to use this,
+ * until I find a way to also add the location as an attendee from URL params.
+ */
+export const genReservationsHyperlink = ({ outlookWebAccessId }, time, endTime) => {
   const queryParams = queryString.stringify({
-    subject,
-    location,
-    startdt: startDate,
-    enddt: endDate
+    location: outlookWebAccessId,
+    startdt: time.toISOString(),
+    enddt: endTime.toISOString()
   });
 
-  return `https://outlook.office.com/owa/?path=/calendar/action/compose${queryParams}`;
+  return `https://outlook.office.com/owa/?path=/calendar/action/compose&${queryParams}`;
 };

@@ -102,7 +102,8 @@ const stylesGenerator = ({ statusesTheme }) => ({
 
         .left,
         .right {
-          line-height: 1;
+          line-height: 1.25;
+          font-family: ${fonts.tertiary};
         }
       }
 

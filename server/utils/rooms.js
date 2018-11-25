@@ -106,6 +106,7 @@ export const secureRoom = (room) => {
     connectionStatus: room.connectionStatus,
     currentReservation: room.currentReservation,
     reservations: room.reservations,
+    outlookWebAccessId: room.outlookWebAccessId,
     thermo
   };
 };

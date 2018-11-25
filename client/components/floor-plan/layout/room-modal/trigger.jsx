@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { matchPath } from 'react-router';
 import { find, isEqual } from 'lodash';
 
-import { FLOOR_PLAN_ROUTE } from 'client/constants';
+import { FLOOR_PLAN_ROUTE, PROP_TYPES } from 'client/constants';
 import RoomModal from './index';
 
 /**
@@ -19,29 +19,7 @@ class RoomModalTrigger extends Component {
       push: PropTypes.func.isRequired
     }).isRequired,
     /* eslint-disable */
-    meetingRooms: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        alert: PropTypes.string.isRequired,
-        coordinates: PropTypes.shape({
-          height: PropTypes.number.isRequired,
-          width: PropTypes.number.isRequired,
-          x: PropTypes.number.isRequired,
-          y: PropTypes.number.isRequired
-        }).isRequired,
-        location: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        currenReservation: PropTypes.shape({
-          email: PropTypes.string.isRequired,
-          startDate: PropTypes.string.isRequired,
-          endDate: PropTypes.string.isRequired
-        }),
-        thermo: PropTypes.shape({
-          f: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-          c: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-        })
-      }).isRequired
-    )
+    meetingRooms: PropTypes.arrayOf(PROP_TYPES.meetingRoom.isRequired)
     /* eslint-enable */
   };
 
