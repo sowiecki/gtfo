@@ -77,12 +77,12 @@ class FloorPlanController extends PureComponent {
     actions.emitTimeSliderValueUpdate(0);
   };
 
-  handleChangeLocation(newIndex) {
+  handleChangeLocation = (newIndex) => {
     const { actions, meetingRooms, location } = this.props;
     const locations = pluckLocations(meetingRooms);
 
     actions.push({ ...location, pathname: `/${locations[newIndex]}` });
-  }
+  };
 
   /**
    * Checks that view is on correct location for ping.
