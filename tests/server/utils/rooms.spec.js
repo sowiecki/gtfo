@@ -21,6 +21,7 @@ import {
   FIVE_MINUTE_WARNING,
   BOOKED,
   ABANDONED,
+  OFFLINE,
   MOTION_GRACE_PERIOD
 } from 'server/constants';
 import { TIME_FORMAT } from 'universal/constants';
@@ -119,7 +120,13 @@ describe('Room utilities (server)', () => {
     const getRecentMotion = () => moment();
     const getExpiredMotion = () => moment().subtract(MOTION_GRACE_PERIOD, 'seconds');
 
-    it('should correctly determine squatting', () => {
+    it('should distinguish offline rooms.', () => {
+      const properties = { reservations: undefined };
+
+      expect(getRoomAlert(properties)).toBe(OFFLINE);
+    });
+
+    it('should correctly determine squatting.', () => {
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
         const properties = { reservations: mockReservations(), recentMotion: getRecentMotion() };
@@ -129,12 +136,14 @@ describe('Room utilities (server)', () => {
     });
 
     it('should correctly determine vacancy.', () => {
-      expect(getRoomAlert([], {})).toBe(VACANT);
-      expect(getRoomAlert([], {}, getExpiredMotion())).toBe(VACANT);
+      let properties = { reservations: [] };
+
+      expect(getRoomAlert(properties, {})).toBe(VACANT);
+      expect(getRoomAlert(properties, {}, getExpiredMotion())).toBe(VACANT);
 
       vacantTimes.forEach((vacantTime) => {
         clock(vacantTime);
-        const properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
+        properties = { reservations: mockReservations(), recentMotion: getExpiredMotion() };
 
         expect(getRoomAlert(properties, mockCapabilities)).toBe(VACANT);
       });

@@ -87,7 +87,8 @@ class RoomModal extends PureComponent {
             <div>
               {meetingRoom.name}
               <div className='left'>
-                <StatusIconMap alert={meetingRoom.alert} /> {ALERT_MESSAGE_MAP[meetingRoom.alert]}
+                <StatusIconMap alert={meetingRoom.alert} />{' '}
+                <span>{ALERT_MESSAGE_MAP[meetingRoom.alert]}</span>
                 {this.renderCurrentReservation()}
               </div>
               <div className='right'>
