@@ -27,9 +27,9 @@ const NavigationLayout = (props) => (
         onFullscreenOpenClick={props.onFullscreenOpenClick}
         {...props}/>
     </Drawer>
-    <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick} />
     <Modal {...props} modalContent={props.modalContent} />
     {props.children}
+    <TimeTravel {...props} onTimeTravelDismissClick={props.onTimeTravelDismissClick} />
   </div>
 );
 

@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import withStyles from 'withstyles';
 
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
-
 import { TIME_FORMAT } from 'client/constants';
+import NotchedDrawer from 'components/common/notched-drawer';
 import TimeSlider from './time-slider';
 import stylesGenerator from './styles';
 
 const TimeTravel = (props) => {
   const {
+    actions,
     computedStyles,
     timeTravelControlsOpen,
     timeTravelTime,
@@ -21,16 +19,12 @@ const TimeTravel = (props) => {
   } = props;
 
   return (
-    <Drawer
+    <NotchedDrawer
       className={computedStyles.base}
-      open={timeTravelControlsOpen}
-      anchor='bottom'
-      transitionDuration={300}
+      isOpen={timeTravelControlsOpen}
+      onClick={actions.emitTimeTravelControlsToggle.bind(null, !timeTravelControlsOpen)}
       onClose={onTimeTravelDismissClick.bind(null, !timeTravelControlsOpen)}>
       <span className={computedStyles.timeDisplay}>
-        <IconButton className={computedStyles.timeTravelDismiss} onClick={onTimeTravelDismissClick}>
-          <Icon>clear</Icon>
-        </IconButton>
         Viewing at{' '}
         {timeTravelTime
           || moment()
@@ -38,7 +32,7 @@ const TimeTravel = (props) => {
             .format(TIME_FORMAT)}
       </span>
       <TimeSlider {...props} />
-    </Drawer>
+    </NotchedDrawer>
   );
 };
 
