@@ -22,8 +22,6 @@ const TimeTravel = (props) => {
     <NotchedDrawer
       className={computedStyles.base}
       isOpen={timeTravelControlsOpen}
-      anchor='bottom'
-      transitionDuration={300}
       onClick={actions.emitTimeTravelControlsToggle.bind(null, !timeTravelControlsOpen)}
       onClose={onTimeTravelDismissClick.bind(null, !timeTravelControlsOpen)}>
       <span className={computedStyles.timeDisplay}>
