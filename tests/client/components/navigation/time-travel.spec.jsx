@@ -5,9 +5,9 @@ import expect from 'expect';
 import sinon from 'sinon';
 import moment from 'moment';
 
-import Drawer from '@material-ui/core/Drawer';
 import Slider from '@material-ui/lab/Slider';
 
+import NotchedDrawer from 'components/common/notched-drawer';
 import TimeTravel from 'components/navigation/time-travel';
 import { MAX_TIME, TIME_FORMAT } from 'constants/index';
 
@@ -43,13 +43,13 @@ describe('<TimeTravel/>', () => {
     clock(moment('2018-11-23T14:00:00.000Z').utcOffset(-360));
     const component = mount(<TimeTravel {...props} />);
 
-    expect(component.find(Drawer).find(Slider).length).toEqual(1);
+    expect(component.find(NotchedDrawer).find(Slider).length).toEqual(1);
   });
 
   it(`renders no <Slider/> component after ${MAX_TIME}.`, () => {
     clock(moment(MAX_TIME, TIME_FORMAT).utcOffset(-360));
     const component = mount(<TimeTravel {...props} />);
 
-    expect(component.find(Drawer).find(Slider).length).toEqual(0);
+    expect(component.find(NotchedDrawer).find(Slider).length).toEqual(0);
   });
 });

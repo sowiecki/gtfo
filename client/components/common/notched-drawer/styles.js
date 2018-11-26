@@ -1,6 +1,6 @@
 import { css } from 'emotion';
 
-import { fonts, breakpoints, colors, STATUS_COLOR_THEMES } from 'components/common/styles';
+import { colors } from 'components/common/styles';
 
 const stylesGenerator = ({ isOpen }) => ({
   base: css`
