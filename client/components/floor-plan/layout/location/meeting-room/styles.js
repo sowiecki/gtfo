@@ -49,12 +49,11 @@ const stylesGenerator = ({
         transition: all 250ms ease-in-out;
 
         ${breakpoints.mobile} {
-          font-size: 6px;
+          transform: scale(0.6);
         }
 
         ${breakpoints.mobile_iphone5} {
-          font-size: 4px;
-          transform: translate(0, -6px);
+          transform: scale(0.4);
         }
       }
     `,

@@ -9,14 +9,6 @@ const stylesGenerator = () => ({
       height: 140px;
       transform: scale(0.02) translate(40px, 0);
 
-      ${breakpoints.mobile} {
-        transform: scale(0.03) translate(30px, -60px);
-      }
-
-      ${breakpoints.mobile_iphone5} {
-        transform: scale(0.03) translate(20px, -54px);
-      }
-
       ${breakpoints.large} {
         transform: scale(0.03) translate(20px, -60px);
       }
