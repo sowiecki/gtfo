@@ -106,6 +106,7 @@ export const secureRoom = (room) => {
     coordinates: room.coordinates,
     location: room.location,
     name: room.name,
+    description: room.description,
     connectionStatus: room.connectionStatus,
     currentReservation: room.currentReservation,
     reservations: room.reservations,

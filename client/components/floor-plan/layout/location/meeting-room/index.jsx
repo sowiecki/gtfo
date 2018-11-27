@@ -14,7 +14,7 @@ import stylesGenerator from './styles';
 
 const MeetingRoom = (props) => {
   const { computedStyles, actions, location, meetingRoom, onLayoutReset } = props;
-  const { id, name, coordinates } = meetingRoom;
+  const { id, name, description, coordinates } = meetingRoom;
   const parsedShape = parseShape(coordinates);
   const widthModifier = getWidthModifier(coordinates.width);
 
@@ -61,6 +61,7 @@ const MeetingRoom = (props) => {
   const renderToolTip = () => (
     <Fragment>
       <div>{name}</div>
+      {description ? <div>{description}</div> : null}
       <div>{formatTempText(meetingRoom)}</div>
     </Fragment>
   );
