@@ -69,11 +69,9 @@ const MeetingRoom = (props) => {
     <svg className={computedStyles.base} {...parsePosition(coordinates)} onClick={onClick}>
       <rect {...parseShape(coordinates)} />
       <Tooltip title={renderToolTip()} TransitionComponent={Zoom} placement='top'>
-        <g>
-          <rect className={computedStyles.pinged} {...parsedShape} />
-          <svg className={computedStyles.textContainer(widthModifier)}>{renderName()}</svg>
-        </g>
+        <rect className={computedStyles.pinged} {...parsedShape} />
       </Tooltip>
+      <svg className={computedStyles.textContainer(widthModifier)}>{renderName()}</svg>
       {/* renderTemperature() */}
       {renderAdditionInformation()}
     </svg>
