@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
+import { isEmpty } from 'lodash';
 
 import { filterByLocation, youAreHere, getLocationBackdrop } from 'utils';
-
 import MeetingRoom from './meeting-room';
 import Stall from './stall';
 import Marker from './marker';
@@ -16,13 +16,14 @@ const Location = (props) => {
   const filteredStalls = filterByLocation(stalls, locationKey);
   const filteredMarkers = filterByLocation(markers, locationKey);
 
-  const renderMeetingRoom = (meetingRoom, index) => (
-    <MeetingRoom
-      key={`${meetingRoom.name}-${index}`}
-      {...props}
-      pinged={ping && ping.id === meetingRoom.id}
-      meetingRoom={meetingRoom}/>
-  );
+  const renderMeetingRoom = (meetingRoom, index) =>
+    (!isEmpty(meetingRoom.coordinates) ? (
+      <MeetingRoom
+        key={`${meetingRoom.name}-${index}`}
+        {...props}
+        pinged={ping && ping.id === meetingRoom.id}
+        meetingRoom={meetingRoom}/>
+    ) : null);
 
   const renderMarker = (marker, index) => (
     <Marker

@@ -18,14 +18,18 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
     </Tooltip>
   );
 
+  const markerText = (
+    <text
+      className={`${computedStyles.text} ${marker.type}-marker`}
+      dx={ROOM_MARKER_TEXT_DX}
+      dy={ROOM_MARKER_TEXT_DY}>
+      {marker.name}
+    </text>
+  );
+
   const markerElement = (
     <svg {...parsePosition(marker.coordinates)}>
-      <text
-        className={`${computedStyles.text} ${marker.type}-marker`}
-        dx={ROOM_MARKER_TEXT_DX}
-        dy={ROOM_MARKER_TEXT_DY}>
-        {marker.name}
-      </text>
+      {marker.hover ? withTooltip(markerText) : markerText}
       {youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null}
     </svg>
   );

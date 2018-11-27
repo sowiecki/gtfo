@@ -62,7 +62,7 @@ const app = server.listen(SERVER_PORT, (err) => {
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
   proxyController.initialize();
-  consoleController.initialize();
+  // consoleController.initialize(); // See https://github.com/Nase00/gtfo/issues/164
   devicesController.initialize();
   stallsController.initialize();
 });
