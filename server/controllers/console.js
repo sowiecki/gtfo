@@ -1,9 +1,12 @@
 /* eslint no-console:0, new-cap:0 */
 /* globals console */
+
+// TODO - see https://github.com/Nase00/gtfo/issues/164
+
 import colors from 'colors';
 import split from 'split';
 import blessed from 'blessed';
-import contrib from 'blessed-contrib';
+// import contrib from 'blessed-contrib';
 import { uniq } from 'lodash';
 import moment from 'moment';
 
@@ -20,7 +23,15 @@ import { getRoomStatusMessage, genGuagePercentage, formatDurationForDisplay } fr
 
 const screen = blessed.screen({ dockBorders: true });
 
-const grid = new contrib.grid({ rows: 11, cols: 5, screen });
+// const grid = new contrib.grid({ rows: 11, cols: 5, screen });
+
+/**
+ * TODO - see https://github.com/Nase00/gtfo/issues/164
+ * Sloppily-disabling the blessed-contrib view,
+ * until it's updated to no longer depend on event-stream
+ */
+const contrib = {};
+const grid = { set: () => {} };
 
 grid.set(8.5, 0, 1.5, 2.5, contrib.lcd, titleOptions);
 const log = grid.set(0, 0, 8.5, 3.5, contrib.log, logOptions);
