@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
+import Tooltip from '@material-ui/core/Tooltip';
 import Place from '@material-ui/icons/Place';
+import Zoom from '@material-ui/core/Zoom';
 
 import { parsePosition } from 'utils';
 import { ROOM_MARKER_TEXT_DX, ROOM_MARKER_TEXT_DY } from 'client/constants';
@@ -10,15 +12,24 @@ import stylesGenerator from './styles';
 
 const Marker = ({ computedStyles, marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
+  const withTooltip = (node) => (
+    <Tooltip title={marker.hover} TransitionComponent={Zoom} placement='top'>
+      {node}
+    </Tooltip>
+  );
+
+  const markerText = (
+    <text
+      className={`${computedStyles.text} ${marker.type}-marker`}
+      dx={ROOM_MARKER_TEXT_DX}
+      dy={ROOM_MARKER_TEXT_DY}>
+      {marker.name}
+    </text>
+  );
 
   return (
     <svg {...parsePosition(marker.coordinates)}>
-      <text
-        className={`${computedStyles.text} ${marker.type}-marker`}
-        dx={ROOM_MARKER_TEXT_DX}
-        dy={ROOM_MARKER_TEXT_DY}>
-        {marker.name}
-      </text>
+      {marker.hover ? withTooltip(markerText) : markerText}
       {youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null}
     </svg>
   );

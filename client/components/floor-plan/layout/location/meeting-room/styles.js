@@ -40,6 +40,7 @@ const stylesGenerator = ({
 
     textContainer: (widthModifier) => css`
       text {
+        pointer-events: none;
         stroke: none;
         font-family: ${fonts.secondary};
         ${getFontSize(widthModifier)}

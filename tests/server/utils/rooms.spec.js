@@ -206,6 +206,7 @@ describe('Room utilities (server)', () => {
     coordinates: {},
     location: 'Hyrule',
     name: 'Hyrule Castle',
+    description: 'Setting of Ocarina of Time',
     mac: '11:11:11:11',
     deviceAlias: 'Ganon',
     deviceId: 'heyListen',
@@ -234,6 +235,7 @@ describe('Room utilities (server)', () => {
     coordinates: {},
     location: 'Hyrule',
     name: 'Hyrule Castle',
+    description: 'Setting of Ocarina of Time',
     connectionStatus: false,
     thermo: {
       f: '65',
