@@ -25,11 +25,10 @@ if (argv.mocks) {
   console.log(colors.gray.italic('Using mock data'));
 }
 
-// See https://github.com/Nase00/gtfo/issues/164
-// if (argv.dhc) {
-process.env.DONT_HOOK_CONSOLE = true;
-console.log(colors.gray.italic('Not hooking into console.log, output may be messy\n'));
-// }
+if (argv.dhc) {
+  process.env.DONT_HOOK_CONSOLE = true;
+  console.log(colors.gray.italic('Not hooking into console.log, output may be messy\n'));
+}
 
 if (argv.dd) {
   process.env.DISABLE_DEVICES = true;
