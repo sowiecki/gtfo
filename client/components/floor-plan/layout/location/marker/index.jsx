@@ -34,7 +34,7 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
     </svg>
   );
 
-  return marker.hover ? withTooltip(markerElement) : markerElement;
+  return markerElement;
 };
 
 Marker.propTypes = {
