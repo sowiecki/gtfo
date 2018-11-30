@@ -8,7 +8,7 @@ const stylesGenerator = ({ displayLegend }) => ({
     transition: opacity 300ms ease-in;
     position: absolute;
     right: 200px;
-    bottom: 20px;
+    bottom: 0;
     width: 0;
 
     ${breakpoints.large} {
@@ -66,17 +66,21 @@ const stylesGenerator = ({ displayLegend }) => ({
   mapLegend: css`
     padding: 0;
     margin: 0 auto 0 28%;
-    zoom: 0.6;
     width: 290px;
     border: 3px solid ${colors.DARK_GREY};
     transition: all 300ms ease-in;
+    transform: scale(0.6) translate(-100px, 100px);
 
-    ${breakpoints.mobile_iphone5} {
-      transform: scale(0.6);
+    ${breakpoints.tablet} {
+      transform: scale(0.5) translate(-100px, 200px);
     }
 
     ${breakpoints.mobile} {
-      transform: scale(0.8);
+      transform: scale(0.4) translate(-100px, 200px);
+    }
+
+    ${breakpoints.mobile_iphone5} {
+      transform: scale(0.35) translate(-200px, 200px);
     }
 
     > div > div {
