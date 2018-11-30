@@ -74,7 +74,7 @@ Room device properties.
 | capabilities    | Hardware capabilities of module                       | No        | Object |
 | - motion        | Set to true if module has a motion sensor<sup>4</sup> | No        | Bool   |
 
-<sup>1</sup> Formatted exactly as displayed on Exchange Services.
+<sup>1</sup> Formatted exactly as displayed on Exchange/OWA Services.
 
 <sup>2</sup> Proper format, including any spaces or capitalization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
 
@@ -138,9 +138,21 @@ Example of an `environment/coordinates.json` file configured to display a meetin
 
 Markers to overlay on maps.
 
+| Parameter   | Description                               | Required? | Type   |
+| ----------- | ----------------------------------------- | --------- | ------ |
+| name        | Display name for room<sup>2</sup>         | Yes       | String |
+| description | Extended information shown on mouse hover | Yes       | String |
+| location    | Floor or location of marker               | Yes       | String |
+| type        | "Anchor", "restroom", or null             | No        | String |
+| coordinates | x/y coordinates of marker                 | Yes       | Object |
+| - x         |                                           | Yes       | Number |
+| - y         |                                           | Yes       | Number |
+
+<sup>1</sup> Formatted exactly as displayed on Exchange/OWA Services.
+
 ### mock-data.json
 
-Mock room reservation data, indentical in format to a response from Exchange services. Automatically generated with the `--mocks` flag, or automatically regenerated if existing mock reservations are over a day old.
+Mock room reservation data, indentical in format to a response from Exchange/OWA services. Automatically generated with the `--mocks` flag, or automatically regenerated if existing mock reservations are over a day old.
 
 ### Office map backgrounds
 

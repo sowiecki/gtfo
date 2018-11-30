@@ -13,7 +13,7 @@ import stylesGenerator from './styles';
 const Marker = ({ computedStyles, marker, youAreHere }) => {
   const isAnchor = marker.type === 'anchor';
   const withTooltip = (node) => (
-    <Tooltip title={marker.hover} TransitionComponent={Zoom} placement='top'>
+    <Tooltip title={marker.description} TransitionComponent={Zoom} placement='top'>
       {node}
     </Tooltip>
   );
@@ -29,12 +29,12 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
 
   const markerElement = (
     <svg {...parsePosition(marker.coordinates)}>
-      {marker.hover ? withTooltip(markerText) : markerText}
+      {marker.description ? withTooltip(markerText) : markerText}
       {youAreHere && isAnchor ? <Place className={computedStyles.placeMarker} /> : null}
     </svg>
   );
 
-  return marker.hover ? withTooltip(markerElement) : markerElement;
+  return markerElement;
 };
 
 Marker.propTypes = {
@@ -44,6 +44,7 @@ Marker.propTypes = {
   }).isRequired,
   marker: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     coordinates: PropTypes.shape({
       x: PropTypes.number.isRequired,

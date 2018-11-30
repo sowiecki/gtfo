@@ -2,7 +2,6 @@
 /* globals console */
 import express from 'express';
 import favicon from 'serve-favicon';
-import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import colors from 'colors/safe';
@@ -35,14 +34,6 @@ if (process.env.HOT) {
   console.log(colors.bgRed('Hot reloading enabled'));
 }
 
-/* Console setup */
-if (process.env.DONT_HOOK_CONSOLE) {
-  server.use(logger('dev'));
-} else {
-  server.use(logger('dev', { stream: consoleController.stream() }));
-  console.log = consoleController.log;
-}
-
 /* Remaining Express configuration */
 server.use(favicon(`${PUBLIC_PATH}/favicon.ico`));
 server.use(cookieParser());
@@ -62,7 +53,7 @@ const app = server.listen(SERVER_PORT, (err) => {
   console.log(`Listening at http://localhost:${SERVER_PORT}`);
 
   proxyController.initialize();
-  // consoleController.initialize(); // See https://github.com/Nase00/gtfo/issues/164
+  consoleController.initialize();
   devicesController.initialize();
   stallsController.initialize();
 });

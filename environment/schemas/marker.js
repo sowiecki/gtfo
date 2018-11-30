@@ -4,6 +4,7 @@ export default {
   type: 'object',
   properties: {
     name: { type: 'string' },
+    description: { type: 'string' },
     location: { type: 'string' },
     type: { type: 'string' },
     coordinates: {
@@ -14,5 +15,5 @@ export default {
       }
     }
   },
-  required: ['name', 'location', 'type', 'coordinates']
+  required: ['name', 'location', 'coordinates']
 };

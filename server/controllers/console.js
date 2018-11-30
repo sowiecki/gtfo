@@ -1,54 +1,24 @@
 /* eslint no-console:0, new-cap:0 */
 /* globals console */
 
-// TODO - see https://github.com/Nase00/gtfo/issues/164
-
-import colors from 'colors';
-import split from 'split';
-import blessed from 'blessed';
-// import contrib from 'blessed-contrib';
-import { uniq } from 'lodash';
 import moment from 'moment';
+import marked from 'marked';
+import TerminalRenderer from 'marked-terminal';
 
-import { CONTRIB_TABLE_HEADERS } from '../constants';
-import {
-  IS_TEST_ENV,
-  titleOptions,
-  guageOptions,
-  logOptions,
-  tableOptions,
-  markdownOptions
-} from '../config';
-import { getRoomStatusMessage, genGuagePercentage, formatDurationForDisplay } from '../utils';
+import { getRoomStatusMessage, formatDurationForDisplay } from '../utils';
 
-const screen = blessed.screen({ dockBorders: true });
+marked.setOptions({
+  renderer: new TerminalRenderer()
+});
 
-// const grid = new contrib.grid({ rows: 11, cols: 5, screen });
-
-/**
- * TODO - see https://github.com/Nase00/gtfo/issues/164
- * Sloppily-disabling the blessed-contrib view,
- * until it's updated to no longer depend on event-stream
- */
-const contrib = {};
-const grid = { set: () => {} };
-
-grid.set(8.5, 0, 1.5, 2.5, contrib.lcd, titleOptions);
-const log = grid.set(0, 0, 8.5, 3.5, contrib.log, logOptions);
-const uptimeCounter = grid.set(7.9, 3.5, 0.65, 1.5, blessed.log, markdownOptions);
-const table = grid.set(0, 3.5, 7.9, 1.5, contrib.table, tableOptions);
-const guage = grid.set(8.5, 2.5, 1.5, 2.5, contrib.gauge, guageOptions);
-
+// TODO - see https://github.com/Nase00/gtfo/issues/164
 const consoleController = {
   initialize() {
     const timeOfBoot = moment().toDate();
-
     setInterval(() => {
       const uptimeDiff = moment().diff(timeOfBoot);
       const uptimeDuration = moment.duration(uptimeDiff);
-      const prettyUptime = formatDurationForDisplay(uptimeDuration);
-
-      uptimeCounter.setContent(prettyUptime);
+      this.uptime = formatDurationForDisplay(uptimeDuration);
     }, 1000);
   },
 
@@ -65,44 +35,20 @@ const consoleController = {
         console.log(`${roomStatus[0]} - ${roomStatus[1]} - ${roomStatus[2]}`);
       });
     } else {
-      table.setData({
-        headers: CONTRIB_TABLE_HEADERS,
-        data: rooms.map((room) => getRoomStatusMessage(room))
-      });
+      const header = '| Module | Name | Status |\n| --- | --- | --- |\n';
+      const mappedRooms = rooms
+        .map((room) => {
+          const roomStatus = getRoomStatusMessage(room);
 
-      const alerts = uniq(rooms.map((room) => room.alert)).sort();
+          return `| ${roomStatus[0]} | **${roomStatus[1]}** | ${roomStatus[2]} |`;
+        })
+        .join('\n');
 
-      const meetingRoomsUtilization = alerts.map((alert) => genGuagePercentage(rooms, alert));
-
-      guage.setStack(meetingRoomsUtilization);
+      console.log(marked(`${header}${mappedRooms}`));
     }
   },
 
-  /**
-   * Used by Express to stream logs to contrib rolling log.
-   */
-  stream() {
-    return split().on('data', (message) => {
-      console.log(message);
-    });
-  },
-
-  /**
-   * Passes argument to contrib rolling log.
-   * @param {string} text
-   * @returns {undefined}
-   */
-  log(text, error = '', color = 'white') {
-    if (process.env.DONT_HOOK_CONSOLE) {
-      console.log(colors[color](text), error);
-    } else {
-      log.log(colors[color](text), error);
-    }
-  }
+  log: console.log
 };
-
-if (process.env.DONT_HOOK_CONSOLE || IS_TEST_ENV) {
-  screen.destroy();
-}
 
 export default consoleController;
