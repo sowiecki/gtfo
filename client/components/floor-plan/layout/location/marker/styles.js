@@ -16,6 +16,7 @@ const stylesGenerator = () => ({
   `,
 
   text: css`
+    cursor: default;
     font-size 12px;
     font-weight: bold;
     font-ize: 24px;

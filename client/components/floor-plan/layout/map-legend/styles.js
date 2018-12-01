@@ -89,7 +89,7 @@ const stylesGenerator = ({ displayLegend }) => ({
 
     .map-legend-handle {
       position: relative;
-      cursor: move;
+      cursor: grab;
       width: 100%;
       height: 45px;
 
