@@ -74,7 +74,7 @@ Room device properties.
 | capabilities    | Hardware capabilities of module                       | No        | Object |
 | - motion        | Set to true if module has a motion sensor<sup>4</sup> | No        | Bool   |
 
-<sup>1</sup> Formatted exactly as displayed on Exchange/OWA Services.
+<sup>1</sup> Formatted exactly as displayed on the gateway API.
 
 <sup>2</sup> Proper format, including any spaces or capitalization, intended for display. E.g., `The Loop` rather than `TheLoop` or `The_Loop`.
 
@@ -148,11 +148,11 @@ Markers to overlay on maps.
 | - x         |                                           | Yes       | Number |
 | - y         |                                           | Yes       | Number |
 
-<sup>1</sup> Formatted exactly as displayed on Exchange/OWA Services.
+<sup>1</sup> Formatted exactly as displayed on the gateway API.
 
 ### mock-data.json
 
-Mock room reservation data, indentical in format to a response from Exchange/OWA services. Automatically generated with the `--mocks` flag, or automatically regenerated if existing mock reservations are over a day old.
+Mock room reservation data, indentical in format to a response from the gateway API (Exchange, Outlook Web Access, etc.) services. Automatically generated with the `--mocks` flag, and automatically regenerated if existing mock reservations are over a day old.
 
 ### Office map backgrounds
 
