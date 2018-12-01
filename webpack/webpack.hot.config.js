@@ -18,6 +18,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        HOT: true
+      }
     })
   ],
   module: base.module,

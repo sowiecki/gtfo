@@ -11,6 +11,7 @@ reports
 # Misc
 .DS_Store
 .vscode
+package-lock.json
 
 # Environment variables
 environment/*.json

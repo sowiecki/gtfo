@@ -7,8 +7,12 @@ module.exports = {
   entry: base.entry,
   output: base.output,
   resolve: base.resolve,
-  plugins: [new webpack.optimize.OccurenceOrderPlugin(), new webpack.NoErrorsPlugin()],
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
+  ],
   module: base.module,
   devtool: 'cheap-module-source-map',
-  debug: true
+  externals: base.externals
 };

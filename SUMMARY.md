@@ -1,8 +1,5 @@
 # GTFO
 
-* [Introduction](README.md)
-* [Environment](/environment/README.md)
-  * [Assets](/environment/assets/README.md "Environment Assets")
-
-
-
+- [Introduction](README.md)
+- [Environment](./documentation/environment.md)
+  - [Assets](./documentation/environment-assets.md "Environment Assets")
