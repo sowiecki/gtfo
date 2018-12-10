@@ -65,7 +65,7 @@ Room device properties.
 
 | Parameter       | Description                                           | Required? | Type   |
 | --------------- | ----------------------------------------------------- | --------- | ------ |
-| id              | ID of exchange account<sup>1</sup>                    | Yes       | String |
+| id              | Unique ID of exchange account<sup>1</sup>             | Yes       | String |
 | name            | Display name for room<sup>2</sup>                     | Yes       | String |
 | location        | Floor or location of room <sup>2, 3</sup>             | Yes       | String |
 | deviceId        | ID of Photon board                                    | Yes       | String |
