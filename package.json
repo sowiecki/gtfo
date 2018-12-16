@@ -77,7 +77,6 @@
     "json-loader": "^0.5.4",
     "jsonschema": "^1.1.0",
     "lodash": "^4.17.11",
-    "marked": "^0.5.2",
     "marked-terminal": "^3.1.1",
     "moment": "^2.22.2",
     "particle-api-js": "^7.0.1",
