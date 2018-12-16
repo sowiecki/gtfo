@@ -35,7 +35,7 @@ export const EMIT_CLEAR_CONNECTION_ERRORS = 'EMIT_CLEAR_CONNECTION_ERRORS';
 
 const initialState = immutable.fromJS({
   rooms: devices.map((device) => {
-    const id = device.name.toLowerCase();
+    const id = device.id.toLowerCase();
     const location = slugify(device.location).toLowerCase();
     const capabilities = {
       motion: get(device, 'capabilities.motion', false)

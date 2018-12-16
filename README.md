@@ -48,7 +48,7 @@ The host server will serve a map of the office on `http://[host-ip-or-name]:3000
 with programmatically-generate tiles for each remote module declared in `environment/devices.json`.
 
 For this map to be usable, you must provide your own background image(s) and the size and position of each room tile.
-See [environment configuration documentation](environment/README.md).
+See [environment configuration documentation](./documentation/environment.md).
 
 Minimum required hardware **per each remote module**:
 
@@ -57,7 +57,7 @@ Minimum required hardware **per each remote module**:
 
 ## Hardware Setup
 
-[![Photograph of hardware wiring](schematic.png)](schematic.fzz)
+[![Photograph of hardware wiring](./documentation/schematic.png)](./documentation/schematic.fzz)
 
 #### Photon Boards
 
@@ -69,7 +69,7 @@ Flash each module with `firmware/firmware.cpp`.
 (`npm run flash` is a WIP script to flash every device listed in `devices.json`.)
 
 Retrieve the access tokens and device ids for each Photon, and place them into `environment/devices.json`.
-See [environment configuration documentation](environment/README.md).
+See [environment configuration documentation](./documentation/environment.md).
 
 Wire a set of NeoPixels to each Photon board. Optionally, wire a motion and temperature sensor.
 
@@ -85,7 +85,7 @@ Hardware: NeoPixel Ring (or equivalent WS2812 LEDs)
 |   PWR   |   3v   |
 |   GRN   | Ground |
 
-###### Temperature and humidity sensor pin configuration (optional, must be enabled in [environment configuration](environment/README.md))
+###### Temperature and humidity sensor pin configuration (optional, must be enabled in [environment configuration](./documentation/environment.md))
 
 Hardware: [DHT11 (with breakout board)](https://smile.amazon.com/gp/product/B06XHJ1BPC)
 
@@ -95,7 +95,7 @@ Hardware: [DHT11 (with breakout board)](https://smile.amazon.com/gp/product/B06X
 |  +   |   3v   |
 |  -   | Ground |
 
-###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](environment/README.md))
+###### Motion sensor pin configuration (optional, must be enabled in [environment configuration](./documentation/environment.md))
 
 Motion sensors enable detecting presence of room occupants in unreserved rooms,
 and setting the room status to "squatted" on the office map.
@@ -113,20 +113,58 @@ Hardware: [HC-SR501](http://www.instructables.com/id/PIR-Motion-Sensor-Tutorial/
 git clone https://github.com/Nase00/gtfo.git && cd gtfo && npm install
 ```
 
-Before the application can be run, [read how to configure it to your specific office](environment/README.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
+Before the application can be run, [read how to configure it to your specific office](./documentation/environment.md) or run `npm run demo` to generate an example configuration. The application will not run otherwise.
 
 ```
 # After environment files have been configured
 npm run hot --mocks
 ```
 
-This will start the application in development mode with [mock data](server/mocks/README.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
+This will start the application in development mode with [mock data](./documentation/mocks.md) and [hot-reloading](https://github.com/gaearon/react-transform-boilerplate). At this point, the application should find and connect to each Particle Photon, and light up the LEDs.
 
-To develop with live data, set up and run [ews-wrapper](https://github.com/rishirajsingh90/ews-wrapper) on the same local machine.
-_Note that any service could be used in place of ews-wrapper, so long as the API is identical. Documentation on API contract coming soon._
+# Gateway API
 
-In production mode, it assumed `ews-wrapper` is deployed on another domain, defined in `environment/config.json`.
-See [environment configuration documentation](environment/README.md).
+GTFO does not currently handle authentication, thus it does not query Outlook Web Acess, Exchange Web Services, or any other services containing reservation data directly. Instead, a "gateway" API must be used as middleware when running production mode or development mode with live data. (E.g., running `yarn hot` with the `--mocks` flag.)
+
+GTFO was developed in tandem with [ews-wrapper](https://github.com/rishirajsingh90/ews-wrapper), but any service could be used in its place, so long as the output is an identical format.
+
+### Sample gateway API output consumed by GTFO
+
+```json
+[
+  {
+    "name": "SomeRoom",
+    "schedule": [
+      {
+        "email": "AliceMurphy@example.domain",
+        "startDate": "2018-11-30T15:00:00.000Z",
+        "endDate": "2018-11-30T15:30:00.000Z"
+      },
+      {
+        "email": "AndersHolmvik@example.domain",
+        "startDate": "2018-11-30T16:00:00.000Z",
+        "endDate": "2018-11-30T17:00:00.000Z"
+      },
+      {
+        "email": "AliceMurphy@example.domain",
+        "startDate": "2018-11-30T17:00:00.000Z",
+        "endDate": "2018-11-30T18:00:00.000Z"
+      }
+  },
+  {
+  "name": "SomeOtherRoom",
+  "schedule": [
+    {
+      "email": "JillianBelk@example.domain",
+      "startDate": "2018-11-30T15:00:00.000Z",
+      "endDate": "2018-11-30T16:30:00.000Z"
+    }
+  }
+]
+```
+
+In production mode, it assumed the gateway API is deployed on another domain, defined in `environment/config.json`.
+See [environment configuration documentation](./documentation/environment.md).
 
 ##### Production build and deploy
 

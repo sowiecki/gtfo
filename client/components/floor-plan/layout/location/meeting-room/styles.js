@@ -18,7 +18,7 @@ const stylesGenerator = ({
   const getFontSize = (widthModifier) =>
     ({
       3: 'font-size: 12px;',
-      2: 'font-size: 9px;',
+      2: 'font-size: 7px;',
       1: 'font-size: 5px;'
     }[widthModifier]);
 
@@ -56,6 +56,8 @@ const stylesGenerator = ({
         ${breakpoints.mobile_iphone5} {
           transform: scale(0.4);
         }
+
+        font-weight: 800;
       }
     `,
 

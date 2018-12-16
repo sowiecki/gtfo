@@ -15,8 +15,7 @@ import consoleController from './controllers/console';
 
 const server = express();
 
-/* Client hot reloading (dev only) */
-if (process.env.HOT) {
+if (process.env.DEV) {
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/webpack.hot.config');
   const compiler = webpack(webpackConfig);
@@ -29,9 +28,11 @@ if (process.env.HOT) {
     })
   );
 
-  server.use(require('webpack-hot-middleware')(compiler));
+  if (process.env.HOT) {
+    server.use(require('webpack-hot-middleware')(compiler));
 
-  console.log(colors.bgRed('Hot reloading enabled'));
+    console.log(colors.bgRed('Hot reloading enabled'));
+  }
 }
 
 /* Remaining Express configuration */
