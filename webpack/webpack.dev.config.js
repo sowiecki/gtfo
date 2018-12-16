@@ -8,6 +8,7 @@ module.exports = {
   output: base.output,
   resolve: base.resolve,
   plugins: [
+    ...base.plugins,
     new webpack.LoaderOptionsPlugin({
       debug: true
     })

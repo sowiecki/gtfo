@@ -1,10 +1,17 @@
+/* eslint no-console:0 */
 /* globals __dirname */
 const path = require('path');
 const merge = require('lodash/merge');
+const WebpackMessages = require('webpack-messages');
 
 const baseContext = path.join(__dirname, '../client');
 const environmentConext = path.join(__dirname, '../environment');
 const universalContext = path.join(__dirname, '../universal');
+const consoleController = require('../server/controllers/console').default;
+
+console.log = consoleController.log;
+console.warn = consoleController.log;
+console.info = consoleController.log;
 
 module.exports = {
   context: baseContext,
@@ -47,5 +54,11 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new WebpackMessages({
+      name: 'client',
+      logger: consoleController.log
+    })
+  ]
 };
