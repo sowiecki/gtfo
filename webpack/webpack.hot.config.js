@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+
 const base = require('./webpack.config');
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
   output: base.output,
   resolve: base.resolve,
   plugins: [
+    ...base.plugins,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: true
@@ -27,5 +29,5 @@ module.exports = {
   ],
   module: base.module,
   devtool: 'cheap-module-source-map',
-  externals: base.externals
+  externals: base.externals,
 };

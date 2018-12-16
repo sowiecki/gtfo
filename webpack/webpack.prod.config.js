@@ -13,6 +13,7 @@ module.exports = {
     minimize: true
   },
   plugins: [
+    ...base.plugins,
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {

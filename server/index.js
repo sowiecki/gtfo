@@ -14,6 +14,7 @@ import stallsController from './controllers/stalls';
 import consoleController from './controllers/console';
 
 const server = express();
+console.log = consoleController.log;
 
 if (process.env.DEV) {
   const webpack = require('webpack');
