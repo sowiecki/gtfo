@@ -20,7 +20,7 @@ const Marker = ({ computedStyles, marker, youAreHere }) => {
 
   const markerText = (
     <text
-      className={`${computedStyles.text} ${marker.type}-marker`}
+      className={`${computedStyles.text} ${marker.type || 'default'}-marker`}
       dx={ROOM_MARKER_TEXT_DX}
       dy={ROOM_MARKER_TEXT_DY}>
       {marker.name}

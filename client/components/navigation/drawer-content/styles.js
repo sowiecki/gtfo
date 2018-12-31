@@ -9,12 +9,20 @@ const stylesGenerator = () => ({
     cursor: pointer;
     background-color: ${colors.DARK_GREY};
 
+    :last-child {
+      cursor: default;
+    }
+
     > li {
       background-color: ${colors.DARK_GREY};
       transition: all 120ms ease-in-out;
 
       :hover {
         background-color: ${colors.primary};
+
+        :last-child {
+          background-color: ${colors.DARK_GREY};
+        }
       }
 
       div {

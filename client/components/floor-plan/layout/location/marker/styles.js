@@ -19,10 +19,9 @@ const stylesGenerator = () => ({
     cursor: default;
     font-size 12px;
     font-weight: bold;
-    font-ize: 24px;
     font-weight: 300;
     font-family: ${fonts.tertiary};
-    fill: ${colors.WHITE};
+    fill: ${colors.LIGHT_GREY};
 
     ${breakpoints.mobile} {
       transform: scale(0.6);

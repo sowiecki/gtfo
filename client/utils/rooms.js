@@ -158,9 +158,9 @@ export const genReservationsHyperlink = ({ outlookWebAccessId }, time, endTime) 
  * @returns index of width modifier to be used for SVG adjustments
  */
 export const getWidthModifier = (width) => {
-  if (width >= 5.2) {
+  if (width >= 5) {
     return 3;
-  } else if (width < 5.2 && width >= 3) {
+  } else if (width < 50 && width >= 2) {
     return 2;
   }
 
