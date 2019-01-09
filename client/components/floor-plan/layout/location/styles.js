@@ -22,10 +22,6 @@ const stylesGenerator = () => ({
     margin: auto auto;
     background-color: ${colors.BLACK};
 
-    text.anchor-marker {
-      opacity: 0.5;
-    }
-
     > svg {
       position: absolute;
       top: 4px;

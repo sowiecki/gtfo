@@ -15,10 +15,11 @@ const stylesGenerator = ({
   const animation = pinged ? 'animation: backgroundColor 0.25s infinite alternate;' : '';
   const STATUS_COLOR = STATUS_COLOR_THEMES[statusesTheme][meetingRoom.alert];
   const statusColorLum = Color(STATUS_COLOR).luminosity();
+  // Room names are also vertically adjusted using the SVG DY prop within meeting-room/index.jsx
   const getFontSize = (widthModifier) =>
     ({
       3: 'font-size: 12px;',
-      2: 'font-size: 7px;',
+      2: 'font-size: 8px;',
       1: 'font-size: 5px;'
     }[widthModifier]);
 

@@ -14,7 +14,7 @@ export const ROOM_NAME_TEXT_POSITIONS = {
 
   2: {
     dx: 1,
-    dy: 9
+    dy: 8
   },
 
   3: {
