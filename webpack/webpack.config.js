@@ -1,5 +1,7 @@
 /* eslint no-console:0 */
 /* globals __dirname */
+require('@babel/register'); // Necessary to load the consoleController for reporting webpack bundle output
+
 const path = require('path');
 const merge = require('lodash/merge');
 const WebpackMessages = require('webpack-messages');
