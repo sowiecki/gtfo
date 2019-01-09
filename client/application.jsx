@@ -1,5 +1,5 @@
 import Routes from './routes';
 
-const Application = process.env.HOT === true ? Routes : require('react-hot-loader').hot(module)(Routes);
+const Application = process.env.HOT === true ? require('react-hot-loader').hot(module)(Routes) : Routes;
 
 export default Application;
