@@ -47,7 +47,7 @@ const MeetingRoom = (props) => {
         <text
           key={partial}
           dx={ROOM_NAME_TEXT_POSITIONS[widthModifier].dx}
-          dy={ROOM_NAME_TEXT_POSITIONS[widthModifier].dy + i * 14}
+          dy={ROOM_NAME_TEXT_POSITIONS[widthModifier].dy + i * 12}
           {...parsedShape}>
           {partial}
         </text>
