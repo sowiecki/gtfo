@@ -8,7 +8,7 @@ export const formatReservations = (reservations) => {
   const formattedReservationes = {};
 
   reservations.forEach((reservation) => {
-    formattedReservationes[reservation.name] = reservation.schedule;
+    formattedReservationes[reservation.id] = reservation.schedule;
   });
 
   return formattedReservationes;
