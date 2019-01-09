@@ -1,7 +1,7 @@
 /* eslint no-console:0, new-cap:0 */
 /* globals console */
 
-import colors from 'colors';
+import colors from 'colors/safe';
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
@@ -84,7 +84,7 @@ const consoleController = {
    */
   log(text, error = '', color = 'white') {
     if (process.env.DONT_HOOK_CONSOLE) {
-      console.log(colors[color](text), error);
+      process.stdout.write(colors[color](`${text}\n`), error);
     } else {
       gridTextView.log(colors[color](text), error);
     }

@@ -84,7 +84,7 @@ const roomsReducer = (state = initialState, action) => {
       state = state.set(
         'rooms',
         rooms.map((room) => {
-          const reservations = action.reservations[room.get('name')];
+          const reservations = action.reservations[room.get('id')];
 
           if (reservations === undefined) {
             return room.set('reservations', undefined);

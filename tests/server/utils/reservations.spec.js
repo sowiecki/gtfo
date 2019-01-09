@@ -7,7 +7,7 @@ import { formatReservations } from 'server/utils';
 describe('Reservation utilities (server)', () => {
   const mockRawReservations = [
     {
-      name: 'the loop',
+      id: 'the loop',
       schedule: [
         {
           email: 'AliceMurphy@example.domain',
@@ -22,7 +22,7 @@ describe('Reservation utilities (server)', () => {
       ]
     },
     {
-      name: 'bronzeville',
+      id: 'bronzeville',
       schedule: [
         {
           email: 'BlakeHenderson@example.domain',
