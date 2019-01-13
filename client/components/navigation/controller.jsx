@@ -37,7 +37,7 @@ class NavigationController extends PureComponent {
   }
 
   componentWillUnmount() {
-    window.remoteEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
+    window.removeEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
   }
 
   shouldBlur = () => {
