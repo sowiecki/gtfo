@@ -1,23 +1,22 @@
+/* globals window */
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router'
 import { OauthSender } from 'react-oauth-flow';
 
-import { OAUTH_REDIRECT_URI, OAUTH_MS_SCOPES } from 'constants';
+import { OAUTH_REDIRECT_URI_PATH, OAUTH_MS_SCOPES } from 'constants';
 
 class Login extends PureComponent {
   handleRedirect = ({ url }) => {
-    location.replace(url);
+    window.location.replace(url);
 
     return null;
-  }
+  };
 
   render() {
     return (
       <OauthSender
         authorizeUrl={process.env.AUTHORIZE_URI}
         clientId={process.env.CLIENT_ID}
-        redirectUri={OAUTH_REDIRECT_URI}
+        redirectUri={`${window.location.origin}${OAUTH_REDIRECT_URI_PATH}`}
         args={{ scope: OAUTH_MS_SCOPES }}
         render={this.handleRedirect}/>
     );
