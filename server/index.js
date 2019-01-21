@@ -25,7 +25,8 @@ if (process.env.DEV) {
     require('webpack-dev-middleware')(compiler, {
       noInfo: true,
       publicPath: webpackConfig.output.publicPath,
-      inline: true
+      inline: true,
+      logLevel: 'warn'
     })
   );
 

@@ -82,6 +82,8 @@ const consoleController = {
    * @param {string} text
    * @returns {undefined}
    */
+  // TODO convert to HOF or something to handle multiple args
+  // log: (text) => (error = '', color = 'white') => {
   log(text, error = '', color = 'white') {
     if (process.env.DONT_HOOK_CONSOLE) {
       process.stdout.write(colors[color](`${text}\n`), error);

@@ -3,8 +3,8 @@ import express from 'express';
 
 import pingsController from '../controllers/pings';
 import devicesController from '../controllers/devices';
+import oauthController from '../controllers/oauth';
 import applicationView from '../views/application';
-
 import { config } from '../../environment';
 
 const router = express.Router();
@@ -25,6 +25,17 @@ router.get('/api/reservations', (req, res) => devicesController.getReservations(
 router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));
 
 /* Serve client - must be last route */
-router.get('*', (req, res) => res.send(applicationView));
+router.get('*', (req, res) => {
+  const loadApplicationView = () => res.send(applicationView);
+
+  if (req.query.code) {
+    oauthController.initialize({
+      req,
+      callback: loadApplicationView
+    });
+  } else {
+    loadApplicationView();
+  }
+});
 
 export default router;
