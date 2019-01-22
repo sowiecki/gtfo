@@ -62,10 +62,11 @@ const socketController = {
 
     const handlers = {
       [HANDSHAKE]() {
-        // Register client socket with anchor parameter.
+        // Register client socket with anchor and accessToke  parameters.
         const anchor = get(payload, 'anchor');
+        const oauthResponse = get(payload, 'oauthResponse');
 
-        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
+        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor, oauthResponse });
       },
 
       [INITIALIZE_ROOMS]() {

@@ -9,6 +9,10 @@ import NavigationLayout from './layout';
 
 class NavigationController extends PureComponent {
   static propTypes = {
+    oauthResponse: PropTypes.shape({
+      accessToken: PropTypes.string.isRequired,
+      expiresOn: PropTypes.string.isRequired
+    }),
     documentTitle: PropTypes.string.isRequired,
     deviceWidth: PropTypes.number.isRequired,
     siteNavOpen: PropTypes.bool.isRequired,
@@ -16,6 +20,7 @@ class NavigationController extends PureComponent {
     timeTravelTime: PropTypes.string,
     timeSliderValue: PropTypes.number,
     actions: PropTypes.shape({
+      emitOauthResponseUpdate: PropTypes.func.isRequired,
       emitDeviceWidthUpdate: PropTypes.func.isRequired,
       emitTimeTravelUpdate: PropTypes.func.isRequired,
       emitTimeTravelControlsToggle: PropTypes.func.isRequired,
@@ -29,7 +34,14 @@ class NavigationController extends PureComponent {
   };
 
   componentWillMount() {
-    window.addEventListener('resize', this.props.actions.emitDeviceWidthUpdate);
+    const { actions, oauthResponse } = this.props;
+    window.addEventListener('resize', actions.emitDeviceWidthUpdate);
+
+    // `oauthResponse` originates from outside the React app,
+    // so it must be manually loaded into the Redux store
+    if (oauthResponse) {
+      actions.emitOauthResponseUpdate(oauthResponse);
+    }
   }
 
   componentWillReceiveProps({ documentTitle }) {

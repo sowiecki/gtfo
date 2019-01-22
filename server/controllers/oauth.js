@@ -1,34 +1,35 @@
 import https from 'https';
 
-import queryString from 'query-string';
+import moment from 'moment';
 
+import queryString from 'query-string';
 import { config } from 'environment';
+import consoleController from './console';
 
 const oauthController = {
-  initialize: async ({ req, callback }) => {
+  initialize: async (req) => {
     try {
-      const data = await oauthController.fetchRefreshToken(req);
-      const accessToken = JSON.parse(data).access_token;
+      const data = await oauthController.fetchAccessToken(req);
+      const parsedData = JSON.parse(data);
+      const accessToken = parsedData.access_token;
+      const expiresOn = oauthController.getExpiresOn(parsedData);
 
       if (accessToken) {
-        console.log('accessToken', accessToken);
+        return { accessToken, expiresOn };
       } else {
-        console.log(data);
+        consoleController.log(data);
       }
-
-      // TODO literally everything else
-      // callback();
     } catch (e) {
-      console.log(e);
+      consoleController.log(e);
     }
   },
 
-  fetchRefreshToken: async (originReq) => {
+  fetchAccessToken: async (originReq) => {
     const requestBody = queryString.stringify({
       grant_type: 'authorization_code',
       client_id: config.oauth.clientId,
       code: originReq.query.code,
-      redirect_uri: `${originReq.protocol}://${originReq.headers.host}/authorize`,
+      redirect_uri: `${originReq.protocol}://${originReq.headers.host}`,
       client_secret: config.oauth.clientSecret
     });
 
@@ -55,7 +56,13 @@ const oauthController = {
 
       request.end(requestBody);
     });
-  }
+  },
+
+  getExpiresOn: (parsedData) =>
+    moment()
+      .utcOffset(config.public.timezone)
+      .subtract(parsedData.expires_in, 's')
+      .toISOString()
 };
 
 export default oauthController;

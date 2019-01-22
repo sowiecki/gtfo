@@ -1,10 +1,11 @@
 /* eslint new-cap:0 */
 import express from 'express';
+import { isEmpty } from 'lodash';
 
 import pingsController from '../controllers/pings';
 import devicesController from '../controllers/devices';
 import oauthController from '../controllers/oauth';
-import applicationView from '../views/application';
+import genApplicationView from '../views/application';
 import { config } from '../../environment';
 
 const router = express.Router();
@@ -25,16 +26,16 @@ router.get('/api/reservations', (req, res) => devicesController.getReservations(
 router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));
 
 /* Serve client - must be last route */
-router.get('*', (req, res) => {
-  const loadApplicationView = () => res.send(applicationView);
+router.get('*', async (req, res) => {
+  const responseWithApplicationView = (oauthResponse) =>
+    res.send(genApplicationView(oauthResponse));
 
-  if (req.query.code) {
-    oauthController.initialize({
-      req,
-      callback: loadApplicationView
-    });
-  } else {
-    loadApplicationView();
+  if (isEmpty(config.oauth) || !req.query.code) {
+    responseWithApplicationView();
+  } else if (req.query.code) {
+    const oauthResponse = await oauthController.initialize(req);
+
+    responseWithApplicationView(oauthResponse);
   }
 });
 

@@ -17,6 +17,10 @@ let noPingInProgress = true;
 
 class FloorPlanController extends PureComponent {
   static propTypes = {
+    oauthResponse: PropTypes.shape({
+      accessToken: PropTypes.string.isRequired,
+      expiresOn: PropTypes.string.isRequired
+    }),
     location: PropTypes.object.isRequired,
     meetingRooms: PropTypes.array,
     stalls: PropTypes.array,
@@ -39,10 +43,10 @@ class FloorPlanController extends PureComponent {
   };
 
   componentWillMount() {
-    const { actions, location } = this.props;
+    const { actions, location, oauthResponse } = this.props;
     const { anchor } = queryString.parse(location.search);
 
-    actions.connectSocket({ anchor });
+    actions.connectSocket({ anchor, oauthResponse });
   }
 
   componentDidMount() {

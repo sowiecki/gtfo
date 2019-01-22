@@ -26,11 +26,11 @@ const clientsReducer = (state = initialState, action) => {
     },
 
     [EMIT_CLIENT_CONNECTED]() {
-      const { client, anchor } = action;
+      const { client, anchor, oauthResponse } = action;
       const clientId = uniqueId('client_');
-      const clientWithAnchor = Object.assign(client, { anchor, clientId });
+      const clientWithParams = Object.assign(client, { anchor, clientId, oauthResponse });
 
-      return state.mergeIn(['clients'], { [clientId]: clientWithAnchor });
+      return state.mergeIn(['clients'], { [clientId]: clientWithParams });
     },
 
     [EMIT_FLUSH_CLIENT]() {

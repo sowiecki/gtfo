@@ -9,6 +9,7 @@ import * as NavigationActions from 'ducks/navigation';
 import FloorPlanController from './controller';
 
 const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
+  oauthResponse: navigationReducer.get('oauthResponse'),
   location: formatLocationProps(router.location),
   error: layoutReducer.get('error'),
   displayAdditionalInfo: layoutReducer.get('displayAdditionalInfo'),

@@ -1,18 +1,33 @@
-/* globals document, location */
+/* globals document, localStorage */
 import 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 
 import React from 'react';
 import { render } from 'react-dom';
-import queryString from 'query-string';
+import moment from 'moment';
 
-const { code } = queryString.parse(location.search);
-// TODO check for accessToken || localStorage token
-const moduleSpecifier = code ? 'application' : 'login';
+import { GTFO_OAUTH_ACCESS_TOKEN } from 'constants';
+
+const getOauthResponse = () => {
+  try {
+    const oauthResponse = JSON.parse(localStorage.getItem(GTFO_OAUTH_ACCESS_TOKEN));
+
+    if (moment(oauthResponse).isAfter(moment())) {
+      return false;
+    }
+
+    return oauthResponse;
+  } catch (e) {
+    return false;
+  }
+};
+
+const oauthResponse = getOauthResponse();
+const moduleSpecifier = process.env.HEADLESS_AUTH || oauthResponse ? 'application' : 'components/login';
 
 import(/* webpackPrefetch: true */ `./${moduleSpecifier}`).then((module) => {
   const Component = module.default;
   const node = document.getElementById('root');
 
-  render(<Component />, node);
+  render(<Component oauthResponse={oauthResponse} />, node);
 });
