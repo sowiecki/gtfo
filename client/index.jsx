@@ -1,4 +1,4 @@
-/* globals document, localStorage */
+/* globals document, window, localStorage */
 import 'velocity-animate';
 import 'velocity-animate/velocity.ui';
 
@@ -13,6 +13,8 @@ const getOauthResponse = () => {
     const oauthResponse = JSON.parse(localStorage.getItem(GTFO_OAUTH_ACCESS_TOKEN));
 
     if (moment(oauthResponse).isAfter(moment())) {
+      window.location.search = null;
+
       return false;
     }
 

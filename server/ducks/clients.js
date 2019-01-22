@@ -6,6 +6,7 @@ import socketController from '../controllers/socket';
 import { HANDSHAKE } from '../constants';
 import { handleAction } from '../utils';
 
+export const EMIT_CLIENT_OAUTH_UPDATE = 'EMIT_CLIENT_OAUTH_UPDATE';
 export const EMIT_INIT_SOCKETS = 'EMIT_INIT_SOCKETS';
 export const EMIT_CLIENT_CONNECTED = 'EMIT_CLIENT_CONNECTED';
 export const EMIT_FLUSH_CLIENT = 'EMIT_FLUSH_CLIENT';

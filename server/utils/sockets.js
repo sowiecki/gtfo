@@ -12,8 +12,6 @@ import { UNEXPECTED_SOCKET_ERROR } from '../constants';
  * @returns {undefined}
  */
 export const send = (event, payload = {}, client) => {
-  // TODO if oauth is configured, check against service that accessToken is valid
-  // before sending any data!
   if (client.readyState === 1) {
     client.send(JSON.stringify({ event, payload }));
   } else {
