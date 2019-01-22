@@ -9,16 +9,14 @@ import { devices } from '../../environment';
 import { MOCK_DATA_FILE, RESERVATIONS_PER_DAY, START_OF_DAY } from './constants';
 import { randomMeetingDuration, randomReservationGap, generateMockReservation } from './utils';
 
-const roomNames = map(devices, (device) => device.name);
-
 const generateMockData = () => {
   const mockReservations = [];
 
   // Generate reservations for each room
-  roomNames.forEach((roomName) => {
+  devices.forEach(({ name, id }) => {
     let beginTimeOffset = moment(START_OF_DAY).minutes();
     let endTimeOffset = beginTimeOffset + randomMeetingDuration();
-    const mockRoom = { name: roomName, schedule: [] };
+    const mockRoom = { name, id, schedule: [] };
 
     // Increment reservation times
     for (let i = 0; i < RESERVATIONS_PER_DAY; i++) {
