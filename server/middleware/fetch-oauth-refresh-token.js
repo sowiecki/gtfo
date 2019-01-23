@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 
+import { EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { config } from '../../environment';
 import { httpsRequest } from '../utils';
 
@@ -11,7 +12,7 @@ const validateOauthToken = async (next, action) => {
 
   const options = {
     hostname: 'graph.microsoft.com',
-    path: '/v1.0/me',
+    path: '/v1.0/organization',
     method: 'GET',
     headers: {
       Authorization: `Bearer ${action.oauthResponse.accessToken}`
@@ -19,13 +20,13 @@ const validateOauthToken = async (next, action) => {
   };
 
   try {
-    const { statusCode } = await httpsRequest({ options, requestBody });
+    const { rawData, statusCode } = await httpsRequest({ options, requestBody });
+    const organizationIds = JSON.parse(rawData).value.map(({ id }) => id);
 
-    if (statusCode === 200) {
+    if (statusCode === 200 && organizationIds.includes(config.oauth.organizationId)) {
       next(action);
     } else {
-      // TODO handle auth failure
-      // next({ ...action, });
+      next({ type: EMIT_FLUSH_CLIENT, client: action.client });
     }
   } catch (e) {
     console.error('ERROR', e);
