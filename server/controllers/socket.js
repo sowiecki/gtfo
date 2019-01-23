@@ -16,6 +16,7 @@ import {
   RECONNECTED,
   NEW_ROOM_PING,
   TIME_TRAVEL_UPDATE,
+  FLUSH_SESSION,
   TIME_FORMAT
 } from '../constants';
 
@@ -78,6 +79,10 @@ const socketController = {
       },
 
       [INITIALIZE_STALLS]() {
+        socketController.send(event, payload, client);
+      },
+
+      [FLUSH_SESSION]() {
         socketController.send(event, payload, client);
       },
 

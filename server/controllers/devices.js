@@ -44,7 +44,7 @@ const devicesController = {
       },
 
       [UNDEFINED_EVENT]: () =>
-        consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
+        consoleController.log(`No event handler for event type ${event.type}`)
     };
 
     const eventType = ROOM_EVENT_HANDLERS_MAP[event.type] ? event.type : UNDEFINED_EVENT;

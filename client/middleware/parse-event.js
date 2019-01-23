@@ -1,3 +1,4 @@
+/* globals localStorage, window */
 import { EMIT_HANDSHAKE_RECEIVED } from '../ducks/navigation';
 import {
   EMIT_ROOM_STATUSES_UPDATE,
@@ -19,7 +20,9 @@ import {
   ROOM_TEMPERATURE_UPDATE,
   ROOM_MOTION_UPDATE,
   STALL_OCCUPANCIES_UPDATE,
-  TIME_TRAVEL_UPDATE
+  TIME_TRAVEL_UPDATE,
+  FLUSH_SESSION,
+  GTFO_OAUTH_ACCESS_TOKEN
 } from '../constants';
 
 const parseEvent = (next, response) => {
@@ -98,6 +101,12 @@ const parseEvent = (next, response) => {
         type: EMIT_ROOM_STATUSES_UPDATE,
         meetingRooms: payload
       });
+    },
+
+    [FLUSH_SESSION]() {
+      localStorage.removeItem(GTFO_OAUTH_ACCESS_TOKEN);
+
+      window.location.reload();
     }
   };
 

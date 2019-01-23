@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 
 import { formatLocationProps } from 'utils';
 import * as LayoutActions from 'ducks/layout';
@@ -30,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
   const actions = {
     ...LayoutActions,
     ...NavigationActions,
-    push
+    push,
+    replace
   };
 
   return {

@@ -1,8 +1,11 @@
 import queryString from 'query-string';
+import colors from 'colors/safe';
 
+import { FLUSH_SESSION } from '../constants';
 import { EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { config } from '../../environment';
 import consoleController from '../controllers/console';
+import socketController from '../controllers/socket';
 import { httpsRequest } from '../utils';
 
 const validateOauthToken = async (next, action) => {
@@ -20,7 +23,10 @@ const validateOauthToken = async (next, action) => {
     }
   };
 
-  const handleError = () => next({ type: EMIT_FLUSH_CLIENT, client: action.client });
+  const handleError = () => {
+    next({ type: EMIT_FLUSH_CLIENT, client: action.client });
+    socketController.handle(FLUSH_SESSION, {}, action.client);
+  };
 
   try {
     const { rawData, statusCode } = await httpsRequest({ options, requestBody });
@@ -32,7 +38,7 @@ const validateOauthToken = async (next, action) => {
       handleError();
     }
   } catch (e) {
-    consoleController.log(e, 'red');
+    consoleController.log(colors.red(e));
     handleError();
   }
 };
