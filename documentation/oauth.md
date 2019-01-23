@@ -21,7 +21,7 @@ Example:
 
 # Custom scopes (delegated permissions)
 
-The default [delegated permissions](https://docs.microsoft.com/en-us/graph/permissions-reference) is `User.Read Bookings.ReadWrite.All`. To change this, load the app with a `scope` query paramter, separating each permission with a space.
+The default [delegated permissions](https://docs.microsoft.com/en-us/graph/permissions-reference) is `User.Read Bookings.ReadWrite.All Calendars.Read.Shared`. To change this, load the app with a `scope` query paramter, separating each permission with a space.
 
 For example, to set the delegated permissions to `User.Read`.
 
