@@ -1,5 +1,3 @@
-import https from 'https';
-
 import moment from 'moment';
 
 import queryString from 'query-string';

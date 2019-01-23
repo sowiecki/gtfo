@@ -1,7 +1,7 @@
 import { filter } from 'lodash';
 
 import socketController from '../controllers/socket';
-import validateOauthToken from './fetch-oauth-refresh-token';
+import validateOauthToken from './validate-oauth-token';
 import fetchRoomReservation from './fetch-room-reservation';
 import fetchStallOccupancies from './fetch-stall-occupancies';
 
