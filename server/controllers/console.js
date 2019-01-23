@@ -82,11 +82,17 @@ const consoleController = {
    * @param {string} text
    * @returns {undefined}
    */
-  // TODO convert to HOF or something to handle multiple args
+  // TODO convert to HOF or something to handle multiple args, cleanly
   // log: (text) => (error = '', color = 'white') => {
-  log(text, error = '', color = 'white') {
+  log(...args) {
+    const [text, error, color] = args;
+
     if (process.env.DONT_HOOK_CONSOLE) {
-      process.stdout.write(colors[color](`${text}\n`), error);
+      if (args.length === 1 || colors[color]) {
+        process.stdout.write(colors[color || 'white'](`${text}\n`), error);
+      } else {
+        args.forEach((arg) => process.stdout.write(arg));
+      }
     } else {
       gridTextView.log(colors[color](text), error);
     }

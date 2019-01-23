@@ -2,6 +2,7 @@ import queryString from 'query-string';
 
 import { EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import { config } from '../../environment';
+import consoleController from '../controllers/console';
 import { httpsRequest } from '../utils';
 
 const validateOauthToken = async (next, action) => {
@@ -19,6 +20,8 @@ const validateOauthToken = async (next, action) => {
     }
   };
 
+  const handleError = () => next({ type: EMIT_FLUSH_CLIENT, client: action.client });
+
   try {
     const { rawData, statusCode } = await httpsRequest({ options, requestBody });
     const organizationIds = JSON.parse(rawData).value.map(({ id }) => id);
@@ -26,10 +29,11 @@ const validateOauthToken = async (next, action) => {
     if (statusCode === 200 && organizationIds.includes(config.oauth.organizationId)) {
       next(action);
     } else {
-      next({ type: EMIT_FLUSH_CLIENT, client: action.client });
+      handleError();
     }
   } catch (e) {
-    console.error('ERROR', e);
+    consoleController.log(e, 'red');
+    handleError();
   }
 };
 
