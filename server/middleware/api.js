@@ -1,10 +1,10 @@
-import { filter } from 'lodash';
+import { filter, isEmpty } from 'lodash';
 
+import { config } from 'environment';
 import socketController from '../controllers/socket';
 import validateOauthToken from './validate-oauth-token';
 import fetchRoomReservation from './fetch-room-reservation';
 import fetchStallOccupancies from './fetch-stall-occupancies';
-
 import consoleController from '../controllers/console';
 import { FETCH_ROOM_RESERVATIONS, EMIT_ROOM_PING_RECEIVED } from '../ducks/rooms';
 import { EMIT_CLIENT_CONNECTED } from '../ducks/clients';
@@ -14,7 +14,11 @@ import { NEW_ROOM_PING } from '../constants';
 export default (store) => (next) => (action) => {
   const handlers = {
     [EMIT_CLIENT_CONNECTED]: () => {
-      validateOauthToken(next, action);
+      if (!isEmpty(config.oauth)) {
+        validateOauthToken(next, action);
+      } else {
+        next(action);
+      }
     },
 
     [FETCH_ROOM_RESERVATIONS]() {
