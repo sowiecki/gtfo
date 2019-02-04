@@ -7,7 +7,7 @@ module.exports = {
         enableStalls: false
       },
       reservations: {
-        host: 'http://localhost:3000',
+        host: 'http://localhost',
         path: '/mocks/meetingRoom/all'
       },
       stalls: {

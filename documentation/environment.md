@@ -24,7 +24,8 @@ General configuration.
 | - defaultTempScale  | Must be either "celsius" or "fahrenheit"         | No        | "fahrenheit" |
 | - note              | Note to be displayed in sidebar                  | No        |              |
 | reservations        | Reservations API properties                      | Yes       |              |
-| - host              | Reservations service host                        | Yes       |              |
+| - hostname          | Reservations service hostname                    | Yes       |              |
+| - port              | Reservations service API port                    | Yes       |              |
 | - path              | Reservations service API path                    | Yes       |              |
 | stalls              | Stalls API properties                            | No        |              |
 | - host              | Stalls service host                              | Yes       |              |

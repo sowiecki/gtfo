@@ -25,9 +25,9 @@ const oauthController = {
 
   fetchAccessToken: async (originReq) => {
     const options = {
-      hostname: 'login.microsoftonline.com',
-      path: '/9ca75128-a244-4596-877b-f24828e476e2/oauth2/v2.0/token',
       method: 'POST',
+      hostname: 'login.microsoftonline.com',
+      path: `/${config.oauth.organizationId}/oauth2/v2.0/token`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }

@@ -1,10 +1,11 @@
 import https from 'https';
+import http from 'http';
 
 export const genURL = ({ host, path }) => `${host}${path || ''}`;
 
-export const httpsRequest = ({ options, requestBody }) =>
+const request = (protocol) => ({ options, requestBody }) =>
   new Promise((resolve, reject) => {
-    const req = https.request(options, (response) => {
+    const req = protocol.request(options, (response) => {
       response.setEncoding('utf8');
 
       let rawData = '';
@@ -21,3 +22,6 @@ export const httpsRequest = ({ options, requestBody }) =>
 
     req.end(requestBody);
   });
+
+export const httpsRequest = request(https);
+export const httpRequest = request(http);

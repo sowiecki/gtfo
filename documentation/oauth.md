@@ -14,10 +14,15 @@ Example:
       "tokenUri": "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token",
       "clientId": "...",
       "clientSecret": "...",
-      "organizationId": "..." // Retrieve from https://graph.microsoft.com/v1.0/organization using a valid token
+      "organizationId": "...", // Retrieve from https://graph.microsoft.com/v1.0/organization using a valid token
+      "refreshToken": "..." // See below
     }
   }
 ```
+
+# Refresh token
+
+[Retrieve your Microsoft OAuth refresh token](https://docs.microsoft.com/en-us/bingads/guides/authentication-oauth?view=bingads-12#authorizationcode). `config.oauth.refreshToken` is _only_ used for headless read operations.
 
 # Custom scopes (delegated permissions)
 
