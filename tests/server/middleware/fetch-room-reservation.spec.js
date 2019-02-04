@@ -4,17 +4,21 @@ import expect from 'expect';
 import sinon from 'sinon';
 
 import fetchRoomReservation from 'server/middleware/fetch-room-reservation';
-import { genURL } from 'server/utils';
 import { config } from '../../../environment';
 
 describe('fetchRoomReservation', () => {
   let stub;
-  const reservationsURL = genURL(config.reservations);
+  const expectedArgsCalled = {
+    host: config.reservations.hostname,
+    port: config.reservations.port,
+    path: config.reservations.path,
+    method: 'GET'
+  };
 
   const mockNext = () => {};
 
   beforeEach((done) => {
-    stub = sinon.stub(http, 'get');
+    stub = sinon.stub(http, 'request');
 
     done();
   });
@@ -23,13 +27,13 @@ describe('fetchRoomReservation', () => {
     stub.restore();
   });
 
-  it(`should make an HTTP request to ${reservationsURL}.`, (done) => {
+  it(`should make an HTTP request to ${JSON.stringify(expectedArgsCalled)}.`, (done) => {
     fetchRoomReservation(mockNext);
 
-    const urlCalled = stub.getCall(0).args[0];
+    const argsCalled = stub.getCall(0).args[0];
 
-    expect(stub.called).toBe(true);
-    expect(urlCalled).toBe(reservationsURL);
+    expect(stub.called).toEqual(true);
+    expect(argsCalled).toEqual(expectedArgsCalled);
 
     done();
   });
