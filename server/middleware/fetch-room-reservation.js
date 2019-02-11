@@ -8,17 +8,17 @@ import { formatReservations, logFetchReservationsAPIError, httpRequest } from '.
 import store from '../store';
 
 const getAuthHeaders = async () => {
-  if (!isEmpty(config.oauth)) {
-    const oauthData = await oauthController.fetchAccessTokenFromRefreshToken();
+  const oauthData = await oauthController.fetchAccessTokenFromRefreshToken();
 
-    return { headers: { Authorization: `Bearer ${oauthData.access_token}` } };
-  }
-
-  return {};
+  return { headers: { Authorization: `Bearer ${oauthData.access_token}` } };
 };
 
 const fetchRoomReservation = async (next) => {
-  const authHeaders = await getAuthHeaders();
+  let authHeaders;
+  if (!isEmpty(config.oauth)) {
+    authHeaders = await getAuthHeaders();
+  }
+
   const options = {
     method: 'GET',
     host: config.reservations.hostname,
