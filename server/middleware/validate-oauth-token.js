@@ -13,7 +13,6 @@ const validateOauthToken = async (next, action) => {
     client_id: config.oauth.clientId,
     client_secret: config.oauth.clientSecret
   });
-
   const options = {
     hostname: 'graph.microsoft.com',
     path: '/v1.0/organization',
