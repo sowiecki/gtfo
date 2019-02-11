@@ -1,19 +1,20 @@
 import { isEmpty } from 'lodash';
+import colors from 'colors/safe';
 
+import oauthController from '../controllers/oauth';
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import { config } from '../../environment';
 import { formatReservations, logFetchReservationsAPIError, httpRequest } from '../utils';
 import store from '../store';
 
 const fetchRoomReservation = async (next) => {
+  const data = await oauthController.fetchAccessTokenFromRefreshToken();
   const options = {
     method: 'GET',
     host: config.reservations.hostname,
     path: config.reservations.path,
     port: config.reservations.port,
-    ...(!isEmpty(config.oauth)
-      ? { headers: { Authorization: `Bearer ${config.oauth.refreshToken}` } }
-      : {})
+    ...(!isEmpty(config.oauth) ? { headers: { Authorization: `Bearer ${data.access_token}` } } : {})
   };
 
   try {
@@ -36,7 +37,7 @@ const fetchRoomReservation = async (next) => {
     });
   } catch (e) {
     // Most likely cause of failure is error parsing response
-    logFetchReservationsAPIError(e);
+    logFetchReservationsAPIError(colors.red(e));
   }
 };
 

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import colors from 'colors/safe';
 
 import queryString from 'query-string';
 import { config } from 'environment';
@@ -8,22 +9,24 @@ import { httpsRequest } from '../utils';
 const oauthController = {
   initialize: async (req) => {
     try {
-      const data = await oauthController.fetchAccessToken(req);
-      const parsedData = JSON.parse(data);
-      const accessToken = parsedData.access_token;
-      const expiresOn = oauthController.getExpiresOn(parsedData);
+      const data = await oauthController.fetchAccessTokenFromCode({
+        code: req.query.code,
+        redirectUri: `${req.protocol}://${req.headers.host}`
+      });
+      const accessToken = data.access_token;
+      const expiresOn = oauthController.getExpiresOn(data);
 
       if (accessToken) {
         return { accessToken, expiresOn };
       } else {
-        consoleController.log(data);
+        consoleController.log(data.error_description);
       }
     } catch (e) {
       consoleController.log(e);
     }
   },
 
-  fetchAccessToken: async (originReq) => {
+  fetchAccessTokenFromCode: async ({ code, redirectUri }) => {
     const options = {
       method: 'POST',
       hostname: 'login.microsoftonline.com',
@@ -36,14 +39,45 @@ const oauthController = {
     const requestBody = queryString.stringify({
       grant_type: 'authorization_code',
       client_id: config.oauth.clientId,
-      code: originReq.query.code,
-      redirect_uri: `${originReq.protocol}://${originReq.headers.host}`,
-      client_secret: config.oauth.clientSecret
+      client_secret: config.oauth.clientSecret,
+      redirect_uri: redirectUri,
+      code
     });
 
-    const { rawData } = await httpsRequest({ options, requestBody });
+    try {
+      const { rawData } = await httpsRequest({ options, requestBody });
 
-    return rawData;
+      return JSON.parse(rawData);
+    } catch (e) {
+      consoleController.log(colors.red(e));
+    }
+  },
+
+  fetchAccessTokenFromRefreshToken: async () => {
+    const requestBody = queryString.stringify({
+      grant_type: 'refresh_token',
+      client_id: config.oauth.clientId,
+      client_secret: config.oauth.clientSecret,
+      refresh_token: config.oauth.refreshToken,
+      resource: 'https://graph.microsoft.com'
+    });
+    const options = {
+      method: 'POST',
+      hostname: 'login.windows.net',
+      path: '/common/oauth2/token',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(requestBody)
+      }
+    };
+
+    try {
+      const { rawData } = await httpsRequest({ options, requestBody });
+
+      return JSON.parse(rawData);
+    } catch (e) {
+      consoleController.log(colors.red(e));
+    }
   },
 
   getExpiresOn: (parsedData) =>
