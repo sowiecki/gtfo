@@ -20,7 +20,27 @@ if (process.env.MOCKS) {
   router.get(config.stalls.path, respondWithMockedStalls);
 }
 
-router.get('/api/reservations', (req, res) => devicesController.getReservations(req, res));
+const isAuthorized = (req) => {
+  const usesOauth = !isEmpty(config.oauth);
+
+  // TODO check only oauth token, if provided
+  if (usesOauth) {
+    const headlessAuthorizationMatches = !config.auth.headlessAuthorization
+      || config.auth.headlessAuthorization === req.headers.authorization;
+
+    return headlessAuthorizationMatches;
+  }
+
+  return true;
+};
+
+router.get('/api/reservations', (req, res) => {
+  if (isAuthorized(req)) {
+    devicesController.getReservations(req, res);
+  } else {
+    res.status(401).send('Invalid authorization header!');
+  }
+});
 
 /* Room pings */
 router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));
