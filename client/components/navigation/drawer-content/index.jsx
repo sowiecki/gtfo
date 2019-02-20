@@ -55,9 +55,11 @@ const DrawerContent = (props) => {
     <DrawerContentItem
       enabled
       onClick={() => {
+        const URL = `https://login.microsoftonline.com/${process.env.CLIENT_ID}/oauth2/logout`;
+
         localStorage.removeItem(GTFO_OAUTH_ACCESS_TOKEN);
 
-        window.location.reload();
+        window.location.replace(URL);
       }}
       icon='logout'
       primary='Logout'/>

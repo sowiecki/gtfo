@@ -14,6 +14,7 @@ const oauthController = {
         code: req.query.code,
         redirectUri: `${IS_PROD_ENV ? 'https' : req.protocol}://${req.headers.host}`
       });
+
       const accessToken = data.access_token;
       const expiresOn = oauthController.getExpiresOn(data);
 
