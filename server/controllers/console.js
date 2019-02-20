@@ -89,7 +89,9 @@ const consoleController = {
         gridTextView.log(text);
       }
     });
-  }
+  },
+
+  dir: console.dir
 };
 
 if (process.env.DONT_HOOK_CONSOLE || IS_TEST_ENV) {

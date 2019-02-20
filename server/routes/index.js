@@ -45,6 +45,11 @@ router.get('/api/reservations', (req, res) => {
 /* Room pings */
 router.post('/api/ping', (req, res) => pingsController.handlePingOverHTTP(req, res));
 
+/* AWS Healthcheck */
+router.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 /* Serve client - must be last route */
 router.get('*', async (req, res) => {
   const responseWithApplicationView = (oauthResponse) =>

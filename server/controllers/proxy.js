@@ -82,7 +82,7 @@ const proxyController = {
   },
 
   handleError(e) {
-    consoleController.log(`Proxy error: ${e}`);
+    consoleController.dir(`Proxy error: ${e}`);
   },
 
   send

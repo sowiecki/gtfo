@@ -1,8 +1,9 @@
 /* globals window */
-import { WEBSOCKET_PORT } from './index';
+import { SERVER_PORT, WEBSOCKET_PATH } from './index';
 
 export const getSocketPort = () => {
-  const { hostname } = window.location;
+  const { hostname, protocol } = window.location;
+  const webSocketProtocol = protocol === 'https:' ? 'wss' : 'ws';
 
-  return `ws://${hostname}:${WEBSOCKET_PORT}`;
+  return `${webSocketProtocol}://${hostname}:${SERVER_PORT}${WEBSOCKET_PATH}`;
 };

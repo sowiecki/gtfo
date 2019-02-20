@@ -2,11 +2,12 @@ import WebSocket from 'ws';
 import moment from 'moment';
 import { get, forEach } from 'lodash';
 
+import { WEBSOCKET_PATH } from 'universal/config';
 import store from '../store';
 import consoleController from './console';
-
-import { send, getFutureAlerts, secureRooms } from '../utils';
-import { WEBSOCKET_PORT } from '../config';
+import devicesController from './devices';
+import { config } from '../../environment';
+import { send, getFutureAlerts, secureRooms, shouldOverrideMotion } from '../utils';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import {
   HANDSHAKE,
@@ -20,7 +21,7 @@ import {
   TIME_FORMAT
 } from '../constants';
 
-const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
+let wss;
 
 /**
  * Host setup for web application WebSocket server.
@@ -31,9 +32,15 @@ const socketController = {
    * @params{string} event Event constant for initial communication with client.
    * @returns {undefined}
    */
-  open(event, payload) {
+  initialize(server) {
+    wss = new WebSocket.Server({ server, path: WEBSOCKET_PATH });
+
     wss.on('connection', (client) => {
-      socketController.send(event, payload, client); // Initialize with config
+      const overrides = {
+        enableMotion: shouldOverrideMotion(devicesController.getRooms())
+      };
+
+      socketController.send(HANDSHAKE, { ...config, ...overrides }, client);
 
       const handleClientDisconnect = () => {
         store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
