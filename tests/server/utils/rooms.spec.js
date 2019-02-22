@@ -217,14 +217,14 @@ describe('Room utilities (server)', () => {
       c: '18'
     },
     currentReservation: {
-      email: 'foo@bar.com'
+      subject: 'foo@bar.com'
     },
     reservations: [
       {
-        email: 'foo@bar.com'
+        subject: 'foo@bar.com'
       },
       {
-        email: 'bizz@bazz.com'
+        subject: 'bizz@bazz.com'
       }
     ]
   };
@@ -242,14 +242,14 @@ describe('Room utilities (server)', () => {
       c: '18'
     },
     currentReservation: {
-      email: 'foo@bar.com'
+      subject: 'foo@bar.com'
     },
     reservations: [
       {
-        email: 'foo@bar.com'
+        subject: 'foo@bar.com'
       },
       {
-        email: 'bizz@bazz.com'
+        subject: 'bizz@bazz.com'
       }
     ]
   };

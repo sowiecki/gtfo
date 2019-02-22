@@ -19,21 +19,25 @@ export const randomReservationGap = () => {
   return introduceGap ? randomMeetingDuration() : 0;
 };
 
-const generateMockEmail = () => {
+const generateMockSubject = () => {
   const mockNames = [
-    'BlakeHenderson',
-    'AliceMurphy',
-    'AdamDeMamp',
-    'JillianBelk',
-    'AndersHolmvik'
+    'Blake Henderson',
+    'Alice Murphy',
+    'Adam DeMamp',
+    'Jillian Belk',
+    'Anders Holmvik'
   ];
   const randomIndex = () => Math.floor(Math.random() * (mockNames.length - 0)) + 0;
 
-  return `${mockNames[randomIndex()]}@example.domain`;
+  return mockNames[randomIndex()];
 };
 
 export const generateMockReservation = (beginTimeOffset, endTimeOffset) => ({
-  email: generateMockEmail(),
-  startDate: moment(START_OF_DAY).add(beginTimeOffset, 'minutes').toISOString(),
-  endDate: moment(START_OF_DAY).add(endTimeOffset, 'minutes').toISOString()
+  subject: generateMockSubject(),
+  startDate: moment(START_OF_DAY)
+    .add(beginTimeOffset, 'minutes')
+    .toISOString(),
+  endDate: moment(START_OF_DAY)
+    .add(endTimeOffset, 'minutes')
+    .toISOString()
 });

@@ -17,7 +17,7 @@ export const PROP_TYPES = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
     currenReservation: PropTypes.shape({
-      email: PropTypes.string.isRequired,
+      subject: PropTypes.string.isRequired,
       startDate: PropTypes.string.isRequired,
       endDate: PropTypes.string.isRequired
     }),

@@ -52,7 +52,7 @@ class RoomModal extends PureComponent {
     return (
       <div className='reservation-details'>
         <div>
-          Reserved by {meetingRoom.currentReservation.email}
+          Reserved by {meetingRoom.currentReservation.subject}
           <div>
             {moment(meetingRoom.currentReservation.startDate)
               .utcOffset(timezone)

@@ -1,4 +1,3 @@
-/* globals setInterval, clearInterval */
 import React, { Fragment } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
@@ -51,7 +50,7 @@ FloorPlanLayout.propTypes = {
   computedStyles: PropTypes.shape({
     swipableOverride: PropTypes.object.isRequired
   }).isRequired,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   meetingRooms: PropTypes.array,
   displayLegend: PropTypes.bool.isRequired,
   enableMotion: PropTypes.bool.isRequired,

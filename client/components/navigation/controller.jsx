@@ -30,6 +30,8 @@ class NavigationController extends PureComponent {
       emitTempScaleToggle: PropTypes.func.isRequired
     }).isRequired,
     locations: PropTypes.array,
+    location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+    children: PropTypes.node.isRequired,
     modalContent: PropTypes.node
   };
 

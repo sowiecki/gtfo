@@ -25,14 +25,14 @@ describe('<MeetingRoom/>', () => {
       pinged: null,
       connectionStatus: true,
       currentReservation: {
-        email: 'foo@bar.com'
+        subject: 'foo@bar.com'
       },
       reservations: [
         {
-          email: 'foo@bar.com'
+          subject: 'foo@bar.com'
         },
         {
-          email: 'bizz@bazz.com'
+          subject: 'bizz@bazz.com'
         }
       ]
     },

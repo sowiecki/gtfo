@@ -136,17 +136,17 @@ GTFO was developed in tandem with [ews-wrapper](https://github.com/rishirajsingh
     "name": "SomeRoom",
     "schedule": [
       {
-        "email": "AliceMurphy@example.domain",
+        "subject": "Alice Murphy",
         "startDate": "2018-11-30T15:00:00.000Z",
         "endDate": "2018-11-30T15:30:00.000Z"
       },
       {
-        "email": "AndersHolmvik@example.domain",
+        "subject": "Anders Holmvik",
         "startDate": "2018-11-30T16:00:00.000Z",
         "endDate": "2018-11-30T17:00:00.000Z"
       },
       {
-        "email": "AliceMurphy@example.domain",
+        "subject": "Alice Murphy",
         "startDate": "2018-11-30T17:00:00.000Z",
         "endDate": "2018-11-30T18:00:00.000Z"
       }
@@ -155,7 +155,7 @@ GTFO was developed in tandem with [ews-wrapper](https://github.com/rishirajsingh
   "name": "SomeOtherRoom",
   "schedule": [
     {
-      "email": "JillianBelk@example.domain",
+      "subject": "Jillian Belk",
       "startDate": "2018-11-30T15:00:00.000Z",
       "endDate": "2018-11-30T16:30:00.000Z"
     }

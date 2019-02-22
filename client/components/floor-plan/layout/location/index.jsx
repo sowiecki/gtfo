@@ -55,7 +55,7 @@ Location.propTypes = {
   markers: PropTypes.array,
   stalls: PropTypes.array,
   ping: PropTypes.object,
-  location: PropTypes.object.isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   locationKey: PropTypes.string.isRequired
 };
 

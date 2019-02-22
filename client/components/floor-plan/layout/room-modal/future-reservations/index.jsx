@@ -185,7 +185,7 @@ class FutureReservations extends PureComponent {
         className={computedStyles.status(value)}>
         {formattedStartDate} to {formattedEndDate}
         <span className={computedStyles.right}>
-          {reservation.email || this.renderReservationLink(time, endTime)}
+          {reservation.subject || this.renderReservationLink(time, endTime)}
         </span>
       </span>
     );

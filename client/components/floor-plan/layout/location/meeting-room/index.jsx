@@ -95,6 +95,7 @@ MeetingRoom.propTypes = {
   unitOfTemp: PropTypes.string.isRequired,
   displayTemp: PropTypes.bool,
   onLayoutReset: PropTypes.func.isRequired,
+  location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
   ping: PropTypes.shape({
     id: PropTypes.string.isRequired
   })

@@ -10,12 +10,12 @@ describe('Reservation utilities (server)', () => {
       id: 'the loop',
       schedule: [
         {
-          email: 'AliceMurphy@example.domain',
+          subject: 'AliceMurphy@example.domain',
           startDate: '2016-05-04T14:30:00.000Z',
           endDate: '2016-05-04T15:00:00.000Z'
         },
         {
-          email: 'AndersHolmvik@example.domain',
+          subject: 'AndersHolmvik@example.domain',
           startDate: '2016-05-04T15:00:00.000Z',
           endDate: '2016-05-04T15:30:00.000Z'
         }
@@ -25,12 +25,12 @@ describe('Reservation utilities (server)', () => {
       id: 'bronzeville',
       schedule: [
         {
-          email: 'BlakeHenderson@example.domain',
+          subject: 'BlakeHenderson@example.domain',
           startDate: '2016-05-04T14:00:00.000Z',
           endDate: '2016-05-04T14:30:00.000Z'
         },
         {
-          email: 'AdamDeMamp@example.domain',
+          subject: 'AdamDeMamp@example.domain',
           startDate: '2016-05-04T14:30:00.000Z',
           endDate: '2016-05-04T15:30:00.000Z'
         }
@@ -41,24 +41,24 @@ describe('Reservation utilities (server)', () => {
   const mockFormattedReservations = {
     'the loop': [
       {
-        email: 'AliceMurphy@example.domain',
+        subject: 'AliceMurphy@example.domain',
         startDate: '2016-05-04T14:30:00.000Z',
         endDate: '2016-05-04T15:00:00.000Z'
       },
       {
-        email: 'AndersHolmvik@example.domain',
+        subject: 'AndersHolmvik@example.domain',
         startDate: '2016-05-04T15:00:00.000Z',
         endDate: '2016-05-04T15:30:00.000Z'
       }
     ],
     bronzeville: [
       {
-        email: 'BlakeHenderson@example.domain',
+        subject: 'BlakeHenderson@example.domain',
         startDate: '2016-05-04T14:00:00.000Z',
         endDate: '2016-05-04T14:30:00.000Z'
       },
       {
-        email: 'AdamDeMamp@example.domain',
+        subject: 'AdamDeMamp@example.domain',
         startDate: '2016-05-04T14:30:00.000Z',
         endDate: '2016-05-04T15:30:00.000Z'
       }

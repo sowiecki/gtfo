@@ -22,7 +22,7 @@ class FloorPlanController extends PureComponent {
       accessToken: PropTypes.string.isRequired,
       expiresOn: PropTypes.string.isRequired
     }),
-    location: PropTypes.object.isRequired,
+    location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
     meetingRooms: PropTypes.array,
     stalls: PropTypes.array,
     markers: PropTypes.array,

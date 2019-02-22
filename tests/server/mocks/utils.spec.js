@@ -21,8 +21,8 @@ describe('Mock utilities', () => {
 
       expect(typeof mockReservation).toBe('object');
 
-      expect(mockReservation.email).toBeDefined();
-      expect(typeof mockReservation.email).toEqual('string');
+      expect(mockReservation.subject).toBeDefined();
+      expect(typeof mockReservation.subject).toEqual('string');
 
       expect(mockReservation.startDate).toBeDefined();
       expect(moment(mockReservation.startDate).isValid()).toBe(true);

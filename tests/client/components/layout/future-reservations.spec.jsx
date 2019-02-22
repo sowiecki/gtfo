@@ -31,32 +31,32 @@ describe('<FutureReservations />', () => {
     meetingRoom: {
       reservations: [
         {
-          email: 'AliceMurphy@example.domain',
+          subject: 'AliceMurphy@example.domain',
           startDate: '2018-11-23T15:00:00.000Z',
           endDate: '2018-11-23T15:30:00.000Z'
         },
         {
-          email: 'AdamDeMamp@example.domain',
+          subject: 'AdamDeMamp@example.domain',
           startDate: '2018-11-23T16:00:00.000Z',
           endDate: '2018-11-23T16:30:00.000Z'
         },
         {
-          email: 'AndersHolmvik@example.domain',
+          subject: 'AndersHolmvik@example.domain',
           startDate: '2018-11-23T16:30:00.000Z',
           endDate: '2018-11-23T18:00:00.000Z'
         },
         {
-          email: 'AliceMurphy@example.domain',
+          subject: 'AliceMurphy@example.domain',
           startDate: '2018-11-23T18:00:00.000Z',
           endDate: '2018-11-23T19:30:00.000Z'
         },
         {
-          email: 'BlakeHenderson@example.domain',
+          subject: 'BlakeHenderson@example.domain',
           startDate: '2018-11-23T20:00:00.000Z',
           endDate: '2018-11-23T21:30:00.000Z'
         },
         {
-          email: 'AndersHolmvik@example.domain',
+          subject: 'AndersHolmvik@example.domain',
           startDate: '2018-11-23T22:00:00.000Z',
           endDate: '2018-11-23T23:30:00.000Z'
         }
@@ -96,10 +96,10 @@ describe('<FutureReservations />', () => {
 
     const component = mount(<FutureReservations {...props} />);
     const firstReservation = component.find('#_9-00AM');
-    const firstReservationEmail = firstReservation.props().children[3].props.children;
+    const firstReservationSubject = firstReservation.props().children[3].props.children;
 
     expect(firstReservation.length).toEqual(1);
-    expect(firstReservationEmail).toEqual('AliceMurphy@example.domain');
+    expect(firstReservationSubject).toEqual('AliceMurphy@example.domain');
   });
 
   it('hightlights the time block for the current time.', () => {
