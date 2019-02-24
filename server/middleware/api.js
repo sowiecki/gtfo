@@ -1,4 +1,4 @@
-import { filter, isEmpty } from 'lodash';
+import { filter, isEmpty, get } from 'lodash';
 
 import { config } from 'environment';
 import socketController from '../controllers/socket';
@@ -15,7 +15,13 @@ export default (store) => (next) => (action) => {
   const handlers = {
     [EMIT_CLIENT_CONNECTED]: () => {
       if (!isEmpty(config.oauth)) {
-        validateOauthToken(next, action);
+        if (action.oauthResponse === get(config, 'auth.headlessAuthorization')) {
+          // Authorized via headless code
+          next(action);
+        } else {
+          // Authorized via Azure SSO, validate token
+          validateOauthToken(next, action);
+        }
       } else {
         next(action);
       }

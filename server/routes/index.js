@@ -1,6 +1,6 @@
 /* eslint new-cap:0 */
 import express from 'express';
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 
 import pingsController from '../controllers/pings';
 import devicesController from '../controllers/devices';
@@ -57,6 +57,9 @@ router.get('*', async (req, res) => {
 
   if (isEmpty(config.oauth) || !req.query.code) {
     responseWithApplicationView();
+  } else if (req.query.code === get(config, 'auth.headlessAuthorization')) {
+    // headlessAuthorization code is used in place of SSO authentication
+    responseWithApplicationView(req.query.code);
   } else if (req.query.code) {
     const oauthResponse = await oauthController.initialize(req);
 
