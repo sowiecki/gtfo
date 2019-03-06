@@ -34,10 +34,14 @@ const generateMockSubject = () => {
 
 export const generateMockReservation = (beginTimeOffset, endTimeOffset) => ({
   subject: generateMockSubject(),
-  startDate: moment(START_OF_DAY)
-    .add(beginTimeOffset, 'minutes')
-    .toISOString(),
-  endDate: moment(START_OF_DAY)
-    .add(endTimeOffset, 'minutes')
-    .toISOString()
+  start: {
+    dateTime: moment(START_OF_DAY)
+      .add(beginTimeOffset, 'minutes')
+      .toISOString()
+  },
+  end: {
+    dateTime: moment(START_OF_DAY)
+      .add(endTimeOffset, 'minutes')
+      .toISOString()
+  }
 });

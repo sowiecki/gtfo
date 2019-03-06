@@ -11,13 +11,25 @@ describe('Reservation utilities (server)', () => {
       schedule: [
         {
           subject: 'AliceMurphy@example.domain',
-          startDate: '2016-05-04T14:30:00.000Z',
-          endDate: '2016-05-04T15:00:00.000Z'
+          start: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         },
         {
           subject: 'AndersHolmvik@example.domain',
-          startDate: '2016-05-04T15:00:00.000Z',
-          endDate: '2016-05-04T15:30:00.000Z'
+          start: {
+            dateTime: '2016-05-04T15:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         }
       ]
     },
@@ -26,13 +38,25 @@ describe('Reservation utilities (server)', () => {
       schedule: [
         {
           subject: 'BlakeHenderson@example.domain',
-          startDate: '2016-05-04T14:00:00.000Z',
-          endDate: '2016-05-04T14:30:00.000Z'
+          start: {
+            dateTime: '2016-05-04T14:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         },
         {
           subject: 'AdamDeMamp@example.domain',
-          startDate: '2016-05-04T14:30:00.000Z',
-          endDate: '2016-05-04T15:30:00.000Z'
+          start: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         }
       ]
     }
@@ -42,25 +66,49 @@ describe('Reservation utilities (server)', () => {
     'the loop': [
       {
         subject: 'AliceMurphy@example.domain',
-        startDate: '2016-05-04T14:30:00.000Z',
-        endDate: '2016-05-04T15:00:00.000Z'
+        start: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
         subject: 'AndersHolmvik@example.domain',
-        startDate: '2016-05-04T15:00:00.000Z',
-        endDate: '2016-05-04T15:30:00.000Z'
+        start: {
+          dateTime: '2016-05-04T15:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       }
     ],
     bronzeville: [
       {
         subject: 'BlakeHenderson@example.domain',
-        startDate: '2016-05-04T14:00:00.000Z',
-        endDate: '2016-05-04T14:30:00.000Z'
+        start: {
+          dateTime: '2016-05-04T14:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
         subject: 'AdamDeMamp@example.domain',
-        startDate: '2016-05-04T14:30:00.000Z',
-        endDate: '2016-05-04T15:30:00.000Z'
+        start: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       }
     ]
   };

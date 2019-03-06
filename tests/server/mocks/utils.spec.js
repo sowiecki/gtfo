@@ -24,11 +24,11 @@ describe('Mock utilities', () => {
       expect(mockReservation.subject).toBeDefined();
       expect(typeof mockReservation.subject).toEqual('string');
 
-      expect(mockReservation.startDate).toBeDefined();
-      expect(moment(mockReservation.startDate).isValid()).toBe(true);
+      expect(mockReservation.start.dateTime).toBeDefined();
+      expect(moment(mockReservation.start.dateTime).isValid()).toBe(true);
 
-      expect(mockReservation.endDate).toBeDefined();
-      expect(moment(mockReservation.endDate).isValid()).toBe(true);
+      expect(mockReservation.end.dateTime).toBeDefined();
+      expect(moment(mockReservation.end.dateTime).isValid()).toBe(true);
     });
   });
 });

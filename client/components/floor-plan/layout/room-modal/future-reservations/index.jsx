@@ -92,12 +92,14 @@ class FutureReservations extends PureComponent {
    * compressing multiple time blocks that span the same reservation.
    */
   reduceTimeBlocks = (acc, value) => {
-    const { reservation = {}, endTime } = value;
+    const { reservation, endTime } = value;
     const prevValue = acc[acc.length - 1] || {};
+    const startDateTime = get(reservation, 'start.dateTime');
+    const endDateTime = get(reservation, 'end.dateTime');
 
     const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
-      moment(reservation.startDate),
-      moment(reservation.endDate),
+      moment(startDateTime),
+      moment(endDateTime),
       null,
       '[)'
     );
@@ -128,11 +130,14 @@ class FutureReservations extends PureComponent {
 
     const matchingReservation = meetingRoom.reservations
       .map((reservation) => {
+        const startDateTime = get(reservation, 'start.dateTime');
+        const endDateTime = get(reservation, 'end.dateTime');
+
         const isReserved = moment(time)
           .utcOffset(timezone)
           .isBetween(
-            moment(reservation.startDate).utcOffset(timezone),
-            moment(reservation.endDate).utcOffset(timezone)
+            moment(startDateTime).utcOffset(timezone),
+            moment(endDateTime).utcOffset(timezone)
           );
 
         return isReserved ? reservation : false;
@@ -167,13 +172,16 @@ class FutureReservations extends PureComponent {
     const { reservation = {}, time, endTime, isCurrentTime } = value;
     const { computedStyles, timezone } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
-    const formattedStartDate = reservation.startDate
-      ? moment(reservation.startDate)
+    const startDateTime = get(reservation, 'start.dateTime');
+    const endDateTime = get(reservation, 'end.dateTime');
+
+    const formattedStartDate = startDateTime
+      ? moment(startDateTime)
         .utcOffset(timezone)
         .format(TIME_FORMAT)
       : formattedTime;
-    const formattedEndDate = reservation.endDate
-      ? moment(reservation.endDate)
+    const formattedEndDate = endDateTime
+      ? moment(endDateTime)
         .utcOffset(timezone)
         .format(TIME_FORMAT)
       : endTime.format(TIME_FORMAT);

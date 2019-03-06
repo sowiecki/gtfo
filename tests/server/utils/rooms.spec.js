@@ -36,26 +36,42 @@ describe('Room utilities (server)', () => {
 
   const baseMockReservations = [
     {
-      startDate: '2016-03-08T15:00:00.000Z',
-      endDate: '2016-03-08T15:30:00.000Z'
+      start: {
+        dateTime: '2016-03-08T15:00:00.000Z'
+      },
+      end: {
+        dateTime: '2016-03-08T15:30:00.000Z'
+      }
     },
     {
-      startDate: '2016-03-08T15:30:00.000Z',
-      endDate: '2016-03-08T16:30:00.000Z'
+      start: {
+        dateTime: '2016-03-08T15:30:00.000Z'
+      },
+      end: {
+        dateTime: '2016-03-08T16:30:00.000Z'
+      }
     },
     {
-      startDate: '2016-03-08T16:30:00.000Z',
-      endDate: '2016-03-08T19:30:00.000Z'
+      start: {
+        dateTime: '2016-03-08T16:30:00.000Z'
+      },
+      end: {
+        dateTime: '2016-03-08T19:30:00.000Z'
+      }
     },
     {
-      startDate: '2016-03-08T19:30:00.000Z',
-      endDate: '2016-03-08T20:00:00.000Z'
+      start: {
+        dateTime: '2016-03-08T19:30:00.000Z'
+      },
+      end: {
+        dateTime: '2016-03-08T20:00:00.000Z'
+      }
     }
   ];
 
   /**
    * NOTE `getRoomAlert` assumes that none of the provided reservations contain
-   * both a startDate and an endDate in the past. Mock reservations must be
+   * both a start.dateTime and an end.dateTime in the past. Mock reservations must be
    * manipulated to remove expired reservations.
    *
    * These reservations must wrapped in a function and only invoked once sinon

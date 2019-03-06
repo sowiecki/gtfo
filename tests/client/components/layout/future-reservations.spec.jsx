@@ -32,33 +32,57 @@ describe('<FutureReservations />', () => {
       reservations: [
         {
           subject: 'AliceMurphy@example.domain',
-          startDate: '2018-11-23T15:00:00.000Z',
-          endDate: '2018-11-23T15:30:00.000Z'
+          start: {
+            dateTime: '2018-11-23T15:00:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T15:30:00.000Z'
+          }
         },
         {
           subject: 'AdamDeMamp@example.domain',
-          startDate: '2018-11-23T16:00:00.000Z',
-          endDate: '2018-11-23T16:30:00.000Z'
+          start: {
+            dateTime: '2018-11-23T16:00:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T16:30:00.000Z'
+          }
         },
         {
           subject: 'AndersHolmvik@example.domain',
-          startDate: '2018-11-23T16:30:00.000Z',
-          endDate: '2018-11-23T18:00:00.000Z'
+          start: {
+            dateTime: '2018-11-23T16:30:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T18:00:00.000Z'
+          }
         },
         {
           subject: 'AliceMurphy@example.domain',
-          startDate: '2018-11-23T18:00:00.000Z',
-          endDate: '2018-11-23T19:30:00.000Z'
+          start: {
+            dateTime: '2018-11-23T18:00:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T19:30:00.000Z'
+          }
         },
         {
           subject: 'BlakeHenderson@example.domain',
-          startDate: '2018-11-23T20:00:00.000Z',
-          endDate: '2018-11-23T21:30:00.000Z'
+          start: {
+            dateTime: '2018-11-23T20:00:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T21:30:00.000Z'
+          }
         },
         {
           subject: 'AndersHolmvik@example.domain',
-          startDate: '2018-11-23T22:00:00.000Z',
-          endDate: '2018-11-23T23:30:00.000Z'
+          start: {
+            dateTime: '2018-11-23T22:00:00.000Z'
+          },
+          end: {
+            dateTime: '2018-11-23T23:30:00.000Z'
+          }
         }
       ]
     },

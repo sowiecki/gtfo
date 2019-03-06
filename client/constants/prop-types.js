@@ -18,8 +18,14 @@ export const PROP_TYPES = {
     description: PropTypes.string,
     currenReservation: PropTypes.shape({
       subject: PropTypes.string.isRequired,
-      startDate: PropTypes.string.isRequired,
-      endDate: PropTypes.string.isRequired
+      start: PropTypes.shape({
+        dateTime: PropTypes.string.isRequired,
+        timeZone: PropTypes.string.isRequired
+      }).isRequired,
+      end: PropTypes.shape({
+        dateTime: PropTypes.string.isRequired,
+        timeZone: PropTypes.string.isRequired
+      }).isRequired
     }),
     thermo: PropTypes.shape({
       f: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

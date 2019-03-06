@@ -17,7 +17,7 @@ export const filterExpiredReservations = (reservations, explicitTime) => {
   if (reservations === undefined) return reservations;
 
   return filter(reservations, (reservation) => {
-    const reservationNotExpired = !moment(reservation.endDate).isBefore(explicitTime);
+    const reservationNotExpired = !moment(reservation.end.dateTime).isBefore(explicitTime);
 
     return reservationNotExpired;
   });

@@ -54,11 +54,11 @@ class RoomModal extends PureComponent {
         <div>
           Reserved by {meetingRoom.currentReservation.subject}
           <div>
-            {moment(meetingRoom.currentReservation.startDate)
+            {moment(meetingRoom.currentReservation.start.dateTime)
               .utcOffset(timezone)
               .format(TIME_FORMAT)}{' '}
             to{' '}
-            {moment(meetingRoom.currentReservation.endDate)
+            {moment(meetingRoom.currentReservation.end.dateTime)
               .utcOffset(timezone)
               .format(TIME_FORMAT)}
           </div>

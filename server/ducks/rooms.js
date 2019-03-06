@@ -93,7 +93,7 @@ const roomsReducer = (state = initialState, action) => {
           const currentReservation = reservations.find((reservation) =>
             moment()
               .utcOffset(config.public.timezone)
-              .isBetween(moment(reservation.startDate), moment(reservation.endDate)));
+              .isBetween(moment(reservation.start.dateTime), moment(reservation.end.dateTime)));
 
           return room
             .set('currentReservation', currentReservation)
