@@ -15,7 +15,7 @@ const Application = ({ bundle, oauthResponse }) => {
         __html: `<script type="text/javascript">localStorage.setItem(['${GTFO_OAUTH_ACCESS_TOKEN}'], '${JSON.stringify(
           oauthResponse
         )}')</script>`
-      }}/>
+      }} />
   ) : null;
 
   return (

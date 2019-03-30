@@ -9,7 +9,7 @@ import scroll from 'scroll';
 
 import Icon from '@material-ui/core/Icon';
 
-import { TIME_FORMAT, PROP_TYPES } from 'client/constants';
+import { TIME_FORMAT, PROP_TYPES, START_OF_DAY } from 'client/constants';
 import { genReservationsHyperlink } from 'utils';
 import stylesGenerator from './styles';
 
@@ -94,10 +94,11 @@ class FutureReservations extends PureComponent {
   reduceTimeBlocks = (acc, value) => {
     const { reservation, endTime } = value;
     const prevValue = acc[acc.length - 1] || {};
+    const prevTime = get(prevValue, 'time') || START_OF_DAY;
     const startDateTime = get(reservation, 'start.dateTime');
     const endDateTime = get(reservation, 'end.dateTime');
 
-    const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
+    const isBetweenReservation = moment(prevTime).isBetween(
       moment(startDateTime),
       moment(endDateTime),
       null,
@@ -107,7 +108,7 @@ class FutureReservations extends PureComponent {
     if (isBetweenReservation) {
       const mergedReservation = {
         ...acc.pop(),
-        time: get(prevValue, 'time'),
+        time: moment(prevTime),
         endTime,
         reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
         isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,

@@ -12,7 +12,7 @@ const getOauthResponse = () => {
   try {
     const oauthResponse = JSON.parse(localStorage.getItem(GTFO_OAUTH_ACCESS_TOKEN));
 
-    if (moment(oauthResponse).isAfter(moment())) {
+    if (oauthResponse.expiresOn && moment(oauthResponse.expiresOn).isAfter(moment())) {
       window.location.search = null;
 
       return false;

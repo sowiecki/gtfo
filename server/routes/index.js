@@ -59,7 +59,7 @@ router.get('*', async (req, res) => {
     responseWithApplicationView();
   } else if (req.query.code === get(config, 'auth.headlessAuthorization')) {
     // headlessAuthorization code is used in place of SSO authentication
-    responseWithApplicationView(req.query.code);
+    responseWithApplicationView({ accessToken: req.query.code });
   } else if (req.query.code) {
     const oauthResponse = await oauthController.initialize(req);
 
