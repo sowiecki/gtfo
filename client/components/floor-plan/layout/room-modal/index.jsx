@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import Icon from '@material-ui/core/Icon';
 
 import {
-  TIME_FORMAT,
+  DATE_TIME_FORMAT,
   BOOKED,
   ABANDONED,
   VACANT,
@@ -52,15 +52,15 @@ class RoomModal extends PureComponent {
     return (
       <div className='reservation-details'>
         <div>
-          Reserved by {meetingRoom.currentReservation.subject}
+          Reserved by {meetingRoom.currentReservation.subject || 'operations'}
           <div>
             {moment(meetingRoom.currentReservation.start.dateTime)
               .utcOffset(timezone)
-              .format(TIME_FORMAT)}{' '}
+              .format(DATE_TIME_FORMAT)}{' '}
             to{' '}
             {moment(meetingRoom.currentReservation.end.dateTime)
               .utcOffset(timezone)
-              .format(TIME_FORMAT)}
+              .format(DATE_TIME_FORMAT)}
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@ class RoomModal extends PureComponent {
           <FutureReservations
             {...this.props}
             timezone={timezone}
-            isOnline={meetingRoom.alert !== OFFLINE}/>
+            isOnline={meetingRoom.alert !== OFFLINE} />
         </div>
         <div className={computedStyles.footer}>
           <button type='button' onClick={closeModal}>
