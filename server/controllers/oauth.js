@@ -9,9 +9,10 @@ import { httpsRequest } from '../utils';
 const oauthController = {
   initialize: async (req) => {
     try {
+      const isHTTPS = !!req.headers.referer.match('https');
       const data = await oauthController.fetchAccessTokenFromCode({
         code: req.query.code,
-        redirectUri: `${req.protocol}://${req.headers.host}`
+        redirectUri: `${isHTTPS ? 'https' : req.protocol}://${req.headers.host}`
       });
 
       const accessToken = data.access_token;
