@@ -3,7 +3,6 @@ import colors from 'colors/safe';
 
 import queryString from 'query-string';
 import { config } from 'environment';
-import { IS_PROD_ENV } from '../config';
 import consoleController from './console';
 import { httpsRequest } from '../utils';
 
@@ -12,7 +11,7 @@ const oauthController = {
     try {
       const data = await oauthController.fetchAccessTokenFromCode({
         code: req.query.code,
-        redirectUri: `${IS_PROD_ENV ? 'https' : req.protocol}://${req.headers.host}`
+        redirectUri: `${req.protocol}://${req.headers.host}`
       });
 
       const accessToken = data.access_token;

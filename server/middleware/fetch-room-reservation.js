@@ -14,17 +14,12 @@ const getAuthHeaders = async () => {
 };
 
 const fetchRoomReservation = async (next) => {
-  let authHeaders;
-  if (!isEmpty(config.oauth)) {
-    authHeaders = await getAuthHeaders();
-  }
-
   const options = {
     method: 'GET',
     host: config.reservations.hostname,
     path: config.reservations.path,
     port: config.reservations.port,
-    ...authHeaders
+    ...(!isEmpty(config.oauth) ? await getAuthHeaders() : {})
   };
 
   try {
