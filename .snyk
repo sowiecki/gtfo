@@ -10,6 +10,14 @@ ignore:
     - blessed-contrib > marked:
         reason: None given
         expires: '2017-03-02T02:19:58.429Z'
+  SNYK-JS-HANDLEBARS-174183:
+    - istanbul-reports > handlebars:
+        reason: None given
+        expires: '2019-11-15T18:30:47.398Z'
+  SNYK-JS-HANDLEBARS-469063:
+    - istanbul-reports > handlebars:
+        reason: None given
+        expires: '2019-11-15T18:30:47.398Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
@@ -93,6 +101,8 @@ patch:
   SNYK-JS-LODASH-450202:
     - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/types > lodash':
         patched: '2019-07-04T01:18:59.886Z'
+      istanbul-reports > handlebars > async > lodash:
+        patched: '2019-10-16T18:28:44.573Z'
     - lodash:
         patched: '2019-07-04T01:18:59.886Z'
     - babel-plugin-react-transform > lodash:
@@ -115,3 +125,12 @@ patch:
         patched: '2019-07-04T01:18:59.886Z'
     - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
         patched: '2019-07-04T01:18:59.886Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-16T18:28:44.573Z'
+    - proxy-agent > https-proxy-agent:
+        patched: '2019-10-16T18:28:44.573Z'
+    - proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-16T18:28:44.573Z'
+    - https-proxy-agent:
+        patched: '2019-10-16T18:28:44.573Z'
