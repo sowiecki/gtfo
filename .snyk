@@ -101,8 +101,6 @@ patch:
   SNYK-JS-LODASH-450202:
     - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/types > lodash':
         patched: '2019-07-04T01:18:59.886Z'
-      istanbul-reports > handlebars > async > lodash:
-        patched: '2019-10-16T18:28:44.573Z'
     - lodash:
         patched: '2019-07-04T01:18:59.886Z'
     - babel-plugin-react-transform > lodash:
@@ -125,6 +123,22 @@ patch:
         patched: '2019-07-04T01:18:59.886Z'
     - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
         patched: '2019-07-04T01:18:59.886Z'
+    - istanbul-reports > handlebars > async > lodash:
+        patched: '2019-10-16T18:28:44.573Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-10-16T18:53:39.764Z'
   SNYK-JS-HTTPSPROXYAGENT-469131:
     - pac-proxy-agent > https-proxy-agent:
         patched: '2019-10-16T18:28:44.573Z'
