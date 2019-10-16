@@ -5,8 +5,9 @@ import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';
 import { every, map, flatten } from 'lodash';
 
+import { START_OF_DAY } from 'universal/constants';
 import { devices } from '../../environment';
-import { MOCK_DATA_FILE, RESERVATIONS_PER_DAY, START_OF_DAY } from './constants';
+import { MOCK_DATA_FILE, RESERVATIONS_PER_DAY } from './constants';
 import { randomMeetingDuration, randomReservationGap, generateMockReservation } from './utils';
 
 const generateMockData = () => {

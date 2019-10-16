@@ -50,6 +50,11 @@ router.get('/ping', (req, res) => {
   res.status(200).send('pong');
 });
 
+router.post('/api/room_module_refresh', (req, res) => {
+  console.log(req);
+  res.status(200).send('foobar');
+});
+
 /* Serve client - must be last route */
 router.get('*', async (req, res) => {
   const responseWithApplicationView = (oauthResponse) =>

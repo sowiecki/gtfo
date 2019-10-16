@@ -183,11 +183,11 @@ void loop() {
 
     unsigned long motionTime = millis();
 
-    while (millis() - motionTime < MIN_TIME_BETWEEN_TRIGGERS) {
+    // while (millis() - motionTime < MIN_TIME_BETWEEN_TRIGGERS) {
       if (digitalRead(MOTION_SENSOR_PIN)) {
         motionTime = millis();
       }
-    }
+    // }
   }
 
   float h = dht.readHumidity();
