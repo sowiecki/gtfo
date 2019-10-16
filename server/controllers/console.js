@@ -1,7 +1,6 @@
 /* eslint no-console:0, new-cap:0 */
 /* globals console */
 
-import colors from 'colors/safe';
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';
@@ -79,16 +78,20 @@ const consoleController = {
 
   /**
    * Passes argument to contrib rolling log.
-   * @param {string} text
+   * @param {string|array} text
    * @returns {undefined}
    */
-  log(text, error = '', color = 'white') {
-    if (process.env.DONT_HOOK_CONSOLE) {
-      process.stdout.write(colors[color](`${text}\n`), error);
-    } else {
-      gridTextView.log(colors[color](text), error);
-    }
-  }
+  log: (...args) => {
+    args.forEach((text) => {
+      if (process.env.DONT_HOOK_CONSOLE) {
+        process.stdout.write(`${text}\n`);
+      } else {
+        gridTextView.log(text);
+      }
+    });
+  },
+
+  dir: console.dir
 };
 
 if (process.env.DONT_HOOK_CONSOLE || IS_TEST_ENV) {

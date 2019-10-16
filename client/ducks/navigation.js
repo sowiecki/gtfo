@@ -4,6 +4,8 @@ import immutable from 'immutable';
 import { handleAction } from '../utils';
 import { DEFAULT_TIMEZONE, DEFAULT_DOCUMENT_TITLE, DEFAULT_NOTE } from '../constants';
 
+export const EMIT_OAUTH_RESPONSE_UPDATE = 'EMIT_OAUTH_RESPONSE_UPDATE';
+
 export const EMIT_HANDSHAKE_RECEIVED = 'EMIT_HANDSHAKE_RECEIVED';
 
 export const EMIT_DEVICE_WIDTH_UPDATE = 'EMIT_DEVICE_WIDTH_UPDATE';
@@ -20,6 +22,11 @@ export const EMIT_TIME_TRAVEL_UPDATE = 'EMIT_TIME_TRAVEL_UPDATE';
 export const EMIT_TIME_SLIDER_VALUE_UPDATE = 'EMIT_TIME_SLIDER_VALUE_UPDATE';
 
 export const EMIT_MODAL_CONTENT_UPDATE = 'EMIT_MODAL_CONTENT_UPDATE';
+
+export const emitOauthResponseUpdate = (oauthResponse) => ({
+  type: EMIT_OAUTH_RESPONSE_UPDATE,
+  oauthResponse
+});
 
 export const emitDeviceWidthUpdate = () => ({
   type: EMIT_DEVICE_WIDTH_UPDATE
@@ -65,6 +72,8 @@ const initialState = immutable.fromJS({
 
 const navigationReducer = (state = initialState, action) => {
   const reducers = {
+    [EMIT_OAUTH_RESPONSE_UPDATE]: () => state.set('oauthResponse', action.oauthResponse),
+
     [EMIT_HANDSHAKE_RECEIVED]: () => {
       const { title, note, timezone } = action.config;
 

@@ -37,6 +37,9 @@ const TimeTravel = (props) => {
 };
 
 TimeTravel.propTypes = {
+  actions: PropTypes.shape({
+    emitTimeTravelControlsToggle: PropTypes.func.isRequired
+  }).isRequired,
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,
     timeDisplay: PropTypes.object.isRequired,

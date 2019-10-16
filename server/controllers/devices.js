@@ -1,5 +1,5 @@
 /* eslint no-console:0, max-nested-callbacks:0, array-callback-return:0 */
-/* globals console, setInterval, clearInterval */
+/* globals setInterval */
 
 /**
  * Initializes each room module device
@@ -11,9 +11,7 @@ import colors from 'colors';
 
 import consoleController from './console';
 import store from '../store';
-import { config } from '../../environment';
-import { shouldOverrideMotion, secureRooms, logUnhandledMotionUpdate } from '../utils';
-import { EMIT_INIT_SOCKETS } from '../ducks/clients';
+import { secureRooms, logUnhandledMotionUpdate } from '../utils';
 import {
   FETCH_ROOM_RESERVATIONS,
   EMIT_SET_ROOM_MODULE_STATUS,
@@ -44,7 +42,7 @@ const devicesController = {
       },
 
       [UNDEFINED_EVENT]: () =>
-        consoleController.log(`No event handler for event type ${event.type}`, event, 'red')
+        consoleController.log(`No event handler for event type ${event.type}`)
     };
 
     const eventType = ROOM_EVENT_HANDLERS_MAP[event.type] ? event.type : UNDEFINED_EVENT;
@@ -64,16 +62,6 @@ const devicesController = {
    * @returns {undefined}
    */
   initialize() {
-    const overrides = {
-      enableMotion: shouldOverrideMotion(devicesController.getRooms())
-    };
-
-    store.dispatch({
-      type: EMIT_INIT_SOCKETS,
-      config,
-      overrides
-    });
-
     const fetchRoomReservations = () => store.dispatch({ type: FETCH_ROOM_RESERVATIONS });
     fetchRoomReservations();
 

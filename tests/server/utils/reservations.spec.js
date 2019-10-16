@@ -10,14 +10,26 @@ describe('Reservation utilities (server)', () => {
       id: 'the loop',
       schedule: [
         {
-          email: 'AliceMurphy@example.domain',
-          startDate: '2016-05-04T14:30:00.000Z',
-          endDate: '2016-05-04T15:00:00.000Z'
+          subject: 'AliceMurphy@example.domain',
+          start: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         },
         {
-          email: 'AndersHolmvik@example.domain',
-          startDate: '2016-05-04T15:00:00.000Z',
-          endDate: '2016-05-04T15:30:00.000Z'
+          subject: 'AndersHolmvik@example.domain',
+          start: {
+            dateTime: '2016-05-04T15:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         }
       ]
     },
@@ -25,14 +37,26 @@ describe('Reservation utilities (server)', () => {
       id: 'bronzeville',
       schedule: [
         {
-          email: 'BlakeHenderson@example.domain',
-          startDate: '2016-05-04T14:00:00.000Z',
-          endDate: '2016-05-04T14:30:00.000Z'
+          subject: 'BlakeHenderson@example.domain',
+          start: {
+            dateTime: '2016-05-04T14:00:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         },
         {
-          email: 'AdamDeMamp@example.domain',
-          startDate: '2016-05-04T14:30:00.000Z',
-          endDate: '2016-05-04T15:30:00.000Z'
+          subject: 'AdamDeMamp@example.domain',
+          start: {
+            dateTime: '2016-05-04T14:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          },
+          end: {
+            dateTime: '2016-05-04T15:30:00.000Z',
+            timeZone: 'Central Standard Time'
+          }
         }
       ]
     }
@@ -41,26 +65,50 @@ describe('Reservation utilities (server)', () => {
   const mockFormattedReservations = {
     'the loop': [
       {
-        email: 'AliceMurphy@example.domain',
-        startDate: '2016-05-04T14:30:00.000Z',
-        endDate: '2016-05-04T15:00:00.000Z'
+        subject: 'AliceMurphy@example.domain',
+        start: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
-        email: 'AndersHolmvik@example.domain',
-        startDate: '2016-05-04T15:00:00.000Z',
-        endDate: '2016-05-04T15:30:00.000Z'
+        subject: 'AndersHolmvik@example.domain',
+        start: {
+          dateTime: '2016-05-04T15:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       }
     ],
     bronzeville: [
       {
-        email: 'BlakeHenderson@example.domain',
-        startDate: '2016-05-04T14:00:00.000Z',
-        endDate: '2016-05-04T14:30:00.000Z'
+        subject: 'BlakeHenderson@example.domain',
+        start: {
+          dateTime: '2016-05-04T14:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
-        email: 'AdamDeMamp@example.domain',
-        startDate: '2016-05-04T14:30:00.000Z',
-        endDate: '2016-05-04T15:30:00.000Z'
+        subject: 'AdamDeMamp@example.domain',
+        start: {
+          dateTime: '2016-05-04T14:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-05-04T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       }
     ]
   };

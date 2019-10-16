@@ -1,37 +1,49 @@
-import http from 'http';
+import { isEmpty } from 'lodash';
+import colors from 'colors/safe';
 
+import oauthController from '../controllers/oauth';
 import { EMIT_RESERVATIONS_UPDATE } from '../ducks/rooms';
 import { config } from '../../environment';
-import { formatReservations, logFetchReservationsAPIError, genURL } from '../utils';
+import { formatReservations, logFetchReservationsAPIError, httpRequest } from '../utils';
 import store from '../store';
 
-const fetchRoomReservation = (next) => {
-  let body = '';
+const getAuthHeaders = async () => {
+  const oauthData = await oauthController.fetchAccessTokenFromRefreshToken();
 
-  http.get(genURL(config.reservations), (response) => {
-    response.on('data', (data) => {
-      body += data;
+  return { headers: { Authorization: `Bearer ${oauthData.access_token}` } };
+};
+
+const fetchRoomReservation = async (next) => {
+  const options = {
+    method: 'GET',
+    host: config.reservations.hostname,
+    path: config.reservations.path,
+    port: config.reservations.port,
+    ...(!isEmpty(config.oauth) ? await getAuthHeaders() : {})
+  };
+
+  try {
+    const { rawData, statusCode } = await httpRequest({ options });
+
+    if (statusCode !== 200) {
+      throw new Error(logFetchReservationsAPIError({ code: statusCode }));
+    }
+
+    const parsedData = JSON.parse(rawData.toString('utf8'));
+    const reservations = formatReservations(parsedData);
+
+    next({
+      type: EMIT_RESERVATIONS_UPDATE,
+      reservations,
+      clients: store
+        .getState()
+        .clientsReducer.get('clients')
+        .toJS()
     });
-
-    response.on('end', () => {
-      try {
-        const parsedData = JSON.parse(body.toString('utf8'));
-        const reservations = formatReservations(parsedData);
-
-        next({
-          type: EMIT_RESERVATIONS_UPDATE,
-          reservations,
-          clients: store
-            .getState()
-            .clientsReducer.get('clients')
-            .toJS()
-        });
-      } catch (e) {
-        // Most likely cause of failure is error parsing response
-        logFetchReservationsAPIError(e);
-      }
-    });
-  });
+  } catch (e) {
+    // Most likely cause of failure is error parsing response
+    logFetchReservationsAPIError(colors.red(e));
+  }
 };
 
 export default fetchRoomReservation;

@@ -136,28 +136,44 @@ GTFO was developed in tandem with [ews-wrapper](https://github.com/rishirajsingh
     "name": "SomeRoom",
     "schedule": [
       {
-        "email": "AliceMurphy@example.domain",
-        "startDate": "2018-11-30T15:00:00.000Z",
-        "endDate": "2018-11-30T15:30:00.000Z"
+        "subject": "Alice Murphy",
+        "start": {
+          dateTime: "2018-11-30T15:00:00.000Z"
+        },
+        "end": {
+          "dateTime": "2018-11-30T15:30:00.000Z"
+        }
       },
       {
-        "email": "AndersHolmvik@example.domain",
-        "startDate": "2018-11-30T16:00:00.000Z",
-        "endDate": "2018-11-30T17:00:00.000Z"
+        "subject": "Anders Holmvik",
+        "start": {
+          dateTime: "2018-11-30T16:00:00.000Z"
+        },
+        "end": {
+          "dateTime": "2018-11-30T17:00:00.000Z"
+        }
       },
       {
-        "email": "AliceMurphy@example.domain",
-        "startDate": "2018-11-30T17:00:00.000Z",
-        "endDate": "2018-11-30T18:00:00.000Z"
+        "subject": "Alice Murphy",
+        "start": {
+          dateTime: "2018-11-30T17:00:00.000Z"
+        },
+        "end": {
+          "dateTime": "2018-11-30T18:00:00.000Z"
+        }
       }
   },
   {
   "name": "SomeOtherRoom",
   "schedule": [
     {
-      "email": "JillianBelk@example.domain",
-      "startDate": "2018-11-30T15:00:00.000Z",
-      "endDate": "2018-11-30T16:30:00.000Z"
+      "subject": "Jillian Belk",
+      "start": {
+        dateTime: "2018-11-30T15:00:00.000Z"
+      },
+      "end": {
+        "dateTime": "2018-11-30T16:30:00.000Z"
+      }
     }
   }
 ]

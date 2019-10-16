@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import { omit } from 'lodash';
 
 import { PING_TIMEOUT } from 'client/constants';
 import { pluckLocations } from 'utils';
@@ -17,7 +18,11 @@ let noPingInProgress = true;
 
 class FloorPlanController extends PureComponent {
   static propTypes = {
-    location: PropTypes.object.isRequired,
+    oauthResponse: PropTypes.shape({
+      accessToken: PropTypes.string.isRequired,
+      expiresOn: PropTypes.string.isRequired
+    }),
+    location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
     meetingRooms: PropTypes.array,
     stalls: PropTypes.array,
     markers: PropTypes.array,
@@ -34,15 +39,18 @@ class FloorPlanController extends PureComponent {
     ping: PropTypes.object,
     actions: PropTypes.shape({
       emitPingClear: PropTypes.func.isRequired,
-      push: PropTypes.func.isRequired
+      push: PropTypes.func.isRequired,
+      replace: PropTypes.func.isRequired
     }).isRequired
   };
 
   componentWillMount() {
-    const { actions, location } = this.props;
+    const { actions, location, oauthResponse } = this.props;
     const { anchor } = queryString.parse(location.search);
 
-    actions.connectSocket({ anchor });
+    actions.connectSocket({ anchor, oauthResponse });
+
+    this.flushAuthParams();
   }
 
   componentDidMount() {
@@ -67,6 +75,27 @@ class FloorPlanController extends PureComponent {
       noPingInProgress = false;
     }
   }
+
+  /**
+   * No longer needed at this stage of the app flow
+   */
+  flushAuthParams = () => {
+    if (process.env.HEADLESS_AUTH) return;
+
+    const { location, actions } = this.props;
+
+    const search = queryString.stringify(
+      omit(
+        {
+          ...queryString.parse(location.search)
+        },
+        'code',
+        'session_state'
+      )
+    );
+
+    actions.replace({ ...location, search });
+  };
 
   // Similar to NavigationController.handleTimeTravelDismissClick
   handleLayoutReset = () => {

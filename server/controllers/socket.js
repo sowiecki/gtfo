@@ -2,11 +2,12 @@ import WebSocket from 'ws';
 import moment from 'moment';
 import { get, forEach } from 'lodash';
 
+import { WEBSOCKET_PATH } from 'universal/config';
 import store from '../store';
 import consoleController from './console';
-
-import { send, getFutureAlerts, secureRooms } from '../utils';
-import { WEBSOCKET_PORT } from '../config';
+import devicesController from './devices';
+import { config } from '../../environment';
+import { send, getFutureAlerts, secureRooms, shouldOverrideMotion } from '../utils';
 import { EMIT_CLIENT_CONNECTED, EMIT_FLUSH_CLIENT } from '../ducks/clients';
 import {
   HANDSHAKE,
@@ -16,10 +17,11 @@ import {
   RECONNECTED,
   NEW_ROOM_PING,
   TIME_TRAVEL_UPDATE,
+  FLUSH_SESSION,
   TIME_FORMAT
 } from '../constants';
 
-const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
+let wss;
 
 /**
  * Host setup for web application WebSocket server.
@@ -30,9 +32,15 @@ const socketController = {
    * @params{string} event Event constant for initial communication with client.
    * @returns {undefined}
    */
-  open(event, payload) {
+  initialize(server) {
+    wss = new WebSocket.Server({ server, path: WEBSOCKET_PATH });
+
     wss.on('connection', (client) => {
-      socketController.send(event, payload, client); // Initialize with config
+      const overrides = {
+        enableMotion: shouldOverrideMotion(devicesController.getRooms())
+      };
+
+      socketController.send(HANDSHAKE, { ...config, ...overrides }, client);
 
       const handleClientDisconnect = () => {
         store.dispatch({ type: EMIT_FLUSH_CLIENT, client });
@@ -62,10 +70,11 @@ const socketController = {
 
     const handlers = {
       [HANDSHAKE]() {
-        // Register client socket with anchor parameter.
+        // Register client socket with anchor and accessToke  parameters.
         const anchor = get(payload, 'anchor');
+        const oauthResponse = get(payload, 'oauthResponse');
 
-        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
+        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor, oauthResponse });
       },
 
       [INITIALIZE_ROOMS]() {
@@ -80,11 +89,16 @@ const socketController = {
         socketController.send(event, payload, client);
       },
 
+      [FLUSH_SESSION]() {
+        socketController.send(event, payload, client);
+      },
+
       [RECONNECTED]() {
         // Reregister client socket with anchor parameter.
         const anchor = get(payload, 'anchor');
+        const oauthResponse = get(payload, 'oauthResponse');
 
-        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor });
+        store.dispatch({ type: EMIT_CLIENT_CONNECTED, client, anchor, oauthResponse });
       },
 
       [NEW_ROOM_PING]() {

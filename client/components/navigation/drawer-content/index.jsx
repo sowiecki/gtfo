@@ -1,3 +1,4 @@
+/* globals localStorage, window */
 /* eslint react/no-danger:0 */
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-import { FAHRENHEIT, CELSIUS } from 'client/constants';
+import { FAHRENHEIT, CELSIUS, GTFO_OAUTH_ACCESS_TOKEN } from 'client/constants';
 import AccessibilityModal from 'components/navigation/accessibility-modal';
 import DrawerContentItem from './drawer-content-item';
 import stylesGenerator from './styles';
@@ -32,7 +33,7 @@ const DrawerContent = (props) => {
     [CELSIUS]: 'Fahrenheit'
   };
 
-  const temperatureOptions = (
+  const renderRemperatureOptions = () => (
     <Fragment>
       {/* TODO https://github.com/Nase00/gtfo/issues/160
       <DrawerContentItem
@@ -48,6 +49,20 @@ const DrawerContent = (props) => {
         className={computedStyles.tempIconAdjust}
         primary={`Use ${inverseUnitOfTempText[unitOfTemp]}`}/>
     </Fragment>
+  );
+
+  const renderLogOutButton = () => (
+    <DrawerContentItem
+      enabled
+      onClick={() => {
+        const URL = `https://login.microsoftonline.com/${process.env.CLIENT_ID}/oauth2/logout`;
+
+        localStorage.removeItem(GTFO_OAUTH_ACCESS_TOKEN);
+
+        window.location.replace(URL);
+      }}
+      icon='logout'
+      primary='Logout'/>
   );
 
   return (
@@ -78,7 +93,7 @@ const DrawerContent = (props) => {
         icon='map'
         primary={`${displayLegend ? 'Hide' : 'Display'} map legend`}/>
 
-      {enableTemp ? temperatureOptions : null}
+      {enableTemp ? renderRemperatureOptions() : null}
 
       <DrawerContentItem
         onClick={actions.emitAdditionalInfoToggle.bind(null, displayAdditionalInfo)}
@@ -92,7 +107,9 @@ const DrawerContent = (props) => {
         onClick={actions.emitToggleSiteNav.bind(null, !siteNavOpen)}
         enabled={displayLegend}
         icon='clear'
-        primary='Close'/>
+        primary='Close drawer'/>
+
+      {!process.env.HEADLESS_AUTH ? renderLogOutButton() : null}
 
       <ListItem>
         <div className={computedStyles.note}>

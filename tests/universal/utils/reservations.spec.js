@@ -7,10 +7,11 @@ import { filterExpiredReservations } from 'server/utils';
 
 describe('Reservation utilities (universal)', () => {
   describe('filterExpiredReservations', () => {
-    const clock = (time) => sinon.useFakeTimers({
-      now: Date.parse(time),
-      toFake: ['Date']
-    });
+    const clock = (time) =>
+      sinon.useFakeTimers({
+        now: Date.parse(time),
+        toFake: ['Date']
+      });
 
     beforeEach(() => {
       sinon.useFakeTimers().restore();
@@ -22,20 +23,44 @@ describe('Reservation utilities (universal)', () => {
 
     const mockReservations = [
       {
-        startDate: '2016-03-08T15:00:00.000Z',
-        endDate: '2016-03-08T15:30:00.000Z'
+        start: {
+          dateTime: '2016-03-08T15:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-03-08T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
-        startDate: '2016-03-08T15:30:00.000Z',
-        endDate: '2016-03-08T16:30:00.000Z'
+        start: {
+          dateTime: '2016-03-08T15:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-03-08T16:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
-        startDate: '2016-03-08T16:30:00.000Z',
-        endDate: '2016-03-08T19:30:00.000Z'
+        start: {
+          dateTime: '2016-03-08T16:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-03-08T19:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       },
       {
-        startDate: '2016-03-08T19:30:00.000Z',
-        endDate: '2016-03-08T20:00:00.000Z'
+        start: {
+          dateTime: '2016-03-08T19:30:00.000Z',
+          timeZone: 'Central Standard Time'
+        },
+        end: {
+          dateTime: '2016-03-08T20:00:00.000Z',
+          timeZone: 'Central Standard Time'
+        }
       }
     ];
 

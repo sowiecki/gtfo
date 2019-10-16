@@ -12,7 +12,8 @@ export default {
       enableStalls: true
     },
     reservations: {
-      host: `http://localhost:${SERVER_PORT}`,
+      hostname: 'localhost',
+      port: SERVER_PORT,
       path: '/mocks/meetingRoom/all'
     },
     stalls: {

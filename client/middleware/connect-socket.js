@@ -39,6 +39,8 @@ const reconnectSocket = (next, payload) => {
 };
 
 const handleSocketClose = (next, payload) => {
+  clearInterval(interval);
+
   interval = setInterval(() => {
     reconnectSocket(next, payload);
   }, WEBSOCKET_RECONNECT_INTERVAL);

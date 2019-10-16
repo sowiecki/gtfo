@@ -44,6 +44,9 @@ NavigationLayout.propTypes = {
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired
   }).isRequired,
+  onViewFutureAvailabilitiesClick: PropTypes.func.isRequired,
+  onFullscreenOpenClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   modalContent: PropTypes.node
 };
 

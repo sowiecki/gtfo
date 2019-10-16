@@ -9,7 +9,7 @@ import scroll from 'scroll';
 
 import Icon from '@material-ui/core/Icon';
 
-import { TIME_FORMAT, PROP_TYPES } from 'client/constants';
+import { TIME_FORMAT, DATE_TIME_FORMAT, PROP_TYPES, START_OF_DAY, END_OF_DAY } from 'client/constants';
 import { genReservationsHyperlink } from 'utils';
 import stylesGenerator from './styles';
 
@@ -49,7 +49,7 @@ class FutureReservations extends PureComponent {
       () =>
         scrollIntoView(document.getElementById(this.CURRENT_TIME_SELECTOR), {
           align: {
-            top: 0.02
+            top: 0
           }
         }),
       this.SCROLL_DELAY
@@ -87,40 +87,6 @@ class FutureReservations extends PureComponent {
     }));
   };
 
-  /**
-   * Concatenates reservations onto time blocks,
-   * compressing multiple time blocks that span the same reservation.
-   */
-  reduceTimeBlocks = (acc, value) => {
-    const { reservation = {}, endTime } = value;
-    const prevValue = acc[acc.length - 1] || {};
-
-    const isBetweenReservation = moment(get(prevValue, 'time')).isBetween(
-      moment(reservation.startDate),
-      moment(reservation.endDate),
-      null,
-      '[)'
-    );
-
-    if (isBetweenReservation) {
-      const mergedReservation = {
-        ...acc.pop(),
-        time: get(prevValue, 'time'),
-        endTime,
-        reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
-        isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,
-        increments: prevValue.increments ? prevValue.increments + 1 : 1
-      };
-
-      return acc.concat(mergedReservation);
-    }
-
-    return acc.concat({
-      ...value,
-      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : value.endTime
-    });
-  };
-
   mapReservations = ({ time, endTime }) => {
     const { meetingRoom, timezone } = this.props;
 
@@ -128,11 +94,14 @@ class FutureReservations extends PureComponent {
 
     const matchingReservation = meetingRoom.reservations
       .map((reservation) => {
+        const startDateTime = get(reservation, 'start.dateTime');
+        const endDateTime = get(reservation, 'end.dateTime');
+
         const isReserved = moment(time)
           .utcOffset(timezone)
           .isBetween(
-            moment(reservation.startDate).utcOffset(timezone),
-            moment(reservation.endDate).utcOffset(timezone)
+            moment(startDateTime).utcOffset(timezone),
+            moment(endDateTime).utcOffset(timezone)
           );
 
         return isReserved ? reservation : false;
@@ -156,6 +125,43 @@ class FutureReservations extends PureComponent {
     };
   };
 
+  /**
+   * Concatenates reservations onto time blocks,
+   * compressing multiple time blocks that span the same reservation.
+   */
+  reduceTimeBlocks = (acc, value) => {
+    const { reservation, endTime } = value;
+    const prevValue = acc[acc.length - 1] || {};
+    const prevTime = get(prevValue, 'time') || moment(START_OF_DAY);
+    const startDateTime = get(reservation, 'start.dateTime');
+    const endDateTime = get(reservation, 'end.dateTime');
+
+    const isBetweenReservation = moment(prevTime).isBetween(
+      moment(startDateTime),
+      moment(endDateTime),
+      null,
+      '[)'
+    );
+
+    if (isBetweenReservation) {
+      const mergedReservation = {
+        ...acc.pop(),
+        time: moment(prevTime),
+        endTime,
+        reservation: isEmpty(value.reservation) ? get(prevValue, 'reservation') : value.reservation,
+        isCurrentTime: value.isCurrentTime || prevValue.isCurrentTime,
+        increments: prevValue.increments ? prevValue.increments + 1 : 1
+      };
+
+      return acc.concat(mergedReservation);
+    }
+
+    return acc.concat({
+      ...value,
+      endTime: !isEmpty(reservation) ? moment(value.time).add(15, 'm') : value.endTime
+    });
+  };
+
   // Enzyme tests are weirdly picky about selectors
   safeSelector = (time) =>
     `_${time
@@ -164,32 +170,50 @@ class FutureReservations extends PureComponent {
       .replace(':', '-')}`;
 
   renderTime = (value) => {
-    const { reservation = {}, time, endTime, isCurrentTime } = value;
-    const { computedStyles, timezone } = this.props;
+    const { reservation, time, endTime, isCurrentTime } = value;
+    const { computedStyles } = this.props;
     const formattedTime = time.format(TIME_FORMAT);
-    const formattedStartDate = reservation.startDate
-      ? moment(reservation.startDate)
-        .utcOffset(timezone)
-        .format(TIME_FORMAT)
-      : formattedTime;
-    const formattedEndDate = reservation.endDate
-      ? moment(reservation.endDate)
-        .utcOffset(timezone)
-        .format(TIME_FORMAT)
-      : endTime.format(TIME_FORMAT);
 
     return (
       <span
         key={formattedTime}
         id={isCurrentTime ? this.CURRENT_TIME_SELECTOR : this.safeSelector(time)}
         className={computedStyles.status(value)}>
-        {formattedStartDate} to {formattedEndDate}
+        {this.renderFormattedDateRange(value)}
         <span className={computedStyles.right}>
-          {reservation.email || this.renderReservationLink(time, endTime)}
+          {get(reservation, 'subject') || this.renderReservationLink(time, endTime)}
         </span>
       </span>
     );
   };
+
+  renderFormattedDateRange = (value) => {
+    const { reservation, time, endTime } = value;
+    const { timezone } = this.props;
+    const startDateTime = get(reservation, 'start.dateTime');
+    const endDateTime = get(reservation, 'end.dateTime');
+    const formattedTime = time.format(TIME_FORMAT);
+    const shouldExcludeDate = isEmpty(reservation)
+      || this.reservationOverlapsTodayOnly(reservation);
+    const dateTimeFormat = shouldExcludeDate ? TIME_FORMAT : DATE_TIME_FORMAT;
+
+    const formattedStartDate = startDateTime
+      ? moment(startDateTime)
+        .utcOffset(timezone)
+        .format(dateTimeFormat)
+      : formattedTime;
+    const formattedEndDate = endDateTime
+      ? moment(endDateTime)
+        .utcOffset(timezone)
+        .format(dateTimeFormat)
+      : endTime.format(dateTimeFormat);
+
+    return `${formattedStartDate} to ${formattedEndDate}`;
+  };
+
+  reservationOverlapsTodayOnly = (reservation) =>
+    moment(reservation.start.dateTime).isSameOrAfter(START_OF_DAY)
+    && moment(reservation.end.dateTime).isSameOrAfter(END_OF_DAY);
 
   renderReservationLink = (time, endTime) => {
     const { meetingRoom } = this.props;

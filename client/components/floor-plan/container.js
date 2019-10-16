@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 
 import { formatLocationProps } from 'utils';
 import * as LayoutActions from 'ducks/layout';
@@ -9,6 +9,7 @@ import * as NavigationActions from 'ducks/navigation';
 import FloorPlanController from './controller';
 
 const mapStateToProps = ({ layoutReducer, navigationReducer, router }) => ({
+  oauthResponse: navigationReducer.get('oauthResponse'),
   location: formatLocationProps(router.location),
   error: layoutReducer.get('error'),
   displayAdditionalInfo: layoutReducer.get('displayAdditionalInfo'),
@@ -29,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
   const actions = {
     ...LayoutActions,
     ...NavigationActions,
-    push
+    push,
+    replace
   };
 
   return {

@@ -50,11 +50,11 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
 
   // Advanced reservation conditions
   const minutesFromNow = (minutes) => getTime().add(minutes, 'minutes');
-  const noMeetingWithinFive = moment(firstMeeting.startDate).isAfter(minutesFromNow(5));
+  const noMeetingWithinFive = moment(firstMeeting.start.dateTime).isAfter(minutesFromNow(5));
   const currentlyNotReserved = isEmpty(reservations) || noMeetingWithinFive;
   const currentlyReserved = time.isBetween(
-    firstMeeting.startDate,
-    firstMeeting.endDate,
+    firstMeeting.start.dateTime,
+    firstMeeting.end.dateTime,
     null,
     '[]'
   );
@@ -66,7 +66,7 @@ export const getRoomAlert = (properties, capabilities, time = moment()) => {
 
     const nextMeeting = !currentlyReserved ? firstMeeting : secondMeeting;
 
-    return moment(nextMeeting.startDate).isBetween(time, minutesFromNow(minutes), null, '(]');
+    return moment(nextMeeting.start.dateTime).isBetween(time, minutesFromNow(minutes), null, '(]');
   };
 
   if (shouldConsiderMotion && currentlyNotReserved && hasRecentMotion) {

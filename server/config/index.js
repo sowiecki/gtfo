@@ -6,20 +6,6 @@ import { argv } from 'yargs';
 
 export * from '../../universal/config';
 
-const normalizePort = (val) => {
-  const port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-    return port;
-  }
-
-  return false;
-};
-
 if (argv.mocks) {
   process.env.MOCKS = true;
   console.log(colors.gray.italic('Using mock data'));
@@ -38,8 +24,6 @@ if (argv.dd) {
 export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 export const IS_TEST_ENV = process.env.NODE_ENV === 'test';
 export const DEVICES_ENABLED = !process.env.DISABLE_DEVICES;
-
-export const SERVER_PORT = normalizePort(process.env.PORT || '3000');
 
 const ROOT = '../';
 export const PUBLIC_PATH = path.join(__dirname, ROOT, 'public');

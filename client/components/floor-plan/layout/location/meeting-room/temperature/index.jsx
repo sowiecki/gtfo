@@ -30,7 +30,8 @@ Temperature.propTypes = {
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired
   }).isRequired,
-  meetingRoom: PROP_TYPES.meetingRoom.isRequired
+  meetingRoom: PROP_TYPES.meetingRoom.isRequired,
+  widthModifier: PropTypes.number.isRequired
 };
 
 export default withStyles(stylesGenerator)(Temperature);

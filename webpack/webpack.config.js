@@ -3,8 +3,11 @@
 require('@babel/register'); // Necessary to load the consoleController for reporting webpack bundle output
 
 const path = require('path');
-const merge = require('lodash/merge');
+const { merge, isEmpty } = require('lodash');
 const WebpackMessages = require('webpack-messages');
+const webpack = require('webpack');
+
+const { config } = require('../environment');
 
 const baseContext = path.join(__dirname, '../client');
 const environmentConext = path.join(__dirname, '../environment');
@@ -61,6 +64,18 @@ module.exports = {
     new WebpackMessages({
       name: 'client',
       logger: consoleController.log
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        ...(isEmpty(config.oauth)
+          ? {
+            HEADLESS_AUTH: true
+          }
+          : {
+            AUTHORIZE_URI: JSON.stringify(config.oauth.authorizeUri),
+            CLIENT_ID: JSON.stringify(config.oauth.clientId)
+          })
+      }
     })
   ]
 };
