@@ -82,7 +82,7 @@
     "particle-api-js": "^7.0.1",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
-    "react": "^16.6.0",
+    "react": "^16.10.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.6.0",
     "react-draggable": "^3.0.5",
