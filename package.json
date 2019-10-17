@@ -124,7 +124,7 @@
     "eslint-formatter-pretty": "^1.0.0",
     "eslint-plugin-filenames": "^1.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.5.1",
     "expect": "^23.6.0",
     "isparta": "^4.0.0",
