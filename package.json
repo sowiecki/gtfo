@@ -82,7 +82,7 @@
     "moment": "^2.22.2",
     "particle-api-js": "^7.0.1",
     "prop-types": "^15.6.2",
-    "query-string": "^6.2.0",
+    "query-string": "^6.8.3",
     "react": "^16.6.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.6.0",
