@@ -118,7 +118,7 @@
     "chromedriver": "^2.28.0",
     "coveralls": "^3.0.2",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^5.8.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-formatter-pretty": "^1.0.0",
