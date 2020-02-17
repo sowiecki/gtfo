@@ -129,7 +129,7 @@
     "expect": "^25.1.0",
     "isparta": "^4.0.0",
     "jest": "^23.6.0",
-    "mock-socket": "^8.0.5",
+    "mock-socket": "^9.0.3",
     "nodemon": "^1.18.7",
     "nyc": "^14.1.1",
     "react-addons-test-utils": "^15.0.0",
