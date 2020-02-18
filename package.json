@@ -128,7 +128,7 @@
     "eslint-plugin-react": "^7.16.0",
     "expect": "^25.1.0",
     "isparta": "^4.0.0",
-    "jest": "^23.6.0",
+    "jest": "^25.1.0",
     "mock-socket": "^8.0.5",
     "nodemon": "^1.18.7",
     "nyc": "^14.1.1",
