@@ -86,7 +86,7 @@
     "react": "^16.6.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.6.0",
-    "react-draggable": "^3.0.5",
+    "react-draggable": "^4.3.1",
     "react-motion": "0.5.2",
     "react-oauth-flow": "^1.2.0",
     "react-redux": "^5.1.0",
