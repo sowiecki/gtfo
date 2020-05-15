@@ -27,7 +27,7 @@
     "upload-cov": "cat ./coverage/lcov.info | coveralls",
     "yolo": "rimraf environment/mock-data.json",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "yarn run snyk-protect"
   },
   "author": "Sean Owiecki",
   "contributors": [
@@ -100,7 +100,7 @@
     "scroll-into-view": "^1.9.3",
     "serve-favicon": "^2.3.0",
     "slugify": "^1.3.5",
-    "snyk": "^1.235.1",
+    "snyk": "^1.258.2",
     "split": "^1.0.1",
     "velocity-animate": "^1.5.2",
     "velocity-react": "1.4.1",
