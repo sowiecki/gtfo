@@ -8274,10 +8274,10 @@ parseurl@~1.3.2, parseurl@~1.3.3:
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
 
-particle-api-js@^8.0.1:
-  version "8.4.0"
-  resolved "https://registry.yarnpkg.com/particle-api-js/-/particle-api-js-8.4.0.tgz#70011acb4abedf5e544c79cd0aa213f28375e208"
-  integrity sha512-Z0L1oDRyCCbZfiBmcOCAmJKvZ8N6umBa488gT72PDsoaqMjc2TP7ynmTlF6k+JVWUOWtWhnJIJKqvRyP5fflIw==
+particle-api-js@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/particle-api-js/-/particle-api-js-9.0.2.tgz#a8a6029bb03b1b8aa40edaaff8d4f440355bf944"
+  integrity sha512-w+KG6ybdwFKJCiTZ6sQMAFX5FJS16cA5JyG4o8th80ULneTI9WYfj9Twa0WHdC598inF+rYJRouqHS47/VWqOA==
   dependencies:
     babel-runtime "^6.9.2"
     form-data ">2.2.0"
