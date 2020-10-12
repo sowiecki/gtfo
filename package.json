@@ -71,7 +71,7 @@
     "cookie-parser": "^1.4.0",
     "emotion": "^9.2.12",
     "express": "^4.15.2",
-    "file-loader": "^2.0.0",
+    "file-loader": "^6.1.1",
     "history": "^4.10.1",
     "immutable": "^3.7.6",
     "js-cookie": "^2.2.0",
