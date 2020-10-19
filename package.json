@@ -126,7 +126,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "expect": "^25.1.0",
+    "expect": "^26.6.0",
     "isparta": "^4.0.0",
     "jest": "^23.6.0",
     "mock-socket": "^8.0.5",
