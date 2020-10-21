@@ -6,6 +6,11 @@ import { merge, mapKeys } from 'lodash';
 import validator from './validation';
 import mockEnvironment from './mock';
 
+import filesSchemas from './schemas/files';
+import deviceSchema from './schemas/device';
+import markerSchema from './schemas/marker';
+import coordinatesSchema from './schemas/coordinates';
+
 class FileValidationError extends Error {
   constructor(fileName) {
     super(fileName);
@@ -39,19 +44,33 @@ const getEnvironment = () => {
   const { markers } = readFile('markers.json');
   const coordinates = readFile('coordinates.json');
 
-  if (validator.validate(config, '/ConfigSchema').errors.length) {
+  let errors;
+
+  try {
+    errors = validator.validate(config, filesSchemas).errors;
+  } catch(e) {
+    console.error(e);
     throw new FileValidationError('config');
   }
 
-  if (validator.validate(devices, '/DevicesSchema').errors.length) {
+  try {
+    errors = validator.validate(devices, deviceSchema).errors
+  } catch(e) {
+    console.error(e);
     throw new FileValidationError('devices');
   }
 
-  if (validator.validate(markers, '/MarkersSchema').errors.length) {
+  try {
+    errors = validator.validate(markers, markerSchema).errors;
+  } catch(e) {
+    console.error(e);
     throw new FileValidationError('markers');
   }
 
-  if (validator.validate({ coordinates }, '/CoordinatesSchema').errors.length) {
+  try {
+    errors = validator.validate({ coordinates }, coordinatesSchema).errors;
+  } catch(e) {
+    console.error(e);
     throw new FileValidationError('coordinates');
   }
 

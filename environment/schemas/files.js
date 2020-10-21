@@ -24,22 +24,22 @@ export default {
         properties: {
           host: { type: 'string' },
           path: { type: 'string' },
-          required: ['host']
-        }
+        },
+        required: ['host']
       },
       reservations: {
         properties: {
           host: { type: 'string' },
-          path: { type: 'string' },
-          required: ['host']
-        }
+          path: { type: 'string' }
+        },
+        required: ['host']
       },
       stalls: {
         properties: {
           host: { type: 'string' },
-          path: { type: 'string' },
-          required: ['host']
-        }
+          path: { type: 'string' }
+        },
+        required: ['host']
       }
     },
     required: ['public', 'reservations']
