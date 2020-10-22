@@ -1,4 +1,4 @@
-/* eslint array-callback-return:0 */
+/* eslint array-callback-return:0, no-console:0 */
 import path from 'path';
 import { readFileSync } from 'fs';
 import { merge, mapKeys } from 'lodash';
@@ -48,29 +48,33 @@ const getEnvironment = () => {
 
   try {
     errors = validator.validate(config, filesSchemas).errors;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
+    console.error(errors);
     throw new FileValidationError('config');
   }
 
   try {
-    errors = validator.validate(devices, deviceSchema).errors
-  } catch(e) {
+    errors = validator.validate(devices, deviceSchema).errors;
+  } catch (e) {
     console.error(e);
+    console.error(errors);
     throw new FileValidationError('devices');
   }
 
   try {
     errors = validator.validate(markers, markerSchema).errors;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
+    console.error(errors);
     throw new FileValidationError('markers');
   }
 
   try {
     errors = validator.validate({ coordinates }, coordinatesSchema).errors;
-  } catch(e) {
+  } catch (e) {
     console.error(e);
+    console.error(errors);
     throw new FileValidationError('coordinates');
   }
 

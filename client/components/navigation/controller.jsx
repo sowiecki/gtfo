@@ -20,6 +20,8 @@ class NavigationController extends PureComponent {
     timeTravelTime: PropTypes.string,
     timeSliderValue: PropTypes.number,
     actions: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+      emitModalContentUpdate: PropTypes.func.isRequired,
       emitOauthResponseUpdate: PropTypes.func.isRequired,
       emitDeviceWidthUpdate: PropTypes.func.isRequired,
       emitTimeTravelUpdate: PropTypes.func.isRequired,
@@ -30,12 +32,15 @@ class NavigationController extends PureComponent {
       emitTempScaleToggle: PropTypes.func.isRequired
     }).isRequired,
     locations: PropTypes.array,
-    location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+    location: PropTypes.shape({
+      search: PropTypes.string.isRequired,
+      pathname: PropTypes.string.isRequired
+    }).isRequired,
     children: PropTypes.node.isRequired,
     modalContent: PropTypes.node
   };
 
-  componentWillMount() {
+  componentWillMount() { // eslint-disable-line
     const { actions, oauthResponse } = this.props;
     window.addEventListener('resize', actions.emitDeviceWidthUpdate);
 
@@ -46,7 +51,7 @@ class NavigationController extends PureComponent {
     }
   }
 
-  componentWillReceiveProps({ documentTitle }) {
+  componentWillReceiveProps({ documentTitle }) { // eslint-disable-line
     document.title = documentTitle;
   }
 

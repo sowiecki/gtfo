@@ -1,5 +1,5 @@
 /* globals document */
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 import moment from 'moment';
@@ -24,6 +24,7 @@ class FutureReservations extends PureComponent {
   static propTypes = {
     computedStyles: PropTypes.shape({
       base: PropTypes.object.isRequired,
+      right: PropTypes.object.isRequired,
       status: PropTypes.func.isRequired,
       scrollIcon: PropTypes.object.isRequired
     }).isRequired,
@@ -233,7 +234,7 @@ class FutureReservations extends PureComponent {
     const { computedStyles, isOnline } = this.props;
 
     return (
-      <Fragment>
+      <>
         <Icon className={computedStyles.scrollIcon} onClick={() => this.scroll('up')}>
           keyboard_arrow_up
         </Icon>
@@ -254,7 +255,7 @@ class FutureReservations extends PureComponent {
         <Icon className={computedStyles.scrollIcon} onClick={() => this.scroll('down')}>
           keyboard_arrow_down
         </Icon>
-      </Fragment>
+      </>
     );
   }
 }

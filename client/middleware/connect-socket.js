@@ -1,5 +1,5 @@
 /* eslint no-shadow:0, no-use-before-define:0 */
-/* globals WebSocket, setInterval, clearInterval */
+/* globals WebSocket */
 import parseEvent from './parse-event';
 
 import { getSocketPort } from '../config/web-socket';

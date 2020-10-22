@@ -1,5 +1,4 @@
 /* eslint no-console:0, max-nested-callbacks:0, array-callback-return:0 */
-/* globals setInterval */
 
 /**
  * Initializes each room module device

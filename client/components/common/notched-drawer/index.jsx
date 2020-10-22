@@ -15,7 +15,9 @@ class NotchedDrawer extends PureComponent {
   static propTypes = {
     computedStyles: PropTypes.shape({
       base: PropTypes.object.isRequired,
-      notch: PropTypes.object.isRequired
+      notch: PropTypes.object.isRequired,
+      notchButton: PropTypes.object.isRequired,
+      children: PropTypes.object.isRequired
     }).isRequired,
     onClick: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,

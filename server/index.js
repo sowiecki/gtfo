@@ -1,5 +1,4 @@
 /* eslint no-console:0 */
-/* globals console */
 import http from 'http';
 import express from 'express';
 import favicon from 'serve-favicon';

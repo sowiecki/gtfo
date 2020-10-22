@@ -26,7 +26,8 @@ DisplayError.propTypes = {
     base: PropTypes.object.isRequired
   }).isRequired,
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    timeout: PropTypes.number
   }),
   onClose: PropTypes.func
 };

@@ -1,5 +1,4 @@
 /* eslint new-cap:0, no-console:0 */
-/* globals console */
 
 import { UNEXPECTED_SOCKET_ERROR } from '../constants';
 

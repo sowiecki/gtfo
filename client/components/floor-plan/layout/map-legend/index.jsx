@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
@@ -69,14 +69,14 @@ const MapLegend = ({
             </ListItem>
             <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].VACANT)} Vacant</ListItem>
             {enableMotion || enableStalls ? (
-              <Fragment>
+              <>
                 <ListItem key='squatted'>
                   {renderIcon(STATUS_COLOR_THEMES[statusesTheme].SQUATTED)} Squatted
                 </ListItem>
                 <ListItem key='abandonded'>
                   {renderIcon(STATUS_COLOR_THEMES[statusesTheme].ABANDONED)} Abandoned
                 </ListItem>
-              </Fragment>
+              </>
             ) : null}
             <ListItem>{renderIcon(STATUS_COLOR_THEMES[statusesTheme].BOOKED)} Booked</ListItem>
             <ListItem>

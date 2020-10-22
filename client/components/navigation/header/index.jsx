@@ -98,6 +98,7 @@ Header.propTypes = {
     base: PropTypes.object.isRequired,
     title: PropTypes.object.isRequired,
     menuButton: PropTypes.object.isRequired,
+    fullscreenDismiss: PropTypes.object.isRequired,
     tab: PropTypes.object.isRequired
   }).isRequired,
   siteNavOpen: PropTypes.bool.isRequired,
@@ -108,7 +109,9 @@ Header.propTypes = {
   location: PropTypes.shape({
     query: PropTypes.shape({
       fullscreen: PropTypes.string
-    })
+    }),
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string.isRequired
   }).isRequired,
   onTimeTravelDismissClick: PropTypes.func.isRequired,
   onFullscreenCloseClick: PropTypes.func.isRequired,

@@ -33,7 +33,8 @@ const LocationDropdown = (props) => {
 
 LocationDropdown.propTypes = {
   computedStyles: PropTypes.shape({
-    menuItem: PropTypes.object.isRequired
+    menuItem: PropTypes.object.isRequired,
+    select: PropTypes.object.isRequired
   }).isRequired,
   actions: PropTypes.shape({
     push: PropTypes.func.isRequired
