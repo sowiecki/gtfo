@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import withStyles from 'withstyles';
@@ -22,7 +22,7 @@ const TimeSlider = ({ computedStyles, actions, timeSliderValue, timezone }) => {
   };
 
   return isDaytime ? (
-    <Fragment>
+    <>
       <Slider
         step={1}
         min={0}
@@ -33,7 +33,7 @@ const TimeSlider = ({ computedStyles, actions, timeSliderValue, timezone }) => {
       <div className={computedStyles.timeHintText}>
         Use the slider to view availabilities between now and {MAX_TIME}
       </div>
-    </Fragment>
+    </>
   ) : (
     <div className={computedStyles.timeHintText}>
       This feature is not available after {MAX_TIME}. Please try again tomorrow.

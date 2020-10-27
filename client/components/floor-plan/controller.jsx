@@ -1,4 +1,4 @@
-/* globals setInterval, clearInterval */
+/* eslint react/no-deprecated:0 */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
@@ -22,7 +22,10 @@ class FloorPlanController extends PureComponent {
       accessToken: PropTypes.string.isRequired,
       expiresOn: PropTypes.string.isRequired
     }),
-    location: PropTypes.shape({ pathname: PropTypes.string.isRequired }).isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      search: PropTypes.string.isRequired
+    }).isRequired,
     meetingRooms: PropTypes.array,
     stalls: PropTypes.array,
     markers: PropTypes.array,
@@ -40,7 +43,11 @@ class FloorPlanController extends PureComponent {
     actions: PropTypes.shape({
       emitPingClear: PropTypes.func.isRequired,
       push: PropTypes.func.isRequired,
-      replace: PropTypes.func.isRequired
+      replace: PropTypes.func.isRequired,
+      connectSocket: PropTypes.func.isRequired,
+      emitTimeTravelUpdate: PropTypes.func.isRequired,
+      emitTimeTravelControlsToggle: PropTypes.func.isRequired,
+      emitTimeSliderValueUpdate: PropTypes.func.isRequired
     }).isRequired
   };
 

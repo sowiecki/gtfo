@@ -1,6 +1,4 @@
 /* eslint no-console:0, new-cap:0 */
-/* globals console */
-
 import split from 'split';
 import blessed from 'blessed';
 import contrib from 'blessed-contrib';

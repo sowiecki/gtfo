@@ -1,5 +1,4 @@
 /* eslint no-console:0 */
-/* globals console */
 import colors from 'colors';
 import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import moment from 'moment';

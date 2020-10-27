@@ -1,3 +1,4 @@
+/* eslint max-classes-per-file:0 */
 export class FileValidationError extends Error {
   constructor(fileName) {
     super(fileName);

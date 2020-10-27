@@ -1,5 +1,4 @@
 /* eslint no-console:0 */
-/* globals console */
 import { matchPath } from 'react-router';
 import { filter, map, uniq, get, isEmpty } from 'lodash';
 import slugify from 'slugify';

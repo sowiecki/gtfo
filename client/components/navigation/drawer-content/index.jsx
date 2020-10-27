@@ -1,6 +1,6 @@
 /* globals localStorage, window */
 /* eslint react/no-danger:0 */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
@@ -34,7 +34,7 @@ const DrawerContent = (props) => {
   };
 
   const renderRemperatureOptions = () => (
-    <Fragment>
+    <>
       {/* TODO https://github.com/Nase00/gtfo/issues/160
       <DrawerContentItem
         onClick={actions.emitDisplayTempToggle.bind(null, displayTemp)}
@@ -48,7 +48,7 @@ const DrawerContent = (props) => {
         enabled={displayTemp}
         className={computedStyles.tempIconAdjust}
         primary={`Use ${inverseUnitOfTempText[unitOfTemp]}`}/>
-    </Fragment>
+    </>
   );
 
   const renderLogOutButton = () => (
@@ -132,8 +132,10 @@ DrawerContent.propTypes = {
   siteNavOpen: PropTypes.bool.isRequired,
   actions: PropTypes.shape({
     emitToggleSiteNav: PropTypes.func.isRequired,
+    emitAdditionalInfoToggle: PropTypes.func.isRequired,
     emitDisplayLegendToggle: PropTypes.func.isRequired,
-    emitTempScaleToggle: PropTypes.func.isRequired
+    emitTempScaleToggle: PropTypes.func.isRequired,
+    emitModalContentUpdate: PropTypes.func.isRequired
   }).isRequired,
   displayLegend: PropTypes.bool.isRequired,
   displayTemp: PropTypes.bool.isRequired,

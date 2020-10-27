@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
@@ -24,7 +24,7 @@ const FloorPlanLayout = (props) => {
   );
 
   return (
-    <Fragment>
+    <>
       <Paper id={FLOOR_PLAN_ROOT_ID}>
         <SwipeableViews
           className={computedStyles.swipableOverride}
@@ -42,7 +42,7 @@ const FloorPlanLayout = (props) => {
       </Paper>
       <Route exact path='/:location/:room' render={() => <RoomModalTrigger {...props} />} />
       <DisplayError {...props} />
-    </Fragment>
+    </>
   );
 };
 

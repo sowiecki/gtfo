@@ -1,5 +1,4 @@
 /* eslint no-console:0, no-use-before-define:0 */
-/* globals console */
 const { lstatSync, writeFileSync } = require('fs');
 const readline = require('readline');
 const colors = require('colors');

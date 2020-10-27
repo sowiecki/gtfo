@@ -95,7 +95,8 @@ const AccessibilityModal = ({ computedStyles, actions }) => {
 
 AccessibilityModal.propTypes = {
   actions: PropTypes.shape({
-    emitModalContentUpdate: PropTypes.func.isRequired
+    emitModalContentUpdate: PropTypes.func.isRequired,
+    emitStatusesThemeUpdate: PropTypes.func.isRequired
   }).isRequired,
   computedStyles: PropTypes.shape({
     base: PropTypes.string.isRequired,

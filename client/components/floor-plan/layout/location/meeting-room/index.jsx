@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 
@@ -59,11 +59,11 @@ const MeetingRoom = (props) => {
     ));
 
   const renderToolTip = () => (
-    <Fragment>
+    <>
       <div>{name}</div>
       {description ? <div>{description}</div> : null}
       <div>{formatTempText(meetingRoom)}</div>
-    </Fragment>
+    </>
   );
 
   return (
@@ -83,7 +83,8 @@ MeetingRoom.propTypes = {
   displayAdditionalInfo: PropTypes.bool.isRequired,
   getLocationParams: PropTypes.func.isRequired,
   actions: PropTypes.shape({
-    emitModalContentUpdate: PropTypes.func.isRequired
+    emitModalContentUpdate: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired,
   computedStyles: PropTypes.shape({
     base: PropTypes.object.isRequired,

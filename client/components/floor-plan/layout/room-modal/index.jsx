@@ -1,4 +1,4 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'withstyles';
 import moment from 'moment';
@@ -81,7 +81,7 @@ class RoomModal extends PureComponent {
     };
 
     return meetingRoom ? (
-      <Fragment>
+      <>
         <div className={computedStyles.base}>
           <div className={computedStyles.status(meetingRoom.alert)}>
             <div>
@@ -106,7 +106,7 @@ class RoomModal extends PureComponent {
             <Icon>subdirectory_arrow_left</Icon> Return to {formatForDisplay(meetingRoom.location)}
           </button>
         </div>
-      </Fragment>
+      </>
     ) : null;
   }
 }

@@ -1,4 +1,3 @@
-/* globals setInterval, clearInterval */
 import store from '../store';
 import { config } from '../../environment';
 import { FETCH_STALL_OCCUPANCIES } from '../ducks/stalls';

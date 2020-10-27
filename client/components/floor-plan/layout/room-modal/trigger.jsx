@@ -31,7 +31,7 @@ class RoomModalTrigger extends Component {
     return !isEqual(this.getMeetingRoom(), this.getMeetingRoom(nextProps));
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps) { // eslint-disable-line
     this.triggerRoomModal(nextProps);
   }
 
