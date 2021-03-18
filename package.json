@@ -106,7 +106,7 @@
     "split": "^1.0.1",
     "velocity-animate": "^1.5.2",
     "velocity-react": "1.4.1",
-    "webpack": "^4.28.1",
+    "webpack": "^5.0.0",
     "webpack-cli": "3.3.5",
     "webpack-messages": "^2.0.4",
     "withstyles": "^1.0.3",
