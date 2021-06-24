@@ -2395,18 +2395,18 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blessed-contrib@^4.8.13:
-  version "4.8.20"
-  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.8.20.tgz#687f151ef85307fa43eaec53297fa54ef2a9e241"
-  integrity sha512-jLLXR9pjjm/T2jY0Q8OCCpuDquWiMULkPyT8YNaiLUR0j1MchTQK/Q7SiuD63jn9ekn9BrohwP1Kom/FylmeHQ==
+blessed-contrib@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/blessed-contrib/-/blessed-contrib-4.9.0.tgz#7f66eb6473418c9e1262f24b84b10d3f8e906003"
+  integrity sha512-lqvb+6WeqMh7AO8zudSDnvKPGqzkmxqMAwpv83qzeL35MfmROkmjwnY3pi5dvgxfwg5i1UJnDMpj8OroCqpAPw==
   dependencies:
     ansi-term ">=0.0.2"
     chalk "^1.1.0"
     drawille-canvas-blessed-contrib ">=0.1.3"
-    lodash "~>=4.17.11"
+    lodash "~>=4.17.21"
     map-canvas ">=0.1.5"
-    marked "^0.7.0"
-    marked-terminal "^4.0.0"
+    marked "^2.1.1"
+    marked-terminal "^4.1.1"
     memory-streams "^0.1.0"
     memorystream "^0.3.1"
     picture-tuber "^1.0.1"
@@ -7236,10 +7236,15 @@ lodash.upperfirst@4.3.1:
   resolved "https://registry.yarnpkg.com/lodash.upperfirst/-/lodash.upperfirst-4.3.1.tgz#1365edf431480481ef0d1c68957a5ed99d49f7ce"
   integrity sha1-E2Xt9DFIBIHvDRxolXpe2Z1J984=
 
-lodash@4.17.20, lodash@^4.15.0, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.6.1, lodash@~>=4.17.11:
+lodash@4.17.20, lodash@^4.15.0, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.6.1:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
+lodash@~>=4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-driver@^1.2.7:
   version "1.2.7"
@@ -7370,22 +7375,22 @@ marked-terminal@^3.1.1:
     node-emoji "^1.4.1"
     supports-hyperlinks "^1.0.1"
 
-marked-terminal@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/marked-terminal/-/marked-terminal-4.1.0.tgz#01087372d3636dc7cb286475a1d6147187f500e0"
-  integrity sha512-5KllfAOW02WS6hLRQ7cNvGOxvKW1BKuXELH4EtbWfyWgxQhROoMxEvuQ/3fTgkNjledR0J48F4HbapvYp1zWkQ==
+marked-terminal@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/marked-terminal/-/marked-terminal-4.1.1.tgz#34a6f063cd6cfe26bffaf5bac3724e24242168a9"
+  integrity sha512-t7Mdf6T3PvOEyN01c3tYxDzhyKZ8xnkp8Rs6Fohno63L/0pFTJ5Qtwto2AQVuDtbQiWzD+4E5AAu1Z2iLc8miQ==
   dependencies:
     ansi-escapes "^4.3.1"
     cardinal "^2.1.1"
-    chalk "^4.0.0"
+    chalk "^4.1.0"
     cli-table "^0.3.1"
     node-emoji "^1.10.0"
     supports-hyperlinks "^2.1.0"
 
-marked@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.7.0.tgz#b64201f051d271b1edc10a04d1ae9b74bb8e5c0e"
-  integrity sha512-c+yYdCZJQrsRjTPhUx7VKkApw9bwDkNbHUKo1ovgcfDjb2kc8rLuRbIFyXL5WOEUwzSSKo3IXpph2K6DqB/KZg==
+marked@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-2.1.2.tgz#59579e17b02443312caa1509994d5a0b18ae38e1"
+  integrity sha512-ueJhIvklJJw04qxQbGIAu63EXwwOCYc7yKMBjgagTM4rjC5QtWyqSNgW7jCosV1/Km/1TUfs5qEpAqcGG0Mo5g==
 
 math-random@^1.0.1:
   version "1.0.4"
