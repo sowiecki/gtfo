@@ -102,16 +102,16 @@
     "scroll-into-view": "^1.9.3",
     "serve-favicon": "^2.3.0",
     "slugify": "^1.3.5",
-    "snyk": "^1.413.2",
+    "snyk": "^1.685.0",
     "split": "^1.0.1",
     "velocity-animate": "^1.5.2",
     "velocity-react": "1.4.1",
     "webpack": "^4.28.1",
-    "webpack-cli": "3.3.5",
+    "webpack-cli": "4.0.0",
     "webpack-messages": "^2.0.4",
     "withstyles": "^1.0.3",
     "ws": "^7.3.1",
-    "yargs": "^12.0.2"
+    "yargs": "^15.0.1"
   },
   "devDependencies": {
     "app-module-path": "^2.2.0",
