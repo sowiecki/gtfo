@@ -38,8 +38,8 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": "^10.19.0",
-    "npm": "^6.1.0"
+    "node": "^16.11.0",
+    "npm": "^8.0.0"
   },
   "private": true,
   "dependencies": {
